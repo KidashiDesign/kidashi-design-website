@@ -1,366 +1,419 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Kidashi Design — UI/UX & Webdesign Freelancerin Nicole Szatkowski. Digitale Erlebnisse, die begeistern." />
-  <meta name="author" content="Nicole Szatkowski" />
-  <meta property="og:title" content="Kidashi Design — Nicole Szatkowski" />
-  <meta property="og:description" content="UI/UX & Webdesign Freelancerin — Design, das bewegt." />
-  <meta property="og:type" content="website" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Kidashi Design — Nicole Szatkowski, Freelance Graphic Designer. Custom websites, branding & visual communication, working worldwide."/>
+  <meta name="author" content="Nicole Szatkowski"/>
+  <meta property="og:title" content="Kidashi Design — Nicole Szatkowski"/>
+  <meta property="og:description" content="Websites that actually work — designed personally by a real designer."/>
+  <meta property="og:type" content="website"/>
   <title>Kidashi Design — Nicole Szatkowski</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="nav" role="navigation">
-    <div class="container nav-inner">
-      <a href="#hero" class="nav-logo">Kidashi<span>.</span></a>
-      <ul class="nav-links">
-        <li><a href="#about"     data-i18n="nav-about">Über mich</a></li>
-        <li><a href="#services"  data-i18n="nav-services">Leistungen</a></li>
-        <li><a href="#portfolio" data-i18n="nav-portfolio">Portfolio</a></li>
-        <li><a href="#gallery"   data-i18n="nav-gallery">Galerie</a></li>
-        <li><a href="#contact"   data-i18n="nav-contact">Kontakt</a></li>
-      </ul>
-      <div class="nav-right">
-        <div class="lang-toggle" role="group" aria-label="Language">
-          <button class="lang-btn active" data-lang="de">DE</button>
-          <button class="lang-btn" data-lang="en">EN</button>
-        </div>
-      </div>
-      <button class="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-
-  <nav class="mobile-nav" aria-label="Mobile navigation">
-    <a href="#about"     data-i18n="nav-about">Über mich</a>
-    <a href="#services"  data-i18n="nav-services">Leistungen</a>
-    <a href="#portfolio" data-i18n="nav-portfolio">Portfolio</a>
-    <a href="#gallery"   data-i18n="nav-gallery">Galerie</a>
-    <a href="#contact"   data-i18n="nav-contact">Kontakt</a>
-    <div class="lang-toggle" style="margin-top:1.5rem;">
-      <button class="lang-btn active" data-lang="de">DE</button>
-      <button class="lang-btn" data-lang="en">EN</button>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <section id="hero" class="hero">
-    <div class="hero-bg">
-      <div class="hero-grid"></div>
-      <div class="hero-orb hero-orb-1"></div>
-      <div class="hero-orb hero-orb-2"></div>
-    </div>
-    <div class="hero-shapes">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-    </div>
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-label reveal">
-          <span data-i18n="hero-label">UI/UX &amp; Webdesign Freelancerin</span>
-        </div>
-        <h1 class="hero-title reveal reveal-delay-1">
-          <span data-i18n="hero-title-1">Design,</span><br>
-          <span class="gradient-text" data-i18n="hero-title-2">das bewegt.</span>
-        </h1>
-        <p class="hero-sub reveal reveal-delay-2" data-i18n="hero-sub">
-          Ich gestalte digitale Erlebnisse, die begeistern — von der ersten Idee bis zum fertigen Produkt.
-        </p>
-        <div class="hero-cta reveal reveal-delay-3">
-          <a href="#portfolio" class="btn btn-primary" data-i18n="hero-cta-1">Projekte ansehen</a>
-          <a href="#contact"   class="btn btn-ghost"   data-i18n="hero-cta-2">Kontakt aufnehmen</a>
-        </div>
+<!-- NAV -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#hero" class="nav-logo">Kidashi<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about"     data-i18n="nav-about">About</a></li>
+      <li><a href="#services"  data-i18n="nav-services">Services</a></li>
+      <li><a href="#portfolio" data-i18n="nav-portfolio">Portfolio</a></li>
+      <li><a href="#gallery"   data-i18n="nav-gallery">Gallery</a></li>
+      <li><a href="#contact"   data-i18n="nav-contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="de">DE</button>
       </div>
     </div>
-    <div class="scroll-indicator">
-      <div class="scroll-line"></div>
-      <span data-i18n="scroll-text">Scrollen</span>
-    </div>
-  </section>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
 
-  <!-- ABOUT -->
-  <section id="about" class="section about">
+<!-- Mobile nav -->
+<nav class="mobile-nav">
+  <a href="#about"     data-i18n="nav-about">About</a>
+  <a href="#services"  data-i18n="nav-services">Services</a>
+  <a href="#portfolio" data-i18n="nav-portfolio">Portfolio</a>
+  <a href="#gallery"   data-i18n="nav-gallery">Gallery</a>
+  <a href="#contact"   data-i18n="nav-contact">Contact</a>
+  <div class="lang-toggle" style="margin-top:2rem;">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="de">DE</button>
+  </div>
+</nav>
+
+<!-- ======================== HERO ======================== -->
+<section id="hero" class="hero">
+  <div class="hero-left">
+    <div class="eyebrow hero-eyebrow reveal" data-i18n="hero-eye">Freelance Graphic Designer — Working Worldwide</div>
+    <h1 class="hero-title">
+      <span class="hero-title-line"><span data-i18n="hero-line1">Websites</span></span>
+      <span class="hero-title-line"><span data-i18n="hero-line2"><em>That Actually</em></span></span>
+      <span class="hero-title-line"><span data-i18n="hero-line3">Work.</span></span>
+    </h1>
+    <p class="hero-sub reveal delay-3" data-i18n="hero-sub">I'm Nicole — a certified graphic designer with 5+ years of experience, helping small businesses and brands launch fast, modern websites that stay true to their voice.</p>
+    <div class="hero-cta reveal delay-4">
+      <a href="#portfolio" class="btn btn-dark" data-i18n="hero-cta1">See My Work</a>
+      <a href="#contact"   class="btn btn-outline" data-i18n="hero-cta2">Start Your Project</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <img src="images/kidashi-design-nicole-szatkowski-about-me-portrait-austria-tbilisi.jpg"
+           alt="Nicole Szatkowski, founder of Kidashi Design — double exposure portrait blending Austria and Tbilisi, Georgia"
+           loading="eager"/>
+    </div>
+    <div class="hero-img-overlay"></div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span data-i18n="scroll-label">Scroll</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-inner">
+    <span class="marquee-item">Web Design <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Brand Identity <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Print Design <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Social Media <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Digital Nomad <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Tbilisi, Georgia <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Working Worldwide <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Web Design <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Brand Identity <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Print Design <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Social Media <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Digital Nomad <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Tbilisi, Georgia <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Working Worldwide <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<!-- ======================== ABOUT ======================== -->
+<section id="about" class="section about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-col reveal left">
+        <div class="about-img-wrap">
+          <img src="images/kidashi-design-nicole-szatkowski-about-me-portrait-austria-tbilisi.jpg"
+               alt="Nicole Szatkowski, founder of Kidashi Design"
+               loading="lazy"/>
+          <div class="about-img-frame"></div>
+          <div class="about-img-tag">
+            <strong>2025</strong>
+            Founded
+          </div>
+        </div>
+      </div>
+      <div class="about-content">
+        <span class="eyebrow reveal" data-i18n="about-eye">About Nicole</span>
+        <h2 class="reveal delay-1" data-i18n="about-title">Hi, I'm Nicole — the Person Behind Every Project.</h2>
+        <p class="reveal delay-2" data-i18n="about-text">I'm a certified graphic designer (Mediengestalterin, Digital & Print) with over 5 years of experience in web design, branding, and visual communication. Currently working as a digital nomad based in Tbilisi, Georgia, I bring the same hands-on, personal approach to every client, wherever they are in the world.</p>
+        <div class="about-facts reveal delay-3">
+          <div class="about-fact">
+            <div class="about-fact-num" data-count="5" data-suffix="+">5+</div>
+            <div class="about-fact-label" data-i18n="fact1-lbl">Years of Experience</div>
+          </div>
+          <div class="about-fact">
+            <div class="about-fact-num">IHK</div>
+            <div class="about-fact-label" data-i18n="fact2-lbl">Certified Media Designer</div>
+          </div>
+          <div class="about-fact">
+            <div class="about-fact-num">1:1</div>
+            <div class="about-fact-label" data-i18n="fact3-lbl">Worldwide, One Direct Contact</div>
+          </div>
+        </div>
+        <div class="reveal delay-4">
+          <a href="#contact" class="arrow-link" data-i18n="about-cta">Get to Know Me →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== SERVICES ======================== -->
+<section id="services" class="section services">
+  <div class="container">
+    <div class="services-header">
+      <div>
+        <span class="eyebrow reveal" data-i18n="svc-eye">What I Offer</span>
+        <h2 class="reveal delay-1"><span data-i18n="svc-title1">Web Design at the Core —</span><br><em><span data-i18n="svc-title2">With Everything Else You Need.</span></em></h2>
+      </div>
+      <p class="reveal delay-2" data-i18n="svc-sub">Web design is where I focus most — but many clients also work with me on branding, print, or social media, all handled personally.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-num">01</div>
+        <h3 data-i18n="svc-1-title">Web Design</h3>
+        <p data-i18n="svc-1-desc">Custom website design & development, mobile-responsive layouts, SEO-friendly structure.</p>
+        <a href="#contact" class="arrow-link" data-i18n="svc-link">Learn More</a>
+      </div>
+      <div class="service-card reveal delay-1">
+        <div class="service-num">02</div>
+        <h3 data-i18n="svc-2-title">Brand Identity</h3>
+        <p data-i18n="svc-2-desc">Logo design, color palette & typography system, brand guidelines.</p>
+        <a href="#contact" class="arrow-link" data-i18n="svc-link">Learn More</a>
+      </div>
+      <div class="service-card reveal delay-2">
+        <div class="service-num">03</div>
+        <h3 data-i18n="svc-3-title">Print</h3>
+        <p data-i18n="svc-3-desc">Business cards, flyers, brochures, packaging, editorial layouts.</p>
+        <a href="#contact" class="arrow-link" data-i18n="svc-link">Learn More</a>
+      </div>
+      <div class="service-card reveal delay-3">
+        <div class="service-num">04</div>
+        <h3 data-i18n="svc-4-title">Social Media</h3>
+        <p data-i18n="svc-4-desc">Content calendars, post templates, profile & cover design.</p>
+        <a href="#contact" class="arrow-link" data-i18n="svc-link">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== PORTFOLIO ======================== -->
+<section id="portfolio" class="section portfolio-teaser">
+  <div class="container">
+    <div class="portfolio-teaser-header">
+      <div>
+        <span class="eyebrow reveal" data-i18n="port-eye">Portfolio</span>
+        <h2 class="reveal delay-1" data-i18n="port-title">Selected Work</h2>
+      </div>
+      <p class="portfolio-teaser-sub reveal delay-2" data-i18n="port-sub">From esports platforms to private jet charters — a range of projects across web, brand, and print.</p>
+    </div>
+    <div class="portfolio-masonry">
+      <div class="portfolio-item reveal">
+        <div class="portfolio-placeholder p1"></div>
+        <div class="portfolio-item-overlay">
+          <div class="portfolio-item-tag">Web Design</div>
+          <div class="portfolio-item-title">XP-Days — Esports Platform</div>
+        </div>
+      </div>
+      <div class="portfolio-item reveal delay-1">
+        <div class="portfolio-placeholder p2"></div>
+        <div class="portfolio-item-overlay">
+          <div class="portfolio-item-tag">Web Design</div>
+          <div class="portfolio-item-title">Rohyma Jet — Private Charter</div>
+        </div>
+      </div>
+      <div class="portfolio-item reveal delay-2">
+        <div class="portfolio-placeholder p3"></div>
+        <div class="portfolio-item-overlay">
+          <div class="portfolio-item-tag">Brand Identity</div>
+          <div class="portfolio-item-title">Hideout Georgia</div>
+        </div>
+      </div>
+      <div class="portfolio-item reveal delay-1">
+        <div class="portfolio-placeholder p4"></div>
+        <div class="portfolio-item-overlay">
+          <div class="portfolio-item-tag">Print</div>
+          <div class="portfolio-item-title">Mystic Drops — Packaging</div>
+        </div>
+      </div>
+      <div class="portfolio-item reveal delay-2">
+        <div class="portfolio-placeholder p5"></div>
+        <div class="portfolio-item-overlay">
+          <div class="portfolio-item-tag">Brand Identity</div>
+          <div class="portfolio-item-title">Westgrowth Capital</div>
+        </div>
+      </div>
+      <div class="portfolio-item reveal delay-3">
+        <div class="portfolio-placeholder p6"></div>
+        <div class="portfolio-item-overlay">
+          <div class="portfolio-item-tag">Social Media</div>
+          <div class="portfolio-item-title">Studio995 — Concert Series</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:3.5rem;" class="reveal delay-2">
+      <a href="#contact" class="btn btn-outline" style="color:var(--cream);border-color:rgba(212,184,150,0.3);" data-i18n="port-link">View All Projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== GALLERY ======================== -->
+<section id="gallery" class="section gallery-section">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:2rem;">
+      <div>
+        <span class="eyebrow reveal" data-i18n="gall-eye">Beyond Design</span>
+        <h2 class="reveal delay-1" data-i18n-nl="gall-title">Mixed Media Art,<br>Shaped by Travel.</h2>
+      </div>
+      <div class="reveal delay-2">
+        <p style="max-width:360px;margin-bottom:1.5rem;" data-i18n="gall-sub">Alongside my design work, I create mixed media art collages — process-driven pieces shaped by the places I've lived and traveled through.</p>
+        <a href="#contact" class="arrow-link" data-i18n="gall-link">View Full Gallery →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery-scroll-wrap" style="margin-top:3.5rem;">
+    <div class="gallery-track" id="galleryTrack">
+
+      <div class="gallery-card">
+        <img src="images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-01.jpg" alt="Mixed media art collage inspired by Tbilisi, Georgia" loading="lazy"/>
+        <div class="gallery-card-info"><div class="gallery-card-caption">Tbilisi, Georgia</div></div>
+      </div>
+      <div class="gallery-card">
+        <img src="images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-01.jpg" alt="Mixed media art collage inspired by Bangkok, Thailand" loading="lazy"/>
+        <div class="gallery-card-info"><div class="gallery-card-caption">Bangkok, Thailand</div></div>
+      </div>
+      <div class="gallery-card">
+        <img src="images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-01.jpg" alt="Mixed media art collage inspired by Dharamshala, India" loading="lazy"/>
+        <div class="gallery-card-info"><div class="gallery-card-caption">Dharamshala, India</div></div>
+      </div>
+      <div class="gallery-card">
+        <img src="images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-08.jpg" alt="Mixed media art collage — Tbilisi, Georgia street art" loading="lazy"/>
+        <div class="gallery-card-info"><div class="gallery-card-caption">Tbilisi, Georgia</div></div>
+      </div>
+      <div class="gallery-card">
+        <img src="images/gallery/kidashi-design-mixed-media-art-collage-rishikesh-india-01.jpg" alt="Mixed media art collage inspired by Rishikesh, India" loading="lazy"/>
+        <div class="gallery-card-info"><div class="gallery-card-caption">Rishikesh, India</div></div>
+      </div>
+      <div class="gallery-card">
+        <img src="images/gallery/kidashi-design-mixed-media-art-collage-koh-chang-thailand-01.jpg" alt="Mixed media art collage inspired by Koh Chang, Thailand" loading="lazy"/>
+        <div class="gallery-card-info"><div class="gallery-card-caption">Koh Chang, Thailand</div></div>
+      </div>
+      <div class="gallery-card">
+        <img src="images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-02.jpg" alt="Mixed media art collage — Tbilisi, Georgia" loading="lazy"/>
+        <div class="gallery-card-info"><div class="gallery-card-caption">Tbilisi, Georgia</div></div>
+      </div>
+      <div class="gallery-card">
+        <img src="images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-03-blue-edition.jpg" alt="Mixed media art collage — Bangkok, blue edition" loading="lazy"/>
+        <div class="gallery-card-info"><div class="gallery-card-caption">Bangkok, Thailand</div></div>
+      </div>
+      <div class="gallery-card">
+        <img src="images/gallery/kidashi-design-mixed-media-art-collage-almaty-kazakhstan-01.jpg" alt="Mixed media art collage inspired by Almaty, Kazakhstan" loading="lazy"/>
+        <div class="gallery-card-info"><div class="gallery-card-caption">Almaty, Kazakhstan</div></div>
+      </div>
+      <div class="gallery-card">
+        <img src="images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-04.jpg" alt="Mixed media art collage — Dharamshala, India" loading="lazy"/>
+        <div class="gallery-card-info"><div class="gallery-card-caption">Dharamshala, India</div></div>
+      </div>
+      <div class="gallery-card">
+        <img src="images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-03-color-edition.jpg" alt="Mixed media art collage — Tbilisi, color edition" loading="lazy"/>
+        <div class="gallery-card-info"><div class="gallery-card-caption">Tbilisi, Georgia</div></div>
+      </div>
+      <div class="gallery-card">
+        <img src="images/gallery/kidashi-design-mixed-media-art-collage-koh-phangan-thailand-01.jpg" alt="Mixed media art collage inspired by Koh Phangan, Thailand" loading="lazy"/>
+        <div class="gallery-card-info"><div class="gallery-card-caption">Koh Phangan, Thailand</div></div>
+      </div>
+
+    </div>
     <div class="container">
-      <span class="section-label reveal" data-i18n="about-label">Über mich</span>
-      <h2 class="section-title reveal reveal-delay-1">
-        <span data-i18n="about-title-1">Hinter dem</span>
-        <span class="gradient-text"> <span data-i18n="about-title-2">Design</span></span>
-      </h2>
-      <div class="about-grid">
-        <div class="glass about-main reveal">
-          <div class="about-photo-placeholder">
-            <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
-              <circle cx="36" cy="27" r="14" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-              <path d="M8 64c0-15.464 12.536-28 28-28s28 12.536 28 28" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-linecap="round"/>
+      <div class="gallery-nav">
+        <button class="gallery-nav-btn" id="gall-prev" aria-label="Previous">←</button>
+        <div class="gallery-progress"><div class="gallery-progress-fill"></div></div>
+        <button class="gallery-nav-btn" id="gall-next" aria-label="Next">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== CTA BANNER ======================== -->
+<div class="cta-banner">
+  <div class="container">
+    <h2 class="reveal" data-i18n="cta-title">Let's Start Something Great Together.</h2>
+    <p class="reveal delay-1" data-i18n="cta-sub">Got a project in mind? I personally read and respond to every message, usually within 1–2 business days.</p>
+    <a href="#contact" class="btn" style="background:#fff;color:var(--terra);font-weight:600;" data-i18n="cta-btn">Get in Touch</a>
+  </div>
+</div>
+
+<!-- ======================== CONTACT ======================== -->
+<section id="contact" class="section contact">
+  <div class="container">
+    <span class="eyebrow reveal" data-i18n="contact-eye">Get in Touch</span>
+    <h2 class="reveal delay-1" data-i18n-nl="contact-title">Let's Start Something<br>Great Together.</h2>
+    <div class="contact-grid" style="margin-top:4rem;">
+      <div class="contact-info reveal">
+        <h3 data-i18n="contact-sub">Fill out the form or reach out directly.</h3>
+        <br>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
             </svg>
           </div>
-          <div class="about-photo-overlay"></div>
-          <div class="about-main-content">
-            <h3 data-i18n="about-name">Nicole Szatkowski</h3>
-            <p class="about-role" data-i18n="about-role">UI/UX &amp; Webdesign Freelancerin</p>
-            <p data-i18n="about-bio">Hallo, ich bin Nicole — Designerin mit einem Auge für Details und einem Herz für nutzerzentriertes Design. Mit Kidashi Design bringe ich Kreativität und Funktionalität zusammen, um digitale Produkte zu schaffen, die Menschen wirklich bewegen.</p>
+          <div>
+            <div class="contact-detail-label" data-i18n="c-email">Email</div>
+            <a href="mailto:nicole@kidashidesign.com" class="contact-detail-value" data-i18n="c-email-v">nicole@kidashidesign.com</a>
           </div>
         </div>
-        <div class="glass stat-card reveal reveal-delay-1">
-          <div class="stat-number" data-i18n="stat-1-num">5+</div>
-          <div class="stat-label" data-i18n="stat-1-label">Jahre Erfahrung</div>
-        </div>
-        <div class="glass stat-card reveal reveal-delay-2">
-          <div class="stat-number" data-i18n="stat-2-num">50+</div>
-          <div class="stat-label" data-i18n="stat-2-label">Projekte abgeschlossen</div>
-        </div>
-        <div class="glass stat-card reveal reveal-delay-3">
-          <div class="stat-number" data-i18n="stat-3-num">20+</div>
-          <div class="stat-label" data-i18n="stat-3-label">Zufriedene Kunden</div>
-        </div>
-        <div class="glass tools-card reveal reveal-delay-1">
-          <h4 data-i18n="tools-label">Tools &amp; Technologien</h4>
-          <div class="tools-list">
-            <span class="tool-tag">Figma</span>
-            <span class="tool-tag">Adobe XD</span>
-            <span class="tool-tag">Illustrator</span>
-            <span class="tool-tag">Photoshop</span>
-            <span class="tool-tag">HTML / CSS</span>
-            <span class="tool-tag">Webflow</span>
-            <span class="tool-tag">Framer</span>
-            <span class="tool-tag">Miro</span>
-            <span class="tool-tag">Notion</span>
-            <span class="tool-tag">Principle</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section id="services" class="section">
-    <div class="container">
-      <span class="section-label reveal" data-i18n="services-label">Leistungen</span>
-      <h2 class="section-title reveal reveal-delay-1">
-        <span data-i18n="services-title-1">Was ich</span>
-        <span class="gradient-text"> <span data-i18n="services-title-2">anbiete</span></span>
-      </h2>
-      <div class="services-grid">
-        <div class="glass service-card reveal">
-          <div class="service-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
             </svg>
           </div>
-          <h3 data-i18n="svc-1-title">UI/UX Design</h3>
-          <p data-i18n="svc-1-desc">Nutzerfreundliche Interfaces und durchdachte User Journeys — von Wireframes bis zum finalen Prototyp.</p>
+          <div>
+            <div class="contact-detail-label" data-i18n="c-loc">Location</div>
+            <span class="contact-detail-value" data-i18n="c-loc-v">Tbilisi, Georgia (Worldwide)</span>
+          </div>
         </div>
-        <div class="glass service-card reveal reveal-delay-1">
-          <div class="service-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
             </svg>
           </div>
-          <h3 data-i18n="svc-2-title">Webdesign</h3>
-          <p data-i18n="svc-2-desc">Moderne, responsive Websites, die auf allen Geräten brillieren und Besucher begeistern.</p>
-        </div>
-        <div class="glass service-card reveal reveal-delay-2">
-          <div class="service-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
-          </div>
-          <h3 data-i18n="svc-3-title">Branding &amp; Identity</h3>
-          <p data-i18n="svc-3-desc">Visuelle Identitäten, die Marken unverwechselbar machen — Logos, Farbwelten, Designsysteme.</p>
-        </div>
-        <div class="glass service-card reveal reveal-delay-3">
-          <div class="service-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="5 3 19 12 5 21 5 3"/>
-            </svg>
-          </div>
-          <h3 data-i18n="svc-4-title">Prototyping</h3>
-          <p data-i18n="svc-4-desc">Interaktive Prototypen zum Testen und Validieren von Ideen, bevor sie in die Entwicklung gehen.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PORTFOLIO -->
-  <section id="portfolio" class="section portfolio">
-    <div class="container">
-      <span class="section-label reveal" data-i18n="portfolio-label">Portfolio</span>
-      <h2 class="section-title reveal reveal-delay-1">
-        <span data-i18n="portfolio-title-1">Ausgewählte</span>
-        <span class="gradient-text"> <span data-i18n="portfolio-title-2">Projekte</span></span>
-      </h2>
-      <div class="filter-bar reveal reveal-delay-2">
-        <button class="filter-btn active" data-filter="all"   data-i18n="filter-all">Alle</button>
-        <button class="filter-btn"        data-filter="uiux"  data-i18n="filter-uiux">UI/UX</button>
-        <button class="filter-btn"        data-filter="web"   data-i18n="filter-web">Webdesign</button>
-        <button class="filter-btn"        data-filter="brand" data-i18n="filter-brand">Branding</button>
-      </div>
-      <div class="portfolio-grid">
-        <div class="project-card reveal" data-category="uiux">
-          <div class="project-bg g1"></div>
-          <div class="project-overlay">
-            <span class="project-tag" data-i18n="proj-1-tag">UI/UX Design</span>
-            <h3 class="project-title" data-i18n="proj-1-title">Finance Dashboard</h3>
-            <span class="project-link"><span data-i18n="proj-1-link">Ansehen</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-          </div>
-        </div>
-        <div class="project-card reveal reveal-delay-1" data-category="web">
-          <div class="project-bg g2"></div>
-          <div class="project-overlay">
-            <span class="project-tag" data-i18n="proj-2-tag">Webdesign</span>
-            <h3 class="project-title" data-i18n="proj-2-title">Studio Portfolio</h3>
-            <span class="project-link"><span data-i18n="proj-2-link">Ansehen</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-          </div>
-        </div>
-        <div class="project-card reveal reveal-delay-2" data-category="brand">
-          <div class="project-bg g3"></div>
-          <div class="project-overlay">
-            <span class="project-tag" data-i18n="proj-3-tag">Branding</span>
-            <h3 class="project-title" data-i18n="proj-3-title">Brand Identity</h3>
-            <span class="project-link"><span data-i18n="proj-3-link">Ansehen</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-          </div>
-        </div>
-        <div class="project-card reveal" data-category="uiux">
-          <div class="project-bg g4"></div>
-          <div class="project-overlay">
-            <span class="project-tag" data-i18n="proj-4-tag">UI/UX Design</span>
-            <h3 class="project-title" data-i18n="proj-4-title">Mobile Banking App</h3>
-            <span class="project-link"><span data-i18n="proj-4-link">Ansehen</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-          </div>
-        </div>
-        <div class="project-card reveal reveal-delay-1" data-category="web">
-          <div class="project-bg g5"></div>
-          <div class="project-overlay">
-            <span class="project-tag" data-i18n="proj-5-tag">Webdesign</span>
-            <h3 class="project-title" data-i18n="proj-5-title">E-Commerce Platform</h3>
-            <span class="project-link"><span data-i18n="proj-5-link">Ansehen</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-          </div>
-        </div>
-        <div class="project-card reveal reveal-delay-2" data-category="brand">
-          <div class="project-bg g6"></div>
-          <div class="project-overlay">
-            <span class="project-tag" data-i18n="proj-6-tag">Branding</span>
-            <h3 class="project-title" data-i18n="proj-6-title">Startup Identity</h3>
-            <span class="project-link"><span data-i18n="proj-6-link">Ansehen</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <div>
+            <div class="contact-detail-label" data-i18n="c-avail">Availability</div>
+            <span class="contact-detail-value" style="color:var(--terra-l);" data-i18n="c-avail-v">Open for New Projects</span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- GALLERY -->
-  <section id="gallery" class="section gallery">
-    <div class="container">
-      <span class="section-label reveal" data-i18n="gallery-label">Galerie</span>
-      <h2 class="section-title reveal reveal-delay-1">
-        <span data-i18n="gallery-title-1">Einblicke in</span>
-        <span class="gradient-text"> <span data-i18n="gallery-title-2">meine Arbeit</span></span>
-      </h2>
-    </div>
-    <div class="gallery-track">
-      <div class="gallery-item gi-1"><div class="gi-inner"><h4 data-i18n="gi-1">Sketches &amp; Wireframes</h4></div></div>
-      <div class="gallery-item gi-2"><div class="gi-inner"><h4 data-i18n="gi-2">Interface Details</h4></div></div>
-      <div class="gallery-item gi-3"><div class="gi-inner"><h4 data-i18n="gi-3">Typografie-Experimente</h4></div></div>
-      <div class="gallery-item gi-4"><div class="gi-inner"><h4 data-i18n="gi-4">Motion &amp; Microinteractions</h4></div></div>
-      <div class="gallery-item gi-5"><div class="gi-inner"><h4 data-i18n="gi-5">Color Explorations</h4></div></div>
-      <div class="gallery-item gi-6"><div class="gi-inner"><h4 data-i18n="gi-6">Final Deliverables</h4></div></div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="section">
-    <div class="container">
-      <span class="section-label reveal" data-i18n="contact-label">Kontakt</span>
-      <h2 class="section-title reveal reveal-delay-1">
-        <span data-i18n="contact-title-1">Lass uns</span>
-        <span class="gradient-text"> <span data-i18n="contact-title-2">reden</span></span>
-      </h2>
-      <div class="contact-grid">
-        <div class="glass contact-info reveal">
-          <h3 data-i18n="contact-heading">Hast du ein Projekt?</h3>
-          <p data-i18n="contact-sub">Du hast ein Projekt? Eine Idee? Lass uns gemeinsam etwas Besonderes schaffen.</p>
-          <div class="contact-details">
-            <div class="contact-detail">
-              <div class="contact-detail-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
-                </svg>
-              </div>
-              <div>
-                <div class="contact-detail-label" data-i18n="contact-email">E-Mail</div>
-                <a href="mailto:szatkowski.nicole@hotmail.de" class="contact-detail-value">szatkowski.nicole@hotmail.de</a>
-              </div>
-            </div>
-            <div class="contact-detail">
-              <div class="contact-detail-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-                </svg>
-              </div>
-              <div>
-                <div class="contact-detail-label" data-i18n="contact-loc">Standort</div>
-                <span class="contact-detail-value" data-i18n="contact-loc-val">Deutschland</span>
-              </div>
-            </div>
-            <div class="contact-detail">
-              <div class="contact-detail-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                </svg>
-              </div>
-              <div>
-                <div class="contact-detail-label" data-i18n="contact-avail">Verfügbarkeit</div>
-                <span class="contact-detail-value neon-val" data-i18n="contact-avail-val">Für neue Projekte offen</span>
-              </div>
-            </div>
+      <form class="contact-form-el reveal delay-1" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="f-name" data-i18n="l-name">Your Name</label>
+            <input class="form-input" type="text" id="f-name" name="name" placeholder="Jane Doe" data-i18n="ph-name" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-email" data-i18n="l-email">Email Address</label>
+            <input class="form-input" type="email" id="f-email" name="email" placeholder="jane@example.com" data-i18n="ph-email" required/>
           </div>
         </div>
-        <div class="glass contact-form-card reveal reveal-delay-1">
-          <form class="contact-form-el" novalidate>
-            <div class="form-group">
-              <label class="form-label" for="f-name" data-i18n="label-name">Dein Name</label>
-              <input class="form-input" type="text" id="f-name" name="name" placeholder="Max Mustermann" required />
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="f-email" data-i18n="label-email">E-Mail Adresse</label>
-              <input class="form-input" type="email" id="f-email" name="email" placeholder="max@beispiel.de" required />
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="f-project" data-i18n="label-project">Dein Projekt</label>
-              <input class="form-input" type="text" id="f-project" name="project" placeholder="Website Redesign, App Design ..." />
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="f-msg" data-i18n="label-msg">Nachricht</label>
-              <textarea class="form-textarea" id="f-msg" name="message" placeholder="Erzähl mir von deinem Projekt ..." required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary form-submit" data-i18n="btn-send">Nachricht senden →</button>
-          </form>
+        <div class="form-group">
+          <label class="form-label" for="f-type" data-i18n="l-type">Project Type</label>
+          <select class="form-select" id="f-type" name="type">
+            <option value="web"    data-i18n="opt-web">Web Design</option>
+            <option value="brand"  data-i18n="opt-brand">Brand Identity</option>
+            <option value="print"  data-i18n="opt-print">Print</option>
+            <option value="social" data-i18n="opt-social">Social Media Management</option>
+            <option value="other"  data-i18n="opt-other">Other</option>
+          </select>
         </div>
-      </div>
+        <div class="form-group">
+          <label class="form-label" for="f-msg" data-i18n="l-msg">Message</label>
+          <textarea class="form-textarea" id="f-msg" name="message" placeholder="Tell me about your project..." data-i18n="ph-msg" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-terra form-submit" data-i18n="btn-send">Send Message</button>
+      </form>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container footer-inner">
-      <div class="footer-logo">Kidashi<span>.</span></div>
-      <p class="footer-copy" data-i18n="footer-copy">© 2026 Kidashi Design · Nicole Szatkowski</p>
-      <ul class="footer-links">
-        <li><a href="#" data-i18n="footer-imprint">Impressum</a></li>
-        <li><a href="#" data-i18n="footer-privacy">Datenschutz</a></li>
-      </ul>
-    </div>
-  </footer>
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo">Kidashi<span>.</span></div>
+    <p class="footer-copy" data-i18n="footer-copy">© 2026 Kidashi Design · Nicole Szatkowski</p>
+    <ul class="footer-links">
+      <li><a href="#" data-i18n="footer-imp">Imprint</a></li>
+      <li><a href="#" data-i18n="footer-priv">Privacy</a></li>
+    </ul>
+  </div>
+</footer>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

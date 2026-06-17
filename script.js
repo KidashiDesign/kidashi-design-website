@@ -1,148 +1,312 @@
 /* =====================================================
-   KIDASHI DESIGN — JavaScript
+   KIDASHI DESIGN — Earth Edition JS
+   Parallax · Horizontal Scroll · Reveal · i18n
    ===================================================== */
 
-let currentLang = 'de';
+/* ---- i18n ---- */
+let lang = localStorage.getItem('kidashi-lang') || 'en';
 
-const t = {
-  de: {
-    'nav-about':'Über mich','nav-services':'Leistungen','nav-portfolio':'Portfolio','nav-gallery':'Galerie','nav-contact':'Kontakt',
-    'hero-label':'UI/UX & Webdesign Freelancerin','hero-title-1':'Design,','hero-title-2':'das bewegt.',
-    'hero-sub':'Ich gestalte digitale Erlebnisse, die begeistern — von der ersten Idee bis zum fertigen Produkt.',
-    'hero-cta-1':'Projekte ansehen','hero-cta-2':'Kontakt aufnehmen','scroll-text':'Scrollen',
-    'about-label':'Über mich','about-title-1':'Hinter dem','about-title-2':'Design',
-    'about-name':'Nicole Szatkowski','about-role':'UI/UX & Webdesign Freelancerin',
-    'about-bio':'Hallo, ich bin Nicole — Designerin mit einem Auge für Details und einem Herz für nutzerzentriertes Design. Mit Kidashi Design bringe ich Kreativität und Funktionalität zusammen, um digitale Produkte zu schaffen, die Menschen wirklich bewegen.',
-    'stat-1-num':'5+','stat-1-label':'Jahre Erfahrung','stat-2-num':'50+','stat-2-label':'Projekte abgeschlossen','stat-3-num':'20+','stat-3-label':'Zufriedene Kunden',
-    'tools-label':'Tools & Technologien',
-    'services-label':'Leistungen','services-title-1':'Was ich','services-title-2':'anbiete',
-    'svc-1-title':'UI/UX Design','svc-1-desc':'Nutzerfreundliche Interfaces und durchdachte User Journeys — von Wireframes bis zum finalen Prototyp.',
-    'svc-2-title':'Webdesign','svc-2-desc':'Moderne, responsive Websites, die auf allen Geräten brillieren und Besucher begeistern.',
-    'svc-3-title':'Branding & Identity','svc-3-desc':'Visuelle Identitäten, die Marken unverwechselbar machen — Logos, Farbwelten, Designsysteme.',
-    'svc-4-title':'Prototyping','svc-4-desc':'Interaktive Prototypen zum Testen und Validieren von Ideen, bevor sie in die Entwicklung gehen.',
-    'portfolio-label':'Portfolio','portfolio-title-1':'Ausgewählte','portfolio-title-2':'Projekte',
-    'filter-all':'Alle','filter-uiux':'UI/UX','filter-web':'Webdesign','filter-brand':'Branding',
-    'proj-1-tag':'UI/UX Design','proj-1-title':'Finance Dashboard','proj-1-link':'Ansehen',
-    'proj-2-tag':'Webdesign','proj-2-title':'Studio Portfolio','proj-2-link':'Ansehen',
-    'proj-3-tag':'Branding','proj-3-title':'Brand Identity','proj-3-link':'Ansehen',
-    'proj-4-tag':'UI/UX Design','proj-4-title':'Mobile Banking App','proj-4-link':'Ansehen',
-    'proj-5-tag':'Webdesign','proj-5-title':'E-Commerce Platform','proj-5-link':'Ansehen',
-    'proj-6-tag':'Branding','proj-6-title':'Startup Identity','proj-6-link':'Ansehen',
-    'gallery-label':'Galerie','gallery-title-1':'Einblicke in','gallery-title-2':'meine Arbeit',
-    'gi-1':'Sketches & Wireframes','gi-2':'Interface Details','gi-3':'Typografie-Experimente',
-    'gi-4':'Motion & Microinteractions','gi-5':'Color Explorations','gi-6':'Final Deliverables',
-    'contact-label':'Kontakt','contact-title-1':'Lass uns','contact-title-2':'reden',
-    'contact-heading':'Hast du ein Projekt?',
-    'contact-sub':'Du hast ein Projekt? Eine Idee? Lass uns gemeinsam etwas Besonderes schaffen.',
-    'contact-email':'E-Mail','contact-loc':'Standort','contact-loc-val':'Deutschland',
-    'contact-avail':'Verfügbarkeit','contact-avail-val':'Für neue Projekte offen',
-    'label-name':'Dein Name','label-email':'E-Mail Adresse','label-project':'Dein Projekt','label-msg':'Nachricht',
-    'btn-send':'Nachricht senden →',
-    'footer-copy':'© 2026 Kidashi Design · Nicole Szatkowski','footer-imprint':'Impressum','footer-privacy':'Datenschutz',
-  },
+const T = {
   en: {
-    'nav-about':'About','nav-services':'Services','nav-portfolio':'Portfolio','nav-gallery':'Gallery','nav-contact':'Contact',
-    'hero-label':'UI/UX & Web Design Freelancer','hero-title-1':'Design','hero-title-2':'that moves.',
-    'hero-sub':'I craft digital experiences that inspire — from the first idea to the finished product.',
-    'hero-cta-1':'View projects','hero-cta-2':'Get in touch','scroll-text':'Scroll',
-    'about-label':'About me','about-title-1':'The mind','about-title-2':'behind',
-    'about-name':'Nicole Szatkowski','about-role':'UI/UX & Web Design Freelancer',
-    'about-bio':"Hi, I'm Nicole — a designer with an eye for detail and a passion for user-centered design. With Kidashi Design, I bring creativity and functionality together to create digital products that truly move people.",
-    'stat-1-num':'5+','stat-1-label':'Years of experience','stat-2-num':'50+','stat-2-label':'Projects completed','stat-3-num':'20+','stat-3-label':'Happy clients',
-    'tools-label':'Tools & Technologies',
-    'services-label':'Services','services-title-1':'What I','services-title-2':'offer',
-    'svc-1-title':'UI/UX Design','svc-1-desc':'User-friendly interfaces and thoughtful user journeys — from wireframes to final prototype.',
-    'svc-2-title':'Web Design','svc-2-desc':'Modern, responsive websites that shine on all devices and delight visitors.',
-    'svc-3-title':'Branding & Identity','svc-3-desc':'Visual identities that make brands unmistakable — logos, color worlds, design systems.',
-    'svc-4-title':'Prototyping','svc-4-desc':'Interactive prototypes for testing and validating ideas before development begins.',
-    'portfolio-label':'Portfolio','portfolio-title-1':'Selected','portfolio-title-2':'Projects',
-    'filter-all':'All','filter-uiux':'UI/UX','filter-web':'Web Design','filter-brand':'Branding',
-    'proj-1-tag':'UI/UX Design','proj-1-title':'Finance Dashboard','proj-1-link':'View',
-    'proj-2-tag':'Web Design','proj-2-title':'Studio Portfolio','proj-2-link':'View',
-    'proj-3-tag':'Branding','proj-3-title':'Brand Identity','proj-3-link':'View',
-    'proj-4-tag':'UI/UX Design','proj-4-title':'Mobile Banking App','proj-4-link':'View',
-    'proj-5-tag':'Web Design','proj-5-title':'E-Commerce Platform','proj-5-link':'View',
-    'proj-6-tag':'Branding','proj-6-title':'Startup Identity','proj-6-link':'View',
-    'gallery-label':'Gallery','gallery-title-1':'Glimpses of','gallery-title-2':'my work',
-    'gi-1':'Sketches & Wireframes','gi-2':'Interface Details','gi-3':'Typography Experiments',
-    'gi-4':'Motion & Microinteractions','gi-5':'Color Explorations','gi-6':'Final Deliverables',
-    'contact-label':'Contact','contact-title-1':"Let's",'contact-title-2':'talk',
-    'contact-heading':'Got a project?',
-    'contact-sub':"Got a project? An idea? Let's create something extraordinary together.",
-    'contact-email':'Email','contact-loc':'Location','contact-loc-val':'Germany',
-    'contact-avail':'Availability','contact-avail-val':'Open for new projects',
-    'label-name':'Your name','label-email':'Email address','label-project':'Your project','label-msg':'Message',
-    'btn-send':'Send message →',
-    'footer-copy':'© 2026 Kidashi Design · Nicole Szatkowski','footer-imprint':'Imprint','footer-privacy':'Privacy Policy',
+    'nav-about':    'About',
+    'nav-services': 'Services',
+    'nav-portfolio':'Portfolio',
+    'nav-gallery':  'Gallery',
+    'nav-contact':  'Contact',
+    'hero-eye':     'Freelance Graphic Designer — Working Worldwide',
+    'hero-line1':   'Websites',
+    'hero-line2':   'That Actually',
+    'hero-line3':   'Work.',
+    'hero-sub':     "I'm Nicole — a certified graphic designer with 5+ years of experience, helping small businesses and brands launch fast, modern websites that stay true to their voice.",
+    'hero-cta1':    'See My Work',
+    'hero-cta2':    'Start Your Project',
+    'scroll-label': 'Scroll',
+    'about-eye':    'About Nicole',
+    'about-title':  'Hi, I\'m Nicole — the Person Behind Every Project.',
+    'about-text':   "I'm a certified graphic designer (Mediengestalterin, Digital & Print) with over 5 years of experience in web design, branding, and visual communication. Currently working as a digital nomad based in Tbilisi, Georgia, I bring the same hands-on, personal approach to every client, wherever they are in the world. From the first sketch to the final launch, you're working directly with me — your single point of contact throughout.",
+    'fact1-num':    '5+',
+    'fact1-lbl':    'Years of Experience',
+    'fact2-num':    'IHK',
+    'fact2-lbl':    'Certified Media Designer',
+    'fact3-num':    '1:1',
+    'fact3-lbl':    'Worldwide, One Direct Contact',
+    'about-cta':    'Get to Know Me →',
+    'svc-eye':      'What I Offer',
+    'svc-title1':   'Web Design at the Core —',
+    'svc-title2':   'With Everything Else You Need.',
+    'svc-sub':      'Web design is where I focus most — but many clients also work with me on branding, print, or social media, all handled personally.',
+    'svc-1-title':  'Web Design',
+    'svc-1-desc':   'Custom website design & development, mobile-responsive layouts, SEO-friendly structure.',
+    'svc-2-title':  'Brand Identity',
+    'svc-2-desc':   'Logo design, color palette & typography system, brand guidelines.',
+    'svc-3-title':  'Print',
+    'svc-3-desc':   'Business cards, flyers, brochures, packaging, editorial layouts.',
+    'svc-4-title':  'Social Media',
+    'svc-4-desc':   'Content calendars, post templates, profile & cover design.',
+    'svc-link':     'Learn More',
+    'port-eye':     'Portfolio',
+    'port-title':   'Selected Work',
+    'port-sub':     'From esports platforms to private jet charters — a range of projects across web, brand, and print.',
+    'port-link':    'View All Projects',
+    'gall-eye':     'Beyond Design',
+    'gall-title':   'Mixed Media Art,\nShaped by Travel.',
+    'gall-sub':     'Alongside my design work, I create mixed media art collages — process-driven pieces shaped by the places I\'ve lived and traveled through.',
+    'gall-link':    'View Full Gallery →',
+    'cta-title':    'Let\'s Start Something Great Together.',
+    'cta-sub':      'Got a project in mind? I personally read and respond to every message, usually within 1–2 business days.',
+    'cta-btn':      'Get in Touch',
+    'contact-eye':  'Get in Touch',
+    'contact-title':'Let\'s Start Something\nGreat Together.',
+    'contact-sub':  'Fill out the form or reach out directly — I personally read and respond to every message.',
+    'c-email':      'Email',
+    'c-email-v':    'nicole@kidashidesign.com',
+    'c-loc':        'Location',
+    'c-loc-v':      'Tbilisi, Georgia (Worldwide)',
+    'c-avail':      'Availability',
+    'c-avail-v':    'Open for New Projects',
+    'l-name':       'Your Name',
+    'l-email':      'Email Address',
+    'l-type':       'Project Type',
+    'l-msg':        'Message',
+    'ph-name':      'Jane Doe',
+    'ph-email':     'jane@example.com',
+    'ph-msg':       'Tell me about your project...',
+    'opt-web':      'Web Design',
+    'opt-brand':    'Brand Identity',
+    'opt-print':    'Print',
+    'opt-social':   'Social Media Management',
+    'opt-other':    'Other',
+    'btn-send':     'Send Message',
+    'footer-copy':  '© 2026 Kidashi Design · Nicole Szatkowski',
+    'footer-imp':   'Imprint',
+    'footer-priv':  'Privacy',
+  },
+  de: {
+    'nav-about':    'Über mich',
+    'nav-services': 'Leistungen',
+    'nav-portfolio':'Portfolio',
+    'nav-gallery':  'Galerie',
+    'nav-contact':  'Kontakt',
+    'hero-eye':     'Freiberufliche Grafikdesignerin — Weltweit tätig',
+    'hero-line1':   'Websites,',
+    'hero-line2':   'die wirklich',
+    'hero-line3':   'funktionieren.',
+    'hero-sub':     'Ich bin Nicole — eine zertifizierte Grafikdesignerin mit über 5 Jahren Erfahrung. Ich helfe kleinen Unternehmen dabei, schnelle, moderne Websites zu launchen, die ihrer eigenen Stimme treu bleiben.',
+    'hero-cta1':    'Meine Arbeiten',
+    'hero-cta2':    'Projekt starten',
+    'scroll-label': 'Scrollen',
+    'about-eye':    'Über Nicole',
+    'about-title':  'Hi, ich bin Nicole — die Person hinter jedem Projekt.',
+    'about-text':   'Ich bin zertifizierte Mediengestalterin (Digital & Print) mit über 5 Jahren Erfahrung in Webdesign, Branding und visueller Kommunikation. Aktuell arbeite ich als digitale Nomadin von Tbilisi, Georgien aus — und bringe denselben persönlichen Ansatz in jedes Projekt, egal wo du dich befindest. Vom ersten Entwurf bis zum finalen Launch bist du direkt mit mir im Kontakt.',
+    'fact1-num':    '5+',
+    'fact1-lbl':    'Jahre Erfahrung',
+    'fact2-num':    'IHK',
+    'fact2-lbl':    'Zertifizierte Mediengestalterin',
+    'fact3-num':    '1:1',
+    'fact3-lbl':    'Weltweit, ein direkter Ansprechpartner',
+    'about-cta':    'Lern mich kennen →',
+    'svc-eye':      'Was ich anbiete',
+    'svc-title1':   'Webdesign im Zentrum —',
+    'svc-title2':   'Mit allem Drumherum, das du brauchst.',
+    'svc-sub':      'Webdesign ist mein Schwerpunkt — viele Kund:innen arbeiten aber auch mit mir an Branding, Print oder Social Media, alles persönlich betreut.',
+    'svc-1-title':  'Webdesign',
+    'svc-1-desc':   'Individuelles Website-Design & Entwicklung, mobil-responsive Layouts, SEO-freundliche Struktur.',
+    'svc-2-title':  'Brand Identity',
+    'svc-2-desc':   'Logo-Design, Farbpalette & Typografie-System, Markenrichtlinien.',
+    'svc-3-title':  'Print',
+    'svc-3-desc':   'Visitenkarten, Flyer, Broschüren, Verpackungen, redaktionelle Layouts.',
+    'svc-4-title':  'Social Media',
+    'svc-4-desc':   'Redaktionspläne, Post-Vorlagen, Profil- & Titelbild-Gestaltung.',
+    'svc-link':     'Mehr erfahren',
+    'port-eye':     'Portfolio',
+    'port-title':   'Ausgewählte Projekte',
+    'port-sub':     'Von Esports-Plattformen bis hin zu Privatjet-Chartern — Projekte aus Webdesign, Branding und Print.',
+    'port-link':    'Alle Projekte ansehen',
+    'gall-eye':     'Jenseits vom Design',
+    'gall-title':   'Mixed-Media-Kunst,\nprägt vom Reisen.',
+    'gall-sub':     'Neben meiner Designarbeit entstehen Mixed-Media-Collagen — prozessorientierte Werke, geprägt von den Orten, an denen ich gelebt habe.',
+    'gall-link':    'Zur Galerie →',
+    'cta-title':    'Lass uns gemeinsam etwas Großartiges schaffen.',
+    'cta-sub':      'Hast du ein Projekt im Kopf? Ich lese und beantworte jede Nachricht persönlich, meist innerhalb von 1–2 Werktagen.',
+    'cta-btn':      'Kontakt aufnehmen',
+    'contact-eye':  'Kontakt',
+    'contact-title':'Lass uns gemeinsam\netwas Großartiges schaffen.',
+    'contact-sub':  'Füll das Formular aus oder schreib mir direkt — ich lese und beantworte jede Nachricht persönlich.',
+    'c-email':      'E-Mail',
+    'c-email-v':    'nicole@kidashidesign.com',
+    'c-loc':        'Standort',
+    'c-loc-v':      'Tbilisi, Georgien (Weltweit)',
+    'c-avail':      'Verfügbarkeit',
+    'c-avail-v':    'Für neue Projekte offen',
+    'l-name':       'Dein Name',
+    'l-email':      'E-Mail Adresse',
+    'l-type':       'Projektart',
+    'l-msg':        'Nachricht',
+    'ph-name':      'Max Mustermann',
+    'ph-email':     'max@beispiel.de',
+    'ph-msg':       'Erzähl mir von deinem Projekt...',
+    'opt-web':      'Webdesign',
+    'opt-brand':    'Brand Identity',
+    'opt-print':    'Print',
+    'opt-social':   'Social Media Management',
+    'opt-other':    'Sonstiges',
+    'btn-send':     'Nachricht senden',
+    'footer-copy':  '© 2026 Kidashi Design · Nicole Szatkowski',
+    'footer-imp':   'Impressum',
+    'footer-priv':  'Datenschutz',
   }
 };
 
-function applyLanguage(lang) {
-  currentLang = lang;
-  const tr = t[lang];
+function applyLang(l) {
+  lang = l;
+  const tr = T[l];
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (tr[key] !== undefined) el.textContent = tr[key];
+    if (!tr[key]) return;
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+      el.placeholder = tr[key];
+    } else if (el.tagName === 'OPTION') {
+      el.textContent = tr[key];
+    } else {
+      el.textContent = tr[key];
+    }
   });
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.lang === lang);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+  document.documentElement.lang = l;
+  localStorage.setItem('kidashi-lang', l);
+  // update hero lines which use newline
+  document.querySelectorAll('[data-i18n-nl]').forEach(el => {
+    const key = el.getAttribute('data-i18n-nl');
+    if (tr[key]) el.innerHTML = tr[key].replace(/\n/g, '<br>');
   });
-  document.documentElement.lang = lang;
-  localStorage.setItem('kidashi-lang', lang);
 }
 
-/* ---- Navigation ---- */
-const nav = document.querySelector('.nav');
-const sections = document.querySelectorAll('section[id]');
+/* ---- Nav ---- */
+const navEl = document.querySelector('.nav');
+const allSections = document.querySelectorAll('section[id]');
 
-function updateNav() {
-  nav.classList.toggle('scrolled', window.scrollY > 50);
-  let current = '';
-  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 130) current = s.id; });
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-  });
+function onScroll() {
+  const y = window.scrollY;
+  navEl.classList.toggle('scrolled', y > 60);
+  let cur = '';
+  allSections.forEach(s => { if (y >= s.offsetTop - 150) cur = s.id; });
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+
+  // Parallax
+  requestAnimationFrame(doParallax);
+}
+
+/* ---- Parallax ---- */
+function doParallax() {
+  const y = window.scrollY;
+  // hero image
+  const heroImg = document.querySelector('.hero-img-wrap');
+  if (heroImg) heroImg.style.transform = `translateY(${y * 0.22}px)`;
 }
 
 /* ---- Mobile menu ---- */
-const hamburger = document.querySelector('.hamburger');
-const mobileNav  = document.querySelector('.mobile-nav');
+const ham = document.querySelector('.hamburger');
+const mobileNav = document.querySelector('.mobile-nav');
 function toggleMobile() {
-  hamburger.classList.toggle('open');
+  ham.classList.toggle('open');
   mobileNav.classList.toggle('open');
   document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
 }
 
-/* ---- Scroll reveal ---- */
-const revealObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
-}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+/* ---- Reveal on scroll ---- */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
 
-/* ---- Portfolio filter ---- */
-function initFilter() {
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const f = btn.dataset.filter;
-      document.querySelectorAll('.project-card').forEach(card => {
-        const show = f === 'all' || card.dataset.category === f;
-        card.style.display = show ? '' : 'none';
-      });
-    });
+/* ---- Hero title line animation ---- */
+function initHeroTitle() {
+  const lines = document.querySelectorAll('.hero-title-line');
+  lines.forEach((line, i) => {
+    setTimeout(() => line.classList.add('visible'), 300 + i * 150);
   });
 }
 
-/* ---- Gallery drag ---- */
+/* ---- Gallery horizontal scroll (drag + nav) ---- */
 function initGallery() {
   const track = document.querySelector('.gallery-track');
   if (!track) return;
-  let down = false, startX, left;
-  track.addEventListener('mousedown', e => { down = true; startX = e.pageX - track.offsetLeft; left = track.scrollLeft; });
-  track.addEventListener('mouseleave', () => { down = false; });
-  track.addEventListener('mouseup',    () => { down = false; });
-  track.addEventListener('mousemove',  e => { if (!down) return; e.preventDefault(); track.scrollLeft = left - (e.pageX - track.offsetLeft - startX) * 1.5; });
+
+  let isDown = false, startX, scrollLeft;
+
+  track.addEventListener('mousedown', e => {
+    isDown = true;
+    track.style.userSelect = 'none';
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft;
+  });
+  ['mouseleave','mouseup'].forEach(evt => track.addEventListener(evt, () => {
+    isDown = false;
+    track.style.userSelect = '';
+  }));
+  track.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - track.offsetLeft;
+    track.scrollLeft = scrollLeft - (x - startX) * 1.3;
+  });
+
+  // Touch support
+  let touchStartX = 0, touchScrollLeft = 0;
+  track.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].pageX;
+    touchScrollLeft = track.scrollLeft;
+  }, { passive: true });
+  track.addEventListener('touchmove', e => {
+    const dx = e.touches[0].pageX - touchStartX;
+    track.scrollLeft = touchScrollLeft - dx;
+  }, { passive: true });
+
+  // Nav buttons
+  const cardWidth = 380 + 24;
+  document.getElementById('gall-prev')?.addEventListener('click', () => {
+    track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+  });
+  document.getElementById('gall-next')?.addEventListener('click', () => {
+    track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+  });
+
+  // Progress bar
+  const fill = document.querySelector('.gallery-progress-fill');
+  if (fill) {
+    track.addEventListener('scroll', () => {
+      const max = track.scrollWidth - track.clientWidth;
+      fill.style.width = (track.scrollLeft / max * 100) + '%';
+    }, { passive: true });
+  }
 }
+
+/* ---- Counter animation ---- */
+function animateCounters() {
+  document.querySelectorAll('.about-fact-num[data-count]').forEach(el => {
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
+    let start = null;
+    const duration = 1200;
+    function step(ts) {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + (Number.isInteger(target) ? Math.floor(ease * target) : (ease * target).toFixed(1)) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { animateCounters(); counterObs.disconnect(); } });
+}, { threshold: 0.5 });
 
 /* ---- Form ---- */
 function initForm() {
@@ -151,33 +315,53 @@ function initForm() {
   form.addEventListener('submit', e => {
     e.preventDefault();
     const btn = form.querySelector('.form-submit');
-    const orig = btn.textContent;
-    btn.textContent = currentLang === 'de' ? 'Gesendet! ✓' : 'Sent! ✓';
-    btn.style.background = 'linear-gradient(135deg,#10b981,#059669)';
-    setTimeout(() => { btn.textContent = orig; btn.style.background = ''; form.reset(); }, 3000);
+    btn.textContent = lang === 'de' ? 'Gesendet ✓' : 'Sent ✓';
+    btn.style.background = '#2C4A3A';
+    setTimeout(() => { btn.textContent = T[lang]['btn-send']; btn.style.background = ''; form.reset(); }, 3500);
+  });
+}
+
+/* ---- Smooth anchor scroll ---- */
+function initAnchors() {
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+      if (mobileNav?.classList.contains('open')) toggleMobile();
+    });
   });
 }
 
 /* ---- Init ---- */
 document.addEventListener('DOMContentLoaded', () => {
-  applyLanguage(localStorage.getItem('kidashi-lang') || 'de');
+  // Language
+  document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+  applyLang(lang);
 
-  document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => applyLanguage(btn.dataset.lang)));
-  window.addEventListener('scroll', updateNav, { passive: true });
-  updateNav();
+  // Nav
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-  hamburger?.addEventListener('click', toggleMobile);
+  // Mobile
+  ham?.addEventListener('click', toggleMobile);
   document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', toggleMobile));
 
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-  initFilter();
+  // Reveals
+  document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+  // Hero
+  initHeroTitle();
+
+  // Gallery
   initGallery();
+
+  // Counters
+  const factsEl = document.querySelector('.about-facts');
+  if (factsEl) counterObs.observe(factsEl);
+
+  // Form
   initForm();
 
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
-    });
-  });
+  // Anchors
+  initAnchors();
 });
