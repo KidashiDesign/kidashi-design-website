@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kidashi Design — UI/UX & Webdesign Freelancerin Nicole Szatkowski. Digitale Erlebnisse, die begeistern." />
+  <meta name="author" content="Nicole Szatkowski" />
+  <meta property="og:title" content="Kidashi Design — Nicole Szatkowski" />
+  <meta property="og:description" content="UI/UX & Webdesign Freelancerin — Design, das bewegt." />
+  <meta property="og:type" content="website" />
+  <title>Kidashi Design — Nicole Szatkowski</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" role="navigation">
+    <div class="container nav-inner">
+      <a href="#hero" class="nav-logo">Kidashi<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#about"     data-i18n="nav-about">Über mich</a></li>
+        <li><a href="#services"  data-i18n="nav-services">Leistungen</a></li>
+        <li><a href="#portfolio" data-i18n="nav-portfolio">Portfolio</a></li>
+        <li><a href="#gallery"   data-i18n="nav-gallery">Galerie</a></li>
+        <li><a href="#contact"   data-i18n="nav-contact">Kontakt</a></li>
+      </ul>
+      <div class="nav-right">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button class="lang-btn active" data-lang="de">DE</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+      </div>
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <a href="#about"     data-i18n="nav-about">Über mich</a>
+    <a href="#services"  data-i18n="nav-services">Leistungen</a>
+    <a href="#portfolio" data-i18n="nav-portfolio">Portfolio</a>
+    <a href="#gallery"   data-i18n="nav-gallery">Galerie</a>
+    <a href="#contact"   data-i18n="nav-contact">Kontakt</a>
+    <div class="lang-toggle" style="margin-top:1.5rem;">
+      <button class="lang-btn active" data-lang="de">DE</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+    </div>
+    <div class="hero-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-label reveal">
+          <span data-i18n="hero-label">UI/UX &amp; Webdesign Freelancerin</span>
+        </div>
+        <h1 class="hero-title reveal reveal-delay-1">
+          <span data-i18n="hero-title-1">Design,</span><br>
+          <span class="gradient-text" data-i18n="hero-title-2">das bewegt.</span>
+        </h1>
+        <p class="hero-sub reveal reveal-delay-2" data-i18n="hero-sub">
+          Ich gestalte digitale Erlebnisse, die begeistern — von der ersten Idee bis zum fertigen Produkt.
+        </p>
+        <div class="hero-cta reveal reveal-delay-3">
+          <a href="#portfolio" class="btn btn-primary" data-i18n="hero-cta-1">Projekte ansehen</a>
+          <a href="#contact"   class="btn btn-ghost"   data-i18n="hero-cta-2">Kontakt aufnehmen</a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <span data-i18n="scroll-text">Scrollen</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section about">
+    <div class="container">
+      <span class="section-label reveal" data-i18n="about-label">Über mich</span>
+      <h2 class="section-title reveal reveal-delay-1">
+        <span data-i18n="about-title-1">Hinter dem</span>
+        <span class="gradient-text"> <span data-i18n="about-title-2">Design</span></span>
+      </h2>
+      <div class="about-grid">
+        <div class="glass about-main reveal">
+          <div class="about-photo-placeholder">
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+              <circle cx="36" cy="27" r="14" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+              <path d="M8 64c0-15.464 12.536-28 28-28s28 12.536 28 28" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="about-photo-overlay"></div>
+          <div class="about-main-content">
+            <h3 data-i18n="about-name">Nicole Szatkowski</h3>
+            <p class="about-role" data-i18n="about-role">UI/UX &amp; Webdesign Freelancerin</p>
+            <p data-i18n="about-bio">Hallo, ich bin Nicole — Designerin mit einem Auge für Details und einem Herz für nutzerzentriertes Design. Mit Kidashi Design bringe ich Kreativität und Funktionalität zusammen, um digitale Produkte zu schaffen, die Menschen wirklich bewegen.</p>
+          </div>
+        </div>
+        <div class="glass stat-card reveal reveal-delay-1">
+          <div class="stat-number" data-i18n="stat-1-num">5+</div>
+          <div class="stat-label" data-i18n="stat-1-label">Jahre Erfahrung</div>
+        </div>
+        <div class="glass stat-card reveal reveal-delay-2">
+          <div class="stat-number" data-i18n="stat-2-num">50+</div>
+          <div class="stat-label" data-i18n="stat-2-label">Projekte abgeschlossen</div>
+        </div>
+        <div class="glass stat-card reveal reveal-delay-3">
+          <div class="stat-number" data-i18n="stat-3-num">20+</div>
+          <div class="stat-label" data-i18n="stat-3-label">Zufriedene Kunden</div>
+        </div>
+        <div class="glass tools-card reveal reveal-delay-1">
+          <h4 data-i18n="tools-label">Tools &amp; Technologien</h4>
+          <div class="tools-list">
+            <span class="tool-tag">Figma</span>
+            <span class="tool-tag">Adobe XD</span>
+            <span class="tool-tag">Illustrator</span>
+            <span class="tool-tag">Photoshop</span>
+            <span class="tool-tag">HTML / CSS</span>
+            <span class="tool-tag">Webflow</span>
+            <span class="tool-tag">Framer</span>
+            <span class="tool-tag">Miro</span>
+            <span class="tool-tag">Notion</span>
+            <span class="tool-tag">Principle</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section">
+    <div class="container">
+      <span class="section-label reveal" data-i18n="services-label">Leistungen</span>
+      <h2 class="section-title reveal reveal-delay-1">
+        <span data-i18n="services-title-1">Was ich</span>
+        <span class="gradient-text"> <span data-i18n="services-title-2">anbiete</span></span>
+      </h2>
+      <div class="services-grid">
+        <div class="glass service-card reveal">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+            </svg>
+          </div>
+          <h3 data-i18n="svc-1-title">UI/UX Design</h3>
+          <p data-i18n="svc-1-desc">Nutzerfreundliche Interfaces und durchdachte User Journeys — von Wireframes bis zum finalen Prototyp.</p>
+        </div>
+        <div class="glass service-card reveal reveal-delay-1">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <h3 data-i18n="svc-2-title">Webdesign</h3>
+          <p data-i18n="svc-2-desc">Moderne, responsive Websites, die auf allen Geräten brillieren und Besucher begeistern.</p>
+        </div>
+        <div class="glass service-card reveal reveal-delay-2">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3 data-i18n="svc-3-title">Branding &amp; Identity</h3>
+          <p data-i18n="svc-3-desc">Visuelle Identitäten, die Marken unverwechselbar machen — Logos, Farbwelten, Designsysteme.</p>
+        </div>
+        <div class="glass service-card reveal reveal-delay-3">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </div>
+          <h3 data-i18n="svc-4-title">Prototyping</h3>
+          <p data-i18n="svc-4-desc">Interaktive Prototypen zum Testen und Validieren von Ideen, bevor sie in die Entwicklung gehen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio" class="section portfolio">
+    <div class="container">
+      <span class="section-label reveal" data-i18n="portfolio-label">Portfolio</span>
+      <h2 class="section-title reveal reveal-delay-1">
+        <span data-i18n="portfolio-title-1">Ausgewählte</span>
+        <span class="gradient-text"> <span data-i18n="portfolio-title-2">Projekte</span></span>
+      </h2>
+      <div class="filter-bar reveal reveal-delay-2">
+        <button class="filter-btn active" data-filter="all"   data-i18n="filter-all">Alle</button>
+        <button class="filter-btn"        data-filter="uiux"  data-i18n="filter-uiux">UI/UX</button>
+        <button class="filter-btn"        data-filter="web"   data-i18n="filter-web">Webdesign</button>
+        <button class="filter-btn"        data-filter="brand" data-i18n="filter-brand">Branding</button>
+      </div>
+      <div class="portfolio-grid">
+        <div class="project-card reveal" data-category="uiux">
+          <div class="project-bg g1"></div>
+          <div class="project-overlay">
+            <span class="project-tag" data-i18n="proj-1-tag">UI/UX Design</span>
+            <h3 class="project-title" data-i18n="proj-1-title">Finance Dashboard</h3>
+            <span class="project-link"><span data-i18n="proj-1-link">Ansehen</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+        </div>
+        <div class="project-card reveal reveal-delay-1" data-category="web">
+          <div class="project-bg g2"></div>
+          <div class="project-overlay">
+            <span class="project-tag" data-i18n="proj-2-tag">Webdesign</span>
+            <h3 class="project-title" data-i18n="proj-2-title">Studio Portfolio</h3>
+            <span class="project-link"><span data-i18n="proj-2-link">Ansehen</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+        </div>
+        <div class="project-card reveal reveal-delay-2" data-category="brand">
+          <div class="project-bg g3"></div>
+          <div class="project-overlay">
+            <span class="project-tag" data-i18n="proj-3-tag">Branding</span>
+            <h3 class="project-title" data-i18n="proj-3-title">Brand Identity</h3>
+            <span class="project-link"><span data-i18n="proj-3-link">Ansehen</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+        </div>
+        <div class="project-card reveal" data-category="uiux">
+          <div class="project-bg g4"></div>
+          <div class="project-overlay">
+            <span class="project-tag" data-i18n="proj-4-tag">UI/UX Design</span>
+            <h3 class="project-title" data-i18n="proj-4-title">Mobile Banking App</h3>
+            <span class="project-link"><span data-i18n="proj-4-link">Ansehen</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+        </div>
+        <div class="project-card reveal reveal-delay-1" data-category="web">
+          <div class="project-bg g5"></div>
+          <div class="project-overlay">
+            <span class="project-tag" data-i18n="proj-5-tag">Webdesign</span>
+            <h3 class="project-title" data-i18n="proj-5-title">E-Commerce Platform</h3>
+            <span class="project-link"><span data-i18n="proj-5-link">Ansehen</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+        </div>
+        <div class="project-card reveal reveal-delay-2" data-category="brand">
+          <div class="project-bg g6"></div>
+          <div class="project-overlay">
+            <span class="project-tag" data-i18n="proj-6-tag">Branding</span>
+            <h3 class="project-title" data-i18n="proj-6-title">Startup Identity</h3>
+            <span class="project-link"><span data-i18n="proj-6-link">Ansehen</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="section gallery">
+    <div class="container">
+      <span class="section-label reveal" data-i18n="gallery-label">Galerie</span>
+      <h2 class="section-title reveal reveal-delay-1">
+        <span data-i18n="gallery-title-1">Einblicke in</span>
+        <span class="gradient-text"> <span data-i18n="gallery-title-2">meine Arbeit</span></span>
+      </h2>
+    </div>
+    <div class="gallery-track">
+      <div class="gallery-item gi-1"><div class="gi-inner"><h4 data-i18n="gi-1">Sketches &amp; Wireframes</h4></div></div>
+      <div class="gallery-item gi-2"><div class="gi-inner"><h4 data-i18n="gi-2">Interface Details</h4></div></div>
+      <div class="gallery-item gi-3"><div class="gi-inner"><h4 data-i18n="gi-3">Typografie-Experimente</h4></div></div>
+      <div class="gallery-item gi-4"><div class="gi-inner"><h4 data-i18n="gi-4">Motion &amp; Microinteractions</h4></div></div>
+      <div class="gallery-item gi-5"><div class="gi-inner"><h4 data-i18n="gi-5">Color Explorations</h4></div></div>
+      <div class="gallery-item gi-6"><div class="gi-inner"><h4 data-i18n="gi-6">Final Deliverables</h4></div></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="container">
+      <span class="section-label reveal" data-i18n="contact-label">Kontakt</span>
+      <h2 class="section-title reveal reveal-delay-1">
+        <span data-i18n="contact-title-1">Lass uns</span>
+        <span class="gradient-text"> <span data-i18n="contact-title-2">reden</span></span>
+      </h2>
+      <div class="contact-grid">
+        <div class="glass contact-info reveal">
+          <h3 data-i18n="contact-heading">Hast du ein Projekt?</h3>
+          <p data-i18n="contact-sub">Du hast ein Projekt? Eine Idee? Lass uns gemeinsam etwas Besonderes schaffen.</p>
+          <div class="contact-details">
+            <div class="contact-detail">
+              <div class="contact-detail-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact-detail-label" data-i18n="contact-email">E-Mail</div>
+                <a href="mailto:szatkowski.nicole@hotmail.de" class="contact-detail-value">szatkowski.nicole@hotmail.de</a>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-detail-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact-detail-label" data-i18n="contact-loc">Standort</div>
+                <span class="contact-detail-value" data-i18n="contact-loc-val">Deutschland</span>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-detail-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact-detail-label" data-i18n="contact-avail">Verfügbarkeit</div>
+                <span class="contact-detail-value neon-val" data-i18n="contact-avail-val">Für neue Projekte offen</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="glass contact-form-card reveal reveal-delay-1">
+          <form class="contact-form-el" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="f-name" data-i18n="label-name">Dein Name</label>
+              <input class="form-input" type="text" id="f-name" name="name" placeholder="Max Mustermann" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="f-email" data-i18n="label-email">E-Mail Adresse</label>
+              <input class="form-input" type="email" id="f-email" name="email" placeholder="max@beispiel.de" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="f-project" data-i18n="label-project">Dein Projekt</label>
+              <input class="form-input" type="text" id="f-project" name="project" placeholder="Website Redesign, App Design ..." />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="f-msg" data-i18n="label-msg">Nachricht</label>
+              <textarea class="form-textarea" id="f-msg" name="message" placeholder="Erzähl mir von deinem Projekt ..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit" data-i18n="btn-send">Nachricht senden →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-logo">Kidashi<span>.</span></div>
+      <p class="footer-copy" data-i18n="footer-copy">© 2026 Kidashi Design · Nicole Szatkowski</p>
+      <ul class="footer-links">
+        <li><a href="#" data-i18n="footer-imprint">Impressum</a></li>
+        <li><a href="#" data-i18n="footer-privacy">Datenschutz</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
