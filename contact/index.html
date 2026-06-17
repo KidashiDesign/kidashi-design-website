@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Kidashi Design</title>
+  <meta name="description" content="Get in touch with Nicole Szatkowski — Kidashi Design. Web design, brand identity, print and social media projects.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="nav nav--light">
+  <div class="nav__inner">
+    <a href="../" class="nav__logo">
+      <span class="nav__logo-k">Kidashi</span>
+      <span class="nav__logo-d">Design</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="../" class="nav__link">Home</a></li>
+      <li><a href="../services/" class="nav__link">Services</a></li>
+      <li><a href="../about/" class="nav__link">About</a></li>
+      <li><a href="../portfolio/" class="nav__link">Portfolio</a></li>
+      <li><a href="../gallery/" class="nav__link">Gallery</a></li>
+      <li><a href="../contact/" class="nav__link active">Contact</a></li>
+    </ul>
+    <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav__mobile">
+  <a href="../" class="nav__link">Home</a>
+  <a href="../services/" class="nav__link">Services</a>
+  <a href="../about/" class="nav__link">About</a>
+  <a href="../portfolio/" class="nav__link">Portfolio</a>
+  <a href="../gallery/" class="nav__link">Gallery</a>
+  <a href="../contact/" class="nav__link active">Contact</a>
+</div>
+
+<div class="contact-page">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-form-wrap">
+        <span class="page-hero__eyebrow reveal">Get in Touch</span>
+        <h1 class="reveal" data-delay="100">Let's Start Something Great Together.</h1>
+        <p class="sub reveal" data-delay="200">Got a project in mind, a question about my services, or just want to say hi? Fill out the form below or reach out directly — I personally read and respond to every message, usually within 1–2 business days.</p>
+        <form class="form reveal" data-delay="300" id="contact-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="project">Project Type</label>
+            <select id="project" name="project">
+              <option value="" disabled selected>Select a service</option>
+              <option value="web">Web Design</option>
+              <option value="brand">Brand Identity</option>
+              <option value="print">Print</option>
+              <option value="social">Social Media Management</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea>
+          </div>
+          <div class="form__submit">
+            <button type="submit" class="btn btn--primary" id="submit-btn">Send Message</button>
+          </div>
+        </form>
+      </div>
+      <aside class="contact-info">
+        <div class="contact-info__block reveal" data-delay="200">
+          <span class="contact-info__label">Email</span>
+          <!-- Email placeholder — confirm once Hostinger migration is done -->
+          <div class="contact-info__value"><a href="mailto:nicole@kidashidesign.com">nicole@kidashidesign.com</a></div>
+          <p class="contact-info__note">I personally read and respond to every message.</p>
+        </div>
+        <div class="contact-info__block reveal" data-delay="300">
+          <span class="contact-info__label">Find Me Online</span>
+          <div class="contact-info__value"><a href="https://linktr.ee/kidashi.design" target="_blank" rel="noopener">linktr.ee/kidashi.design</a></div>
+        </div>
+        <div class="contact-info__block reveal" data-delay="400">
+          <span class="contact-info__label">Based In</span>
+          <div class="contact-info__value">Tbilisi, Georgia</div>
+          <p class="contact-info__note">Working with clients worldwide — time zone flexible.</p>
+        </div>
+        <div class="contact-info__block reveal" data-delay="500">
+          <span class="contact-info__label">Response Time</span>
+          <div class="contact-info__value">1–2 Business Days</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <a href="../" class="nav__logo">
+          <span class="nav__logo-k">Kidashi</span>
+          <span class="nav__logo-d">Design</span>
+        </a>
+        <p class="footer__tagline">Certified Graphic Designer — Working Worldwide</p>
+      </div>
+      <nav class="footer__nav">
+        <a href="../">Home</a>
+        <a href="../services/">Services</a>
+        <a href="../about/">About</a>
+        <a href="../portfolio/">Portfolio</a>
+        <a href="../gallery/">Gallery</a>
+        <a href="../contact/">Contact</a>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">© 2025 Kidashi Design — Nicole Szatkowski</span>
+      <div class="footer__social">
+        <a href="https://linktr.ee/kidashi.design" target="_blank" rel="noopener">linktr.ee/kidashi.design</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+  const form = document.getElementById('contact-form');
+  const btn = document.getElementById('submit-btn');
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      btn.textContent = 'Message Sent!';
+      btn.disabled = true;
+      setTimeout(() => { btn.textContent = 'Send Message'; btn.disabled = false; form.reset(); }, 3000);
+    });
+  }
+</script>
+</body>
+</html>
