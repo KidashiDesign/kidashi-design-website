@@ -283,7 +283,42 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .hero2 {
   height: 230vh;
   position: relative;
-  background: var(--bg);
+  background: linear-gradient(
+    135deg,
+    #F7F3EE 0%,
+    rgba(255,188,149,0.13) 30%,
+    rgba(46,84,254,0.07) 60%,
+    rgba(255,240,131,0.09) 100%
+  );
+}
+
+/* Glass bubble */
+.hero2__bubble {
+  position: absolute;
+  width: clamp(260px, 34vw, 520px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 200deg at 38% 38%,
+    rgba(255,188,149,0.72) 0deg,
+    rgba(255,240,131,0.52) 85deg,
+    rgba(46,84,254,0.38) 185deg,
+    rgba(255,188,149,0.65) 290deg,
+    rgba(255,188,149,0.72) 360deg
+  );
+  backdrop-filter: blur(38px) saturate(2.2);
+  -webkit-backdrop-filter: blur(38px) saturate(2.2);
+  border: 1px solid rgba(255,255,255,0.55);
+  box-shadow:
+    inset 0 2px 6px rgba(255,255,255,0.75),
+    inset 0 -2px 6px rgba(0,0,0,0.04),
+    0 40px 100px rgba(255,188,149,0.22),
+    0 0 0 1px rgba(255,188,149,0.08);
+  pointer-events: none;
+  will-change: transform;
+  top: 44%;
+  right: 10%;
+  z-index: 0;
 }
 .hero2__sticky {
   position: sticky;
@@ -295,6 +330,11 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   justify-content: center;
   padding: calc(var(--nav-h) + 1.5vh) var(--gutter) clamp(1.5rem, 4vh, 3rem);
 }
+
+/* Content above bubble */
+.hero2__h1,
+.hero2__sub-row,
+.hero2__reveal { position: relative; z-index: 1; }
 
 /* Giant name */
 .hero2__h1 {

@@ -109,6 +109,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  /* ── Hero bubble parallax ── */
+  const heroBubble = document.getElementById('hero2Bubble');
+  if (heroBubble) {
+    let bx = 0, by = 0, btx = 0, bty = 0;
+    window.addEventListener('mousemove', e => {
+      btx = (e.clientX / window.innerWidth  - 0.5) * 48;
+      bty = (e.clientY / window.innerHeight - 0.5) * 30;
+    }, { passive: true });
+    (function bubbleRaf() {
+      bx += (btx - bx) * 0.055;
+      by += (bty - by) * 0.055;
+      heroBubble.style.transform = `translate(${bx.toFixed(2)}px,${by.toFixed(2)}px)`;
+      requestAnimationFrame(bubbleRaf);
+    })();
+  }
+
   /* ── Hero 2 — letter flip + scroll animation ── */
   const hero2 = document.getElementById('hero2');
   if (hero2) {
