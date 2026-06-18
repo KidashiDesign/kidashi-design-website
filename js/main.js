@@ -109,28 +109,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* ── Hero 2 — reactive gradient + magnifier cursor + scroll animation ── */
+  /* ── Hero 2 — cycling word + reactive gradient + magnifier ── */
   const hero2 = document.getElementById('hero2');
   if (hero2) {
-    const heroSticky = hero2.querySelector('.hero2__sticky');
+    const heroCycleEl = document.getElementById('heroCycle');
+    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#%&*?§$+=/~^<>';
+    const SYMS  = '!@#%&*§$+=~^<>|/\\[]{}±≠°';
+    const rand  = () => CHARS[Math.floor(Math.random() * CHARS.length)];
+    const rsym  = () => SYMS[Math.floor(Math.random() * SYMS.length)];
 
-    /* Letter flip on hover */
-    hero2.querySelectorAll('.hero2__letter').forEach(letter => {
-      letter.addEventListener('mouseenter', () => {
-        letter.classList.remove('flipping');
-        void letter.offsetWidth;
-        letter.classList.add('flipping');
+    /* ── Cycling word ── */
+    const REAL_WORDS = ['YOU', 'THE PLANET', 'THE COMMUNITY', 'YOUR COMPANY', 'THE ALGORYTHM'];
+    let wordIdx = 0;
+    let onWordReady = null; /* set by magnifier init */
+
+    function randSymWord() {
+      const len = Math.floor(Math.random() * 7) + 4;
+      return Array.from({ length: len }, rsym).join('');
+    }
+
+    function nextWord() {
+      if (Math.random() < 0.28) return randSymWord();
+      return REAL_WORDS[wordIdx++ % REAL_WORDS.length];
+    }
+
+    function scrambleTo(word, onDone) {
+      if (!heroCycleEl) { if (onDone) onDone(); return; }
+      heroCycleEl.innerHTML = word.split('').map(ch =>
+        ch === ' ' ? ' ' : `<span class="cy-ch" data-c="${ch}">${rand()}</span>`
+      ).join('');
+      const spans = Array.from(heroCycleEl.querySelectorAll('.cy-ch'));
+      let raf = null;
+      (function sc() { spans.forEach(s => { if (!s.dataset.done) s.textContent = rand(); }); raf = requestAnimationFrame(sc); })();
+      setTimeout(() => {
+        cancelAnimationFrame(raf);
+        let i = 0;
+        const step = () => {
+          if (i >= spans.length) { if (onDone) onDone(); return; }
+          const s = spans[i]; let f = 0;
+          const iv = setInterval(() => {
+            s.textContent = f < 6 ? rand() : s.dataset.c;
+            if (++f > 7) { clearInterval(iv); s.dataset.done = '1'; step(); }
+          }, 62);
+          i++;
+          if (i % 2 !== 0) step();
+        };
+        setTimeout(step, 200);
+      }, 420);
+    }
+
+    function cycle() {
+      scrambleTo(nextWord(), () => {
+        if (onWordReady) onWordReady();
+        setTimeout(cycle, 2500);
       });
-      letter.addEventListener('animationend', () => letter.classList.remove('flipping'));
+    }
+
+    /* Start first word immediately */
+    scrambleTo(REAL_WORDS[wordIdx++ % REAL_WORDS.length], () => {
+      if (onWordReady) onWordReady();
+      setTimeout(cycle, 2500);
     });
 
-    /* Scroll-driven: H2 slides in from sides */
+    /* Scroll-driven: H2 reveal slides in from sides */
     const revealLeft  = hero2.querySelector('.hero2__reveal-left');
     const revealRight = hero2.querySelector('.hero2__reveal-right');
     const revealH2    = hero2.querySelector('.hero2__reveal-h2');
 
     function updateHero2() {
-      const rect       = hero2.getBoundingClientRect();
+      const rect = hero2.getBoundingClientRect();
       const scrollable = hero2.offsetHeight - window.innerHeight;
       const progress   = Math.max(0, Math.min(1, -rect.top / scrollable));
       const h2p = Math.max(0, Math.min(1, (progress - 0.15) / 0.55));
@@ -143,61 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', updateHero2, { passive: true });
     updateHero2();
 
-    /* Reactive gradient + magnifier */
-    const h1Orig = hero2.querySelector('.hero2__h1');
-    const heroMag = document.getElementById('heroMag');
-    const normalCursor = document.querySelector('.cursor');
-    const MAG_R = 82;
-    const SCALE = 2.15;
-    let magActive = false;
-    let h1Clone = null;
-
-    if (heroMag && h1Orig) {
-      const magInner = heroMag.querySelector('.hero-mag__inner');
-      h1Clone = h1Orig.cloneNode(true);
-      h1Clone.removeAttribute('id');
-      h1Clone.setAttribute('aria-hidden', 'true');
-      h1Clone.classList.add('hero2__h1--mag');
-      h1Clone.style.position = 'absolute';
-      h1Clone.style.margin = '0';
-      magInner.appendChild(h1Clone);
-    }
-
-    window.addEventListener('mousemove', e => {
-      const cx = e.clientX, cy = e.clientY;
-
-      /* Reactive gradient */
-      if (heroSticky) {
-        heroSticky.style.setProperty('--mx', (cx / window.innerWidth  * 100).toFixed(1) + '%');
-        heroSticky.style.setProperty('--my', (cy / window.innerHeight * 100).toFixed(1) + '%');
-      }
-
-      /* Magnifier */
-      if (!heroMag || !h1Orig || !h1Clone) return;
-      const secRect = hero2.getBoundingClientRect();
-      const onHero  = cx >= secRect.left && cx <= secRect.right && cy >= secRect.top && cy <= secRect.bottom;
-
-      if (onHero !== magActive) {
-        magActive = onHero;
-        heroMag.classList.toggle('active', onHero);
-        if (normalCursor) normalCursor.classList.toggle('cursor--hidden', onHero);
-      }
-      if (!onHero) return;
-
-      heroMag.style.left = cx + 'px';
-      heroMag.style.top  = cy + 'px';
-
-      const h1Rect = h1Orig.getBoundingClientRect();
-      const l = h1Rect.left - cx + MAG_R;
-      const t = h1Rect.top  - cy + MAG_R;
-      h1Clone.style.left  = l + 'px';
-      h1Clone.style.top   = t + 'px';
-      h1Clone.style.width = h1Rect.width + 'px';
-
-      /* Origin = cursor point in h1Clone's local space */
-      h1Clone.style.transformOrigin = `${cx - h1Rect.left}px ${cy - h1Rect.top}px`;
-      h1Clone.style.transform = `scale(${SCALE})`;
-    }, { passive: true });
   }
 
   /* ── Nav scroll ── */
@@ -418,15 +410,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const s = spans[i];
         let flips = 0;
         const flip = setInterval(() => {
-          s.textContent = flips < 5 ? rand() : s.dataset.char;
+          s.textContent = flips < 6 ? rand() : s.dataset.char;
           flips++;
-          if (flips > 6) { clearInterval(flip); s.dataset.done = '1'; step(); }
-        }, 40);
+          if (flips > 7) { clearInterval(flip); s.dataset.done = '1'; step(); }
+        }, 62);
         i++;
-        if (i % 3 !== 0) step(); /* reveal 3 chars at once for speed */
+        if (i % 2 !== 0) step(); /* reveal 2 chars at once */
       };
       /* slight stagger before starting */
-      setTimeout(step, 120);
+      setTimeout(step, 200);
     }
 
     /* Two observers: low threshold starts scramble, high threshold triggers reveal */
