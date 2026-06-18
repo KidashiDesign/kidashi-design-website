@@ -196,6 +196,35 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', updateHero2, { passive: true });
     updateHero2();
 
+    /* Blob parallax — mouse + touch */
+    const heroBg = hero2.querySelector('.hero2__bg');
+    if (heroBg) {
+      let bTx = 0, bTy = 0, bCx = 0, bCy = 0;
+      const blobs = heroBg.querySelectorAll('.blob');
+      const BLOB_AMP = 60;
+      const onBlobMove = (e) => {
+        bTx = e.clientX / window.innerWidth - 0.5;
+        bTy = e.clientY / window.innerHeight - 0.5;
+      };
+      const onBlobTouch = (e) => {
+        if (e.touches && e.touches[0]) {
+          bTx = e.touches[0].clientX / window.innerWidth - 0.5;
+          bTy = e.touches[0].clientY / window.innerHeight - 0.5;
+        }
+      };
+      window.addEventListener('mousemove', onBlobMove, { passive: true });
+      window.addEventListener('touchmove', onBlobTouch, { passive: true });
+      (function blobLoop() {
+        bCx += (bTx - bCx) * 0.045;
+        bCy += (bTy - bCy) * 0.045;
+        blobs.forEach((b) => {
+          const d = parseFloat(b.dataset.depth) || 1;
+          b.style.transform = `translate(-50%,-50%) translate3d(${(bCx * BLOB_AMP * d).toFixed(2)}px,${(bCy * BLOB_AMP * d).toFixed(2)}px,0)`;
+        });
+        requestAnimationFrame(blobLoop);
+      })();
+    }
+
   }
 
   /* ── Nav scroll ── */

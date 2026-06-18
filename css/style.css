@@ -291,6 +291,43 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 
 /* Magnifier removed */
 .hero-mag { display: none; }
+
+/* ── Animated blob background ── */
+@keyframes drift1 { 0%,100% { transform: translate(0,0) scale(1); }     50% { transform: translate(6%,-5%) scale(1.14); } }
+@keyframes drift2 { 0%,100% { transform: translate(0,0) scale(1.06); }  50% { transform: translate(-8%,6%) scale(0.94); } }
+@keyframes drift3 { 0%,100% { transform: translate(0,0) scale(1); }     50% { transform: translate(7%,8%) scale(1.16); } }
+@keyframes drift4 { 0%,100% { transform: translate(0,0) scale(1.1); }   50% { transform: translate(-6%,-7%) scale(0.98); } }
+@keyframes drift5 { 0%,100% { transform: translate(0,0) scale(1); }     50% { transform: translate(5%,-8%) scale(1.1); } }
+@keyframes drift6 { 0%,100% { transform: translate(0,0) scale(1.04); }  50% { transform: translate(-5%,-4%) scale(1.12); } }
+@media (prefers-reduced-motion: reduce) { .blob-inner { animation: none !important; } }
+
+.hero2__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.blob {
+  position: absolute;
+  mix-blend-mode: screen;
+  will-change: transform;
+  transform: translate(-50%,-50%);
+}
+.blob-inner {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  will-change: transform;
+}
+.hero2__grain {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; mix-blend-mode: overlay; opacity: 0.5;
+}
+.hero2__vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(145% 135% at 50% 40%, rgba(10,10,11,0) 58%, rgba(10,10,11,0.45) 100%);
+}
+
 .hero2__sticky {
   position: sticky;
   top: 0;
