@@ -9,8 +9,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/gallery.css">
 </head>
 <body class="gallery-page">
+
+<!-- Custom cursor (gallery only) -->
+<div class="cursor" data-shape="" aria-hidden="true"></div>
 
 <nav class="nav nav--dark">
   <div class="nav__inner">
@@ -38,63 +42,92 @@
   <a href="../contact/" class="nav__link">Contact</a>
 </div>
 
-<div class="page-hero page-hero--dark">
-  <div class="container">
-    <span class="page-hero__eyebrow">Beyond Design</span>
-    <h1>Mixed Media Art, Shaped by Travel.</h1>
-    <p class="page-hero__sub">Alongside my design work, I create mixed media art collages — process-driven pieces shaped by the places I've lived and traveled through, from Tbilisi to Bangkok to the Himalayas. Each piece blends photography, drawing, and found materials into something that captures a feeling more than a literal place.</p>
+<!-- ═══════════════════════════════════════════════
+     COLLAGE HERO INTRO
+     6 images fly in from different directions,
+     stagger → settle → title fades in
+════════════════════════════════════════════════ -->
+<section class="ghero">
+  <div class="ghero__grid">
+    <div class="ghero__cell ghero__cell--1">
+      <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-01.jpg" alt="" loading="eager" fetchpriority="high">
+    </div>
+    <div class="ghero__cell ghero__cell--2">
+      <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-03.jpg" alt="" loading="eager">
+    </div>
+    <div class="ghero__cell ghero__cell--3">
+      <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-02.jpg" alt="" loading="eager">
+    </div>
+    <div class="ghero__cell ghero__cell--4">
+      <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-05.jpg" alt="" loading="eager">
+    </div>
+    <div class="ghero__cell ghero__cell--5">
+      <img src="../images/gallery/kidashi-design-mixed-media-art-collage-rishikesh-india-01.jpg" alt="" loading="eager">
+    </div>
+    <div class="ghero__cell ghero__cell--6">
+      <img src="../images/gallery/kidashi-design-mixed-media-art-collage-koh-phangan-thailand-01.jpg" alt="" loading="eager">
+    </div>
   </div>
-</div>
+  <div class="ghero__overlay"></div>
+  <div class="ghero__content">
+    <span class="ghero__eyebrow">Beyond Design</span>
+    <h1 class="ghero__title">Mixed Media Art,<br><em>Shaped by Travel.</em></h1>
+    <p class="ghero__sub">Collages born from the places I've lived — Tbilisi, Bangkok, the Himalayas — blending photography, drawing, and found materials into something that captures a feeling more than a literal place.</p>
+    <a href="#gallery-main" class="ghero__scroll" aria-label="Scroll to gallery">
+      <span></span>
+    </a>
+  </div>
+</section>
 
-<div class="gallery-main">
+<!-- ═══════════════════════════════════════════════
+     GALLERY GRID
+════════════════════════════════════════════════ -->
+<div class="gallery-main" id="gallery-main">
   <div class="container">
 
-    <!-- TBILISI -->
+    <!-- TBILISI (11 → 10 after removing duplicate) -->
     <div class="gallery-group">
       <p class="gallery-group__heading">Tbilisi, Georgia</p>
       <div class="gallery-grid">
-        <div class="gallery-item gallery-item--span2" data-delay="0">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-01.jpg" alt="Mixed media art collage, Tbilisi, Georgia">
+        <div class="gallery-item" data-delay="0" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-01.jpg" data-label="Tbilisi, Georgia">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-01.jpg" alt="Mixed media art collage, Tbilisi" loading="lazy">
           <div class="gallery-item__label">Tbilisi, Georgia</div>
         </div>
-        <div class="gallery-item" data-delay="100">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-02.jpg" alt="Mixed media art collage, Tbilisi, Georgia">
+        <div class="gallery-item" data-delay="100" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-02.jpg" data-label="Tbilisi, Georgia">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-02.jpg" alt="Mixed media art collage, Tbilisi" loading="lazy">
           <div class="gallery-item__label">Tbilisi, Georgia</div>
         </div>
-        <div class="gallery-item" data-delay="150">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-03-color-edition.jpg" alt="Mixed media art collage, Tbilisi — Color Edition">
+        <div class="gallery-item" data-delay="150" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-03-color-edition.jpg" data-label="Tbilisi — Color Edition">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-03-color-edition.jpg" alt="Mixed media art collage, Tbilisi — Color Edition" loading="lazy">
           <div class="gallery-item__label">Tbilisi — Color Edition</div>
         </div>
-        <div class="gallery-item" data-delay="200">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-04-blue-edition.jpg" alt="Mixed media art collage, Tbilisi — Blue Edition">
+        <div class="gallery-item" data-delay="200" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-04-blue-edition.jpg" data-label="Tbilisi — Blue Edition">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-04-blue-edition.jpg" alt="Mixed media art collage, Tbilisi — Blue Edition" loading="lazy">
           <div class="gallery-item__label">Tbilisi — Blue Edition</div>
         </div>
-        <div class="gallery-item" data-delay="250">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-05.jpg" alt="Mixed media art collage, Tbilisi, Georgia">
+        <div class="gallery-item" data-delay="250" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-05.jpg" data-label="Tbilisi, Georgia">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-05.jpg" alt="Mixed media art collage, Tbilisi" loading="lazy">
           <div class="gallery-item__label">Tbilisi, Georgia</div>
         </div>
-        <div class="gallery-item" data-delay="100">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-06-color-edition.jpg" alt="Mixed media art collage, Tbilisi — Color Edition">
-          <div class="gallery-item__label">Tbilisi — Color Edition</div>
-        </div>
-        <div class="gallery-item" data-delay="150">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-07-bw-edition.jpg" alt="Mixed media art collage, Tbilisi — B&W Edition">
+        <!-- tbilisi-06-color-edition REMOVED (duplicate) -->
+        <div class="gallery-item" data-delay="100" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-07-bw-edition.jpg" data-label="Tbilisi — B&W Edition">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-07-bw-edition.jpg" alt="Mixed media art collage, Tbilisi — B&W Edition" loading="lazy">
           <div class="gallery-item__label">Tbilisi — B&amp;W Edition</div>
         </div>
-        <div class="gallery-item gallery-item--span2" data-delay="200">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-08.jpg" alt="Mixed media art collage, Tbilisi, Georgia">
+        <div class="gallery-item" data-delay="150" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-08.jpg" data-label="Tbilisi, Georgia">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-08.jpg" alt="Mixed media art collage, Tbilisi" loading="lazy">
           <div class="gallery-item__label">Tbilisi, Georgia</div>
         </div>
-        <div class="gallery-item" data-delay="100">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-09.jpg" alt="Mixed media art collage, Tbilisi, Georgia">
+        <div class="gallery-item" data-delay="200" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-09.jpg" data-label="Tbilisi, Georgia">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-09.jpg" alt="Mixed media art collage, Tbilisi" loading="lazy">
           <div class="gallery-item__label">Tbilisi, Georgia</div>
         </div>
-        <div class="gallery-item" data-delay="150">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-10.jpg" alt="Mixed media art collage, Tbilisi, Georgia">
+        <div class="gallery-item" data-delay="250" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-10.jpg" data-label="Tbilisi, Georgia">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-10.jpg" alt="Mixed media art collage, Tbilisi" loading="lazy">
           <div class="gallery-item__label">Tbilisi, Georgia</div>
         </div>
-        <div class="gallery-item" data-delay="200">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-11.jpg" alt="Mixed media art collage, Tbilisi, Georgia">
+        <div class="gallery-item" data-delay="300" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-11.jpg" data-label="Tbilisi, Georgia">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-11.jpg" alt="Mixed media art collage, Tbilisi" loading="lazy">
           <div class="gallery-item__label">Tbilisi, Georgia</div>
         </div>
       </div>
@@ -104,28 +137,28 @@
     <div class="gallery-group">
       <p class="gallery-group__heading">Dharamshala, India</p>
       <div class="gallery-grid">
-        <div class="gallery-item gallery-item--span2" data-delay="0">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-01.jpg" alt="Mixed media art collage, Dharamshala, India">
+        <div class="gallery-item" data-delay="0" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-01.jpg" data-label="Dharamshala, India">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-01.jpg" alt="Mixed media art collage, Dharamshala" loading="lazy">
           <div class="gallery-item__label">Dharamshala, India</div>
         </div>
-        <div class="gallery-item" data-delay="100">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-02.jpg" alt="Mixed media art collage, Dharamshala, India">
+        <div class="gallery-item" data-delay="100" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-02.jpg" data-label="Dharamshala, India">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-02.jpg" alt="Mixed media art collage, Dharamshala" loading="lazy">
           <div class="gallery-item__label">Dharamshala, India</div>
         </div>
-        <div class="gallery-item" data-delay="150">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-03.jpg" alt="Mixed media art collage, Dharamshala, India">
+        <div class="gallery-item" data-delay="150" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-03.jpg" data-label="Dharamshala, India">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-03.jpg" alt="Mixed media art collage, Dharamshala" loading="lazy">
           <div class="gallery-item__label">Dharamshala, India</div>
         </div>
-        <div class="gallery-item" data-delay="200">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-04.jpg" alt="Mixed media art collage, Dharamshala, India">
+        <div class="gallery-item" data-delay="200" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-04.jpg" data-label="Dharamshala, India">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-04.jpg" alt="Mixed media art collage, Dharamshala" loading="lazy">
           <div class="gallery-item__label">Dharamshala, India</div>
         </div>
-        <div class="gallery-item" data-delay="250">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-05.jpg" alt="Mixed media art collage, Dharamshala, India">
+        <div class="gallery-item" data-delay="250" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-05.jpg" data-label="Dharamshala, India">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-05.jpg" alt="Mixed media art collage, Dharamshala" loading="lazy">
           <div class="gallery-item__label">Dharamshala, India</div>
         </div>
-        <div class="gallery-item" data-delay="300">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-06.jpg" alt="Mixed media art collage, Dharamshala, India">
+        <div class="gallery-item" data-delay="300" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-06.jpg" data-label="Dharamshala, India">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-06.jpg" alt="Mixed media art collage, Dharamshala" loading="lazy">
           <div class="gallery-item__label">Dharamshala, India</div>
         </div>
       </div>
@@ -135,24 +168,24 @@
     <div class="gallery-group">
       <p class="gallery-group__heading">Bangkok, Thailand</p>
       <div class="gallery-grid">
-        <div class="gallery-item gallery-item--span2" data-delay="0">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-01.jpg" alt="Mixed media art collage, Bangkok, Thailand">
+        <div class="gallery-item" data-delay="0" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-01.jpg" data-label="Bangkok, Thailand">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-01.jpg" alt="Mixed media art collage, Bangkok" loading="lazy">
           <div class="gallery-item__label">Bangkok, Thailand</div>
         </div>
-        <div class="gallery-item" data-delay="100">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-02.jpg" alt="Mixed media art collage, Bangkok, Thailand">
+        <div class="gallery-item" data-delay="100" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-02.jpg" data-label="Bangkok, Thailand">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-02.jpg" alt="Mixed media art collage, Bangkok" loading="lazy">
           <div class="gallery-item__label">Bangkok, Thailand</div>
         </div>
-        <div class="gallery-item" data-delay="150">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-03-blue-edition.jpg" alt="Mixed media art collage, Bangkok — Blue Edition">
+        <div class="gallery-item" data-delay="150" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-03-blue-edition.jpg" data-label="Bangkok — Blue Edition">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-03-blue-edition.jpg" alt="Mixed media art collage, Bangkok — Blue Edition" loading="lazy">
           <div class="gallery-item__label">Bangkok — Blue Edition</div>
         </div>
-        <div class="gallery-item" data-delay="200">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-04-green-edition.jpg" alt="Mixed media art collage, Bangkok — Green Edition">
+        <div class="gallery-item" data-delay="200" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-04-green-edition.jpg" data-label="Bangkok — Green Edition">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-04-green-edition.jpg" alt="Mixed media art collage, Bangkok — Green Edition" loading="lazy">
           <div class="gallery-item__label">Bangkok — Green Edition</div>
         </div>
-        <div class="gallery-item" data-delay="250">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-05-bw-edition.jpg" alt="Mixed media art collage, Bangkok — B&W Edition">
+        <div class="gallery-item" data-delay="250" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-05-bw-edition.jpg" data-label="Bangkok — B&W Edition">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-05-bw-edition.jpg" alt="Mixed media art collage, Bangkok — B&W Edition" loading="lazy">
           <div class="gallery-item__label">Bangkok — B&amp;W Edition</div>
         </div>
       </div>
@@ -162,50 +195,40 @@
     <div class="gallery-group">
       <p class="gallery-group__heading">Rishikesh, India</p>
       <div class="gallery-grid">
-        <div class="gallery-item" data-delay="0">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-rishikesh-india-01.jpg" alt="Mixed media art collage, Rishikesh, India">
+        <div class="gallery-item" data-delay="0" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-rishikesh-india-01.jpg" data-label="Rishikesh, India">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-rishikesh-india-01.jpg" alt="Mixed media art collage, Rishikesh" loading="lazy">
           <div class="gallery-item__label">Rishikesh, India</div>
         </div>
-        <div class="gallery-item" data-delay="150">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-rishikesh-india-02.jpg" alt="Mixed media art collage, Rishikesh, India">
+        <div class="gallery-item" data-delay="150" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-rishikesh-india-02.jpg" data-label="Rishikesh, India">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-rishikesh-india-02.jpg" alt="Mixed media art collage, Rishikesh" loading="lazy">
           <div class="gallery-item__label">Rishikesh, India</div>
         </div>
-        <div class="gallery-item gallery-item--span2" data-delay="200">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-rishikesh-india-03.jpg" alt="Mixed media art collage, Rishikesh, India">
+        <div class="gallery-item" data-delay="250" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-rishikesh-india-03.jpg" data-label="Rishikesh, India">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-rishikesh-india-03.jpg" alt="Mixed media art collage, Rishikesh" loading="lazy">
           <div class="gallery-item__label">Rishikesh, India</div>
         </div>
       </div>
     </div>
 
-    <!-- KOH CHANG + KOH PHANGAN + ALMATY -->
+    <!-- KOH CHANG, KOH PHANGAN, ALMATY -->
     <div class="gallery-group">
       <p class="gallery-group__heading">Koh Chang &amp; Koh Phangan, Thailand</p>
       <div class="gallery-grid">
-        <div class="gallery-item" data-delay="0">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-koh-chang-thailand-01.jpg" alt="Mixed media art collage, Koh Chang, Thailand">
+        <div class="gallery-item" data-delay="0" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-koh-chang-thailand-01.jpg" data-label="Koh Chang, Thailand">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-koh-chang-thailand-01.jpg" alt="Mixed media art collage, Koh Chang" loading="lazy">
           <div class="gallery-item__label">Koh Chang, Thailand</div>
         </div>
-        <div class="gallery-item" data-delay="150">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-koh-chang-thailand-02-alt.jpg" alt="Mixed media art collage, Koh Chang, Thailand">
-          <div class="gallery-item__label">Koh Chang, Thailand</div>
-        </div>
-        <div class="gallery-item" data-delay="250">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-koh-phangan-thailand-01.jpg" alt="Mixed media art collage, Koh Phangan, Thailand">
+        <!-- koh-chang-02-alt REMOVED (duplicate) -->
+        <div class="gallery-item" data-delay="150" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-koh-phangan-thailand-01.jpg" data-label="Koh Phangan, Thailand">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-koh-phangan-thailand-01.jpg" alt="Mixed media art collage, Koh Phangan" loading="lazy">
           <div class="gallery-item__label">Koh Phangan, Thailand</div>
         </div>
-        <div class="gallery-item" data-delay="350">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-almaty-kazakhstan-01.jpg" alt="Mixed media art collage, Almaty, Kazakhstan">
+        <div class="gallery-item" data-delay="300" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-almaty-kazakhstan-01.jpg" data-label="Almaty, Kazakhstan">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-almaty-kazakhstan-01.jpg" alt="Mixed media art collage, Almaty" loading="lazy">
           <div class="gallery-item__label">Almaty, Kazakhstan</div>
         </div>
-      </div>
-    </div>
-
-    <!-- THAILAND MIXED -->
-    <div class="gallery-group">
-      <p class="gallery-group__heading">Thailand</p>
-      <div class="gallery-grid">
-        <div class="gallery-item gallery-item--span2" data-delay="0">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-thailand-01.jpg" alt="Mixed media art collage, Thailand">
+        <div class="gallery-item" data-delay="400" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-thailand-01.jpg" data-label="Thailand">
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-thailand-01.jpg" alt="Mixed media art collage, Thailand" loading="lazy">
           <div class="gallery-item__label">Thailand</div>
         </div>
       </div>
@@ -249,6 +272,19 @@
   </div>
 </footer>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lightbox__close" aria-label="Close">✕</button>
+  <button class="lightbox__prev" aria-label="Previous">‹</button>
+  <button class="lightbox__next" aria-label="Next">›</button>
+  <div class="lightbox__backdrop"></div>
+  <div class="lightbox__stage">
+    <img src="" alt="" class="lightbox__img">
+    <p class="lightbox__label"></p>
+  </div>
+</div>
+
 <script src="../js/main.js"></script>
+<script src="../js/gallery.js"></script>
 </body>
 </html>
