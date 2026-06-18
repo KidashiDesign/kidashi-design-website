@@ -174,17 +174,108 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .nav__burger.open span:nth-child(2) { opacity: 0; }
 .nav__burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
+/* ── Desktop location widget ── */
+.nav__location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-b);
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(247,243,238,0.4);
+  margin-right: 1.5rem;
+  white-space: nowrap;
+}
+.nav--light .nav__location,
+.nav.scrolled .nav__location { color: rgba(10,10,11,0.35); }
+.nav--dark.scrolled .nav__location { color: rgba(247,243,238,0.4); }
+.nav__location-sep { opacity: 0.4; }
+.nav__location-time { font-variant-numeric: tabular-nums; }
+.nav__location-tz { color: var(--primary); font-size: 0.58rem; }
+
+/* ── Mobile menu ── */
 .nav__mobile {
-  display: none; position: fixed; inset: 0; background: var(--dark);
-  z-index: 999; flex-direction: column; align-items: center; justify-content: center;
-  gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity 0.35s var(--ease);
+  display: none;
+  position: fixed; inset: 0;
+  background: var(--bg);
+  z-index: 999;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s var(--ease);
 }
-.nav__mobile.open { opacity: 1; pointer-events: auto; display: flex; }
+.nav__mobile.open { opacity: 1; pointer-events: auto; display: block; }
+
+.nav__mobile-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: clamp(1.5rem, 5vw, 3rem);
+}
+
+.nav__mobile-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-top: calc(var(--nav-h) - 0.5rem);
+}
+
+.nav__mobile-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
 .nav__mobile .nav__link {
-  font-size: 2rem; font-family: var(--font-h); font-weight: 300;
-  font-style: italic; letter-spacing: 0.02em; text-transform: none; color: var(--cream);
+  font-family: var(--font-b);
+  font-size: clamp(1.5rem, 6vw, 2.2rem);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: rgba(10,10,11,0.28);
+  text-decoration: none;
+  line-height: 1.45;
+  transition: color 0.2s;
 }
-.nav__mobile .nav__link.active { color: var(--primary); }
+.nav__mobile .nav__link:hover,
+.nav__mobile .nav__link.active { color: var(--dark); }
+
+.nav__mobile-close {
+  font-family: var(--font-b);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(10,10,11,0.4);
+  background: none; border: none; cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+  flex-shrink: 0;
+  margin-top: 0.4rem;
+}
+.nav__mobile-close:hover { color: var(--dark); }
+
+.nav__mobile-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-bottom: 0.5rem;
+}
+.nav__mobile-meta span {
+  font-family: var(--font-b);
+  font-size: clamp(1rem, 4vw, 1.3rem);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  color: rgba(10,10,11,0.28);
+  line-height: 1.55;
+}
+.nav__mobile-meta-time {
+  font-variant-numeric: tabular-nums;
+}
+.nav__mobile-meta-tz {
+  color: rgba(10,10,11,0.28) !important;
+}
 
 /* ============================================================
    HERO 2 — Full-screen name + scroll-reveal
@@ -640,6 +731,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   :root { --nav-h: 60px; }
   .nav__links { display: none; }
   .nav__burger { display: flex; }
+  .nav__location { display: none; }
   .about-teaser__stats { grid-template-columns: 1fr; gap: 1.25rem; }
   .services-dark__grid { grid-template-columns: 1fr; }
   .service-card { border-left: none; border-top: 1px solid rgba(196,173,148,0.12); }

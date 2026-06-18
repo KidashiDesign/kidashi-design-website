@@ -173,25 +173,45 @@ document.addEventListener('DOMContentLoaded', () => {
   const burger = document.querySelector('.nav__burger');
   const mobileNav = document.querySelector('.nav__mobile');
   if (burger && mobileNav) {
+    function openMenu() {
+      burger.classList.add('open');
+      mobileNav.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      burger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      document.body.style.overflow = '';
+    }
     burger.addEventListener('click', () => {
-      const open = burger.classList.toggle('open');
-      if (open) {
-        mobileNav.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      } else {
-        mobileNav.classList.remove('open');
-        document.body.style.overflow = '';
-      }
+      burger.classList.contains('open') ? closeMenu() : openMenu();
     });
-    // Close on link click
+    const closeBtn = mobileNav.querySelector('.nav__mobile-close');
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
     mobileNav.querySelectorAll('.nav__link').forEach(link => {
-      link.addEventListener('click', () => {
-        burger.classList.remove('open');
-        mobileNav.classList.remove('open');
-        document.body.style.overflow = '';
-      });
+      link.addEventListener('click', closeMenu);
     });
   }
+
+  /* ── Tbilisi clock (UTC+4) ── */
+  const navTime    = document.getElementById('navTime');
+  const mobileMonth = document.getElementById('mobileMonth');
+  const mobileDay   = document.getElementById('mobileDay');
+  const mobileTime  = document.getElementById('mobileTime');
+  const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function updateClock() {
+    const now = new Date(Date.now() + 4 * 3600000);
+    const hh = String(now.getUTCHours()).padStart(2, '0');
+    const mm = String(now.getUTCMinutes()).padStart(2, '0');
+    const ss = String(now.getUTCSeconds()).padStart(2, '0');
+    if (navTime)     navTime.textContent     = `${hh}:${mm}`;
+    if (mobileTime)  mobileTime.textContent  = `${hh}:${mm}:${ss}`;
+    if (mobileMonth) mobileMonth.textContent = MONTHS[now.getUTCMonth()];
+    if (mobileDay)   mobileDay.textContent   = DAYS[now.getUTCDay()];
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
 
   /* ── Parallax hero ── */
   const hero = document.querySelector('.hero');
