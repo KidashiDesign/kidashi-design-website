@@ -486,76 +486,58 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .cursor {
     position: fixed;
     top: 0; left: 0;
-    width: 22px; height: 22px;
+    width: 28px; height: 28px;
     pointer-events: none;
     z-index: 99999;
     display: flex; align-items: center; justify-content: center;
-    transition: width 0.35s cubic-bezier(0.16,1,0.3,1),
-                height 0.35s cubic-bezier(0.16,1,0.3,1),
-                opacity 0.2s;
     will-change: transform;
   }
 
-  /* Default: small outline circle */
+  /* Default: tiny dot, no circle */
   .cursor__dot {
-    width: 10px; height: 10px;
-    border: 1.5px solid rgba(253, 250, 246, 0.65);
+    width: 5px; height: 5px;
+    background: rgba(253, 250, 246, 0.7);
     border-radius: 50%;
-    transition: width 0.35s cubic-bezier(0.16,1,0.3,1),
-                height 0.35s cubic-bezier(0.16,1,0.3,1),
-                opacity 0.25s,
-                border-color 0.25s,
-                background 0.25s;
+    transition: opacity 0.2s, transform 0.2s;
     flex-shrink: 0;
   }
-  /* Adapt dot colour on light-bg pages */
   body:not(.gallery-page) .cursor__dot {
-    border-color: rgba(46, 30, 16, 0.5);
+    background: rgba(46, 30, 16, 0.55);
   }
 
-  /* Shape icon — hidden by default */
+  /* Icon — hidden by default, revealed on hover */
   .cursor__icon {
     position: absolute;
     inset: 0;
     display: flex; align-items: center; justify-content: center;
     opacity: 0;
-    transition: opacity 0.25s;
+    transition: opacity 0.2s;
   }
   .cursor__icon svg {
-    width: 22px; height: 22px;
-    fill: #0D0B09;
-    transition: fill 0.2s;
+    width: 26px; height: 26px;
+    transition: fill 0.15s;
   }
 
-  /* Hover state: filled icon cycling through brand colors */
+  /* Hover: icon visible, dot hidden, icon color cycles */
   .cursor.is-hovering {
-    width: 44px; height: 44px;
-    animation: cursorCycleBg 2.4s ease-in-out infinite;
-    border-radius: 50%;
+    width: 28px; height: 28px;
   }
   .cursor.is-hovering .cursor__dot {
     opacity: 0;
-    width: 44px; height: 44px;
-    border-color: transparent;
+    transform: scale(0);
   }
   .cursor.is-hovering .cursor__icon {
     opacity: 1;
   }
+  /* Color cycling on the SVG fill via animation */
   .cursor.is-hovering .cursor__icon svg {
-    width: 22px; height: 22px;
+    animation: cursorIconColor 2.4s ease-in-out infinite;
   }
 
-  .cursor.is-lightbox .cursor__dot {
-    width: 48px; height: 48px;
-    background: rgba(253,250,246,0.12);
-    border-color: rgba(253,250,246,0.5);
-    border-radius: 50%;
-  }
-
-  @keyframes cursorCycleBg {
-    0%   { background: var(--terra); }
-    33%  { background: #2D5840; }
-    66%  { background: #C4AD94; }
-    100% { background: var(--terra); }
+  @keyframes cursorIconColor {
+    0%   { fill: var(--terra); }
+    33%  { fill: #2D5840; }
+    66%  { fill: #C4AD94; }
+    100% { fill: var(--terra); }
   }
 }
