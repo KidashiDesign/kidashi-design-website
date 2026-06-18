@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const el = document.elementFromPoint(e.clientX, e.clientY);
       const themeEl = el && el.closest ? el.closest('[data-theme]') : null;
       if (themeEl) {
-        cursor.style.color = themeEl.getAttribute('data-theme') === 'light' ? '#1A0F07' : '#F7F3EE';
+        cursor.style.color = themeEl.getAttribute('data-theme') === 'light' ? '#0A0A0B' : '#F7F3EE';
       }
       /* Hover detection */
       const hovered = !!(el && el.closest && el.closest('a, button, .gallery-item, .portfolio-item, .portfolio-card, .service-card, .filter-btn, [role="button"], [data-cursor="hover"]'));

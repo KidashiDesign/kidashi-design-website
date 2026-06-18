@@ -6,14 +6,14 @@
 
 /* ── Gallery page background (off-black warm dark) ── */
 .gallery-page {
-  background: #0a0a0c;
+  background: #0A0A0B;
 }
 .gallery-main {
-  background: #0a0a0c;
+  background: #0A0A0B;
   padding-top: clamp(4rem, 8vw, 8rem);
 }
 .gallery-cta {
-  background: #0a0a0c;
+  background: #0A0A0B;
 }
 
 /* ── Gallery page: headings left-aligned (override global center) ── */
@@ -32,7 +32,7 @@
   height: 100svh;
   min-height: 500px;
   overflow: hidden;
-  background: #0a0a0c;
+  background: #0A0A0B;
   font-family: var(--font-b), system-ui, sans-serif;
 }
 
@@ -44,7 +44,7 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr;
   gap: 1px;
-  background: #08080a;
+  background: #0A0A0B;
 }
 
 .ghero__cell {
