@@ -6,11 +6,14 @@
 
 /* ── Gallery page background (off-black warm dark) ── */
 .gallery-page {
-  background: #100E0B;
+  background: #0a0a0c;
 }
-.gallery-main,
+.gallery-main {
+  background: #0a0a0c;
+  padding-top: clamp(4rem, 8vw, 8rem);
+}
 .gallery-cta {
-  background: #100E0B;
+  background: #0a0a0c;
 }
 
 /* ══════════════════════════════════════════════════
@@ -295,6 +298,11 @@
   .gallery-page * { cursor: auto !important; }
   .cursor { display: none; }
 
+  .ghero {
+    height: 100svh;
+    min-height: 100svh;
+  }
+
   .ghero__grid {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr 1fr;
@@ -318,6 +326,10 @@
 }
 
 @media (max-width: 480px) {
+  .ghero {
+    height: 100svh;
+    min-height: 100svh;
+  }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .ghero__cue { display: none; }
 }
