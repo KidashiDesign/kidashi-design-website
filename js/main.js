@@ -255,4 +255,66 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  /* ── H2 Scramble-Reveal ── */
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#%&*?§$+=/~^<>';
+  const rand = () => CHARS[Math.floor(Math.random() * CHARS.length)];
+
+  document.querySelectorAll('h2').forEach(h2 => {
+    const original = h2.textContent;
+    let scrambleRaf = null;
+    let revealed = false;
+
+    /* Wrap each character in a span for per-char reveal */
+    h2.innerHTML = original.split('').map((ch, i) =>
+      ch === ' ' ? ' ' : `<span data-char="${ch}" style="opacity:0">${rand()}</span>`
+    ).join('');
+    const spans = Array.from(h2.querySelectorAll('span[data-char]'));
+
+    function scramble() {
+      spans.forEach(s => { if (!s.dataset.done) s.textContent = rand(); });
+      scrambleRaf = requestAnimationFrame(scramble);
+    }
+
+    function reveal() {
+      if (revealed) return;
+      revealed = true;
+      cancelAnimationFrame(scrambleRaf);
+
+      /* Fade spans to visible first, then decode left→right */
+      spans.forEach(s => { s.style.transition = 'opacity 0.25s'; s.style.opacity = '1'; });
+
+      let i = 0;
+      const step = () => {
+        if (i >= spans.length) return;
+        const s = spans[i];
+        let flips = 0;
+        const flip = setInterval(() => {
+          s.textContent = flips < 5 ? rand() : s.dataset.char;
+          flips++;
+          if (flips > 6) { clearInterval(flip); s.dataset.done = '1'; step(); }
+        }, 40);
+        i++;
+        if (i % 3 !== 0) step(); /* reveal 3 chars at once for speed */
+      };
+      /* slight stagger before starting */
+      setTimeout(step, 120);
+    }
+
+    /* Two observers: low threshold starts scramble, high threshold triggers reveal */
+    const startObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !revealed) { scramble(); startObs.unobserve(h2); }
+      });
+    }, { threshold: 0.05 });
+
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { reveal(); revealObs.unobserve(h2); }
+      });
+    }, { threshold: 0.55 });
+
+    startObs.observe(h2);
+    revealObs.observe(h2);
+  });
+
 });
