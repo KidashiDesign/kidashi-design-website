@@ -16,6 +16,12 @@
   background: #0a0a0c;
 }
 
+/* ── Gallery page: headings left-aligned (override global center) ── */
+.gallery-page h1,
+.gallery-page h2 {
+  text-align: left;
+}
+
 /* ══════════════════════════════════════════════════
    GALLERY HERO — faithful dc.html implementation
    4-column grid, rAF parallax, film grain, scrim
