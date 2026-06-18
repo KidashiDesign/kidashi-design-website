@@ -109,6 +109,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  /* ── Hero 2 — letter flip + scroll animation ── */
+  const hero2 = document.getElementById('hero2');
+  if (hero2) {
+    /* Letter flip on hover */
+    hero2.querySelectorAll('.hero2__letter').forEach(letter => {
+      letter.addEventListener('mouseenter', () => {
+        letter.classList.remove('flipping');
+        void letter.offsetWidth; /* force reflow to restart animation */
+        letter.classList.add('flipping');
+      });
+      letter.addEventListener('animationend', () => {
+        letter.classList.remove('flipping');
+      });
+    });
+
+    /* Scroll-driven: H2 in from sides + GIF expands down */
+    const revealLeft  = hero2.querySelector('.hero2__reveal-left');
+    const revealRight = hero2.querySelector('.hero2__reveal-right');
+    const revealH2    = hero2.querySelector('.hero2__reveal-h2');
+    const heroGif     = document.getElementById('heroGif');
+
+    function updateHero2() {
+      const rect       = hero2.getBoundingClientRect();
+      const scrollable = hero2.offsetHeight - window.innerHeight;
+      const progress   = Math.max(0, Math.min(1, -rect.top / scrollable));
+
+      /* H2 slides in from sides (begins at 15%, completes at 70%) */
+      const h2p = Math.max(0, Math.min(1, (progress - 0.15) / 0.55));
+      const h2e = 1 - Math.pow(1 - h2p, 3);
+      const tx  = (1 - h2e) * 65;
+      if (revealLeft)  revealLeft.style.transform  = `translateX(${-tx}vw)`;
+      if (revealRight) revealRight.style.transform = `translateX(${tx}vw)`;
+      if (revealH2)    revealH2.style.opacity      = String(h2e);
+
+      /* GIF drops out of frame + expands */
+      if (heroGif) {
+        const gScale = 1 + progress * 8;
+        const gY     = progress * 32;
+        heroGif.style.transform = `translateY(${gY}vh) scale(${gScale})`;
+      }
+    }
+
+    window.addEventListener('scroll', updateHero2, { passive: true });
+    updateHero2();
+  }
+
   /* ── Nav scroll ── */
   const nav = document.querySelector('.nav');
   if (nav) {
