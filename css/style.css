@@ -283,43 +283,77 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .hero2 {
   height: 230vh;
   position: relative;
-  background: linear-gradient(
-    135deg,
-    #F7F3EE 0%,
-    rgba(255,188,149,0.13) 30%,
-    rgba(46,84,254,0.07) 60%,
-    rgba(255,240,131,0.09) 100%
-  );
+  background: #0A0A0B;
 }
 
-/* Glass bubble */
-.hero2__bubble {
-  position: absolute;
-  width: clamp(260px, 34vw, 520px);
-  aspect-ratio: 1;
+/* Bubble removed — replaced by full-screen reactive gradient */
+.hero2__bubble { display: none; }
+
+/* ── Hero magnifier cursor ── */
+.hero-mag {
+  position: fixed;
+  width: 164px; height: 164px;
   border-radius: 50%;
-  background: conic-gradient(
-    from 200deg at 38% 38%,
-    rgba(255,188,149,0.72) 0deg,
-    rgba(255,240,131,0.52) 85deg,
-    rgba(46,84,254,0.38) 185deg,
-    rgba(255,188,149,0.65) 290deg,
-    rgba(255,188,149,0.72) 360deg
-  );
-  backdrop-filter: blur(38px) saturate(2.2);
-  -webkit-backdrop-filter: blur(38px) saturate(2.2);
-  border: 1px solid rgba(255,255,255,0.55);
-  box-shadow:
-    inset 0 2px 6px rgba(255,255,255,0.75),
-    inset 0 -2px 6px rgba(0,0,0,0.04),
-    0 40px 100px rgba(255,188,149,0.22),
-    0 0 0 1px rgba(255,188,149,0.08);
   pointer-events: none;
-  will-change: transform;
-  top: 44%;
-  right: 10%;
-  z-index: 0;
+  z-index: 9000;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  border: 1.5px solid rgba(255,255,255,0.55);
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.7),
+    inset 0 -1px 0 rgba(255,255,255,0.15),
+    0 8px 40px rgba(0,0,0,0.5);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(0.5px) brightness(1.06);
+  -webkit-backdrop-filter: blur(0.5px) brightness(1.06);
+  opacity: 0;
+  transition: opacity 0.2s;
+  cursor: none;
 }
+.hero-mag.active { opacity: 1; }
+.hero-mag__inner { position: absolute; inset: 0; overflow: hidden; }
+.hero-mag__glint {
+  position: absolute;
+  top: 7%; left: 9%;
+  width: 35%; height: 14%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.65), rgba(255,255,255,0));
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Rainbow h1 clone inside magnifier */
+.hero2__h1--mag {
+  font-family: var(--font-h);
+  font-weight: 900;
+  line-height: 0.87;
+  letter-spacing: -0.02em;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  color: transparent;
+  -webkit-text-stroke: 2.5px rgba(255,255,255,0.9);
+  background: linear-gradient(90deg,
+    #ff3b3b, #ff8c00, #ffe600, #00e676, #00cfff, #3d5afe, #ea00ff, #ff3b3b
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: rainbowShift 1.8s linear infinite;
+  user-select: none;
+}
+.hero2__h1--mag .hero2__word {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+@keyframes rainbowShift {
+  from { background-position: 0% 0%; }
+  to   { background-position: 250% 0%; }
+}
+
+/* Hide normal cursor over hero */
+.cursor--hidden { opacity: 0 !important; }
 .hero2__sticky {
   position: sticky;
   top: 0;
@@ -329,12 +363,15 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   flex-direction: column;
   justify-content: center;
   padding: calc(var(--nav-h) + 1.5vh) var(--gutter) clamp(1.5rem, 4vh, 3rem);
+  /* reactive gradient — updated via JS CSS vars --mx / --my */
+  background: radial-gradient(
+    ellipse 110vw 110vh at var(--mx, 30%) var(--my, 45%),
+    rgba(255,188,149,0.42) 0%,
+    rgba(46,84,254,0.28) 38%,
+    rgba(255,240,131,0.22) 62%,
+    transparent 100%
+  );
 }
-
-/* Content above bubble */
-.hero2__h1,
-.hero2__sub-row,
-.hero2__reveal { position: relative; z-index: 1; }
 
 /* Giant name */
 .hero2__h1 {
@@ -342,10 +379,11 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   font-weight: 700;
   font-size: clamp(3.5rem, 16.5vh, 14rem);
   line-height: 0.87;
-  color: var(--dark);
+  color: rgba(247,243,238,0.92);
   margin: 0 0 clamp(0.8rem, 3vh, 2rem);
   user-select: none;
   letter-spacing: -0.02em;
+  position: relative; z-index: 1;
 }
 .hero2__word {
   display: flex;
@@ -434,7 +472,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   font-family: var(--font-h);
   font-weight: 300;
   font-size: clamp(2.5rem, 7vw, 9rem);
-  color: var(--dark);
+  color: rgba(247,243,238,0.55);
   margin: 0;
   display: flex;
   justify-content: space-between;
