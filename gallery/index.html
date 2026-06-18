@@ -43,34 +43,46 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════
-     COLLAGE HERO — 4 portrait cards fan in
+     COLLAGE HERO INTRO — exact dc.html implementation
+     4-column grid · rAF ambient parallax · pointer tracking
 ════════════════════════════════════════════════ -->
-<section class="ghero">
-  <div class="ghero__bg"></div>
+<section class="ghero" id="ghero">
 
-  <div class="ghero__cards">
-    <div class="ghero__card ghero__card--1">
-      <img src="../images/gallery/kidashi-design-mixed-media-collage-hero-01.jpg" alt="" loading="eager" fetchpriority="high">
+  <!-- 4-column image grid -->
+  <div class="ghero__grid">
+    <div class="ghero__cell">
+      <div class="ghero__img" data-img style="background-image:url('../images/gallery/kidashi-design-mixed-media-collage-hero-01.jpg')"></div>
     </div>
-    <div class="ghero__card ghero__card--2">
-      <img src="../images/gallery/kidashi-design-mixed-media-collage-hero-02.jpg" alt="" loading="eager">
+    <div class="ghero__cell">
+      <div class="ghero__img" data-img style="background-image:url('../images/gallery/kidashi-design-mixed-media-collage-hero-02.jpg')"></div>
     </div>
-    <div class="ghero__card ghero__card--3">
-      <img src="../images/gallery/kidashi-design-mixed-media-collage-hero-03.jpg" alt="" loading="eager">
+    <div class="ghero__cell">
+      <div class="ghero__img" data-img style="background-image:url('../images/gallery/kidashi-design-mixed-media-collage-hero-03.jpg')"></div>
     </div>
-    <div class="ghero__card ghero__card--4">
-      <img src="../images/gallery/kidashi-design-mixed-media-collage-hero-04.jpg" alt="" loading="eager">
+    <div class="ghero__cell">
+      <div class="ghero__img" data-img style="background-image:url('../images/gallery/kidashi-design-mixed-media-collage-hero-04.jpg')"></div>
     </div>
   </div>
 
+  <!-- Radial gradient -->
+  <div class="ghero__radial" aria-hidden="true"></div>
+  <!-- Linear scrim (top+bottom) -->
+  <div class="ghero__scrim" data-scrim aria-hidden="true"></div>
+  <!-- Film grain -->
+  <div class="ghero__grain" aria-hidden="true"></div>
+
+  <!-- Text — bottom-left anchored -->
   <div class="ghero__content">
-    <span class="ghero__eyebrow">Beyond Design</span>
-    <h1 class="ghero__title">Mixed Media Art,<br><em>Shaped by Travel.</em></h1>
-    <p class="ghero__sub">Collages born from the places I've lived and traveled by— Georgia, Thailand, India, Vietnam — blending photography, drawing, and found materials into something that captures a feeling more than a literal place.</p>
-    <a href="#gallery-main" class="ghero__scroll" aria-label="Scroll to gallery">
-      <span></span>
-    </a>
+    <h1 class="ghero__title">Mixed Media<br><em>Art</em></h1>
+    <p class="ghero__sub">Collages born from the places I've lived and traveled by — Georgia, Thailand, India, Vietnam — blending photography, drawing, and found materials into something that captures a feeling more than a literal place.</p>
   </div>
+
+  <!-- Scroll cue -->
+  <div class="ghero__cue" aria-hidden="true">
+    <span class="ghero__cue-label">Scroll</span>
+    <span class="ghero__cue-line"></span>
+  </div>
+
 </section>
 
 <!-- ═══════════════════════════════════════════════
