@@ -4,53 +4,91 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ── Custom cursor (desktop only) ── */
+  /* ── Custom cursor — ported from Custom Cursor.dc.html ── */
   const cursor = document.querySelector('.cursor');
   if (cursor && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    /* Icon shapes — no background circle, just the filled SVG */
-    const SHAPES = [
-      `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`,
-      `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`,
-      `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke-width="2" stroke="currentColor"/><line x1="12" y1="21" x2="12" y2="23" stroke-width="2" stroke="currentColor"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke-width="2" stroke="currentColor"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke-width="2" stroke="currentColor"/><line x1="1" y1="12" x2="3" y2="12" stroke-width="2" stroke="currentColor"/><line x1="21" y1="12" x2="23" y2="12" stroke-width="2" stroke="currentColor"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke-width="2" stroke="currentColor"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke-width="2" stroke="currentColor"/></svg>`,
-      `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="12,2 22,12 12,22 2,12"/></svg>`,
-      `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`
-    ];
+    const GLYPHS = ['✦', '✧', '✶', '✷', '✴'];
+    const CYCLE_MS = 1000;
+    const SMOOTHING = 0.18;
+    const SIZE = 30;
 
-    cursor.innerHTML = `<span class="cursor__dot"></span><span class="cursor__icon">${SHAPES[0]}</span>`;
-    const cursorIcon = cursor.querySelector('.cursor__icon');
+    /* Build DOM */
+    cursor.innerHTML =
+      `<div class="cursor__circle">
+        <svg viewBox="0 0 100 100" width="${SIZE}" height="${SIZE}" style="overflow:visible">
+          <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="5"/>
+        </svg>
+      </div>
+      <div class="cursor__glyphs">
+        ${GLYPHS.map(g => `<span class="cursor__glyph">${g}</span>`).join('')}
+      </div>`;
 
-    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-    let curX = mouseX, curY = mouseY;
-    let hoverInterval = null, shapeIdx = 0;
+    const circleEl = cursor.querySelector('.cursor__circle');
+    const glyphsEl = cursor.querySelector('.cursor__glyphs');
+    const glyphs   = Array.from(cursor.querySelectorAll('.cursor__glyph'));
 
-    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+    let pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let target = { x: pos.x, y: pos.y };
+    let isHover = false, glyphIdx = 0, cycleTimer = null, seen = false;
 
+    /* Pointer tracking */
+    window.addEventListener('pointermove', e => {
+      target.x = e.clientX;
+      target.y = e.clientY;
+      if (!seen) { seen = true; cursor.style.opacity = '1'; }
+      /* Theme-aware color: detect light/dark section under cursor */
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      const themeEl = el && el.closest ? el.closest('[data-theme]') : null;
+      if (themeEl) {
+        cursor.style.color = themeEl.getAttribute('data-theme') === 'light' ? '#1A0F07' : '#F7F3EE';
+      }
+      /* Hover detection */
+      const hovered = !!(el && el.closest && el.closest('a, button, .gallery-item, .portfolio-item, .portfolio-card, .service-card, .filter-btn, [role="button"], [data-cursor="hover"]'));
+      setHover(hovered);
+    }, { passive: true });
+
+    /* rAF lerp loop */
     (function loop() {
-      curX += (mouseX - curX) * 0.14;
-      curY += (mouseY - curY) * 0.14;
-      cursor.style.transform = `translate(${curX - cursor.offsetWidth / 2}px, ${curY - cursor.offsetHeight / 2}px)`;
+      pos.x += (target.x - pos.x) * SMOOTHING;
+      pos.y += (target.y - pos.y) * SMOOTHING;
+      cursor.style.transform = `translate3d(${pos.x.toFixed(2)}px,${pos.y.toFixed(2)}px,0) translate(-50%,-50%)`;
       requestAnimationFrame(loop);
     })();
 
-    function startHover() {
-      cursor.classList.add('is-hovering');
-      cursorIcon.innerHTML = SHAPES[shapeIdx];
-      hoverInterval = setInterval(() => {
-        shapeIdx = (shapeIdx + 1) % SHAPES.length;
-        cursorIcon.innerHTML = SHAPES[shapeIdx];
-      }, 800);
-    }
-    function stopHover() {
-      cursor.classList.remove('is-hovering');
-      clearInterval(hoverInterval);
-      hoverInterval = null;
+    function renderGlyph() {
+      glyphs.forEach((g, i) => {
+        if (i === glyphIdx) {
+          g.classList.remove('exit');
+          g.classList.add('active');
+        } else {
+          g.classList.remove('active');
+          g.classList.add('exit');
+        }
+      });
     }
 
-    const hoverTargets = 'a, button, .gallery-item, .portfolio-item, .portfolio-card, .service-card, .filter-btn, [role="button"]';
-    document.querySelectorAll(hoverTargets).forEach(el => {
-      el.addEventListener('mouseenter', startHover);
-      el.addEventListener('mouseleave', stopHover);
-    });
+    function setHover(on) {
+      if (on === isHover) return;
+      isHover = on;
+      if (on) {
+        circleEl.style.opacity = '0';
+        circleEl.style.transform = 'scale(0.35)';
+        glyphsEl.style.opacity = '1';
+        glyphIdx = 0;
+        renderGlyph();
+        clearInterval(cycleTimer);
+        cycleTimer = setInterval(() => {
+          glyphIdx = (glyphIdx + 1) % glyphs.length;
+          renderGlyph();
+        }, CYCLE_MS);
+      } else {
+        circleEl.style.opacity = '1';
+        circleEl.style.transform = 'scale(1)';
+        glyphsEl.style.opacity = '0';
+        clearInterval(cycleTimer);
+        glyphs.forEach(g => { g.classList.remove('active', 'exit'); });
+      }
+    }
   }
 
   /* ── Nav scroll ── */

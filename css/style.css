@@ -485,6 +485,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 
 /* ============================================================
    CUSTOM CURSOR — site-wide (desktop only)
+   Ported from Custom Cursor.dc.html
    ============================================================ */
 @media (hover: hover) and (pointer: fine) {
   *, *::before, *::after { cursor: none !important; }
@@ -492,59 +493,59 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .cursor {
     position: fixed;
     top: 0; left: 0;
-    width: 28px; height: 28px;
+    width: 30px; height: 30px;
     pointer-events: none;
     z-index: 99999;
-    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
     will-change: transform;
+    color: #F7F3EE; /* default: light on dark bg */
   }
 
-  /* Default: tiny dot, no circle */
-  .cursor__dot {
-    width: 5px; height: 5px;
-    background: rgba(253, 250, 246, 0.7);
-    border-radius: 50%;
-    transition: opacity 0.2s, transform 0.2s;
-    flex-shrink: 0;
-  }
-  body:not(.gallery-page) .cursor__dot {
-    background: rgba(46, 30, 16, 0.55);
+  /* Light-bg pages: dark cursor */
+  body:not(.gallery-page) .cursor {
+    color: #1A0F07;
   }
 
-  /* Icon — hidden by default, revealed on hover */
-  .cursor__icon {
+  /* Circle — shown by default */
+  .cursor__circle {
     position: absolute;
     inset: 0;
     display: flex; align-items: center; justify-content: center;
-    opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.2,0.8,0.2,1);
+    will-change: opacity, transform;
   }
-  .cursor__icon svg {
-    width: 26px; height: 26px;
-    transition: fill 0.15s;
+  .cursor__circle svg {
+    display: block; width: 100%; height: 100%;
+    overflow: visible;
   }
 
-  /* Hover: icon visible, dot hidden, icon color cycles */
-  .cursor.is-hovering {
-    width: 28px; height: 28px;
-  }
-  .cursor.is-hovering .cursor__dot {
+  /* Glyph container — hidden by default */
+  .cursor__glyphs {
+    position: absolute;
+    inset: 0;
     opacity: 0;
-    transform: scale(0);
+    transition: opacity 0.3s ease;
+    will-change: opacity;
   }
-  .cursor.is-hovering .cursor__icon {
+  .cursor__glyph {
+    position: absolute;
+    inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+    line-height: 1;
+    color: currentColor;
+    opacity: 0;
+    transform: scale(0.5) rotate(-45deg);
+    transition: opacity 0.45s ease, transform 0.5s cubic-bezier(0.2,0.85,0.2,1);
+    will-change: opacity, transform;
+  }
+  .cursor__glyph.active {
     opacity: 1;
+    transform: scale(1) rotate(0deg);
   }
-  /* Color cycling on the SVG fill via animation */
-  .cursor.is-hovering .cursor__icon svg {
-    animation: cursorIconColor 2.4s ease-in-out infinite;
-  }
-
-  @keyframes cursorIconColor {
-    0%   { fill: var(--terra); }
-    33%  { fill: #2D5840; }
-    66%  { fill: #C4AD94; }
-    100% { fill: var(--terra); }
+  .cursor__glyph.exit {
+    opacity: 0;
+    transform: scale(0.5) rotate(45deg);
   }
 }
 

@@ -91,17 +91,6 @@
   }
 
   /* ══════════════════════════════════════════════════
-     LIGHTBOX cursor state (cursor managed by main.js)
-  ══════════════════════════════════════════════════ */
-  const cursor = document.querySelector('.cursor');
-  if (cursor) {
-    document.querySelectorAll('.lightbox__close, .lightbox__prev, .lightbox__next, .lightbox__backdrop').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('is-lightbox'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('is-lightbox'));
-    });
-  }
-
-  /* ══════════════════════════════════════════════════
      LIGHTBOX
   ══════════════════════════════════════════════════ */
   const lightbox = document.getElementById('lightbox');
