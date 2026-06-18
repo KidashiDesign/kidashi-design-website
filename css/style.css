@@ -335,17 +335,18 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 /* Sub row: tagline + GIF */
 .hero2__sub-row {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   gap: 2rem;
   flex-shrink: 0;
 }
 .hero2__tagline {
-  font-family: var(--font-h);
-  font-weight: 400;
-  font-size: clamp(1rem, 2.8vw, 2.6rem);
-  letter-spacing: 0.04em;
-  color: var(--secondary);
+  font-family: var(--font-b);
+  font-weight: 300;
+  font-size: clamp(0.65rem, 1vw, 0.9rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(247,243,238,0.35);
   line-height: 1;
   align-self: center;
 }
