@@ -3,7 +3,50 @@
    Nicole Szatkowski · kidashidesign.com
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap');
+
+@font-face {
+  font-family: 'Mango Grotesque';
+  src: url('../fonts/MangoGrotesque-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mango Grotesque';
+  src: url('../fonts/MangoGrotesque-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mango Grotesque';
+  src: url('../fonts/MangoGrotesque-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mango Grotesque';
+  src: url('../fonts/MangoGrotesque-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mango Grotesque';
+  src: url('../fonts/MangoGrotesque-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mango Grotesque';
+  src: url('../fonts/MangoGrotesque-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ============================================================
    CSS CUSTOM PROPERTIES
@@ -19,7 +62,7 @@
   --muted:     rgba(10,10,11,0.45);
   --sand:      rgba(10,10,11,0.22);
   --cream:     #F7F3EE;
-  --font-h:   'Cormorant Garamond', Georgia, serif;
+  --font-h:   'Mango Grotesque', system-ui, sans-serif;
   --font-b:   'Jost', system-ui, sans-serif;
   --ease:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --section-pad: clamp(80px, 10vw, 140px);
