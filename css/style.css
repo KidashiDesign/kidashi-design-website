@@ -313,19 +313,8 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   position: relative; z-index: 1;
 }
 
-/* Static label */
-.hero2__static {
-  font-family: var(--font-b);
-  font-weight: 300;
-  font-size: clamp(0.72rem, 1.6vw, 1.25rem);
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: rgba(247,243,238,0.38);
-  display: block;
-  margin-bottom: clamp(0.4rem, 1.2vh, 1rem);
-}
-
-/* Cycling word */
+/* Static label — same size/weight as cycling word */
+.hero2__static,
 .hero2__cycle {
   display: block;
   font-family: var(--font-h);
@@ -334,6 +323,11 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   line-height: 0.87;
   letter-spacing: -0.03em;
   color: rgba(247,243,238,0.95);
+}
+.hero2__static {
+  margin-bottom: 0.05em;
+}
+.hero2__cycle {
   min-height: 0.9em;
 }
 .hero2__cycle .cy-ch { display: inline; }
@@ -426,8 +420,8 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 /* Mobile */
 @media (max-width: 768px) {
   .hero2 { height: 200vh; }
-  .hero2__cycle { font-size: clamp(3.2rem, 16vw, 6.5rem); }
-  .hero2__static { font-size: clamp(0.65rem, 2.8vw, 0.9rem); letter-spacing: 0.2em; }
+  .hero2__static,
+  .hero2__cycle { font-size: clamp(2.8rem, 14vw, 6rem); }
   .hero2__sub-row { flex-direction: column; gap: 1rem; }
   .hero2__reveal-h2 { font-size: clamp(2rem, 10vw, 4rem); }
   /* General text size boost on mobile */

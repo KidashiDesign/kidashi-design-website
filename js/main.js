@@ -120,16 +120,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ── Cycling word ── */
     const REAL_WORDS = ['YOU', 'THE PLANET', 'THE COMMUNITY', 'YOUR COMPANY', 'THE ALGORYTHM'];
-    let wordIdx = 0;
-    let onWordReady = null; /* set by magnifier init */
+    let wordIdx = 0, realCount = 0;
+    let onWordReady = null;
 
     function randSymWord() {
-      const len = Math.floor(Math.random() * 7) + 4;
+      const len = Math.floor(Math.random() * 6) + 4;
       return Array.from({ length: len }, rsym).join('');
     }
 
     function nextWord() {
-      if (Math.random() < 0.28) return randSymWord();
+      /* 1 symbol word after every 3 real words */
+      if (realCount > 0 && realCount % 3 === 0) {
+        realCount = 0;
+        return randSymWord();
+      }
+      realCount++;
       return REAL_WORDS[wordIdx++ % REAL_WORDS.length];
     }
 
@@ -141,6 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const spans = Array.from(heroCycleEl.querySelectorAll('.cy-ch'));
       let raf = null;
       (function sc() { spans.forEach(s => { if (!s.dataset.done) s.textContent = rand(); }); raf = requestAnimationFrame(sc); })();
+      /* Scramble for longer, then reveal slowly one char at a time */
       setTimeout(() => {
         cancelAnimationFrame(raf);
         let i = 0;
@@ -148,14 +154,14 @@ document.addEventListener('DOMContentLoaded', () => {
           if (i >= spans.length) { if (onDone) onDone(); return; }
           const s = spans[i]; let f = 0;
           const iv = setInterval(() => {
-            s.textContent = f < 6 ? rand() : s.dataset.c;
-            if (++f > 7) { clearInterval(iv); s.dataset.done = '1'; step(); }
-          }, 62);
+            s.textContent = f < 9 ? rand() : s.dataset.c;
+            if (++f > 10) { clearInterval(iv); s.dataset.done = '1'; step(); }
+          }, 95);
           i++;
-          if (i % 2 !== 0) step();
+          /* reveal strictly 1 char at a time for slow dramatic feel */
         };
-        setTimeout(step, 200);
-      }, 420);
+        setTimeout(step, 350);
+      }, 700);
     }
 
     function cycle() {
