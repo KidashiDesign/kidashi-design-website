@@ -344,8 +344,8 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   font-family: var(--font-b);
   font-weight: 300;
   font-size: clamp(0.65rem, 1vw, 0.9rem);
-  letter-spacing: 0.22em;
   text-transform: uppercase;
+  letter-spacing: 0.35em;
   color: rgba(247,243,238,0.35);
   line-height: 1;
   align-self: center;
