@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (cursor && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     const GLYPHS = ['✦', '✧', '✶', '✷', '✴'];
     const CYCLE_MS = 1000;
-    const SMOOTHING = 0.18;
+    const SMOOTHING = 0.28;
     const SIZE = 30;
 
     /* Build DOM */
@@ -31,16 +31,34 @@ document.addEventListener('DOMContentLoaded', () => {
     let target = { x: pos.x, y: pos.y };
     let isHover = false, glyphIdx = 0, cycleTimer = null, seen = false;
 
+    /* Detect background luminance to auto-switch cursor color */
+    function getBgLuminance(el) {
+      let node = el;
+      while (node && node !== document.body) {
+        const bg = getComputedStyle(node).backgroundColor;
+        const m = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+        if (m) {
+          const [r, g, b] = [+m[1], +m[2], +m[3]];
+          if (r + g + b > 0) {
+            /* relative luminance */
+            return 0.2126 * (r / 255) + 0.7152 * (g / 255) + 0.0722 * (b / 255);
+          }
+        }
+        node = node.parentElement;
+      }
+      return 1; /* assume light if nothing found */
+    }
+
     /* Pointer tracking */
     window.addEventListener('pointermove', e => {
       target.x = e.clientX;
       target.y = e.clientY;
       if (!seen) { seen = true; cursor.style.opacity = '1'; }
-      /* Theme-aware color: detect light/dark section under cursor */
+      /* Auto-detect dark/light bg under cursor */
       const el = document.elementFromPoint(e.clientX, e.clientY);
-      const themeEl = el && el.closest ? el.closest('[data-theme]') : null;
-      if (themeEl) {
-        cursor.style.color = themeEl.getAttribute('data-theme') === 'light' ? '#0A0A0B' : '#F7F3EE';
+      if (el) {
+        const lum = getBgLuminance(el);
+        cursor.style.color = lum < 0.35 ? '#F7F3EE' : '#0A0A0B';
       }
       /* Hover detection */
       const hovered = !!(el && el.closest && el.closest('a, button, .gallery-item, .portfolio-item, .portfolio-card, .service-card, .filter-btn, [role="button"], [data-cursor="hover"]'));
