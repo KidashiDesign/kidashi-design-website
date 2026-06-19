@@ -26,25 +26,26 @@
   display: block;
 }
 
-/* Video / animation hero variant */
+/* Video / animation hero variant — full-screen */
 .proj-hero--video {
   min-height: unset;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-top: var(--nav-h);
+  display: block;
+  padding-top: 0;
+  position: relative;
 }
 .proj-hero--video .proj-hero__eyebrow {
-  position: relative;
-  top: unset;
-  padding: 1.5rem var(--gutter) 1rem;
-  z-index: 2;
+  position: absolute;
+  top: calc(var(--nav-h) + 1.5rem);
+  left: var(--gutter);
+  right: var(--gutter);
+  z-index: 10;
+  padding: 0;
 }
 .proj-hero__video-wrap {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100svh;
   overflow: hidden;
   display: block;
-  flex-shrink: 0;
 }
 .proj-hero__video-frame {
   width: 100%;
@@ -475,4 +476,6 @@
   .proj-details__inner { grid-template-columns: 1fr 1fr; }
   .proj-process__step { grid-template-columns: 1fr; gap: 0.5rem; }
   .proj-process__num { display: none; }
+  /* Mobile: 16:9 ratio instead of full-screen height */
+  .proj-hero__video-wrap { height: auto; aspect-ratio: 16 / 9; }
 }
