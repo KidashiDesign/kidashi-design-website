@@ -392,7 +392,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   font-size: clamp(4.5rem, 18vh, 15rem);
   line-height: 0.87;
   letter-spacing: -0.03em;
-  color: rgba(247,243,238,0.95);
+  color: #ffffff;
 }
 .hero2__static {
   margin-bottom: 0.05em;
@@ -468,7 +468,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   font-family: var(--font-h);
   font-weight: 300;
   font-size: clamp(2.5rem, 7vw, 9rem);
-  color: rgba(247,243,238,0.55);
+  color: #ffffff;
   margin: 0;
   display: flex;
   justify-content: space-between;
