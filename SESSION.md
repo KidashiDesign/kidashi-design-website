@@ -9,7 +9,8 @@ Erstellt: 2026-06-19 · Für neuen Chat morgen
 |-----|-------|
 | Repo | `kidashidesign/kidashi-design-website` |
 | Branch (aktiv) | `claude/epic-curie-r5ed0o` |
-| Deploy | GitHub Pages — deployed aus `main` (Branch noch nicht gemergt!) |
+| Pull Request | https://github.com/KidashiDesign/kidashi-design-website/pull/1 |
+| Deploy | GitHub Pages — deployed aus `main` (PR noch nicht gemergt!) |
 | Stack | Statisches HTML/CSS/JS, kein Build-Tool, kein Framework |
 | Live-URL | `https://kidashidesign.github.io/kidashi-design-website/` |
 | Inhaberin | Nicole Szatkowski — Kidashi Design, Tbilisi (GMT+4) |
@@ -134,7 +135,7 @@ Slash-Kommandos: `/simplify` = Vereinfachung, `/code-review` = Fehlersuche
 
 | # | Task | Status |
 |---|------|--------|
-| 1 | Branch `claude/epic-curie-r5ed0o` → `main` mergen für Live-Deployment | ❌ Nicht gemergt |
+| 1 | PR #1 mergen für Live-Deployment → https://github.com/KidashiDesign/kidashi-design-website/pull/1 | ❌ Offen |
 | 2 | Portfolio-Bilder für 8 leere Projekte | ❌ Warten auf Nicole |
 | 3 | artista-magazin, galerie-kronsbein, mystic-drops, piano-post, seestern, selvoma, westgrowth-capital, wh4 | ❌ Nur `.gitkeep` |
 
