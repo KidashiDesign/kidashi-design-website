@@ -176,6 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const revealLeft  = hero2.querySelector('.hero2__reveal-left');
     const revealRight = hero2.querySelector('.hero2__reveal-right');
     const revealH2    = hero2.querySelector('.hero2__reveal-h2');
+    const heroInfo    = document.getElementById('heroInfo');
 
     function updateHero2() {
       const rect = hero2.getBoundingClientRect();
@@ -187,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (revealLeft)  revealLeft.style.transform  = `translateX(${-tx}vw)`;
       if (revealRight) revealRight.style.transform = `translateX(${tx}vw)`;
       if (revealH2)    revealH2.style.opacity      = String(h2e);
+      if (heroInfo)    heroInfo.style.transform     = `translateY(${progress * 160}px)`;
     }
     window.addEventListener('scroll', updateHero2, { passive: true });
     updateHero2();
