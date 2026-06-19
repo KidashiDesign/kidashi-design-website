@@ -364,8 +364,11 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   line-height: 2.5;
 }
 .hero2__info-line--top {
-  color: rgba(247,243,238,0.62);
+  color: rgba(247,243,238,0.65);
   font-weight: 400;
+}
+.hero2__info-line--dim {
+  color: rgba(247,243,238,0.22);
 }
 .hero2__info-line--gap {
   margin-top: 1.4em;
@@ -623,7 +626,11 @@ p { font-size: 1.0625rem; line-height: 1.75; }
    CTA FOOTER — "I BUILD DIFFERENT" statement section
    ============================================================ */
 .cta-footer {
-  background: #0A0A0B;
+  background:
+    radial-gradient(ellipse 55% 70% at 105% 90%, rgba(255,188,149,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 55% at 98% 15%, rgba(46,84,254,0.24) 0%, transparent 55%),
+    radial-gradient(ellipse 35% 45% at 82% 55%, rgba(255,240,131,0.12) 0%, transparent 50%),
+    #0A0A0B;
   padding: clamp(6rem, 12vh, 10rem) 0 clamp(4rem, 8vh, 7rem);
   overflow: hidden;
   position: relative;
