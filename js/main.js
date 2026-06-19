@@ -470,6 +470,28 @@ document.addEventListener('DOMContentLoaded', () => {
     revealObs.observe(h2);
   });
 
+  /* ── Featured project tile — update this one object to change the project shown ── */
+  const FEATURED_PROJECT = {
+    title:  'XP-Days Esports Platform',
+    tag:    'Web Design',
+    img:    'images/portfolio/xp-days/kidashi-design-xp-days-website-mockup.jpg',
+    link:   'portfolio/xp-days/'
+  };
+
+  (function injectFeaturedProject() {
+    const depth = (window.location.pathname.replace(/\/$/, '').match(/\//g) || []).length - 1;
+    const prefix = depth <= 0 ? '' : depth === 1 ? '../' : '../../';
+    document.querySelectorAll('.cta-footer__project').forEach(el => {
+      el.href = prefix + FEATURED_PROJECT.link;
+      el.innerHTML =
+        `<img src="${prefix + FEATURED_PROJECT.img}" alt="${FEATURED_PROJECT.title}" loading="lazy" decoding="async">` +
+        `<div class="cta-footer__project-info">` +
+          `<span class="cta-footer__project-tag">${FEATURED_PROJECT.tag}</span>` +
+          `<span class="cta-footer__project-title">${FEATURED_PROJECT.title}</span>` +
+        `</div>`;
+    });
+  })();
+
   /* ── CTA Footer — auto-fit headline + scroll reveal + parallax ── */
   const ctaFooter = document.getElementById('ctaFooter');
   const ctaHeadline = document.getElementById('ctaHeadline');
