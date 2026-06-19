@@ -139,13 +139,15 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .nav__logo-k { font-family: var(--font-h); font-size: 2rem; font-weight: 400; letter-spacing: 0.06em; color: var(--cream); line-height: 1; }
 .nav__logo-d { font-family: var(--font-b); font-size: 0.75rem; font-weight: 300; letter-spacing: 0.28em; text-transform: uppercase; color: #FFBC95; line-height: 1; }
 
-/* All nav variants: transparent, white text */
-.nav--light .nav__logo-k { color: var(--cream); }
-.nav--light .nav__logo-d { color: #FFBC95; }
-.nav--light .nav__link { color: rgba(247,243,238,0.7); }
-.nav--light .nav__link:hover, .nav--light .nav__link.active { color: #FFBC95; }
-.nav--light .nav__burger span { background: var(--cream); }
-.nav--light .nav__location { color: rgba(247,243,238,0.4); }
+/* nav--light: dark text for subpages with light backgrounds */
+.nav--light .nav__logo-k { color: var(--dark); }
+.nav--light .nav__logo-d { color: var(--dark); }
+.nav--light .nav__link { color: rgba(10,10,11,0.6); }
+.nav--light .nav__link:hover, .nav--light .nav__link.active { color: var(--dark); }
+.nav--light .nav__link::after { background: var(--dark); }
+.nav--light .nav__burger span { background: var(--dark); }
+.nav--light .nav__location { color: rgba(10,10,11,0.4); }
+.nav--light .nav__location-tz { color: var(--dark); }
 
 .nav__links { display: flex; align-items: center; gap: 2.2rem; }
 .nav__link {
