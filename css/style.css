@@ -367,6 +367,9 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   color: rgba(247,243,238,0.62);
   font-weight: 400;
 }
+.hero2__info-line--gap {
+  margin-top: 1.4em;
+}
 @media (max-width: 768px) {
   .hero2__info { display: none; }
 }
