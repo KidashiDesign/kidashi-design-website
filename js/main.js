@@ -141,27 +141,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function scrambleTo(word, onDone) {
       if (!heroCycleEl) { if (onDone) onDone(); return; }
       heroCycleEl.innerHTML = word.split('').map(ch =>
-        ch === ' ' ? ' ' : `<span class="cy-ch" data-c="${ch}">${rand()}</span>`
+        ch === ' ' ? ' ' : `<span class="cy-ch" data-c="${ch}">${rand()}</span>`
       ).join('');
       const spans = Array.from(heroCycleEl.querySelectorAll('.cy-ch'));
       let raf = null;
-      (function sc() { spans.forEach(s => { if (!s.dataset.done) s.textContent = rand(); }); raf = requestAnimationFrame(sc); })();
-      /* Scramble for longer, then reveal slowly one char at a time */
+      (function sc() { spans.forEach(s => { s.textContent = rand(); }); raf = requestAnimationFrame(sc); })();
+      /* Short scramble, then flash all chars at once */
       setTimeout(() => {
         cancelAnimationFrame(raf);
-        let i = 0;
-        const step = () => {
-          if (i >= spans.length) { if (onDone) onDone(); return; }
-          const s = spans[i]; let f = 0;
-          const iv = setInterval(() => {
-            s.textContent = f < 9 ? rand() : s.dataset.c;
-            if (++f > 10) { clearInterval(iv); s.dataset.done = '1'; step(); }
-          }, 95);
-          i++;
-          /* reveal strictly 1 char at a time for slow dramatic feel */
-        };
-        setTimeout(step, 350);
-      }, 700);
+        heroCycleEl.style.transition = 'opacity 0.1s ease';
+        heroCycleEl.style.opacity = '0.3';
+        setTimeout(() => {
+          spans.forEach(s => { s.textContent = s.dataset.c; });
+          heroCycleEl.style.opacity = '1';
+          setTimeout(() => { heroCycleEl.style.transition = ''; if (onDone) onDone(); }, 110);
+        }, 70);
+      }, 320);
     }
 
     function cycle() {

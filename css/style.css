@@ -321,7 +321,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 }
 .hero2__grain {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  pointer-events: none; mix-blend-mode: overlay; opacity: 0.5;
+  pointer-events: none; mix-blend-mode: overlay; opacity: 0.22;
 }
 .hero2__vignette {
   position: absolute; inset: 0;
@@ -529,7 +529,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .about-teaser__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--sand); }
 .stat__number { font-family: var(--font-h); font-size: 2.8rem; font-weight: 300; color: var(--primary); line-height: 1; display: block; margin-bottom: 0.4rem; }
 .stat__label { font-family: var(--font-b); font-size: 0.72rem; font-weight: 400; letter-spacing: 0.05em; color: var(--muted); line-height: 1.4; }
-.about-teaser__portrait img { width: 100%; height: 580px; object-fit: cover; object-position: center 12%; transform: scale(1.1); transform-origin: center 15%; }
+.about-teaser__portrait img { width: 100%; height: auto; display: block; object-fit: contain; }
 
 /* ============================================================
    SERVICES DARK
@@ -765,7 +765,8 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .steps { grid-template-columns: repeat(3, 1fr); }
   .step:nth-child(4) { border-left: none; }
   .about-hero__grid, .about-teaser__grid { grid-template-columns: 1fr; gap: 3rem; }
-  .about-hero__portrait img, .about-teaser__portrait img { height: 420px; object-position: center 15%; transform: scale(1.12); transform-origin: center 20%; }
+  .about-hero__portrait img { height: 420px; object-fit: cover; object-position: top center; }
+  .about-teaser__portrait img { height: auto; object-fit: contain; transform: none; }
   .hero2__static-break { display: block; }
   .about-content__grid { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: repeat(3, 1fr); }
