@@ -470,4 +470,58 @@ document.addEventListener('DOMContentLoaded', () => {
     revealObs.observe(h2);
   });
 
+  /* ── CTA Footer — auto-fit headline + scroll reveal + parallax ── */
+  const ctaFooter = document.getElementById('ctaFooter');
+  const ctaHeadline = document.getElementById('ctaHeadline');
+  if (ctaFooter && ctaHeadline) {
+    function fitCtaHeadline() {
+      const container = ctaHeadline.parentElement;
+      ctaHeadline.style.fontSize = '10vw';
+      requestAnimationFrame(() => {
+        const ratio = container.clientWidth / ctaHeadline.scrollWidth;
+        ctaHeadline.style.fontSize = (10 * ratio * 0.995) + 'vw';
+      });
+    }
+    fitCtaHeadline();
+    window.addEventListener('resize', fitCtaHeadline);
+
+    /* Scroll reveal via IntersectionObserver */
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) ctaFooter.classList.add('in-view');
+    }, { threshold: 0.12 }).observe(ctaFooter);
+
+    /* Parallax: headline drifts up slightly as you scroll through the section */
+    window.addEventListener('scroll', () => {
+      const rect = ctaFooter.getBoundingClientRect();
+      const vh = window.innerHeight;
+      if (rect.bottom < 0 || rect.top > vh) return;
+      const progress = (vh - rect.top) / (vh + rect.height);
+      const offset = (progress - 0.5) * -80;
+      if (ctaFooter.classList.contains('in-view')) {
+        ctaHeadline.style.transform = `translateY(${offset}px)`;
+      }
+    }, { passive: true });
+  }
+
+  /* ── Nav: switch to dark text when scrolling over light sections ── */
+  const navEl = document.querySelector('.nav');
+  if (navEl) {
+    const navH = navEl.offsetHeight;
+    const lightSections = document.querySelectorAll('.about-teaser, .portfolio-teaser, .services-section, section:not(.hero2):not(.services-dark):not(.gallery-teaser):not(.cta-footer):not(.footer)');
+    function updateNavColor() {
+      if (!navEl.classList.contains('scrolled')) {
+        let overLight = false;
+        lightSections.forEach(sec => {
+          const r = sec.getBoundingClientRect();
+          if (r.top <= navH && r.bottom >= 0) overLight = true;
+        });
+        navEl.classList.toggle('over-light', overLight);
+      } else {
+        navEl.classList.remove('over-light');
+      }
+    }
+    window.addEventListener('scroll', updateNavColor, { passive: true });
+    updateNavColor();
+  }
+
 });
