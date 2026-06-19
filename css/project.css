@@ -26,26 +26,39 @@
   display: block;
 }
 
-/* Animation iframe hero */
-.proj-hero__anim-frame {
-  position: absolute;
-  inset: 0;
+/* Video / animation hero variant */
+.proj-hero--video {
+  min-height: unset;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: var(--nav-h);
+}
+.proj-hero--video .proj-hero__eyebrow {
+  position: relative;
+  top: unset;
+  padding: 1.5rem var(--gutter) 1rem;
+  z-index: 2;
+}
+.proj-hero__video-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  display: block;
+  flex-shrink: 0;
+}
+.proj-hero__video-frame {
   width: 100%;
   height: 100%;
   border: none;
   display: block;
-  pointer-events: none;
 }
-.proj-hero__anim-vignette {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(6,18,13,0.45) 0%, transparent 35%, transparent 55%, rgba(6,18,13,0.88) 100%),
-    linear-gradient(to right, rgba(6,18,13,0.2) 0%, transparent 45%);
-  z-index: 1;
-  pointer-events: none;
+.proj-hero--video .proj-hero__content {
+  position: relative;
+  z-index: 2;
+  padding: clamp(2rem, 4vh, 3.5rem) var(--gutter) clamp(2.5rem, 5vh, 4rem);
 }
-.proj-hero--anim .proj-hero__bg::after { display: none; }
+.proj-hero--video .proj-hero__bg::after { display: none; }
+
 .proj-hero__bg::after {
   content: '';
   position: absolute; inset: 0;
