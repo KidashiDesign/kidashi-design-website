@@ -380,7 +380,7 @@
   flex-direction: column;
   justify-content: flex-end;
   overflow: hidden;
-  background: var(--dark);
+  background: #FFF083;
   cursor: pointer;
 }
 .proj-next__bg {
@@ -407,14 +407,14 @@
   position: relative;
   z-index: 2;
   padding: var(--gutter) var(--gutter) clamp(3rem, 6vh, 5rem);
-  border-top: 1px solid rgba(247,243,238,0.1);
+  border-top: 1px solid rgba(10,10,11,0.12);
 }
 .proj-next__label {
   font-family: var(--font-b);
   font-size: 0.6rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(247,243,238,0.4);
+  color: rgba(10,10,11,0.45);
   display: block;
   margin-bottom: 1rem;
 }
@@ -422,7 +422,7 @@
   font-family: var(--font-h);
   font-weight: 700;
   font-size: clamp(2.5rem, 7vw, 7rem);
-  color: var(--cream);
+  color: var(--dark);
   line-height: 0.9;
   letter-spacing: -0.03em;
   margin-bottom: 2rem;
@@ -436,7 +436,7 @@
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--primary);
   text-decoration: none;
   transition: gap 0.25s;
 }
