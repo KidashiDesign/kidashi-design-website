@@ -136,8 +136,47 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter);
 }
 .nav__logo { display: flex; align-items: baseline; gap: 8px; text-decoration: none; }
-.nav__logo-k { font-family: var(--font-h); font-size: 2rem; font-weight: 400; letter-spacing: 0.06em; color: var(--cream); line-height: 1; }
+.nav__logo-k { font-family: var(--font-h); font-size: 2rem; font-weight: 400; letter-spacing: 0.06em; color: var(--cream); line-height: 1; position: relative; display: inline-block; }
 .nav__logo-d { font-family: var(--font-b); font-size: 0.75rem; font-weight: 300; letter-spacing: 0.28em; text-transform: uppercase; color: #FFBC95; line-height: 1; }
+
+/* Logo glitch on hover */
+.nav__logo-k::before,
+.nav__logo-k::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+.nav__logo-k::before { color: #FFBC95; }
+.nav__logo-k::after  { color: #2E54FE; }
+.nav__logo:hover .nav__logo-k { animation: logoGlitch 0.42s steps(1) forwards; }
+.nav__logo:hover .nav__logo-k::before { animation: logoGlitchR 0.42s steps(1) forwards; }
+.nav__logo:hover .nav__logo-k::after  { animation: logoGlitchB 0.42s steps(1) forwards; }
+@keyframes logoGlitch {
+  0%   { transform: none; }
+  15%  { transform: translate(-2px, 0) skewX(-1deg); }
+  30%  { transform: translate(2px, 0) skewX(1deg); }
+  45%  { transform: translate(-1px, 1px); }
+  60%  { transform: none; }
+  100% { transform: none; }
+}
+@keyframes logoGlitchR {
+  0%   { opacity: 0; transform: none; }
+  15%  { opacity: 0.7; transform: translate(-4px, 0); clip-path: inset(10% 0 60% 0); }
+  30%  { opacity: 0.6; transform: translate(3px, 0);  clip-path: inset(55% 0 10% 0); }
+  45%  { opacity: 0.4; transform: translate(-2px, 0); clip-path: inset(30% 0 35% 0); }
+  60%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes logoGlitchB {
+  0%   { opacity: 0; transform: none; }
+  15%  { opacity: 0; }
+  25%  { opacity: 0.6; transform: translate(4px, 0);  clip-path: inset(55% 0 8% 0); }
+  40%  { opacity: 0.5; transform: translate(-3px, 0); clip-path: inset(8% 0 60% 0); }
+  55%  { opacity: 0; }
+  100% { opacity: 0; }
+}
 
 /* nav--light: dark text for subpages with light backgrounds */
 .nav--light .nav__logo-k { color: var(--dark); }

@@ -412,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#%&*?§$+=/~^<>';
   const rand = () => CHARS[Math.floor(Math.random() * CHARS.length)];
 
-  document.querySelectorAll('h2').forEach(h2 => {
+  document.querySelectorAll('h2.reveal').forEach(h2 => {
     const original = h2.textContent;
     let scrambleRaf = null;
     let revealed = false;
