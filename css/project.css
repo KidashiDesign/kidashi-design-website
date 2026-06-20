@@ -46,6 +46,7 @@
   height: 100%;
   border: none;
   display: block;
+  pointer-events: none;
 }
 .proj-hero--video .proj-hero__content {
   padding: clamp(2rem, 4vh, 3.5rem) var(--gutter) clamp(2.5rem, 5vh, 4rem);
