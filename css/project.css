@@ -140,6 +140,27 @@
   line-height: 1.4;
 }
 
+/* ── SERVICE PILLS ── */
+.proj-services {
+  background: var(--bg);
+  padding: clamp(1.5rem, 3vw, 2.5rem) var(--gutter) 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.proj-services__pill {
+  font-family: var(--font-b);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 2rem;
+  padding: 0.35rem 0.9rem;
+  display: inline-block;
+}
+
 /* ── STATEMENT — editorial large intro text ── */
 .proj-statement {
   background: var(--bg);
