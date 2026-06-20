@@ -609,15 +609,16 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .portfolio-card__content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 2.5rem; background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%); }
 .portfolio-card__tag { font-family: var(--font-b); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(253,250,246,0.6); margin-bottom: 0.5rem; display: block; }
 .portfolio-card__title { font-family: var(--font-h); font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 300; color: var(--cream); line-height: 1.2; }
-/* Animation iframe inside landing-page card — crops 16:9 to 4:3 */
+/* Animation iframe inside landing-page card — full width, centered vertically */
 .portfolio-card__anim {
   position: absolute;
   border: none;
   pointer-events: none;
-  top: 0;
-  height: 100%;
-  width: 133.4%;
-  left: -16.7%;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 16/9;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .portfolio-teaser__cta { margin-top: 3rem; text-align: center; }
 
