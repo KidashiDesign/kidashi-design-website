@@ -932,7 +932,23 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .portfolio-items--2col { grid-template-columns: repeat(2, 1fr); }
 .portfolio-items--4col { grid-template-columns: repeat(4, 1fr); }
 .portfolio-item { position: relative; aspect-ratio: 4/3; overflow: hidden; cursor: pointer; }
-.portfolio-item__bg { position: absolute; inset: 0; transition: transform 0.6s var(--ease); }
+.portfolio-item__bg { position: absolute; inset: 0; transition: transform 0.6s var(--ease); overflow: hidden; }
+
+/* Animation iframe inside portfolio tile — covers 4:3 container with 16:9 content */
+.portfolio-item__anim {
+  position: absolute;
+  border: none;
+  pointer-events: none;
+  top: 0;
+  height: 100%;
+  width: 133.4%;
+  left: -16.7%;
+}
+/* Square (1:1) tiles need wider crop */
+.portfolio-item__bg--sq .portfolio-item__anim {
+  width: 177.8%;
+  left: -38.9%;
+}
 .portfolio-item:hover .portfolio-item__bg { transform: scale(1.04); }
 .portfolio-item__content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); opacity: 0; transition: opacity 0.35s var(--ease); }
 .portfolio-item:hover .portfolio-item__content { opacity: 1; }
