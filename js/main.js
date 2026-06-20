@@ -526,8 +526,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ── Nav: switch to dark text when scrolling over light sections ── */
+  /* Skipped on project detail pages (.proj-hero present) — nav stays white there */
   const navEl = document.querySelector('.nav');
-  if (navEl) {
+  if (navEl && !document.querySelector('.proj-hero')) {
     const navH = navEl.offsetHeight;
     const lightSections = document.querySelectorAll('.about-teaser, .portfolio-teaser, .services-section, section:not(.hero2):not(.services-dark):not(.gallery-teaser):not(.cta-footer):not(.footer)');
     function updateNavColor() {
