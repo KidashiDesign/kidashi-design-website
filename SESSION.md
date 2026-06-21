@@ -9,10 +9,10 @@ Aktualisiert: 2026-06-21
 |-----|-------|
 | Repo | `kidashidesign/kidashi-design-website` |
 | Branch (aktiv) | `claude/practical-shannon-gj5oop` |
-| Deploy | FTP → Hostinger (echte Live-Seite) + GitHub Pages (Preview) |
+| Deploy | GitHub Pages aus `main` (Live-URL) — automatisch bei jedem Merge |
 | Stack | Statisches HTML/CSS/JS, kein Build-Tool, kein Framework |
-| Live-URL | `https://www.kidashidesign.com` |
-| GitHub Pages | `https://kidashidesign.github.io/kidashi-design-website/` |
+| Live-URL | `https://kidashidesign.github.io/kidashi-design-website/` |
+| Pages Branch | `main` ← seit 2026-06-21 korrekt konfiguriert |
 | Inhaberin | Nicole Szatkowski — Kidashi Design, Tbilisi (GMT+4) |
 
 ---
