@@ -1001,7 +1001,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 }
 .portfolio-item:hover .portfolio-item__bg { transform: scale(1.04); }
 .portfolio-item__content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); opacity: 0; transition: opacity 0.35s var(--ease); }
-.portfolio-item:hover .portfolio-item__content { opacity: 1; }
+.portfolio-item.is-hidden { display: none; }
 .portfolio-item__tag { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--primary); display: block; margin-bottom: 0.4rem; }
 .portfolio-item__title { font-family: var(--font-h); font-size: 1.4rem; font-weight: 300; color: var(--cream); line-height: 1.2; margin-bottom: 0.5rem; }
 .portfolio-item__desc { font-size: 0.8rem; color: rgba(253,250,246,0.7); line-height: 1.6; }
