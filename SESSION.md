@@ -45,6 +45,16 @@ Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.
 
 ---
 
+## 🔧 Dauerhafte Animations-Regeln (IMMER bei jedem Upload anwenden)
+
+Bei **jeder** hochgeladenen Bundle-Animation automatisch ohne Erinnerung:
+1. **`__bundler_thumbnail` SVG entfernen** → ersetzen durch `<div id="__bundler_thumbnail" style="background:FARBE;"></div>` (nur plain Hintergrundfarbe)
+2. **Ladeoptimierung** → `loading="lazy"` auf alle Iframes (außer Hero auf Detailseite: `loading="eager"`)
+3. **Steuerelemente prüfen** → PlaybackBar, Pause-Button, Fullscreen-Button entfernen falls vorhanden
+4. **Tile-Script prüfen** → falls nicht vorhanden, `?tile=1`-Script ergänzen
+
+---
+
 ## CSS Design Tokens (aus `css/style.css`)
 
 ```css
