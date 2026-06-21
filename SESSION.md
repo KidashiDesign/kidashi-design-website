@@ -1,5 +1,5 @@
 # Session Handoff — Kidashi Design Website
-Erstellt: 2026-06-19 · Für neuen Chat morgen
+Aktualisiert: 2026-06-21
 
 ---
 
@@ -8,12 +8,30 @@ Erstellt: 2026-06-19 · Für neuen Chat morgen
 | Key | Value |
 |-----|-------|
 | Repo | `kidashidesign/kidashi-design-website` |
-| Branch (aktiv) | `claude/epic-curie-r5ed0o` |
-| Pull Request | https://github.com/KidashiDesign/kidashi-design-website/pull/1 |
-| Deploy | GitHub Pages — deployed aus `main` (PR noch nicht gemergt!) |
+| Branch (aktiv) | `claude/practical-shannon-gj5oop` |
+| Deploy | FTP → Hostinger (echte Live-Seite) + GitHub Pages (Preview) |
 | Stack | Statisches HTML/CSS/JS, kein Build-Tool, kein Framework |
-| Live-URL | `https://kidashidesign.github.io/kidashi-design-website/` |
+| Live-URL | `https://www.kidashidesign.com` |
+| GitHub Pages | `https://kidashidesign.github.io/kidashi-design-website/` |
 | Inhaberin | Nicole Szatkowski — Kidashi Design, Tbilisi (GMT+4) |
+
+---
+
+## 🚨 DEPLOY-PFLICHT — bei jeder neuen Session als ERSTES prüfen
+
+Die echte Live-Seite liegt auf **Hostinger** (nicht GitHub Pages).
+Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.yml` per FTP bei jedem Push auf `main`.
+
+**Beim Sessionstart immer prüfen:**
+1. Letzten Workflow-Run auf `main` checken → `mcp__github__actions_list` (list_workflow_runs)
+2. Wenn "Deploy to Hostinger" = `failure` → sofort melden und `rerun_failed_jobs` auslösen
+3. Secrets die dafür gesetzt sein müssen (in GitHub Repo Settings → Secrets):
+   - `FTP_SERVER`
+   - `FTP_USERNAME`
+   - `FTP_PASSWORD`
+4. Wenn Secrets fehlen → Nicole auffordern sie in https://github.com/KidashiDesign/kidashi-design-website/settings/secrets/actions einzutragen (Werte aus Hostinger hPanel → Hosting → FTP-Konten)
+
+**Merke:** GitHub Pages Deploy kann grün sein, aber Hostinger trotzdem rot — Nicole schaut immer auf www.kidashidesign.com, nicht auf github.io!
 
 ---
 
