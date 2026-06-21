@@ -25,6 +25,33 @@
   opacity: 0.38;
   display: block;
 }
+
+/* Video / animation hero variant — full-screen */
+.proj-hero--video {
+  min-height: unset;
+  display: block;
+}
+.proj-hero--video .proj-hero__eyebrow {
+  top: calc(var(--nav-h) + 1.5rem);
+  z-index: 3;
+}
+.proj-hero--video .proj-hero__video-wrap {
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  display: block;
+}
+.proj-hero--video .proj-hero__video-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  pointer-events: none;
+}
+.proj-hero--video .proj-hero__content {
+  padding: clamp(2rem, 4vh, 3.5rem) var(--gutter) clamp(2.5rem, 5vh, 4rem);
+}
+
 .proj-hero__bg::after {
   content: '';
   position: absolute; inset: 0;
@@ -112,6 +139,27 @@
   font-weight: 400;
   color: rgba(247,243,238,0.8);
   line-height: 1.4;
+}
+
+/* ── SERVICE PILLS ── */
+.proj-services {
+  background: var(--bg);
+  padding: clamp(1.5rem, 3vw, 2.5rem) var(--gutter) 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.proj-services__pill {
+  font-family: var(--font-b);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 2rem;
+  padding: 0.35rem 0.9rem;
+  display: inline-block;
 }
 
 /* ── STATEMENT — editorial large intro text ── */
@@ -354,7 +402,7 @@
   flex-direction: column;
   justify-content: flex-end;
   overflow: hidden;
-  background: var(--dark);
+  background: #FFF083;
   cursor: pointer;
 }
 .proj-next__bg {
@@ -381,14 +429,14 @@
   position: relative;
   z-index: 2;
   padding: var(--gutter) var(--gutter) clamp(3rem, 6vh, 5rem);
-  border-top: 1px solid rgba(247,243,238,0.1);
+  border-top: 1px solid rgba(10,10,11,0.12);
 }
 .proj-next__label {
   font-family: var(--font-b);
   font-size: 0.6rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(247,243,238,0.4);
+  color: rgba(10,10,11,0.45);
   display: block;
   margin-bottom: 1rem;
 }
@@ -396,7 +444,7 @@
   font-family: var(--font-h);
   font-weight: 700;
   font-size: clamp(2.5rem, 7vw, 7rem);
-  color: var(--cream);
+  color: var(--dark);
   line-height: 0.9;
   letter-spacing: -0.03em;
   margin-bottom: 2rem;
@@ -410,7 +458,7 @@
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--primary);
   text-decoration: none;
   transition: gap 0.25s;
 }
@@ -441,4 +489,6 @@
   .proj-details__inner { grid-template-columns: 1fr 1fr; }
   .proj-process__step { grid-template-columns: 1fr; gap: 0.5rem; }
   .proj-process__num { display: none; }
+  /* Mobile: 16:9 ratio instead of full-screen height */
+  .proj-hero--video .proj-hero__video-wrap { height: auto; aspect-ratio: 16 / 9; }
 }

@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kidashi Design — Freelance Graphic Designer</title>
   <meta name="description" content="Nicole Szatkowski — certified freelance graphic designer specialising in web design, brand identity, print and social media. Working worldwide from Tbilisi, Georgia.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.kidashidesign.com/">
+  <meta property="og:title" content="Kidashi Design — Freelance Graphic Designer">
+  <meta property="og:description" content="Nicole Szatkowski — certified freelance graphic designer specialising in web design, brand identity, print and social media. Working worldwide from Tbilisi, Georgia.">
+  <meta property="og:image" content="https://www.kidashidesign.com/images/portfolio/xp-days/kidashi-design-xp-days-website-mockup.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -15,10 +21,10 @@
 <div class="cursor" aria-hidden="true"></div>
 
 <!-- NAV -->
-<nav class="nav nav--light">
+<nav class="nav">
   <div class="nav__inner">
     <a href="index.html" class="nav__logo">
-      <span class="nav__logo-k">Kidashi</span>
+      <span class="nav__logo-k" data-text="Kidashi">Kidashi</span>
       <span class="nav__logo-d">Design</span>
     </a>
     <ul class="nav__links">
@@ -29,6 +35,7 @@
       <li><a href="gallery/" class="nav__link">Gallery</a></li>
       <li><a href="contact/" class="nav__link">Contact</a></li>
     </ul>
+    <div class="nav__location"><span class="nav__location-time" id="navTime"></span><span class="nav__location-sep">·</span><span class="nav__location-city">Tbilisi</span><span class="nav__location-tz">GMT+4</span></div>
     <button class="nav__burger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -199,27 +206,21 @@
       <a href="portfolio/" class="btn btn--outline-dark reveal">View All</a>
     </div>
     <div class="portfolio-grid">
-      <div class="portfolio-card reveal">
-        <div class="portfolio-card__bg" style="background:linear-gradient(150deg,#B96B35 0%,#6A2E08 60%,#3A1402 100%);"></div>
-        <div class="portfolio-card__content">
-          <span class="portfolio-card__tag">Web Design</span>
-          <div class="portfolio-card__title">XP-Days Esports Platform</div>
+      <a href="portfolio/xp-days/" class="portfolio-card reveal" aria-label="XP-Days Esports Platform">
+        <div class="portfolio-card__bg" style="background:#06120D;overflow:hidden;">
+          <iframe src="portfolio/xp-days/xp-days-animation.html?tile=1" class="portfolio-card__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
-      </div>
-      <div class="portfolio-card reveal" data-delay="100">
-        <div class="portfolio-card__bg" style="background:linear-gradient(150deg,#1B2A3B 0%,#0D1926 100%);"></div>
-        <div class="portfolio-card__content">
-          <span class="portfolio-card__tag">Web Design</span>
-          <div class="portfolio-card__title">Rohyma Jet — Private Charter</div>
+      </a>
+      <a href="portfolio/wh4/" class="portfolio-card reveal" data-delay="100" aria-label="wh4 Advertising Agency">
+        <div class="portfolio-card__bg" style="background:#5E0A08;overflow:hidden;">
+          <iframe src="portfolio/wh4/wh4-animation.html?tile=1" class="portfolio-card__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
-      </div>
-      <div class="portfolio-card reveal" data-delay="200">
-        <div class="portfolio-card__bg" style="background:linear-gradient(150deg,#1E3B2C 0%,#0A1A12 100%);"></div>
-        <div class="portfolio-card__content">
-          <span class="portfolio-card__tag">Brand Identity</span>
-          <div class="portfolio-card__title">Galerie Kronsbein</div>
+      </a>
+      <a href="portfolio/rohyma-jet/" class="portfolio-card reveal" data-delay="200" aria-label="Rohyma Jet — Luxury Private Aviation">
+        <div class="portfolio-card__bg" style="background:#0a0a0a;overflow:hidden;">
+          <iframe src="portfolio/rohyma-jet/rohyma-jet-animation.html?tile=1" class="portfolio-card__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
-      </div>
+      </a>
       <div class="portfolio-card reveal" data-delay="300">
         <div class="portfolio-card__bg" style="background:linear-gradient(150deg,#6B3FA0 0%,#2A1040 100%);"></div>
         <div class="portfolio-card__content">
@@ -254,32 +255,13 @@
 </section>
 
 <!-- FOOTER -->
-<!-- CTA FOOTER -->
-<section class="cta-footer" id="ctaFooter">
-  <div class="cta-footer__inner container">
-    <span class="cta-footer__eyebrow">Ready to Stand Out?</span>
-    <div class="cta-footer__headline-wrap">
-      <h2 class="cta-footer__headline" id="ctaHeadline">I BUILD DIFFERENT</h2>
-    </div>
-    <div class="cta-footer__divider"></div>
-    <div class="cta-footer__contact">
-      <div class="cta-footer__left">
-        <a href="contact/" class="cta-footer__cta">Start a Project &rarr;</a>
-        <div class="cta-footer__links">
-          <a href="https://linktr.ee/kidashi.design" target="_blank" rel="noopener" class="cta-footer__link">linktr.ee/kidashi.design</a>
-        </div>
-      </div>
-      <a class="cta-footer__project" aria-label="View latest project"></a>
-    </div>
-  </div>
-</section>
 
 <footer class="footer">
   <div class="container">
     <div class="footer__inner">
       <div class="footer__brand">
         <a href="index.html" class="nav__logo">
-          <span class="nav__logo-k">Kidashi</span>
+          <span class="nav__logo-k" data-text="Kidashi">Kidashi</span>
           <span class="nav__logo-d">Design</span>
         </a>
         <p class="footer__tagline">Certified Graphic Designer — Working Worldwide</p>
@@ -291,15 +273,15 @@
         <a href="portfolio/">Portfolio</a>
         <a href="gallery/">Gallery</a>
         <a href="contact/">Contact</a>
-            <a href="impressum/">Impressum</a>
-      <a href="datenschutz/">Datenschutz</a>
+            <a href="impressum/">Legal Notice</a>
+      <a href="datenschutz/">Privacy Policy</a>
     </nav>
     </div>
     <div class="footer__bottom">
-      <span class="footer__copy">© 2025 Kidashi Design — Nicole Szatkowski</span>
+      <span class="footer__copy">© 2026 Kidashi Design — Nicole Szatkowski</span>
       <div class="footer__social">
-        <a href="impressum/">Impressum</a>
-        <a href="datenschutz/">Datenschutz</a>
+        <a href="impressum/">Legal Notice</a>
+        <a href="datenschutz/">Privacy Policy</a>
         <a href="https://linktr.ee/kidashi.design" target="_blank" rel="noopener">linktr.ee/kidashi.design</a>
       </div>
     </div>

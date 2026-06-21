@@ -412,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#%&*?§$+=/~^<>';
   const rand = () => CHARS[Math.floor(Math.random() * CHARS.length)];
 
-  document.querySelectorAll('h2').forEach(h2 => {
+  document.querySelectorAll('h2.reveal').forEach(h2 => {
     const original = h2.textContent;
     let scrambleRaf = null;
     let revealed = false;
@@ -526,8 +526,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ── Nav: switch to dark text when scrolling over light sections ── */
+  /* Skipped on project detail pages (.proj-hero present) — nav stays white there */
   const navEl = document.querySelector('.nav');
-  if (navEl) {
+  if (navEl && !document.querySelector('.proj-hero')) {
     const navH = navEl.offsetHeight;
     const lightSections = document.querySelectorAll('.about-teaser, .portfolio-teaser, .services-section, section:not(.hero2):not(.services-dark):not(.gallery-teaser):not(.cta-footer):not(.footer)');
     function updateNavColor() {
