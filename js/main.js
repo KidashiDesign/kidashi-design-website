@@ -438,24 +438,23 @@ document.addEventListener('DOMContentLoaded', () => {
     let scrambleRaf = null;
     let revealed = false;
 
-    /* Wrap each character in a span for per-char reveal */
-    h2.innerHTML = original.split('').map((ch, i) =>
-      ch === ' ' ? ' ' : `<span data-char="${ch}" style="opacity:0">${rand()}</span>`
+    /* Wrap chars — start visible so no empty gap when h2 fades in */
+    h2.innerHTML = original.split('').map(ch =>
+      ch === ' ' ? ' ' : `<span data-char="${ch}">${rand()}</span>`
     ).join('');
     const spans = Array.from(h2.querySelectorAll('span[data-char]'));
 
+    /* Scramble immediately (chars invisible while h2 opacity:0, no wasted observer wait) */
     function scramble() {
       spans.forEach(s => { if (!s.dataset.done) s.textContent = rand(); });
       scrambleRaf = requestAnimationFrame(scramble);
     }
+    scramble();
 
     function reveal() {
       if (revealed) return;
       revealed = true;
       cancelAnimationFrame(scrambleRaf);
-
-      /* Fade spans to visible first, then decode left→right */
-      spans.forEach(s => { s.style.transition = 'opacity 0.25s'; s.style.opacity = '1'; });
 
       let i = 0;
       const step = () => {
@@ -468,26 +467,17 @@ document.addEventListener('DOMContentLoaded', () => {
           if (flips > 7) { clearInterval(flip); s.dataset.done = '1'; step(); }
         }, 62);
         i++;
-        if (i % 2 !== 0) step(); /* reveal 2 chars at once */
+        if (i % 2 !== 0) step();
       };
-      /* slight stagger before starting */
-      setTimeout(step, 200);
+      setTimeout(step, 100);
     }
-
-    /* Two observers: low threshold starts scramble, high threshold triggers reveal */
-    const startObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting && !revealed) { scramble(); startObs.unobserve(h2); }
-      });
-    }, { threshold: 0.05 });
 
     const revealObs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) { reveal(); revealObs.unobserve(h2); }
       });
-    }, { threshold: 0.55 });
+    }, { threshold: 0.4 });
 
-    startObs.observe(h2);
     revealObs.observe(h2);
   });
 

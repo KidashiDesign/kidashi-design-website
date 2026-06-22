@@ -455,7 +455,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   margin-bottom: 0.05em;
 }
 .hero2__cycle {
-  min-height: 0.9em;
+  min-height: 0.87em;
 }
 .hero2__cycle .cy-ch { display: inline; }
 
@@ -1643,11 +1643,12 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .hero2__cycle .gooey-filter {
   display: block;
   position: relative;
-  min-height: 0.9em;
+  min-height: 0.87em;
 }
 .hero2__cycle .gooey-t1,
 .hero2__cycle .gooey-t2 {
   position: absolute;
+  top: 0;
   left: 0;
   right: 0;
   text-align: center;
