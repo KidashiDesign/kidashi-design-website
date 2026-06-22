@@ -544,6 +544,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
+  /* ── Container Scroll — 3D process reveal (services page) ── */
+  const csOuter = document.getElementById('csOuter');
+  if (csOuter) {
+    const csCard   = document.getElementById('csCard');
+    const csHeader = document.getElementById('csHeader');
+    const csSteps  = Array.from(document.querySelectorAll('.cs-step'));
+    const prefRM   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefRM) {
+      /* Initialize hidden state */
+      csSteps.forEach(s => { s.style.opacity = '0'; s.style.transform = 'translateX(40px)'; });
+      csCard.style.transform = 'rotateX(20deg) scale(1.05)';
+
+      function csProgress() {
+        const rect  = csOuter.getBoundingClientRect();
+        const extra = csOuter.offsetHeight - window.innerHeight;
+        return Math.max(0, Math.min(1, -rect.top / extra));
+      }
+
+      function csUpdate() {
+        const p = csProgress();
+        /* Card: 20° → 0° rotateX, 1.05 → 1 scale */
+        csCard.style.transform = `rotateX(${20 * (1 - p)}deg) scale(${1.05 - 0.05 * p})`;
+        /* Header: 0 → -80px translateY */
+        csHeader.style.transform = `translateY(${-80 * p}px)`;
+        /* Steps: stagger left-to-right reveal */
+        csSteps.forEach(function (step, i) {
+          const s0 = 0.12 + i * 0.13;
+          const s1 = s0 + 0.18;
+          const sp = Math.max(0, Math.min(1, (p - s0) / (s1 - s0)));
+          step.style.opacity = sp;
+          step.style.transform = 'translateX(' + (40 * (1 - sp)) + 'px)';
+        });
+      }
+
+      let csRaf = null;
+      window.addEventListener('scroll', function () {
+        if (!csRaf) csRaf = requestAnimationFrame(function () { csUpdate(); csRaf = null; });
+      }, { passive: true });
+      csUpdate();
+    } else {
+      csSteps.forEach(s => { s.style.opacity = '1'; s.style.transform = 'none'; });
+    }
+  }
+
   /* ── DisplayCards — scroll-reveal on touch devices ── */
   const dcWrap = document.querySelector('.dc-wrap');
   if (dcWrap && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) {

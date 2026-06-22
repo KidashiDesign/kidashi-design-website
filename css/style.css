@@ -1448,6 +1448,176 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 }
 
 /* ============================================================
+   CONTAINER SCROLL — services page 3D process reveal
+   ============================================================ */
+.cs-section {
+  background: var(--dark);
+  position: relative;
+}
+.cs-outer {
+  height: clamp(900px, 200vh, 1800px);
+  position: relative;
+}
+.cs-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: clamp(1rem, 3vh, 2.5rem) 0;
+}
+.cs-layout {
+  perspective: 1200px;
+  width: 100%;
+  max-width: var(--container);
+  padding: 0 var(--gutter);
+}
+/* Header */
+.cs-hd {
+  text-align: center;
+  margin-bottom: clamp(1.25rem, 2.5vh, 2rem);
+  will-change: transform;
+}
+.cs-hd h2 {
+  color: var(--cream);
+  margin-top: 0.4rem;
+}
+.cs-hd .eyebrow--light {
+  color: var(--primary);
+}
+/* Device shell */
+.cs-device {
+  background: #1c1c1e;
+  border: 2px solid rgba(255,255,255,0.08);
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 9px 20px rgba(0,0,0,0.45),
+    0 37px 37px rgba(0,0,0,0.4),
+    0 84px 50px rgba(0,0,0,0.22),
+    0 149px 60px rgba(0,0,0,0.08);
+  will-change: transform;
+  transform: rotateX(20deg) scale(1.05);
+  transform-origin: center top;
+}
+/* Tablet top bar */
+.cs-device__bezel {
+  height: 28px;
+  background: #111111;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.85rem;
+}
+.cs-device__cam {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #333;
+  border: 1px solid rgba(255,255,255,0.1);
+  flex-shrink: 0;
+}
+.cs-device__label {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: rgba(247,243,238,0.2);
+  text-transform: lowercase;
+  user-select: none;
+}
+/* Screen */
+.cs-device__screen {
+  background: #0a0a0b;
+  height: clamp(240px, 38vh, 420px);
+  overflow: hidden;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  display: flex;
+  align-items: stretch;
+}
+/* Steps row */
+.cs-steps {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  align-items: flex-start;
+}
+.cs-step {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0 clamp(0.75rem, 1.5vw, 1.25rem);
+  border-left: 1px solid rgba(255,255,255,0.05);
+  opacity: 0;
+  transform: translateX(40px);
+  will-change: opacity, transform;
+}
+.cs-step:first-child { border-left: none; padding-left: 0; }
+.cs-step__n {
+  display: block;
+  font-family: var(--font-h);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 300;
+  color: var(--primary);
+  opacity: 0.6;
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+.cs-step__h {
+  font-family: var(--font-h);
+  font-size: clamp(0.78rem, 1.1vw, 0.95rem);
+  font-weight: 500;
+  color: var(--cream);
+  margin: 0 0 0.4rem;
+  line-height: 1.3;
+}
+.cs-step__p {
+  font-size: clamp(0.68rem, 0.9vw, 0.78rem);
+  color: rgba(247,243,238,0.42);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Mobile: stack steps vertically in card */
+@media (max-width: 768px) {
+  .cs-outer { height: clamp(700px, 160vh, 1200px); }
+  .cs-device__screen {
+    height: clamp(260px, 40vh, 380px);
+    overflow-y: auto;
+    align-items: flex-start;
+    scrollbar-width: none;
+  }
+  .cs-device__screen::-webkit-scrollbar { display: none; }
+  .cs-steps {
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  .cs-step {
+    flex: none;
+    padding: 0.75rem 0;
+    border-left: none;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    transform: translateX(30px);
+  }
+  .cs-step:first-child { border-top: none; padding-top: 0; }
+  .cs-step__n { font-size: 1.5rem; margin-bottom: 0.3rem; }
+  .cs-step__h { font-size: 0.82rem; }
+  .cs-step__p { font-size: 0.72rem; }
+}
+
+@media (max-width: 480px) {
+  .cs-hd h2 { font-size: clamp(1.25rem, 5.5vw, 1.75rem); }
+}
+
+/* Reduced motion: skip animation */
+@media (prefers-reduced-motion: reduce) {
+  .cs-device { transform: none !important; }
+  .cs-step { opacity: 1 !important; transform: none !important; }
+  .cs-hd { transform: none !important; }
+}
+
+/* ============================================================
    GOOEY TEXT MORPHING
    ============================================================ */
 .gooey-word {
