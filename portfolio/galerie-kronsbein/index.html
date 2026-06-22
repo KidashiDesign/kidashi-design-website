@@ -55,7 +55,7 @@
 <section class="proj-hero proj-hero--video" style="background:#141110;">
   <div class="proj-hero__video-wrap">
     <iframe
-      class="proj-hero__video-frame"
+      class="proj-hero__video-frame proj-hero__video-frame--desktop"
       src="galerie-kronsbein-animation.html"
       scrolling="no"
       tabindex="-1"
@@ -63,6 +63,18 @@
       loading="eager"
       title="Galerie Kronsbein Animation">
     </iframe>
+    <div class="proj-hero__phone-mockup" aria-hidden="true">
+      <div class="proj-hero__phone">
+        <iframe
+          id="gkPhoneFrame"
+          class="proj-hero__phone-iframe"
+          data-src="galerie-kronsbein-animation.html?phone=1"
+          scrolling="no"
+          tabindex="-1"
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
   </div>
   <div class="proj-hero__content">
     <a href="../../portfolio/" class="proj-hero__back">← Portfolio</a>
@@ -166,5 +178,13 @@
       </div>
 </footer>
 <script src="../../js/main.js"></script>
+<script>
+(function(){
+  if(window.matchMedia('(max-width:600px)').matches){
+    var el=document.getElementById('gkPhoneFrame');
+    if(el) el.src=el.dataset.src;
+  }
+})();
+</script>
 </body>
 </html>

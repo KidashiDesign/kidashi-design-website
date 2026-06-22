@@ -485,6 +485,9 @@
   .proj-process__step { grid-template-columns: 2.5rem 1fr; }
   .proj-process__step-body { grid-column: 2; }
 }
+/* ── PHONE MOCKUP (Galerie Kronsbein mobile hero) ── */
+.proj-hero__phone-mockup { display: none; }
+
 @media (max-width: 600px) {
   .proj-hero__strip { flex-direction: column; gap: 1.25rem; }
   .proj-hero__meta { border-right: none; margin-right: 0; padding-right: 0; border-bottom: 1px solid rgba(247,243,238,0.1); padding-bottom: 1.25rem; }
@@ -494,6 +497,57 @@
   .proj-details__inner { grid-template-columns: 1fr 1fr; }
   .proj-process__step { grid-template-columns: 1fr; gap: 0.5rem; }
   .proj-process__num { display: none; }
-  /* Mobile: 16:9 ratio instead of full-screen height */
-  .proj-hero--video .proj-hero__video-wrap { height: auto; aspect-ratio: 16 / 9; }
+
+  /* Mobile: full-screen animation hero */
+  .proj-hero--video .proj-hero__video-wrap {
+    height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Galerie Kronsbein: show phone mockup, hide desktop animation */
+  .proj-hero__video-frame--desktop { display: none !important; }
+  .proj-hero__phone-mockup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Phone frame */
+  .proj-hero__phone {
+    position: relative;
+    width: min(52vw, 210px);
+    aspect-ratio: 9 / 19.5;
+    background: #101010;
+    border-radius: 13% / 6%;
+    box-shadow:
+      inset 0 0 0 2px #2c2c2c,
+      0 0 0 1px #080808,
+      0 50px 120px rgba(0,0,0,0.95),
+      0 10px 40px rgba(0,0,0,0.7);
+    overflow: hidden;
+    padding: 3.5% 1.5%;
+  }
+  .proj-hero__phone::before {
+    content: '';
+    position: absolute;
+    top: 1.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28%;
+    height: 1.2%;
+    background: #1c1c1e;
+    border-radius: 3px;
+    z-index: 2;
+  }
+  .proj-hero__phone-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10% / 4.5%;
+    display: block;
+  }
 }

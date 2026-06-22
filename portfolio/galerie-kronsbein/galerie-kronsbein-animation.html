@@ -3,8 +3,11 @@
 <head>
 <script>
 (function(){
-  if(!location.search.includes('tile'))return;
-  var css='[data-sr-root]>div>aside{display:none!important}[data-frame]{border-radius:8px!important;box-shadow:0 30px 80px -20px rgba(0,0,0,.85)!important;max-width:none!important}[data-sr-root]>div{padding:clamp(12px,3vw,28px)!important;gap:0!important}[data-frame]>div:first-child{display:none!important}';
+  var p=location.search,isTile=p.includes('tile'),isPhone=p.includes('phone');
+  if(!isTile&&!isPhone)return;
+  var css=isTile
+    ?'[data-sr-root]>div>aside{display:none!important}[data-frame]{border-radius:8px!important;box-shadow:0 30px 80px -20px rgba(0,0,0,.85)!important;max-width:none!important}[data-sr-root]>div{padding:clamp(12px,3vw,28px)!important;gap:0!important}[data-frame]>div:first-child{display:none!important}'
+    :'[data-sr-root]>div>aside{display:none!important}[data-frame]>div:first-child{display:none!important}[data-sr-root]>div{padding:0!important;gap:0!important}[data-sr-root]>div>div{flex:1!important;padding:0!important;display:flex!important;align-items:stretch!important}[data-frame]{width:100%!important;max-width:none!important;height:100%!important;border-radius:0!important;box-shadow:none!important}';
   function inject(){var s=document.createElement('style');s.textContent=css;(document.head||document.documentElement).appendChild(s);}
   inject();document.addEventListener('DOMContentLoaded',inject);setTimeout(inject,500);setTimeout(inject,1500);
 })();
