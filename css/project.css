@@ -52,6 +52,9 @@
 .proj-hero--video .proj-hero__content {
   padding: clamp(4rem, 8vh, 7rem) var(--gutter) clamp(2.5rem, 5vh, 4rem);
 }
+.proj-hero--phone .proj-hero__content {
+  padding-top: clamp(8rem, 18vh, 14rem);
+}
 
 .proj-hero__bg::after {
   content: '';
