@@ -558,19 +558,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prefRM) {
       csSteps.forEach(s => { s.style.opacity = '1'; s.style.transform = 'none'; });
     } else if (isMobile) {
-      /* Mobile: no sticky, IntersectionObserver stagger per step */
+      /* Mobile: each step animates in individually as it scrolls into view */
       if (csCard) csCard.style.transform = 'none';
-      const mobileObs = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-          mobileObs.disconnect();
-          csSteps.forEach(function(step, i) {
-            setTimeout(function() {
-              step.classList.add('step-in');
-            }, i * 220);
-          });
-        }
-      }, { threshold: 0.15 });
-      mobileObs.observe(csOuter);
+      csSteps.forEach(function(step) {
+        const obs = new IntersectionObserver(function(entries) {
+          if (entries[0].isIntersecting) {
+            step.classList.add('step-in');
+            obs.disconnect();
+          }
+        }, { threshold: 0.25, rootMargin: '0px 0px -40px 0px' });
+        obs.observe(step);
+      });
     } else {
       /* Desktop: scroll-driven, one step at a time */
       if (csCard) csCard.style.transform = 'rotateX(20deg) scale(1.05)';

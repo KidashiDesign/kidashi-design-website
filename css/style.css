@@ -1508,23 +1508,6 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   transform: rotateX(20deg) scale(1.05);
   transform-origin: center top;
 }
-/* Tablet top bar */
-.cs-device__bezel {
-  height: 28px;
-  background: #111111;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0 0.85rem;
-}
-.cs-device__cam {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: #333;
-  border: 1px solid rgba(255,255,255,0.1);
-  flex-shrink: 0;
-}
 /* Screen */
 .cs-device__screen {
   background: #0a0a0b;
@@ -1534,18 +1517,6 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   display: flex;
   position: relative;
   align-items: stretch;
-}
-/* Kidashi Design caption below device */
-.cs-caption {
-  text-align: right;
-  font-family: var(--font-h);
-  font-size: 0.68rem;
-  font-weight: 300;
-  letter-spacing: 0.12em;
-  color: rgba(247,243,238,0.22);
-  padding: 0.6rem 0.4rem 0;
-  user-select: none;
-  text-transform: uppercase;
 }
 /* Steps — one at a time, absolutely fills the screen area */
 .cs-steps {
@@ -1560,6 +1531,8 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  text-align: center;
   padding: clamp(1.5rem, 3vw, 2.5rem);
   will-change: opacity;
   -webkit-font-smoothing: antialiased;
@@ -1568,7 +1541,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .cs-step__n {
   display: block;
   font-family: var(--font-h);
-  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
   font-weight: 300;
   color: var(--primary);
   opacity: 0.55;
@@ -1577,7 +1550,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 }
 .cs-step__h {
   font-family: var(--font-h);
-  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-size: clamp(1.2rem, 2.5vw, 1.85rem);
   font-weight: 500;
   color: var(--cream);
   margin: 0 0 0.55rem;
@@ -1585,11 +1558,11 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   -webkit-font-smoothing: antialiased;
 }
 .cs-step__p {
-  font-size: clamp(0.82rem, 1vw, 0.92rem);
+  font-size: clamp(0.88rem, 1.2vw, 1.05rem);
   color: rgba(247,243,238,0.55);
   line-height: 1.65;
-  margin: 0;
-  max-width: 480px;
+  margin: 0 auto;
+  max-width: 420px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -1615,21 +1588,24 @@ p { font-size: 1.0625rem; line-height: 1.75; }
     position: static;
     inset: unset;
     opacity: 0;
-    display: block;
-    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem 0;
     border-top: 1px solid rgba(255,255,255,0.06);
-    transform: translateY(14px);
+    transform: translateY(18px);
     transition: none;
   }
   .cs-step:first-child { border-top: none; padding-top: 0; }
   .cs-step.step-in {
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2,0.8,0.2,1);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2,0.8,0.2,1);
   }
-  .cs-step__n { font-size: clamp(1.6rem, 6vw, 2.4rem); margin-bottom: 0.3rem; }
-  .cs-step__h { font-size: clamp(0.9rem, 3.5vw, 1.1rem); }
-  .cs-step__p { font-size: clamp(0.78rem, 2.8vw, 0.9rem); max-width: none; }
+  .cs-step__n { font-size: clamp(2.6rem, 7vw, 3.4rem); margin-bottom: 0.3rem; }
+  .cs-step__h { font-size: clamp(1.1rem, 4.5vw, 1.4rem); }
+  .cs-step__p { font-size: clamp(0.88rem, 3.2vw, 1rem); max-width: none; }
 }
 
 @media (max-width: 480px) {
