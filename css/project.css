@@ -52,6 +52,9 @@
 .proj-hero--video .proj-hero__content {
   padding: clamp(4rem, 8vh, 7rem) var(--gutter) clamp(2.5rem, 5vh, 4rem);
 }
+.proj-hero--phone .proj-hero__content {
+  padding-top: clamp(8rem, 18vh, 14rem);
+}
 
 .proj-hero__bg::after {
   content: '';
@@ -537,10 +540,17 @@
     inset: 0;
   }
 
+  /* Galerie Kronsbein: hide content sections below hero on mobile */
+  .proj-hero--phone .proj-hero__content { display: none; }
+  .proj-hero--phone ~ .proj-services,
+  .proj-hero--phone ~ .proj-statement,
+  .proj-hero--phone ~ .proj-quote,
+  .proj-hero--phone ~ .proj-process { display: none; }
+
   /* Phone frame */
   .proj-hero__phone {
     position: relative;
-    width: min(52vw, 210px);
+    width: min(72vw, 290px);
     aspect-ratio: 9 / 19.5;
     background: #101010;
     border-radius: 13% / 6%;

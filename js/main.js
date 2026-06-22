@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     let target = { x: pos.x, y: pos.y };
     let isHover = false, glyphIdx = 0, cycleTimer = null, seen = false;
+    let needsHoverCheck = false;
 
     /* Detect background luminance to auto-switch cursor color */
     function getBgLuminance(el) {
@@ -49,27 +50,35 @@ document.addEventListener('DOMContentLoaded', () => {
       return 1; /* assume light if nothing found */
     }
 
-    /* Pointer tracking */
+    /* Pointer tracking — only update position; defer DOM queries to rAF */
     window.addEventListener('pointermove', e => {
       target.x = e.clientX;
       target.y = e.clientY;
       if (!seen) { seen = true; cursor.style.opacity = '1'; }
-      /* Auto-detect dark/light bg under cursor */
-      const el = document.elementFromPoint(e.clientX, e.clientY);
-      if (el) {
-        const lum = getBgLuminance(el);
-        cursor.style.color = lum < 0.35 ? '#F7F3EE' : '#0A0A0B';
-      }
-      /* Hover detection */
-      const hovered = !!(el && el.closest && el.closest('a, button, .gallery-item, .portfolio-item, .portfolio-card, .service-card, .filter-btn, [role="button"], [data-cursor="hover"]'));
-      setHover(hovered);
+      needsHoverCheck = true;
     }, { passive: true });
 
-    /* rAF lerp loop */
+    /* rAF lerp loop — reads before writes to avoid layout thrash */
     (function loop() {
+      /* Read phase: DOM queries before any style writes */
+      let checkEl = null;
+      if (needsHoverCheck) {
+        needsHoverCheck = false;
+        checkEl = document.elementFromPoint(target.x, target.y);
+      }
+
+      /* Write phase */
       pos.x += (target.x - pos.x) * SMOOTHING;
       pos.y += (target.y - pos.y) * SMOOTHING;
       cursor.style.transform = `translate3d(${pos.x.toFixed(2)}px,${pos.y.toFixed(2)}px,0) translate(-50%,-50%)`;
+
+      if (checkEl) {
+        const lum = getBgLuminance(checkEl);
+        cursor.style.color = lum < 0.35 ? '#F7F3EE' : '#0A0A0B';
+        const hovered = !!(checkEl.closest && checkEl.closest('a, button, .gallery-item, .portfolio-item, .portfolio-card, .service-card, .filter-btn, [role="button"], [data-cursor="hover"]'));
+        setHover(hovered);
+      }
+
       requestAnimationFrame(loop);
     })();
 
@@ -109,68 +118,80 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* ── Hero 2 — cycling word + reactive gradient + magnifier ── */
+  /* ── Gooey text morph — SVG filter + engine ── */
+  (function () {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.style.cssText = 'position:absolute;width:0;height:0;pointer-events:none;overflow:hidden';
+    svg.innerHTML = '<defs><filter id="gooey-threshold" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB"><feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 255 -140"/></filter></defs>';
+    document.body.insertBefore(svg, document.body.firstChild);
+  })();
+
+  function initGooeyText(host, texts, morphTime, cooldownTime) {
+    morphTime    = morphTime    || 1;
+    cooldownTime = cooldownTime || 2.5;
+
+    const filterEl = document.createElement('span');
+    filterEl.className = 'gooey-filter';
+    const t1 = document.createElement('span');
+    t1.className = 'gooey-t1';
+    const t2 = document.createElement('span');
+    t2.className = 'gooey-t2';
+    filterEl.appendChild(t1);
+    filterEl.appendChild(t2);
+    host.textContent = '';
+    host.appendChild(filterEl);
+
+    let idx      = texts.length - 1;
+    let prev     = Date.now();
+    let morph    = 0;
+    let cooldown = cooldownTime;
+
+    t1.textContent = texts[idx % texts.length];
+    t2.textContent = texts[(idx + 1) % texts.length];
+
+    function setMorph(f) {
+      t2.style.filter  = 'blur(' + Math.min(8 / f - 8, 100) + 'px)';
+      t2.style.opacity = Math.pow(f, 0.4);
+      const fi = 1 - f;
+      t1.style.filter  = 'blur(' + Math.min(8 / fi - 8, 100) + 'px)';
+      t1.style.opacity = Math.pow(fi, 0.4);
+    }
+
+    function tick() {
+      const now  = Date.now();
+      const dt   = (now - prev) / 1000;
+      prev = now;
+      const shouldInc = cooldown > 0;
+      cooldown -= dt;
+      if (cooldown <= 0) {
+        filterEl.classList.add('is-morphing');
+        if (shouldInc) {
+          idx = (idx + 1) % texts.length;
+          t1.textContent = texts[idx % texts.length];
+          t2.textContent = texts[(idx + 1) % texts.length];
+        }
+        morph -= cooldown;
+        cooldown = 0;
+        let f = morph / morphTime;
+        if (f > 1) { cooldown = cooldownTime; f = 1; }
+        setMorph(f);
+      } else {
+        filterEl.classList.remove('is-morphing');
+        morph = 0;
+        t2.style.filter  = '';
+        t2.style.opacity = '1';
+        t1.style.filter  = '';
+        t1.style.opacity = '0';
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* ── Hero 2 — reactive gradient + scroll reveals ── */
   const hero2 = document.getElementById('hero2');
   if (hero2) {
-    const heroCycleEl = document.getElementById('heroCycle');
-    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#%&*?§$+=/~^<>';
-    const SYMS  = '!@#%&*§$+=~^<>|/\\[]{}±≠°';
-    const rand  = () => CHARS[Math.floor(Math.random() * CHARS.length)];
-    const rsym  = () => SYMS[Math.floor(Math.random() * SYMS.length)];
-
-    /* ── Cycling word ── */
-    const REAL_WORDS = ['YOU', 'THE PLANET', 'THE COMMUNITY', 'YOUR COMPANY', 'THE ALGORYTHM'];
-    let wordIdx = 0, realCount = 0;
-    let onWordReady = null;
-
-    function randSymWord() {
-      const len = Math.floor(Math.random() * 6) + 4;
-      return Array.from({ length: len }, rsym).join('');
-    }
-
-    function nextWord() {
-      /* 1 symbol word after every 3 real words */
-      if (realCount > 0 && realCount % 3 === 0) {
-        realCount = 0;
-        return randSymWord();
-      }
-      realCount++;
-      return REAL_WORDS[wordIdx++ % REAL_WORDS.length];
-    }
-
-    function scrambleTo(word, onDone) {
-      if (!heroCycleEl) { if (onDone) onDone(); return; }
-      heroCycleEl.innerHTML = word.split('').map(ch =>
-        ch === ' ' ? ' ' : `<span class="cy-ch" data-c="${ch}">${rand()}</span>`
-      ).join('');
-      const spans = Array.from(heroCycleEl.querySelectorAll('.cy-ch'));
-      let raf = null;
-      (function sc() { spans.forEach(s => { s.textContent = rand(); }); raf = requestAnimationFrame(sc); })();
-      /* Short scramble, then flash all chars at once */
-      setTimeout(() => {
-        cancelAnimationFrame(raf);
-        heroCycleEl.style.transition = 'opacity 0.1s ease';
-        heroCycleEl.style.opacity = '0.3';
-        setTimeout(() => {
-          spans.forEach(s => { s.textContent = s.dataset.c; });
-          heroCycleEl.style.opacity = '1';
-          setTimeout(() => { heroCycleEl.style.transition = ''; if (onDone) onDone(); }, 110);
-        }, 70);
-      }, 320);
-    }
-
-    function cycle() {
-      scrambleTo(nextWord(), () => {
-        if (onWordReady) onWordReady();
-        setTimeout(cycle, 2500);
-      });
-    }
-
-    /* Start first word immediately */
-    scrambleTo(REAL_WORDS[wordIdx++ % REAL_WORDS.length], () => {
-      if (onWordReady) onWordReady();
-      setTimeout(cycle, 2500);
-    });
 
     /* Scroll-driven: H2 reveal slides in from sides */
     const revealLeft  = hero2.querySelector('.hero2__reveal-left');
@@ -525,6 +546,95 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
+  /* ── Container Scroll — 3D process reveal (services page) ── */
+  const csOuter = document.getElementById('csOuter');
+  if (csOuter) {
+    const csCard   = document.getElementById('csCard');
+    const csHeader = document.getElementById('csHeader');
+    const csSteps  = Array.from(document.querySelectorAll('.cs-step'));
+    const prefRM   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    if (prefRM) {
+      csSteps.forEach(s => { s.style.opacity = '1'; s.style.transform = 'none'; });
+    } else if (isMobile) {
+      /* Mobile: no sticky, IntersectionObserver stagger per step */
+      if (csCard) csCard.style.transform = 'none';
+      const mobileObs = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          mobileObs.disconnect();
+          csSteps.forEach(function(step, i) {
+            setTimeout(function() {
+              step.classList.add('step-in');
+            }, i * 220);
+          });
+        }
+      }, { threshold: 0.15 });
+      mobileObs.observe(csOuter);
+    } else {
+      /* Desktop: scroll-driven, one step at a time */
+      if (csCard) csCard.style.transform = 'rotateX(20deg) scale(1.05)';
+
+      function csProgress() {
+        const rect  = csOuter.getBoundingClientRect();
+        const extra = csOuter.offsetHeight - window.innerHeight;
+        return Math.max(0, Math.min(1, -rect.top / Math.max(extra, 1)));
+      }
+
+      function csUpdate() {
+        const p = csProgress();
+        const n = csSteps.length;
+        /* Card: 20° → 0° rotateX, 1.05 → 1 scale */
+        if (csCard) csCard.style.transform = `rotateX(${20 * (1 - p)}deg) scale(${1.05 - 0.05 * p})`;
+        /* Header: slides up as scroll progresses */
+        if (csHeader) csHeader.style.transform = `translateY(${-60 * p}px)`;
+        /* Steps: one visible at a time */
+        const fadeW = 0.04;
+        csSteps.forEach(function(step, i) {
+          const segStart = i / n;
+          const segEnd   = (i + 1) / n;
+          let op = 0;
+          if (i === 0 && p <= segStart) {
+            op = 1; /* first step visible before animation begins */
+          } else if (p >= segStart && p <= segEnd) {
+            if (p < segStart + fadeW && i > 0) {
+              op = (p - segStart) / fadeW; /* fade in */
+            } else if (p > segEnd - fadeW && i < n - 1) {
+              op = (segEnd - p) / fadeW; /* fade out */
+            } else {
+              op = 1;
+            }
+          }
+          step.style.opacity = Math.max(0, Math.min(1, op));
+          step.style.transform = 'none';
+        });
+      }
+
+      let csRaf = null;
+      window.addEventListener('scroll', function() {
+        if (!csRaf) csRaf = requestAnimationFrame(function() { csUpdate(); csRaf = null; });
+      }, { passive: true });
+      csUpdate();
+    }
+  }
+
+  /* ── DisplayCards — sequential reveal on all devices ── */
+  const dcWrap = document.querySelector('.dc-wrap');
+  if (dcWrap) {
+    const dcCard3 = dcWrap.querySelector('.dc-card--3');
+    const dcCard2 = dcWrap.querySelector('.dc-card--2');
+    const dcCard1 = dcWrap.querySelector('.dc-card--1');
+    const dcObs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        dcObs.disconnect();
+        if (dcCard3) dcCard3.classList.add('dc-in');
+        if (dcCard2) setTimeout(function() { dcCard2.classList.add('dc-in'); }, 480);
+        if (dcCard1) setTimeout(function() { dcCard1.classList.add('dc-in'); }, 960);
+      }
+    }, { threshold: 0.2 });
+    dcObs.observe(dcWrap);
+  }
+
   /* ── Nav: switch to dark text when scrolling over light sections ── */
   /* Skipped on project detail pages (.proj-hero present) — nav stays white there */
   const navEl = document.querySelector('.nav');
@@ -567,4 +677,5 @@ document.addEventListener('DOMContentLoaded', () => {
     input.value = '';
     setTimeout(function() { thanks.textContent = ''; }, 4000);
   };
+
 });
