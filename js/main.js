@@ -534,6 +534,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
+  /* ── DisplayCards — scroll-reveal on touch devices ── */
+  const dcWrap = document.querySelector('.dc-wrap');
+  if (dcWrap && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const dcObs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        dcWrap.classList.add('dc-visible');
+        dcObs.disconnect();
+      }
+    }, { threshold: 0.25 });
+    dcObs.observe(dcWrap);
+  }
+
   /* ── Nav: switch to dark text when scrolling over light sections ── */
   /* Skipped on project detail pages (.proj-hero present) — nav stays white there */
   const navEl = document.querySelector('.nav');
