@@ -1446,3 +1446,41 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   h1 { font-size: clamp(1.5rem, 7vw, 2rem); }
   h2 { font-size: clamp(1.25rem, 5.5vw, 1.75rem); }
 }
+
+/* ============================================================
+   GOOEY TEXT MORPHING
+   ============================================================ */
+.gooey-word {
+  display: inline-block;
+  vertical-align: baseline;
+}
+.gooey-filter {
+  display: inline-grid;
+  filter: url(#gooey-threshold);
+}
+.gooey-t1,
+.gooey-t2 {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Hero block override: full-width, centered */
+.hero2__cycle .gooey-filter {
+  display: block;
+  position: relative;
+  min-height: 0.9em;
+}
+.hero2__cycle .gooey-t1,
+.hero2__cycle .gooey-t2 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+/* Gallery title: inherit italic from em parent */
+.ghero__title .gooey-word .gooey-t1,
+.ghero__title .gooey-word .gooey-t2 {
+  font-style: italic;
+}

@@ -118,68 +118,78 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* ── Hero 2 — cycling word + reactive gradient + magnifier ── */
+  /* ── Gooey text morph — SVG filter + engine ── */
+  (function () {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.style.cssText = 'position:absolute;width:0;height:0;pointer-events:none;overflow:hidden';
+    svg.innerHTML = '<defs><filter id="gooey-threshold" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB"><feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 255 -140"/></filter></defs>';
+    document.body.insertBefore(svg, document.body.firstChild);
+  })();
+
+  function initGooeyText(host, texts, morphTime, cooldownTime) {
+    morphTime    = morphTime    || 1;
+    cooldownTime = cooldownTime || 2.5;
+
+    const filterEl = document.createElement('span');
+    filterEl.className = 'gooey-filter';
+    const t1 = document.createElement('span');
+    t1.className = 'gooey-t1';
+    const t2 = document.createElement('span');
+    t2.className = 'gooey-t2';
+    filterEl.appendChild(t1);
+    filterEl.appendChild(t2);
+    host.textContent = '';
+    host.appendChild(filterEl);
+
+    let idx      = texts.length - 1;
+    let prev     = Date.now();
+    let morph    = 0;
+    let cooldown = cooldownTime;
+
+    t1.textContent = texts[idx % texts.length];
+    t2.textContent = texts[(idx + 1) % texts.length];
+
+    function setMorph(f) {
+      t2.style.filter  = 'blur(' + Math.min(8 / f - 8, 100) + 'px)';
+      t2.style.opacity = Math.pow(f, 0.4);
+      const fi = 1 - f;
+      t1.style.filter  = 'blur(' + Math.min(8 / fi - 8, 100) + 'px)';
+      t1.style.opacity = Math.pow(fi, 0.4);
+    }
+
+    function tick() {
+      const now  = Date.now();
+      const dt   = (now - prev) / 1000;
+      prev = now;
+      const shouldInc = cooldown > 0;
+      cooldown -= dt;
+      if (cooldown <= 0) {
+        if (shouldInc) {
+          idx = (idx + 1) % texts.length;
+          t1.textContent = texts[idx % texts.length];
+          t2.textContent = texts[(idx + 1) % texts.length];
+        }
+        morph -= cooldown;
+        cooldown = 0;
+        let f = morph / morphTime;
+        if (f > 1) { cooldown = cooldownTime; f = 1; }
+        setMorph(f);
+      } else {
+        morph = 0;
+        t2.style.filter  = '';
+        t2.style.opacity = '1';
+        t1.style.filter  = '';
+        t1.style.opacity = '0';
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* ── Hero 2 — reactive gradient + scroll reveals ── */
   const hero2 = document.getElementById('hero2');
   if (hero2) {
-    const heroCycleEl = document.getElementById('heroCycle');
-    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#%&*?§$+=/~^<>';
-    const SYMS  = '!@#%&*§$+=~^<>|/\\[]{}±≠°';
-    const rand  = () => CHARS[Math.floor(Math.random() * CHARS.length)];
-    const rsym  = () => SYMS[Math.floor(Math.random() * SYMS.length)];
-
-    /* ── Cycling word ── */
-    const REAL_WORDS = ['YOU', 'THE PLANET', 'THE COMMUNITY', 'YOUR COMPANY', 'THE ALGORYTHM'];
-    let wordIdx = 0, realCount = 0;
-    let onWordReady = null;
-
-    function randSymWord() {
-      const len = Math.floor(Math.random() * 6) + 4;
-      return Array.from({ length: len }, rsym).join('');
-    }
-
-    function nextWord() {
-      /* 1 symbol word after every 3 real words */
-      if (realCount > 0 && realCount % 3 === 0) {
-        realCount = 0;
-        return randSymWord();
-      }
-      realCount++;
-      return REAL_WORDS[wordIdx++ % REAL_WORDS.length];
-    }
-
-    function scrambleTo(word, onDone) {
-      if (!heroCycleEl) { if (onDone) onDone(); return; }
-      heroCycleEl.innerHTML = word.split('').map(ch =>
-        ch === ' ' ? ' ' : `<span class="cy-ch" data-c="${ch}">${rand()}</span>`
-      ).join('');
-      const spans = Array.from(heroCycleEl.querySelectorAll('.cy-ch'));
-      let raf = null;
-      (function sc() { spans.forEach(s => { s.textContent = rand(); }); raf = requestAnimationFrame(sc); })();
-      /* Short scramble, then flash all chars at once */
-      setTimeout(() => {
-        cancelAnimationFrame(raf);
-        heroCycleEl.style.transition = 'opacity 0.1s ease';
-        heroCycleEl.style.opacity = '0.3';
-        setTimeout(() => {
-          spans.forEach(s => { s.textContent = s.dataset.c; });
-          heroCycleEl.style.opacity = '1';
-          setTimeout(() => { heroCycleEl.style.transition = ''; if (onDone) onDone(); }, 110);
-        }, 70);
-      }, 320);
-    }
-
-    function cycle() {
-      scrambleTo(nextWord(), () => {
-        if (onWordReady) onWordReady();
-        setTimeout(cycle, 2500);
-      });
-    }
-
-    /* Start first word immediately */
-    scrambleTo(REAL_WORDS[wordIdx++ % REAL_WORDS.length], () => {
-      if (onWordReady) onWordReady();
-      setTimeout(cycle, 2500);
-    });
 
     /* Scroll-driven: H2 reveal slides in from sides */
     const revealLeft  = hero2.querySelector('.hero2__reveal-left');
@@ -567,5 +577,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', updateNavColor, { passive: true });
     updateNavColor();
   }
+
+  /* ── Auto-init gooey text on [data-gooey-texts] elements ── */
+  document.querySelectorAll('[data-gooey-texts]').forEach(function (el) {
+    try {
+      const texts      = JSON.parse(el.dataset.gooeyTexts);
+      const morphTime  = parseFloat(el.dataset.gooeyMorph)    || 1;
+      const cooldown   = parseFloat(el.dataset.gooeyCooldown) || 2.5;
+      initGooeyText(el, texts, morphTime, cooldown);
+    } catch (e) {}
+  });
 
 });
