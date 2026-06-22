@@ -94,6 +94,21 @@
   margin-bottom: 1.5rem;
 }
 
+.proj-hero__back--top {
+  position: absolute;
+  top: calc(var(--nav-h) + 2.5rem);
+  left: var(--gutter);
+  z-index: 3;
+  display: block;
+}
+
+@media (min-width: 601px) {
+  .proj-hero__content .proj-hero__back { display: none; }
+}
+@media (max-width: 600px) {
+  .proj-hero__back--top { display: none; }
+}
+
 .proj-hero__content {
   position: relative;
   z-index: 2;
