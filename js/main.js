@@ -165,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const shouldInc = cooldown > 0;
       cooldown -= dt;
       if (cooldown <= 0) {
+        filterEl.classList.add('is-morphing');
         if (shouldInc) {
           idx = (idx + 1) % texts.length;
           t1.textContent = texts[idx % texts.length];
@@ -176,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (f > 1) { cooldown = cooldownTime; f = 1; }
         setMorph(f);
       } else {
+        filterEl.classList.remove('is-morphing');
         morph = 0;
         t2.style.filter  = '';
         t2.style.opacity = '1';
@@ -551,53 +553,85 @@ document.addEventListener('DOMContentLoaded', () => {
     const csHeader = document.getElementById('csHeader');
     const csSteps  = Array.from(document.querySelectorAll('.cs-step'));
     const prefRM   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-    if (!prefRM) {
-      /* Initialize hidden state */
-      csSteps.forEach(s => { s.style.opacity = '0'; s.style.transform = 'translateX(40px)'; });
-      csCard.style.transform = 'rotateX(20deg) scale(1.05)';
+    if (prefRM) {
+      csSteps.forEach(s => { s.style.opacity = '1'; s.style.transform = 'none'; });
+    } else if (isMobile) {
+      /* Mobile: no sticky, IntersectionObserver stagger per step */
+      if (csCard) csCard.style.transform = 'none';
+      const mobileObs = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          mobileObs.disconnect();
+          csSteps.forEach(function(step, i) {
+            setTimeout(function() {
+              step.classList.add('step-in');
+            }, i * 220);
+          });
+        }
+      }, { threshold: 0.15 });
+      mobileObs.observe(csOuter);
+    } else {
+      /* Desktop: scroll-driven, one step at a time */
+      if (csCard) csCard.style.transform = 'rotateX(20deg) scale(1.05)';
 
       function csProgress() {
         const rect  = csOuter.getBoundingClientRect();
         const extra = csOuter.offsetHeight - window.innerHeight;
-        return Math.max(0, Math.min(1, -rect.top / extra));
+        return Math.max(0, Math.min(1, -rect.top / Math.max(extra, 1)));
       }
 
       function csUpdate() {
         const p = csProgress();
+        const n = csSteps.length;
         /* Card: 20° → 0° rotateX, 1.05 → 1 scale */
-        csCard.style.transform = `rotateX(${20 * (1 - p)}deg) scale(${1.05 - 0.05 * p})`;
-        /* Header: 0 → -80px translateY */
-        csHeader.style.transform = `translateY(${-80 * p}px)`;
-        /* Steps: stagger left-to-right reveal */
-        csSteps.forEach(function (step, i) {
-          const s0 = 0.12 + i * 0.13;
-          const s1 = s0 + 0.18;
-          const sp = Math.max(0, Math.min(1, (p - s0) / (s1 - s0)));
-          step.style.opacity = sp;
-          step.style.transform = 'translateX(' + (40 * (1 - sp)) + 'px)';
+        if (csCard) csCard.style.transform = `rotateX(${20 * (1 - p)}deg) scale(${1.05 - 0.05 * p})`;
+        /* Header: slides up as scroll progresses */
+        if (csHeader) csHeader.style.transform = `translateY(${-60 * p}px)`;
+        /* Steps: one visible at a time */
+        const fadeW = 0.04;
+        csSteps.forEach(function(step, i) {
+          const segStart = i / n;
+          const segEnd   = (i + 1) / n;
+          let op = 0;
+          if (i === 0 && p <= segStart) {
+            op = 1; /* first step visible before animation begins */
+          } else if (p >= segStart && p <= segEnd) {
+            if (p < segStart + fadeW && i > 0) {
+              op = (p - segStart) / fadeW; /* fade in */
+            } else if (p > segEnd - fadeW && i < n - 1) {
+              op = (segEnd - p) / fadeW; /* fade out */
+            } else {
+              op = 1;
+            }
+          }
+          step.style.opacity = Math.max(0, Math.min(1, op));
+          step.style.transform = 'none';
         });
       }
 
       let csRaf = null;
-      window.addEventListener('scroll', function () {
-        if (!csRaf) csRaf = requestAnimationFrame(function () { csUpdate(); csRaf = null; });
+      window.addEventListener('scroll', function() {
+        if (!csRaf) csRaf = requestAnimationFrame(function() { csUpdate(); csRaf = null; });
       }, { passive: true });
       csUpdate();
-    } else {
-      csSteps.forEach(s => { s.style.opacity = '1'; s.style.transform = 'none'; });
     }
   }
 
-  /* ── DisplayCards — scroll-reveal on touch devices ── */
+  /* ── DisplayCards — sequential reveal on all devices ── */
   const dcWrap = document.querySelector('.dc-wrap');
-  if (dcWrap && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  if (dcWrap) {
+    const dcCard3 = dcWrap.querySelector('.dc-card--3');
+    const dcCard2 = dcWrap.querySelector('.dc-card--2');
+    const dcCard1 = dcWrap.querySelector('.dc-card--1');
     const dcObs = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
-        dcWrap.classList.add('dc-visible');
         dcObs.disconnect();
+        if (dcCard3) dcCard3.classList.add('dc-in');
+        if (dcCard2) setTimeout(function() { dcCard2.classList.add('dc-in'); }, 480);
+        if (dcCard1) setTimeout(function() { dcCard1.classList.add('dc-in'); }, 960);
       }
-    }, { threshold: 0.25 });
+    }, { threshold: 0.2 });
     dcObs.observe(dcWrap);
   }
 
