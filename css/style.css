@@ -1144,6 +1144,41 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .hero__h1 { font-size: clamp(1.35rem, 6vw, 2rem); }
 }
 
+/* ── GALERIE KRONSBEIN TILE — mobile phone mockup ── */
+.portfolio-gk-phone { display: none; }
+
+@media (max-width: 600px) {
+  .portfolio-gk-desktop { display: none !important; }
+  .portfolio-gk-phone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+  }
+  .portfolio-gk-phone__frame {
+    position: relative;
+    width: min(42vw, 130px);
+    aspect-ratio: 9 / 19.5;
+    background: #101010;
+    border-radius: 13% / 6%;
+    box-shadow:
+      inset 0 0 0 2px #2c2c2c,
+      0 0 0 1px #080808,
+      0 30px 70px rgba(0,0,0,0.95),
+      0 8px 28px rgba(0,0,0,0.7);
+    overflow: hidden;
+    padding: 3% 1.5%;
+  }
+  .portfolio-gk-phone__iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10% / 4.5%;
+    display: block;
+  }
+}
+
 /* ============================================================
    CUSTOM CURSOR — site-wide (desktop only)
    Ported from Custom Cursor.dc.html

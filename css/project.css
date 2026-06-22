@@ -40,6 +40,7 @@
   height: 100svh;
   overflow: hidden;
   display: block;
+  position: relative;
 }
 .proj-hero--video .proj-hero__video-frame {
   width: 100%;
@@ -49,7 +50,7 @@
   pointer-events: none;
 }
 .proj-hero--video .proj-hero__content {
-  padding: clamp(2rem, 4vh, 3.5rem) var(--gutter) clamp(2.5rem, 5vh, 4rem);
+  padding: clamp(4rem, 8vh, 7rem) var(--gutter) clamp(2.5rem, 5vh, 4rem);
 }
 
 .proj-hero__bg::after {
@@ -513,12 +514,17 @@
   .proj-process__step { grid-template-columns: 1fr; gap: 0.5rem; }
   .proj-process__num { display: none; }
 
-  /* Mobile: full-screen animation hero */
-  .proj-hero--video .proj-hero__video-wrap {
+  /* Mobile: square animation for all video pages except phone mockup */
+  .proj-hero--video:not(.proj-hero--phone) .proj-hero__video-wrap {
+    height: auto;
+    aspect-ratio: 1 / 1;
+    display: block;
+  }
+
+  /* Galerie Kronsbein: full-screen phone hero */
+  .proj-hero--phone .proj-hero__video-wrap {
     height: 100svh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
   }
 
   /* Galerie Kronsbein: show phone mockup, hide desktop animation */
