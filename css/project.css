@@ -89,6 +89,11 @@
   color: var(--primary);
 }
 
+.proj-hero__content .proj-hero__back {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
 .proj-hero__content {
   position: relative;
   z-index: 2;
