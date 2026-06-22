@@ -547,4 +547,24 @@ document.addEventListener('DOMContentLoaded', () => {
     updateNavColor();
   }
 
+  /* ── Auto-init gooey text on [data-gooey-texts] elements ── */
+  document.querySelectorAll('[data-gooey-texts]').forEach(function (el) {
+    try {
+      const texts      = JSON.parse(el.dataset.gooeyTexts);
+      const morphTime  = parseFloat(el.dataset.gooeyMorph)    || 1;
+      const cooldown   = parseFloat(el.dataset.gooeyCooldown) || 2.5;
+      initGooeyText(el, texts, morphTime, cooldown);
+    } catch (e) {}
+  });
+
+  /* ── Footer newsletter form ── */
+  window.footerFormSubmit = function(e, form) {
+    e.preventDefault();
+    var input  = form.querySelector('.footer__input');
+    var thanks = form.querySelector('.footer__form-thanks');
+    if (!input || !input.value) return;
+    thanks.textContent = 'Thanks — you\'re in!';
+    input.value = '';
+    setTimeout(function() { thanks.textContent = ''; }, 4000);
+  };
 });
