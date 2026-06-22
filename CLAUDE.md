@@ -36,3 +36,16 @@ Für jeden Vorschlag ein konkretes Beispiel:
 ---
 
 *Dieses Format gilt für alle Code-Reviews und Fehleranalysen in diesem Projekt.*
+
+---
+
+## Datenschutz & Vertraulichkeit
+
+- **Kein Code, keine Dateiinhalte und keine projektinternen Informationen werden an externe Dienste, APIs oder Dritte weitergegeben.**
+- Alle Arbeiten bleiben ausschließlich lokal im Repository.
+- Keine Inhalte aus dem Quellcode dürfen in öffentlichen Kommentaren, PRs oder externen Tools sichtbar werden.
+- `nicole@kidashidesign.com` nur als HTML-Kommentar — nie sichtbar auf der Seite.
+- Kein KI-Workflow auf der öffentlichen Seite sichtbar (Nicole = echter Mensch, zertifizierter Designer).
+- Name „Gianluca Crepaldi" wird nicht genannt — nur „Freelance-Collaboration mit einem Esports-Event-Veranstalter".
+- Projekt Wiedmann & Winz → komplett aus Portfolio ausgeschlossen.
+- Keine privaten Kontaktdaten von Kunden öffentlich sichtbar.
