@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     let target = { x: pos.x, y: pos.y };
     let isHover = false, glyphIdx = 0, cycleTimer = null, seen = false;
+    let needsHoverCheck = false;
 
     /* Detect background luminance to auto-switch cursor color */
     function getBgLuminance(el) {
@@ -49,27 +50,35 @@ document.addEventListener('DOMContentLoaded', () => {
       return 1; /* assume light if nothing found */
     }
 
-    /* Pointer tracking */
+    /* Pointer tracking — only update position; defer DOM queries to rAF */
     window.addEventListener('pointermove', e => {
       target.x = e.clientX;
       target.y = e.clientY;
       if (!seen) { seen = true; cursor.style.opacity = '1'; }
-      /* Auto-detect dark/light bg under cursor */
-      const el = document.elementFromPoint(e.clientX, e.clientY);
-      if (el) {
-        const lum = getBgLuminance(el);
-        cursor.style.color = lum < 0.35 ? '#F7F3EE' : '#0A0A0B';
-      }
-      /* Hover detection */
-      const hovered = !!(el && el.closest && el.closest('a, button, .gallery-item, .portfolio-item, .portfolio-card, .service-card, .filter-btn, [role="button"], [data-cursor="hover"]'));
-      setHover(hovered);
+      needsHoverCheck = true;
     }, { passive: true });
 
-    /* rAF lerp loop */
+    /* rAF lerp loop — reads before writes to avoid layout thrash */
     (function loop() {
+      /* Read phase: DOM queries before any style writes */
+      let checkEl = null;
+      if (needsHoverCheck) {
+        needsHoverCheck = false;
+        checkEl = document.elementFromPoint(target.x, target.y);
+      }
+
+      /* Write phase */
       pos.x += (target.x - pos.x) * SMOOTHING;
       pos.y += (target.y - pos.y) * SMOOTHING;
       cursor.style.transform = `translate3d(${pos.x.toFixed(2)}px,${pos.y.toFixed(2)}px,0) translate(-50%,-50%)`;
+
+      if (checkEl) {
+        const lum = getBgLuminance(checkEl);
+        cursor.style.color = lum < 0.35 ? '#F7F3EE' : '#0A0A0B';
+        const hovered = !!(checkEl.closest && checkEl.closest('a, button, .gallery-item, .portfolio-item, .portfolio-card, .service-card, .filter-btn, [role="button"], [data-cursor="hover"]'));
+        setHover(hovered);
+      }
+
       requestAnimationFrame(loop);
     })();
 
