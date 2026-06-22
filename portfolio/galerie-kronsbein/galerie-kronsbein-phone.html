@@ -18,7 +18,7 @@ html,body{width:100%;height:100%;background:#0c0a08;overflow:hidden;font-family:
 /* gallery page */
 .page{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column}
 /* nav */
-.gnav{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.1rem .7rem;background:rgba(20,17,16,.88);backdrop-filter:blur(8px);border-bottom:1px solid rgba(239,231,217,.1);flex-shrink:0}
+.gnav{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem;padding:.6rem 1.1rem .7rem;background:rgba(20,17,16,.88);backdrop-filter:blur(8px);border-bottom:1px solid rgba(239,231,217,.1);flex-shrink:0}
 .gbrand{display:flex;align-items:center;gap:7px}
 .glogo{width:24px;height:24px;background:#3a342c;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:6px;letter-spacing:.04em;line-height:1.1;color:#f3eee4}
 .gname{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#efe7d9;line-height:1}
@@ -53,15 +53,15 @@ html,body{width:100%;height:100%;background:#0c0a08;overflow:hidden;font-family:
   <div class="dots"></div>
   <div class="page">
     <nav class="gnav">
-      <div class="gbrand">
-        <div class="glogo"><span>GAL</span><span>KRO</span></div>
-        <div><div class="gname">Galerie Kronsbein</div><div class="gsub">by Sarah Kronsbein</div></div>
-      </div>
       <div class="glinks">
         <a href="#" class="on">Exhibition</a>
         <a href="#">Artists</a>
         <a href="#">Interior</a>
         <a href="#">Press</a>
+      </div>
+      <div class="gbrand">
+        <div class="glogo"><span>GAL</span><span>KRO</span></div>
+        <div><div class="gname">Galerie Kronsbein</div><div class="gsub">by Sarah Kronsbein</div></div>
       </div>
     </nav>
     <div class="gmid">
