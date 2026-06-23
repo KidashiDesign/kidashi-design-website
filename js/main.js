@@ -439,58 +439,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* ── H2 Scramble-Reveal ── */
-  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#%&*?§$+=/~^<>';
-  const rand = () => CHARS[Math.floor(Math.random() * CHARS.length)];
-
-  document.querySelectorAll('h2.reveal').forEach(h2 => {
-    const original = h2.textContent;
-    let scrambleRaf = null;
-    let revealed = false;
-
-    /* Wrap chars — start visible so no empty gap when h2 fades in */
-    h2.innerHTML = original.split('').map(ch =>
-      ch === ' ' ? ' ' : `<span data-char="${ch}">${rand()}</span>`
-    ).join('');
-    const spans = Array.from(h2.querySelectorAll('span[data-char]'));
-
-    /* Scramble immediately (chars invisible while h2 opacity:0, no wasted observer wait) */
-    function scramble() {
-      spans.forEach(s => { if (!s.dataset.done) s.textContent = rand(); });
-      scrambleRaf = requestAnimationFrame(scramble);
-    }
-    scramble();
-
-    function reveal() {
-      if (revealed) return;
-      revealed = true;
-      cancelAnimationFrame(scrambleRaf);
-
-      let i = 0;
-      const step = () => {
-        if (i >= spans.length) return;
-        const s = spans[i];
-        let flips = 0;
-        const flip = setInterval(() => {
-          s.textContent = flips < 6 ? rand() : s.dataset.char;
-          flips++;
-          if (flips > 7) { clearInterval(flip); s.dataset.done = '1'; step(); }
-        }, 62);
-        i++;
-        if (i % 2 !== 0) step();
-      };
-      setTimeout(step, 100);
-    }
-
-    const revealObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { reveal(); revealObs.unobserve(h2); }
-      });
-    }, { threshold: 0.4 });
-
-    revealObs.observe(h2);
-  });
-
   /* ── Featured project tile — update this one object to change the project shown ── */
   const FEATURED_PROJECT = {
     title:  'XP-Days Esports Platform',
@@ -654,6 +602,33 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', updateNavColor, { passive: true });
     updateNavColor();
   }
+
+  /* ── H3 parallax on scroll ── */
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const h3s = Array.from(document.querySelectorAll('h3')).filter(function(el) {
+      return !el.closest('.footer') && !el.closest('.cs-section');
+    });
+    if (!h3s.length) return;
+    h3s.forEach(function(h3) { h3.style.willChange = 'transform'; });
+    let h3Raf = false;
+    function updateH3() {
+      const vh = window.innerHeight;
+      h3s.forEach(function(h3) {
+        const rect = h3.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > vh) return;
+        if (h3.classList.contains('reveal') && !h3.classList.contains('visible')) return;
+        const center = (rect.top + rect.height / 2) / vh;
+        const offset = ((center - 0.5) * -28).toFixed(2);
+        h3.style.transform = 'translateY(' + offset + 'px)';
+      });
+      h3Raf = false;
+    }
+    window.addEventListener('scroll', function() {
+      if (!h3Raf) { h3Raf = true; requestAnimationFrame(updateH3); }
+    }, { passive: true });
+    updateH3();
+  })();
 
   /* ── Auto-init gooey text on [data-gooey-texts] elements ── */
   document.querySelectorAll('[data-gooey-texts]').forEach(function (el) {

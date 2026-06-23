@@ -444,6 +444,8 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .hero2__static,
 .hero2__cycle {
   display: block;
+  width: 100%;
+  text-align: center;
   font-family: var(--font-h);
   font-weight: 700;
   font-size: clamp(4.5rem, 18vh, 15rem);
