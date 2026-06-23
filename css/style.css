@@ -3,7 +3,7 @@
    Nicole Szatkowski · kidashidesign.com
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap');
+/* Jost loaded via <link> in HTML — @import removed (render-blocking) */
 
 @font-face {
   font-family: 'Mango Grotesque';
@@ -549,9 +549,9 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 @media (max-width: 768px) {
   .hero2 { height: 200vh; }
   .hero2__static,
-  .hero2__cycle { font-size: clamp(2.8rem, 14vw, 6rem); }
+  .hero2__cycle { font-size: clamp(3.4rem, 15vw, 7rem); }
   .hero2__sub-row { flex-direction: column; gap: 1rem; }
-  .hero2__reveal-h2 { font-size: clamp(2rem, 10vw, 4rem); }
+  .hero2__reveal-h2 { font-size: clamp(2.2rem, 11vw, 4.5rem); }
   /* General text size boost on mobile */
   p, .proj-split__body, .proj-statement__desc, .proj-process__step-body { font-size: 1.05rem; }
   .about-teaser__text p { font-size: 1.05rem; }
@@ -1443,12 +1443,17 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 }
 
 @media (max-width: 768px) {
-  h1 { font-size: clamp(1.7rem, 6vw, 2.6rem); }
-  h2 { font-size: clamp(1.4rem, 5vw, 2.2rem); }
+  h1 { font-size: clamp(2.4rem, 7.5vw, 3.2rem); }
+  h2 { font-size: clamp(2rem, 6.5vw, 2.8rem); }
+  h3 { font-size: clamp(1.4rem, 5vw, 2rem); }
+  /* About body h2 needs mobile boost despite higher specificity selector */
+  .about-content__main h2 { font-size: clamp(2rem, 6.5vw, 2.6rem); }
 }
 @media (max-width: 480px) {
-  h1 { font-size: clamp(1.5rem, 7vw, 2rem); }
-  h2 { font-size: clamp(1.25rem, 5.5vw, 1.75rem); }
+  h1 { font-size: clamp(2.2rem, 8vw, 2.8rem); }
+  h2 { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+  h3 { font-size: clamp(1.3rem, 5.5vw, 1.8rem); }
+  :root { --section-pad: clamp(48px, 12vw, 80px); }
 }
 
 /* ============================================================
@@ -1609,7 +1614,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 }
 
 @media (max-width: 480px) {
-  .cs-hd h2 { font-size: clamp(1.25rem, 5.5vw, 1.75rem); }
+  .cs-hd h2 { font-size: clamp(1.8rem, 7vw, 2.4rem); }
 }
 
 /* Reduced motion: skip animation */
@@ -1625,9 +1630,13 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .gooey-word {
   display: inline-block;
   vertical-align: baseline;
+  line-height: inherit;
 }
 .gooey-filter {
   display: inline-grid;
+  grid-template-columns: max-content;
+  line-height: inherit;
+  vertical-align: baseline;
 }
 .gooey-filter.is-morphing {
   filter: url(#gooey-threshold);
@@ -1637,6 +1646,8 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   grid-area: 1 / 1;
   white-space: nowrap;
   user-select: none;
+  line-height: inherit;
+  letter-spacing: inherit;
 }
 
 /* Hero block override: full-width, centered */

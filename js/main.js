@@ -142,6 +142,27 @@ document.addEventListener('DOMContentLoaded', () => {
     host.textContent = '';
     host.appendChild(filterEl);
 
+    /* Fix word-spacing: prevent layout shift between words of different lengths.
+       Measure the widest word and lock the grid container to that width.
+       Skip for hero cycle which uses block/absolute positioning. */
+    if (!host.closest('.hero2__cycle')) {
+      requestAnimationFrame(function() {
+        const probe = document.createElement('span');
+        const cs = window.getComputedStyle(t1);
+        probe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;visibility:hidden;pointer-events:none;white-space:nowrap;';
+        probe.style.font = cs.font;
+        probe.style.letterSpacing = cs.letterSpacing;
+        document.body.appendChild(probe);
+        let maxW = 0;
+        texts.forEach(function(txt) {
+          probe.textContent = txt;
+          maxW = Math.max(maxW, probe.getBoundingClientRect().width);
+        });
+        document.body.removeChild(probe);
+        if (maxW > 0) filterEl.style.minWidth = Math.ceil(maxW) + 'px';
+      });
+    }
+
     let idx      = texts.length - 1;
     let prev     = Date.now();
     let morph    = 0;

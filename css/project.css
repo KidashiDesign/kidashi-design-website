@@ -508,6 +508,11 @@
 .proj-hero__phone-mockup { display: none; }
 
 @media (max-width: 600px) {
+  .proj-hero__title { font-size: clamp(3rem, 13vw, 6rem); }
+  .proj-statement__text { font-size: clamp(2.2rem, 7.5vw, 3.5rem); }
+  .proj-split__title { font-size: clamp(2rem, 6.5vw, 2.8rem); }
+  .proj-quote__text { font-size: clamp(2rem, 6.5vw, 2.8rem); }
+  .proj-next__title { font-size: clamp(2.8rem, 10vw, 5rem); }
   .proj-hero__strip { flex-direction: column; gap: 1.25rem; }
   .proj-hero__meta { border-right: none; margin-right: 0; padding-right: 0; border-bottom: 1px solid rgba(247,243,238,0.1); padding-bottom: 1.25rem; }
   .proj-hero__meta:last-child { border-bottom: none; }
