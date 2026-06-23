@@ -1543,10 +1543,10 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   opacity: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
-  padding: clamp(1.5rem, 3vw, 2.5rem);
+  padding: clamp(2rem, 7vh, 4.5rem) clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.5rem);
   will-change: opacity;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
