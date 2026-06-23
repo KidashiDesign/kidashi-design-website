@@ -1625,7 +1625,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 }
 
 /* ============================================================
-   GOOEY TEXT MORPHING
+   WORD-CYCLE CROSSFADE
    ============================================================ */
 .gooey-word {
   display: inline-block;
@@ -1638,9 +1638,6 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   line-height: inherit;
   vertical-align: baseline;
 }
-.gooey-filter.is-morphing {
-  filter: url(#gooey-threshold);
-}
 .gooey-t1,
 .gooey-t2 {
   grid-area: 1 / 1;
@@ -1648,6 +1645,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   user-select: none;
   line-height: inherit;
   letter-spacing: inherit;
+  transition: opacity 0.08s ease;
 }
 
 /* Hero block override: full-width, centered */

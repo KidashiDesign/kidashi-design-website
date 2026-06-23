@@ -118,15 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* ── Gooey text morph — SVG filter + engine ── */
-  (function () {
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('aria-hidden', 'true');
-    svg.style.cssText = 'position:absolute;width:0;height:0;pointer-events:none;overflow:hidden';
-    svg.innerHTML = '<defs><filter id="gooey-threshold" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB"><feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 255 -140"/></filter></defs>';
-    document.body.insertBefore(svg, document.body.firstChild);
-  })();
-
+  /* ── Word-cycle crossfade engine ── */
   function initGooeyText(host, texts, morphTime, cooldownTime) {
     morphTime    = morphTime    || 1;
     cooldownTime = cooldownTime || 2.5;
@@ -176,11 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
     t2.textContent = texts[(idx + 1) % texts.length];
 
     function setMorph(f) {
-      t2.style.filter  = 'blur(' + Math.min(8 / f - 8, 100) + 'px)';
-      t2.style.opacity = Math.pow(f, 0.4);
-      const fi = 1 - f;
-      t1.style.filter  = 'blur(' + Math.min(8 / fi - 8, 100) + 'px)';
-      t1.style.opacity = Math.pow(fi, 0.4);
+      t2.style.opacity = String(f);
+      t1.style.opacity = String(1 - f);
     }
 
     function tick() {
@@ -190,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const shouldInc = cooldown > 0;
       cooldown -= dt;
       if (cooldown <= 0) {
-        filterEl.classList.add('is-morphing');
         if (shouldInc) {
           idx = (idx + 1) % texts.length;
           t1.textContent = texts[idx % texts.length];
@@ -202,11 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (f > 1) { cooldown = cooldownTime; f = 1; }
         setMorph(f);
       } else {
-        filterEl.classList.remove('is-morphing');
         morph = 0;
-        t2.style.filter  = '';
         t2.style.opacity = '1';
-        t1.style.filter  = '';
         t1.style.opacity = '0';
       }
       requestAnimationFrame(tick);
