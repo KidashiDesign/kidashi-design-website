@@ -1,5 +1,5 @@
 # Session Handoff — Kidashi Design Website
-Aktualisiert: 2026-06-21
+Aktualisiert: 2026-06-23
 
 ---
 
@@ -8,11 +8,12 @@ Aktualisiert: 2026-06-21
 | Key | Value |
 |-----|-------|
 | Repo | `kidashidesign/kidashi-design-website` |
-| Branch (aktiv) | `claude/practical-shannon-gj5oop` |
-| Deploy | GitHub Pages aus `main` (Live-URL) — automatisch bei jedem Merge |
+| Branch (aktiv) | `claude/optimistic-franklin-rpxcj4` |
+| PR | https://github.com/KidashiDesign/kidashi-design-website/pull/19 |
+| Deploy | FTP → Hostinger (echte Live-Seite) + GitHub Pages (Preview) |
 | Stack | Statisches HTML/CSS/JS, kein Build-Tool, kein Framework |
-| Live-URL | `https://kidashidesign.github.io/kidashi-design-website/` |
-| Pages Branch | `main` ← seit 2026-06-21 korrekt konfiguriert |
+| Live-URL | `https://www.kidashidesign.com` |
+| GitHub Pages | `https://kidashidesign.github.io/kidashi-design-website/` |
 | Inhaberin | Nicole Szatkowski — Kidashi Design, Tbilisi (GMT+4) |
 
 ---
@@ -62,14 +63,39 @@ Bei **jeder** hochgeladenen Bundle-Animation automatisch ohne Erinnerung:
 --font-b: 'Jost'                  /* Body/UI */
 --dark:   #0A0A0B
 --cream:  #F7F3EE
---bg:     #FAF9F5 (heller Hintergrund)
---bg2:    #F3EFE8
---sand:   #E8E2D9
---primary: #2E54FE (Blau)
---accent:  #FFBC95 (Orange)
+--bg:     #F7F3EE (heller Hintergrund)
+--bg2:    #EDE9E2
+--sand:   rgba(10,10,11,0.22)
+--primary: #FFBC95 (Orange/Salmon)
+--secondary: #2E54FE (Blau)
+--accent:  #FFF083 (Gelb)
 --muted:   rgba(10,10,11,0.45)
---nav-h:   4rem (Nav-Höhe)
---gutter:  clamp(1.5rem, 5vw, 5rem)
+--nav-h:   72px (Desktop) / 60px (Mobile)
+--gutter:  clamp(24px, 5vw, 80px)
+--section-pad: clamp(80px, 10vw, 140px) | mobile 480px: clamp(48px, 12vw, 80px)
+```
+
+---
+
+## Mobile Typography (nach 2026-06-23 Optimierung)
+
+```css
+/* Basis (alle Breakpoints) */
+h1: clamp(1.9rem, 5vw, 5rem)
+h2: clamp(2rem, 4.5vw, 4.6rem)
+
+/* ≤ 768px */
+h1: clamp(2.4rem, 7.5vw, 3.2rem)   /* war: 1.7rem */
+h2: clamp(2rem, 6.5vw, 2.8rem)     /* war: 1.4rem */
+h3: clamp(1.4rem, 5vw, 2rem)
+
+/* ≤ 480px */
+h1: clamp(2.2rem, 8vw, 2.8rem)     /* war: 1.5rem */
+h2: clamp(1.8rem, 7vw, 2.4rem)     /* war: 1.25rem */
+h3: clamp(1.3rem, 5.5vw, 1.8rem)
+
+/* Hero H1 mobil */
+.hero2__static/.hero2__cycle: clamp(3.4rem, 15vw, 7rem)  /* war: 2.8rem/14vw */
 ```
 
 ---
@@ -91,15 +117,22 @@ Bei **jeder** hochgeladenen Bundle-Animation automatisch ohne Erinnerung:
 /
 ├── index.html                    # Landingpage (nav class="nav")
 ├── css/
-│   ├── style.css                 # Globales CSS + Tokens
+│   ├── style.css                 # Globales CSS + Tokens (KEIN @import mehr!)
 │   └── project.css               # Portfolio-Detailseiten CSS
-├── js/main.js                    # Nav-Scroll, Cursor, Animationen
+├── js/main.js                    # Nav-Scroll, Cursor, Animationen, Gooey-Morph
+├── fonts/                        # MangoGrotesque TTF (~51KB/Datei, font-display:swap)
 ├── portfolio/
 │   ├── index.html                # Portfolio-Übersicht (nav--light, 4-col grid)
-│   └── xp-days/
-│       ├── index.html            # XP-Days Detailseite
-│       └── xp-days-animation.html  # Selbst-enthaltene Animation (805KB, alle Bilder als Data-URI eingebettet)
-├── images/portfolio/xp-days/    # 12 JPEG-Assets vorhanden
+│   ├── xp-days/                  # Animation + 12 JPEG-Assets
+│   ├── tm-studio/                # Animation + 6 Assets
+│   ├── galerie-kronsbein/        # Animation + Phone-Mockup (galerie-kronsbein-phone.html)
+│   ├── rohyma-jet/               # Animation + 1 Asset
+│   ├── selvoma/                  # Animation (selvoma-animation.html)
+│   ├── wh4/                      # Animation
+│   ├── hideout-georgia/          # 2 Assets
+│   └── studio995/                # 2 Assets
+├── images/portfolio/             # Projektbilder
+├── images/gallery/               # 35 Galerie-Bilder
 ├── CLAUDE.md                     # Code-Review-Standard (Pflichtformat)
 ├── robots.txt
 └── sitemap.xml                   # 21 URLs
@@ -107,55 +140,93 @@ Bei **jeder** hochgeladenen Bundle-Animation automatisch ohne Erinnerung:
 
 ---
 
-## Was diese Session gemacht wurde
+## Gooey Text Morph — Technische Details
 
-### Commits (neueste zuerst)
-```
-28e37de  Simplify video hero CSS: remove redundant declarations
-8fc9b08  Full-screen animation hero, hide playback bar, light nav
-5007615  Add CLAUDE.md: code review standard
-47c173c  Replace XP-Days animation (self-contained, images inlined)
-a7c147e  Embed XP-Days animation as 16:9 video hero
-2cd9bf5  Add animated hero to XP-Days project page
-6865735  Fix nav text color on all 13 project pages → white
-a50ea5c  Fix portfolio index preview images
-3f73dae  Fix next-project images
-4effc6c  Add robots.txt + sitemap.xml
+```html
+<!-- Inline gooey (About, Contact, Services, Portfolio, Gallery) -->
+<h1>The <span class="gooey-word"
+  data-gooey-texts='["Designer","Strategist","Creator","Visionary"]'>Designer</span> Behind</h1>
+
+<!-- Hero cycle (Landingpage) -->
+<span class="hero2__cycle" id="heroCycle"
+  data-gooey-texts='["YOU","THE PLANET","THE COMMUNITY","YOUR COMPANY","THE ALGORYTHM"]'
+  data-gooey-morph="1.2" data-gooey-cooldown="2"></span>
 ```
 
-### Technische Details — XP-Days Animation
-- `xp-days-animation.html` = Claude Design Export (Bundle-Format)
-- Bundle-Struktur: `<script type="__bundler/manifest">` JSON mit 22 Einträgen (3 JS/JSX, 19 fonts)
-- Bilder (logo, logoWhite, banner, cup, gewinnspiel) als base64 Data-URIs in UUID `ca7c7755`
-- PlaybackBar (Scrubber) entfernt: UUID `a81fe188` (animations.jsx gzip) wurde gepacht
-- Python-Patch-Methode: `base64.b64decode → gzip.decompress → str.replace → gzip.compress → base64.b64encode`
+**JS-Initialisierung:** `initGooeyText(host, texts, morphTime, cooldownTime)`
+- Misst max. Textbreite aller Words per Probe-Span → `filterEl.style.minWidth` → kein Layout-Shift
+- Hero cycle: Sonderfall (block/absolute positioning) → kein minWidth gesetzt
+- SVG-Filter: `#gooey-threshold` mit `feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 255 -140"`
+- Klasse `.is-morphing` nur während Morph-Phase aktiv → scharfer Text in Ruhephase
 
-### CSS-Muster — Projekt-Hero-Varianten
+**CSS (gooey):**
 ```css
-/* Standard-Hero (Bild-Hintergrund, dunkle Überlagerung) */
-<section class="proj-hero">
-
-/* Video/Animation-Hero (Vollbild-Iframe) */
-<section class="proj-hero proj-hero--video" style="background:#06120D;">
-  <div class="proj-hero__eyebrow"> <!-- absolut über dem Video -->
-  <div class="proj-hero--video .proj-hero__video-wrap"> <!-- height: 100svh -->
-    <iframe class="proj-hero__video-frame" ...>
-  </div>
-  <div class="proj-hero__content"> <!-- fließt nach dem Video -->
+.gooey-filter { display: inline-grid; grid-template-columns: max-content;
+                line-height: inherit; vertical-align: baseline; }
+.gooey-t1, .gooey-t2 { grid-area: 1/1; line-height: inherit; letter-spacing: inherit; }
 ```
 
 ---
 
-## Code-Review-Standard (`CLAUDE.md`)
+## CSS-Muster — Projekt-Hero-Varianten
 
-Bei jeder Fehleranalyse:
-1. Kritische Fehler (Security/Crash) zuerst
-2. Zeile · Erklärung · Fix für jeden Fehler
-3. Optimierungen mit Aufwand / Nutzen-Rating
-4. Gesamtbewertung 1–10 + Top 3 Maßnahmen
-5. Vorher / Nachher-Beispiele
+```css
+/* Standard-Hero (Bild-Hintergrund, dunkle Überlagerung) */
+<section class="proj-hero">
 
-Slash-Kommandos: `/simplify` = Vereinfachung, `/code-review` = Fehlersuche
+/* Video/Animation-Hero (Vollbild-Iframe, Desktop) */
+<section class="proj-hero proj-hero--video" style="background:#06120D;">
+  <div class="proj-hero__back--top">  <!-- absolut, Desktop-Back-Link -->
+  <div class="proj-hero__video-wrap"> <!-- height: 100svh -->
+    <iframe class="proj-hero__video-frame" loading="eager" ...>
+  </div>
+  <div class="proj-hero__content"> <!-- fließt nach dem Video -->
+
+/* Mobile: video → aspect-ratio:1/1 (Quadrat) */
+/* GK Phone-Mockup: proj-hero--phone Klasse + iframe zur galerie-kronsbein-phone.html -->
+```
+
+---
+
+## Performance-Stand (nach 2026-06-23 Optimierung)
+
+- **Google Fonts**: Non-blocking `rel="preload" onload` in allen 21 HTML-Seiten
+- **MangoGrotesque**: Preload-Hints in index.html (Bold+Regular), about/portfolio/services/contact (Light+Bold)
+- **CSS @import**: entfernt aus style.css (war render-blocking + doppelt geladen)
+- **Bilder**: alle `loading="lazy" decoding="async"` (außer Hero-iframes: `loading="eager"`)
+- **Fonts**: `font-display: swap` auf allen @font-face Deklarationen
+- **JS**: main.js am Ende von `<body>` — nicht render-blocking
+
+---
+
+## Was diese Session (2026-06-23) gemacht wurde
+
+### Commits (neueste zuerst)
+```
+0988f8e  Mobile UX: larger headings, gooey word-spacing fix, faster font loading
+8049627  Fix empty gaps around heading animations
+534248e  ContainerScroll: remove bezel/caption, center text, larger fonts, per-step scroll animation
+c7bbb4e  Merge main into feature branch; resolve JS conflict
+bec3b6b  Redesign footer across all pages — 4-column layout with social icons
+7d378ac  Fix gooey sharpness, DisplayCards sequential reveal, ContainerScroll redesign
+22765ff  Add 3D container scroll to My Process section on services page
+f617646  Add gooey text morphing to all main H1 headings
+d10a116  Add DisplayCards stacked widget to "What I Offer" section
+65473da  Cursor: fix stuttering by moving DOM queries from pointermove into rAF
+cdd6fba  GK mobile: bigger mockup, lightweight phone HTML, remove loading box from animation tiles
+abb0225  Mobile & desktop animation layout fixes
+8d8caa3  Fix: back link visible on desktop/tablet for all detail pages
+```
+
+### Features dieser Session
+- **DisplayCards** ("What I Offer"): gestapelte Karten, sequenziell enthüllt, Desktop Hover fächert auf
+- **Gooey Text Morph**: alle H1-Headings morphen ein Schlüsselwort (About/Contact/Services/Portfolio/Gallery)
+- **ContainerScroll**: 3D-Tablet-Mockup auf Services-Seite, scroll-driven, Mobile stacked
+- **Footer-Redesign**: 4-Spalten (Newsletter, Quick Links, Contact, Follow Me) + Social Icons
+- **Galerie Kronsbein**: Desktop-Animation + Phone-Mockup-Hero auf Mobile
+- **Selvoma Animation**: selvoma-animation.html hinzugefügt
+- **Mobile Optimierung**: alle h1/h2 deutlich größer, section-pad reduziert, project.css Titel größer
+- **Performance**: @import entfernt, Fonts non-blocking, Preload-Hints
 
 ---
 
@@ -163,9 +234,9 @@ Slash-Kommandos: `/simplify` = Vereinfachung, `/code-review` = Fehlersuche
 
 | # | Task | Status |
 |---|------|--------|
-| 1 | PR #1 mergen für Live-Deployment → https://github.com/KidashiDesign/kidashi-design-website/pull/1 | ❌ Offen |
-| 2 | Portfolio-Bilder für 8 leere Projekte | ❌ Warten auf Nicole |
-| 3 | artista-magazin, galerie-kronsbein, mystic-drops, piano-post, seestern, selvoma, westgrowth-capital, wh4 | ❌ Nur `.gitkeep` |
+| 1 | PR #19 mergen → https://github.com/KidashiDesign/kidashi-design-website/pull/19 | ⏳ Offen |
+| 2 | Portfolio-Bilder für leere Projekte | ❌ Warten auf Nicole |
+| 3 | artista-magazin, mystic-drops, piano-post, seestern, westgrowth-capital | ❌ Nur `.gitkeep` |
 
 ---
 
@@ -173,8 +244,9 @@ Slash-Kommandos: `/simplify` = Vereinfachung, `/code-review` = Fehlersuche
 
 `xp-days` · `wh4` · `rohyma-jet` · `tm-studio` · `galerie-kronsbein` · `seestern` · `westgrowth-capital` · `hideout-georgia` · `selvoma` · `mystic-drops` · `artista-magazin` · `piano-post` · `studio995`
 
+**Animationen vorhanden:** xp-days · wh4 · rohyma-jet · tm-studio · galerie-kronsbein · selvoma
 **Bilder vorhanden:** xp-days (12), tm-studio (6), hideout-georgia (2), studio995 (2), rohyma-jet (1)
-**Bilder fehlen:** artista-magazin, galerie-kronsbein, mystic-drops, piano-post, seestern, selvoma, westgrowth-capital, wh4
+**Bilder fehlen:** artista-magazin, galerie-kronsbein, mystic-drops, piano-post, seestern, westgrowth-capital
 
 ---
 
@@ -182,6 +254,7 @@ Slash-Kommandos: `/simplify` = Vereinfachung, `/code-review` = Fehlersuche
 
 ```
 Ich arbeite am Repo kidashidesign/kidashi-design-website auf Branch
-claude/epic-curie-r5ed0o. Statisches HTML/CSS/JS, GitHub Pages.
+claude/optimistic-franklin-rpxcj4 (PR #19).
+Statisches HTML/CSS/JS, Deploy → Hostinger via FTP auf main.
 Lies SESSION.md im Root für alle Infos.
 ```
