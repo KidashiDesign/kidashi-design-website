@@ -118,15 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* ── Gooey text morph — SVG filter + engine ── */
-  (function () {
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('aria-hidden', 'true');
-    svg.style.cssText = 'position:absolute;width:0;height:0;pointer-events:none;overflow:hidden';
-    svg.innerHTML = '<defs><filter id="gooey-threshold" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB"><feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 255 -140"/></filter></defs>';
-    document.body.insertBefore(svg, document.body.firstChild);
-  })();
-
+  /* ── Word-cycle crossfade engine ── */
   function initGooeyText(host, texts, morphTime, cooldownTime) {
     morphTime    = morphTime    || 1;
     cooldownTime = cooldownTime || 2.5;
@@ -142,6 +134,31 @@ document.addEventListener('DOMContentLoaded', () => {
     host.textContent = '';
     host.appendChild(filterEl);
 
+    /* Lock container width to widest word so surrounding text never shifts.
+       Must wait for fonts: probe with fallback font gives wrong metrics. */
+    if (!host.closest('.hero2__cycle')) {
+      (document.fonts ? document.fonts.ready : Promise.resolve()).then(function() {
+        requestAnimationFrame(function() {
+          const probe = document.createElement('span');
+          const cs = window.getComputedStyle(t1);
+          probe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;visibility:hidden;pointer-events:none;white-space:nowrap;';
+          probe.style.fontSize = cs.fontSize;
+          probe.style.fontFamily = cs.fontFamily;
+          probe.style.fontWeight = cs.fontWeight;
+          probe.style.fontStyle = cs.fontStyle;
+          probe.style.letterSpacing = cs.letterSpacing;
+          document.body.appendChild(probe);
+          let maxW = 0;
+          texts.forEach(function(txt) {
+            probe.textContent = txt;
+            maxW = Math.max(maxW, probe.getBoundingClientRect().width);
+          });
+          document.body.removeChild(probe);
+          if (maxW > 0) filterEl.style.minWidth = Math.ceil(maxW) + 'px';
+        });
+      });
+    }
+
     let idx      = texts.length - 1;
     let prev     = Date.now();
     let morph    = 0;
@@ -151,11 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
     t2.textContent = texts[(idx + 1) % texts.length];
 
     function setMorph(f) {
-      t2.style.filter  = 'blur(' + Math.min(8 / f - 8, 100) + 'px)';
-      t2.style.opacity = Math.pow(f, 0.4);
-      const fi = 1 - f;
-      t1.style.filter  = 'blur(' + Math.min(8 / fi - 8, 100) + 'px)';
-      t1.style.opacity = Math.pow(fi, 0.4);
+      t2.style.opacity = String(f);
+      t1.style.opacity = String(1 - f);
     }
 
     function tick() {
@@ -165,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const shouldInc = cooldown > 0;
       cooldown -= dt;
       if (cooldown <= 0) {
-        filterEl.classList.add('is-morphing');
         if (shouldInc) {
           idx = (idx + 1) % texts.length;
           t1.textContent = texts[idx % texts.length];
@@ -177,11 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (f > 1) { cooldown = cooldownTime; f = 1; }
         setMorph(f);
       } else {
-        filterEl.classList.remove('is-morphing');
         morph = 0;
-        t2.style.filter  = '';
         t2.style.opacity = '1';
-        t1.style.filter  = '';
         t1.style.opacity = '0';
       }
       requestAnimationFrame(tick);
@@ -429,68 +439,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* ── H2 Scramble-Reveal ── */
-  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#%&*?§$+=/~^<>';
-  const rand = () => CHARS[Math.floor(Math.random() * CHARS.length)];
-
-  document.querySelectorAll('h2.reveal').forEach(h2 => {
-    const original = h2.textContent;
-    let scrambleRaf = null;
-    let revealed = false;
-
-    /* Wrap each character in a span for per-char reveal */
-    h2.innerHTML = original.split('').map((ch, i) =>
-      ch === ' ' ? ' ' : `<span data-char="${ch}" style="opacity:0">${rand()}</span>`
-    ).join('');
-    const spans = Array.from(h2.querySelectorAll('span[data-char]'));
-
-    function scramble() {
-      spans.forEach(s => { if (!s.dataset.done) s.textContent = rand(); });
-      scrambleRaf = requestAnimationFrame(scramble);
-    }
-
-    function reveal() {
-      if (revealed) return;
-      revealed = true;
-      cancelAnimationFrame(scrambleRaf);
-
-      /* Fade spans to visible first, then decode left→right */
-      spans.forEach(s => { s.style.transition = 'opacity 0.25s'; s.style.opacity = '1'; });
-
-      let i = 0;
-      const step = () => {
-        if (i >= spans.length) return;
-        const s = spans[i];
-        let flips = 0;
-        const flip = setInterval(() => {
-          s.textContent = flips < 6 ? rand() : s.dataset.char;
-          flips++;
-          if (flips > 7) { clearInterval(flip); s.dataset.done = '1'; step(); }
-        }, 62);
-        i++;
-        if (i % 2 !== 0) step(); /* reveal 2 chars at once */
-      };
-      /* slight stagger before starting */
-      setTimeout(step, 200);
-    }
-
-    /* Two observers: low threshold starts scramble, high threshold triggers reveal */
-    const startObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting && !revealed) { scramble(); startObs.unobserve(h2); }
-      });
-    }, { threshold: 0.05 });
-
-    const revealObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { reveal(); revealObs.unobserve(h2); }
-      });
-    }, { threshold: 0.55 });
-
-    startObs.observe(h2);
-    revealObs.observe(h2);
-  });
-
   /* ── Featured project tile — update this one object to change the project shown ── */
   const FEATURED_PROJECT = {
     title:  'XP-Days Esports Platform',
@@ -558,19 +506,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prefRM) {
       csSteps.forEach(s => { s.style.opacity = '1'; s.style.transform = 'none'; });
     } else if (isMobile) {
-      /* Mobile: no sticky, IntersectionObserver stagger per step */
+      /* Mobile: each step animates in individually as it scrolls into view */
       if (csCard) csCard.style.transform = 'none';
-      const mobileObs = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-          mobileObs.disconnect();
-          csSteps.forEach(function(step, i) {
-            setTimeout(function() {
-              step.classList.add('step-in');
-            }, i * 220);
-          });
-        }
-      }, { threshold: 0.15 });
-      mobileObs.observe(csOuter);
+      csSteps.forEach(function(step) {
+        const obs = new IntersectionObserver(function(entries) {
+          if (entries[0].isIntersecting) {
+            step.classList.add('step-in');
+            obs.disconnect();
+          }
+        }, { threshold: 0.25, rootMargin: '0px 0px -40px 0px' });
+        obs.observe(step);
+      });
     } else {
       /* Desktop: scroll-driven, one step at a time */
       if (csCard) csCard.style.transform = 'rotateX(20deg) scale(1.05)';
@@ -657,6 +603,33 @@ document.addEventListener('DOMContentLoaded', () => {
     updateNavColor();
   }
 
+  /* ── H3 parallax on scroll ── */
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const h3s = Array.from(document.querySelectorAll('h3')).filter(function(el) {
+      return !el.closest('.footer') && !el.closest('.cs-section');
+    });
+    if (!h3s.length) return;
+    h3s.forEach(function(h3) { h3.style.willChange = 'transform'; });
+    let h3Raf = false;
+    function updateH3() {
+      const vh = window.innerHeight;
+      h3s.forEach(function(h3) {
+        const rect = h3.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > vh) return;
+        if (h3.classList.contains('reveal') && !h3.classList.contains('visible')) return;
+        const center = (rect.top + rect.height / 2) / vh;
+        const offset = ((center - 0.5) * -28).toFixed(2);
+        h3.style.transform = 'translateY(' + offset + 'px)';
+      });
+      h3Raf = false;
+    }
+    window.addEventListener('scroll', function() {
+      if (!h3Raf) { h3Raf = true; requestAnimationFrame(updateH3); }
+    }, { passive: true });
+    updateH3();
+  })();
+
   /* ── Auto-init gooey text on [data-gooey-texts] elements ── */
   document.querySelectorAll('[data-gooey-texts]').forEach(function (el) {
     try {
@@ -666,5 +639,16 @@ document.addEventListener('DOMContentLoaded', () => {
       initGooeyText(el, texts, morphTime, cooldown);
     } catch (e) {}
   });
+
+  /* ── Footer newsletter form ── */
+  window.footerFormSubmit = function(e, form) {
+    e.preventDefault();
+    var input  = form.querySelector('.footer__input');
+    var thanks = form.querySelector('.footer__form-thanks');
+    if (!input || !input.value) return;
+    thanks.textContent = 'Thanks — you\'re in!';
+    input.value = '';
+    setTimeout(function() { thanks.textContent = ''; }, 4000);
+  };
 
 });
