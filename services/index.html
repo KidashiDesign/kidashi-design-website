@@ -13,7 +13,10 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="../fonts/MangoGrotesque-Light.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="../fonts/MangoGrotesque-Bold.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" as="style" onload="this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -64,41 +67,54 @@
 <div class="page-hero">
   <div class="container">
     <span class="page-hero__eyebrow reveal">What I Offer</span>
-    <h1 class="reveal" data-delay="100">Web Design at the Core — With Everything Else You Need, Built Around It.</h1>
+    <h1 class="reveal" data-delay="100"><span class="gooey-word" data-gooey-texts='["Web Design","Brand Design","UI Design","Visual Design"]'>Web Design</span> at the Core — With Everything Else You Need, Built Around It.</h1>
     <p class="page-hero__sub reveal" data-delay="200">Whether you're launching a new business or giving an outdated site a fresh start, I design and build modern, fast-loading websites tailored to your brand and your goals. Web design is where I focus most — but many clients also work with me on branding, print materials, or social media, all handled personally by the same designer, start to finish.</p>
   </div>
 </div>
 
-<!-- HOW I WORK -->
-<section class="how-i-work">
-  <div class="container">
-    <span class="eyebrow reveal">My Process</span>
-    <h2 class="reveal" data-delay="100">A Clear Process. A Personal Approach.</h2>
-    <div class="steps">
-      <div class="step reveal">
-        <span class="step__num">01</span>
-        <div class="step__title">Discovery &amp; Briefing</div>
-        <p class="step__desc">We talk through your business, your goals, and who you're trying to reach. This first conversation sets the direction for everything that follows.</p>
-      </div>
-      <div class="step reveal" data-delay="100">
-        <span class="step__num">02</span>
-        <div class="step__title">Design Concept</div>
-        <p class="step__desc">I create a custom visual design built around your brand and your content — no templates, no off-the-shelf solutions.</p>
-      </div>
-      <div class="step reveal" data-delay="200">
-        <span class="step__num">03</span>
-        <div class="step__title">Content &amp; Copy</div>
-        <p class="step__desc">Together, we shape clear, compelling text for every page, written to be found by the right people and understood at first glance.</p>
-      </div>
-      <div class="step reveal" data-delay="300">
-        <span class="step__num">04</span>
-        <div class="step__title">Build &amp; Launch</div>
-        <p class="step__desc">Your site gets built on a reliable platform, tested across devices, and published live — clean, fast, and ready for your visitors.</p>
-      </div>
-      <div class="step reveal" data-delay="400">
-        <span class="step__num">05</span>
-        <div class="step__title">Support &amp; Growth</div>
-        <p class="step__desc">After launch, I'm available for updates, adjustments, and future additions. You're never left to figure things out alone.</p>
+<!-- MY PROCESS — 3D Container Scroll -->
+<section class="cs-section" aria-label="My Process">
+  <div class="cs-outer" id="csOuter">
+    <div class="cs-sticky">
+      <div class="cs-layout">
+
+        <div class="cs-hd" id="csHeader">
+          <span class="eyebrow eyebrow--light">My Process</span>
+          <h2>A Clear Process.<br>A Personal Approach.</h2>
+        </div>
+
+        <div class="cs-device" id="csCard">
+          <div class="cs-device__screen">
+            <div class="cs-steps">
+              <article class="cs-step" id="csStep1">
+                <span class="cs-step__n">01</span>
+                <h3 class="cs-step__h">Discovery &amp; Briefing</h3>
+                <p class="cs-step__p">We talk through your business, your goals, and who you're trying to reach. This conversation sets the direction for everything that follows.</p>
+              </article>
+              <article class="cs-step" id="csStep2">
+                <span class="cs-step__n">02</span>
+                <h3 class="cs-step__h">Design Concept</h3>
+                <p class="cs-step__p">I create a custom visual design built around your brand and content — no templates, no off-the-shelf solutions.</p>
+              </article>
+              <article class="cs-step" id="csStep3">
+                <span class="cs-step__n">03</span>
+                <h3 class="cs-step__h">Content &amp; Copy</h3>
+                <p class="cs-step__p">Together we shape clear, compelling text for every page — written to be found by the right people and understood at first glance.</p>
+              </article>
+              <article class="cs-step" id="csStep4">
+                <span class="cs-step__n">04</span>
+                <h3 class="cs-step__h">Build &amp; Launch</h3>
+                <p class="cs-step__p">Your site gets built on a reliable platform, tested across devices, and published live — clean, fast, and ready for visitors.</p>
+              </article>
+              <article class="cs-step" id="csStep5">
+                <span class="cs-step__n">05</span>
+                <h3 class="cs-step__h">Support &amp; Growth</h3>
+                <p class="cs-step__p">After launch I'm available for updates, adjustments, and future additions. You're never left to figure things out alone.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -163,32 +179,74 @@
 
 <footer class="footer">
   <div class="container">
-    <div class="footer__inner">
-      <div class="footer__brand">
-        <a href="../" class="nav__logo">
+    <div class="footer__grid">
+
+      <div class="footer__col footer__col--wide">
+        <a href="../" class="nav__logo footer__logo">
           <span class="nav__logo-k" data-text="Kidashi">Kidashi</span>
           <span class="nav__logo-d">Design</span>
         </a>
         <p class="footer__tagline">Certified Graphic Designer — Working Worldwide</p>
+        <h3 class="footer__col-h">Stay in the Loop</h3>
+        <p class="footer__col-desc">New projects, design updates — no noise, no spam.</p>
+        <form class="footer__form" onsubmit="footerFormSubmit(event,this)">
+          <div class="footer__form-wrap">
+            <input type="email" class="footer__input" placeholder="Your email address" aria-label="Email" required>
+            <button type="submit" class="footer__submit" aria-label="Subscribe">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+          <p class="footer__form-thanks" aria-live="polite"></p>
+        </form>
       </div>
-      <nav class="footer__nav">
-        <a href="../">Home</a>
-        <a href="../services/">Services</a>
-        <a href="../about/">About</a>
-        <a href="../portfolio/">Portfolio</a>
-        <a href="../gallery/">Gallery</a>
-        <a href="../contact/">Contact</a>
-            <a href="../impressum/">Legal Notice</a>
-      <a href="../datenschutz/">Privacy Policy</a>
-    </nav>
+
+      <div class="footer__col">
+        <h3 class="footer__col-h">Quick Links</h3>
+        <nav class="footer__links">
+          <a href="../">Home</a>
+          <a href="../services/">Services</a>
+          <a href="../about/">About</a>
+          <a href="../portfolio/">Portfolio</a>
+          <a href="../gallery/">Gallery</a>
+          <a href="../contact/">Contact</a>
+        </nav>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__col-h">Contact</h3>
+        <div class="footer__contact">
+          <p>Based in Tbilisi, Georgia</p>
+          <p>Available Worldwide</p>
+          <a href="../contact/">Send a Message &rarr;</a>
+          <a href="https://linktr.ee/kidashi.design" target="_blank" rel="noopener noreferrer">linktr.ee/kidashi.design</a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__col-h">Follow Me</h3>
+        <div class="footer__socials">
+          <a href="#" class="footer__social-btn" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="footer__social-btn" aria-label="Behance" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.226.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.336.5-.837.9-1.502 1.22.906.26 1.576.72 2.022 1.37.448.66.67 1.45.67 2.36 0 .75-.13 1.39-.41 1.93-.28.55-.67 1-1.16 1.35-.48.33-1.05.59-1.7.75-.64.16-1.32.24-2.03.24H1V4.503h5.938zm-.31 4.965c.6 0 1.09-.14 1.48-.42.37-.28.56-.73.56-1.35 0-.34-.07-.62-.2-.84-.13-.22-.31-.4-.53-.53-.22-.13-.48-.22-.76-.27-.28-.05-.57-.08-.87-.08H3.5v3.49h3.128zm.14 5.188c.34 0 .66-.03.96-.1.3-.07.56-.18.78-.33.22-.15.4-.36.52-.61.13-.25.2-.57.2-.94 0-.75-.22-1.29-.67-1.63-.44-.34-1.04-.5-1.8-.5H3.5v4.11h3.268zM22 9.957c0 .19-.01.38-.04.57H16.7c.05.56.23.99.55 1.3.31.31.72.46 1.21.46.36 0 .67-.09.93-.28.26-.18.43-.38.51-.6h2.9c-.22.74-.64 1.34-1.26 1.8-.62.45-1.39.68-2.3.68-.66 0-1.24-.11-1.75-.32-.51-.21-.94-.51-1.3-.89-.36-.38-.63-.84-.82-1.36-.19-.52-.28-1.1-.28-1.72 0-.61.09-1.17.28-1.69.19-.52.46-.97.82-1.36.36-.38.79-.68 1.3-.9.51-.22 1.08-.33 1.72-.33.67 0 1.25.12 1.76.36.5.24.92.57 1.25.97.33.41.57.88.72 1.42.15.54.21 1.11.18 1.73zm-2.83-1.06c-.03-.46-.2-.83-.5-1.11-.3-.28-.68-.42-1.13-.42-.47 0-.86.14-1.16.42-.3.28-.48.65-.54 1.11h3.33zM15.37 5.13h4.07v1.27h-4.07V5.13z"/></svg>
+          </a>
+          <a href="../contact/" class="footer__social-btn" aria-label="Send a message">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+          <a href="#" class="footer__social-btn" aria-label="Soundcloud" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M11.56 8.87V17h8.77c1.5 0 2.67-1.17 2.67-2.67a2.66 2.66 0 0 0-2.63-2.67h-.08a5.34 5.34 0 0 0-5.24-4.4 5.37 5.37 0 0 0-3.49 1.61zM0 15.24a1.97 1.97 0 0 0 3.95 0V12.4a1.97 1.97 0 0 0-3.95 0zm7.26 1.9a1.5 1.5 0 0 0 3 0V9.71a1.5 1.5 0 1 0-3 0zm4.05 0a1.5 1.5 0 0 0 3 0V8.87c-.98-.63-2.05-1.03-3-1.06z"/></svg>
+          </a>
+        </div>
+      </div>
+
     </div>
     <div class="footer__bottom">
-      <span class="footer__copy">© 2026 Kidashi Design — Nicole Szatkowski</span>
-      <div class="footer__social">
+      <span class="footer__copy">&copy; 2026 Kidashi Design &mdash; Nicole Szatkowski</span>
+      <nav class="footer__legal">
         <a href="../impressum/">Legal Notice</a>
         <a href="../datenschutz/">Privacy Policy</a>
-        <a href="https://linktr.ee/kidashi.design" target="_blank" rel="noopener">linktr.ee/kidashi.design</a>
-      </div>
+      </nav>
     </div>
   </div>
 </footer>
