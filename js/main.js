@@ -691,20 +691,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       el.classList.add('scrambling');
-      el.style.fontFamily = "'Courier New', Courier, monospace";
-      el.style.color      = 'var(--primary)';
-      el.style.fontWeight = '700';
-      el.style.letterSpacing = '0.08em';
 
       rafId = requestAnimationFrame(phase1);
       return function() { cancelAnimationFrame(rafId); };
     }
 
     function resetStyle() {
-      el.style.fontFamily    = '';
-      el.style.color         = '';
-      el.style.fontWeight    = '';
-      el.style.letterSpacing = '';
+      el.classList.remove('scrambling');
     }
 
     let wordIdx = 0;
