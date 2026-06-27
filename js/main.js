@@ -635,7 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try { words = JSON.parse(el.dataset.scrambleWords); } catch(e) { return; }
     if (!words.length) return;
 
-    const CHAR_POOL    = '0123456789!@#$%^&*<>{}|\\/~✦✧✶✷✴';
+    const CHAR_POOL    = '0123456789!@#$%^&*<>{}|\\/~+-=_';
     const SCRAMBLE_MS  = 700;
     const REVEAL_MS    = 700;
     const HOLD_MS      = 2000;
