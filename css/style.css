@@ -1641,43 +1641,10 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   -webkit-font-smoothing: antialiased;
 }
 
-/* Mobile: stack steps vertically (static layout, stagger via JS) */
+/* Mobile: scroll-driven animation — same as desktop, adjusted sizing */
 @media (max-width: 768px) {
-  .cs-outer { height: auto; padding-bottom: clamp(2rem, 5vw, 4rem); }
-  .cs-sticky { position: relative; height: auto; overflow: visible; align-items: flex-start; padding-top: clamp(2rem, 5vw, 4rem); }
-  .cs-device__screen {
-    height: auto;
-    overflow: visible;
-    align-items: flex-start;
-    padding: clamp(1rem, 3vw, 1.5rem);
-  }
-  .cs-steps {
-    position: static;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    width: 100%;
-    height: auto;
-  }
-  .cs-step {
-    position: static;
-    inset: unset;
-    opacity: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 1.5rem 0;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    transform: translateY(18px);
-    transition: none;
-  }
-  .cs-step:first-child { border-top: none; padding-top: 0; }
-  .cs-step.step-in {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2,0.8,0.2,1);
-  }
+  .cs-outer { height: clamp(700px, 150vh, 1400px); }
+  .cs-device__screen { height: clamp(240px, 38vh, 380px); }
   .cs-step__n { font-size: clamp(2.6rem, 7vw, 3.4rem); margin-bottom: 0.3rem; }
   .cs-step__h { font-size: clamp(1.1rem, 4.5vw, 1.4rem); }
   .cs-step__p { font-size: clamp(0.88rem, 3.2vw, 1rem); max-width: none; }
