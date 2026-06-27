@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const yy  = String(now.getUTCFullYear()).slice(-2);
     if (navTime)    navTime.textContent    = `${hh}:${mm}`;
     if (mobileTime) mobileTime.textContent = `${hh}:${mm}:${ss}`;
-    if (mobileDate) mobileDate.textContent = `${dd}/${mo}/${yy}`;
+    if (mobileDate) mobileDate.textContent = `${yy}/${mo}/${dd}`;
   }
   updateClock();
   setInterval(updateClock, 1000);
