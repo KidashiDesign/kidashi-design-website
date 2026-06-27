@@ -295,20 +295,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Tbilisi clock (UTC+4) ── */
   const navTime    = document.getElementById('navTime');
-  const mobileMonth = document.getElementById('mobileMonth');
-  const mobileDay   = document.getElementById('mobileDay');
+  const mobileDate  = document.getElementById('mobileDate');
   const mobileTime  = document.getElementById('mobileTime');
-  const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   function updateClock() {
     const now = new Date(Date.now() + 4 * 3600000);
-    const hh = String(now.getUTCHours()).padStart(2, '0');
-    const mm = String(now.getUTCMinutes()).padStart(2, '0');
-    const ss = String(now.getUTCSeconds()).padStart(2, '0');
-    if (navTime)     navTime.textContent     = `${hh}:${mm}`;
-    if (mobileTime)  mobileTime.textContent  = `${hh}:${mm}:${ss}`;
-    if (mobileMonth) mobileMonth.textContent = MONTHS[now.getUTCMonth()];
-    if (mobileDay)   mobileDay.textContent   = DAYS[now.getUTCDay()];
+    const hh  = String(now.getUTCHours()).padStart(2, '0');
+    const mm  = String(now.getUTCMinutes()).padStart(2, '0');
+    const ss  = String(now.getUTCSeconds()).padStart(2, '0');
+    const dd  = String(now.getUTCDate()).padStart(2, '0');
+    const mo  = String(now.getUTCMonth() + 1).padStart(2, '0');
+    const yy  = String(now.getUTCFullYear()).slice(-2);
+    if (navTime)    navTime.textContent    = `${hh}:${mm}`;
+    if (mobileTime) mobileTime.textContent = `${hh}:${mm}:${ss}`;
+    if (mobileDate) mobileDate.textContent = `${yy}/${mo}/${dd}`;
   }
   updateClock();
   setInterval(updateClock, 1000);
