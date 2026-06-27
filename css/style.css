@@ -505,7 +505,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   font-family: var(--font-h);
   font-weight: 300;
   font-size: clamp(2.5rem, 7vw, 9rem);
-  color: #ffffff;
+  color: #2a2a2a;
   margin: 0;
   display: flex;
   justify-content: space-between;
