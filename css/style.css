@@ -600,7 +600,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .about-teaser__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--sand); }
 .stat__number { font-family: var(--font-h); font-size: 2.8rem; font-weight: 300; color: var(--primary); line-height: 1; display: block; margin-bottom: 0.4rem; }
 .stat__label { font-family: var(--font-b); font-size: 0.72rem; font-weight: 400; letter-spacing: 0.05em; color: var(--muted); line-height: 1.4; }
-.about-teaser__portrait { padding-top: 0; height: clamp(480px, 55vh, 580px); border-radius: clamp(16px, 2.5vw, 28px); overflow: hidden; }
+.about-teaser__portrait { padding-top: 0; height: clamp(480px, 55vh, 580px); }
 .about-teaser__portrait .p3d-scene,
 .about-teaser__portrait .p3d-card,
 .about-hero__portrait .p3d-scene,
@@ -1175,7 +1175,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .about-hero { padding-top: calc(var(--nav-h) + clamp(4rem, 8vw, 8rem)); padding-bottom: clamp(4rem, 8vw, 8rem); background: var(--bg); overflow: hidden; }
 .about-hero__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
 .about-hero__text { padding-bottom: clamp(4rem, 8vw, 8rem); }
-.about-hero__portrait { overflow: hidden; border-radius: clamp(16px, 2.5vw, 28px); height: 620px; }
+.about-hero__portrait { height: 620px; }
 .about-hero__portrait.reveal { transform: translateX(60px); opacity: 0; transition: opacity 0.85s var(--ease), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
 .about-hero__portrait.visible { transform: none; opacity: 1; }
 .about-hero__portrait img,
@@ -1330,10 +1330,10 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .step:nth-child(4) { border-left: none; }
   .about-hero__grid, .about-teaser__grid { grid-template-columns: 1fr; gap: 3rem; }
   .about-hero__portrait.reveal { transform: translateY(40px); transition: opacity 0.75s var(--ease), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-  .about-hero__portrait { height: 380px; }
+  .about-hero__portrait { height: 380px; overflow: visible; }
   .about-hero__portrait img,
   .about-hero__portrait .p3d-card img { width: 140%; height: 100%; object-fit: cover; object-position: left top; }
-  .about-teaser__portrait { height: 360px; }
+  .about-teaser__portrait { height: 360px; overflow: visible; }
   .about-teaser__portrait img,
   .about-teaser__portrait .p3d-card img { height: 100%; object-fit: cover; }
   .hero2__static-break { display: block; }
