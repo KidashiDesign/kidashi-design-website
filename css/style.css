@@ -1430,15 +1430,14 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 
 @media (max-width: 768px) {
   h1 { font-size: clamp(2.4rem, 7.5vw, 3.2rem); }
-  h2 { font-size: clamp(2rem, 6.5vw, 2.8rem); }
-  h3 { font-size: clamp(1.4rem, 5vw, 2rem); }
-  /* About body h2 needs mobile boost despite higher specificity selector */
-  .about-content__main h2 { font-size: clamp(2rem, 6.5vw, 2.6rem); }
+  h2 { font-size: clamp(2.4rem, 8vw, 3.4rem); }
+  h3 { font-size: clamp(1.7rem, 6vw, 2.4rem); }
+  .about-content__main h2 { font-size: clamp(2.4rem, 8vw, 3.2rem); }
 }
 @media (max-width: 480px) {
   h1 { font-size: clamp(2.2rem, 8vw, 2.8rem); }
-  h2 { font-size: clamp(1.8rem, 7vw, 2.4rem); }
-  h3 { font-size: clamp(1.3rem, 5.5vw, 1.8rem); }
+  h2 { font-size: clamp(2.2rem, 8.5vw, 3rem); }
+  h3 { font-size: clamp(1.5rem, 6.5vw, 2rem); }
   :root { --section-pad: clamp(48px, 12vw, 80px); }
 }
 
