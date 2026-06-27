@@ -47,9 +47,9 @@
     function tick(now) {
       const elapsed = now - startTime;
 
-      /* Float oscillation */
-      const floatY   = Math.sin(elapsed * FLOAT_SPEED) * FLOAT_AMP;
-      const floatRot = Math.sin(elapsed * FLOAT_SPEED * 0.6) * 1.2;
+      /* Float oscillation — only downward (0 → FLOAT_AMP) to avoid top clipping */
+      const floatY   = (1 - Math.cos(elapsed * FLOAT_SPEED)) / 2 * FLOAT_AMP;
+      const floatRot = Math.sin(elapsed * FLOAT_SPEED * 0.6) * 0.8;
 
       /* Smooth tilt toward target */
       currentRX = lerp(currentRX, targetRX, LERP_SPEED);
