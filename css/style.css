@@ -1171,13 +1171,13 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 /* ============================================================
    ABOUT PAGE
    ============================================================ */
-.about-hero { padding-top: calc(var(--nav-h) + clamp(4rem, 8vw, 8rem)); padding-bottom: 0; background: var(--bg); overflow: hidden; }
+.about-hero { padding-top: calc(var(--nav-h) + clamp(4rem, 8vw, 8rem)); padding-bottom: clamp(4rem, 8vw, 8rem); background: var(--bg); overflow: hidden; }
 .about-hero__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
 .about-hero__text { padding-bottom: clamp(4rem, 8vw, 8rem); }
 .about-hero__portrait { overflow: visible; }
 .about-hero__portrait.reveal { transform: translateX(60px); opacity: 0; transition: opacity 0.85s var(--ease), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
 .about-hero__portrait.visible { transform: none; opacity: 1; }
-.about-hero__portrait img { width: 100%; height: 620px; object-fit: cover; object-position: top center; display: block; }
+.about-hero__portrait img { width: 100%; height: 620px; object-fit: cover; object-position: 40% top; display: block; transform: scale(1.12); transform-origin: 40% top; }
 .about-content { padding-block: var(--section-pad); background: var(--bg2); }
 .about-content__grid { display: grid; grid-template-columns: 5fr 4fr; gap: 5rem; }
 .about-content__main h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); margin-bottom: 1.25rem; color: var(--text); }
@@ -1328,7 +1328,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .step:nth-child(4) { border-left: none; }
   .about-hero__grid, .about-teaser__grid { grid-template-columns: 1fr; gap: 3rem; }
   .about-hero__portrait.reveal { transform: translateY(40px); transition: opacity 0.75s var(--ease), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-  .about-hero__portrait img { height: 380px; object-fit: cover; object-position: top center; }
+  .about-hero__portrait img { height: 380px; object-fit: cover; object-position: 40% top; transform: scale(1.12); transform-origin: 40% top; }
   .about-teaser__portrait img,
   .about-teaser__portrait .p3d-card img { height: 360px; min-height: 360px; max-height: 360px; object-fit: cover; }
   .hero2__static-break { display: block; }
