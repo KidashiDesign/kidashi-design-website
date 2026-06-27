@@ -500,24 +500,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const csHeader = document.getElementById('csHeader');
     const csSteps  = Array.from(document.querySelectorAll('.cs-step'));
     const prefRM   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
     if (prefRM) {
       csSteps.forEach(s => { s.style.opacity = '1'; s.style.transform = 'none'; });
-    } else if (isMobile) {
-      /* Mobile: each step animates in individually as it scrolls into view */
-      if (csCard) csCard.style.transform = 'none';
-      csSteps.forEach(function(step) {
-        const obs = new IntersectionObserver(function(entries) {
-          if (entries[0].isIntersecting) {
-            step.classList.add('step-in');
-            obs.disconnect();
-          }
-        }, { threshold: 0.25, rootMargin: '0px 0px -40px 0px' });
-        obs.observe(step);
-      });
     } else {
-      /* Desktop: scroll-driven, one step at a time */
+      /* Scroll-driven animation — all devices */
       if (csCard) csCard.style.transform = 'rotateX(20deg) scale(1.05)';
 
       function csProgress() {
