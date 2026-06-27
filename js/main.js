@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── Custom cursor — ported from Custom Cursor.dc.html ── */
   const cursor = document.querySelector('.cursor');
   if (cursor && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    const GLYPHS = ['+', '*', '-', '=', '#'];
+    const GLYPHS = ['✦', '✧', '✶', '✷', '✴'];
     const CYCLE_MS = 1000;
     const SMOOTHING = 0.28;
     const SIZE = 30;
