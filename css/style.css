@@ -438,6 +438,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   min-height: 0.87em;
 }
 .hero2__cycle .cy-ch { display: inline; }
+.hero2__cycle.scrambling { will-change: contents; }
 
 /* Sub row: tagline + GIF */
 .hero2__sub-row {
