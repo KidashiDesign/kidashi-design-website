@@ -626,6 +626,105 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) {}
   });
 
+  /* ── Hero Scramble Animation ── */
+  (function() {
+    const el = document.getElementById('heroCycle');
+    if (!el || !el.dataset.scrambleWords) return;
+
+    let words;
+    try { words = JSON.parse(el.dataset.scrambleWords); } catch(e) { return; }
+    if (!words.length) return;
+
+    const CHAR_POOL    = '0123456789!@#$%^&*<>{}|\\/~✦✧✶✷✴';
+    const SCRAMBLE_MS  = 700;
+    const REVEAL_MS    = 700;
+    const HOLD_MS      = 2000;
+    const LOOP_PAUSE   = 2500;
+
+    function randChar() {
+      return CHAR_POOL[Math.floor(Math.random() * CHAR_POOL.length)];
+    }
+
+    function scrambleWord(word, onDone) {
+      const len     = word.length;
+      const start   = performance.now();
+      let rafId;
+
+      /* Phase 1: full scramble */
+      function phase1(now) {
+        const elapsed = now - start;
+        if (elapsed >= SCRAMBLE_MS) {
+          phase2(now);
+          return;
+        }
+        let s = '';
+        for (let i = 0; i < len; i++) {
+          s += word[i] === ' ' ? ' ' : randChar();
+        }
+        el.textContent = s;
+        rafId = requestAnimationFrame(phase1);
+      }
+
+      /* Phase 2: reveal left-to-right */
+      function phase2(p2Start) {
+        function frame(now) {
+          const t        = Math.min(1, (now - p2Start) / REVEAL_MS);
+          const revealed = Math.floor(t * len);
+          let s = '';
+          for (let i = 0; i < len; i++) {
+            if (i < revealed) {
+              s += word[i] === ' ' ? ' ' : word[i];
+            } else {
+              s += word[i] === ' ' ? ' ' : randChar();
+            }
+          }
+          el.textContent = s;
+          if (t < 1) {
+            rafId = requestAnimationFrame(frame);
+          } else {
+            el.textContent = word;
+            el.classList.remove('scrambling');
+            onDone();
+          }
+        }
+        rafId = requestAnimationFrame(frame);
+      }
+
+      el.classList.add('scrambling');
+      el.style.fontFamily = "'Courier New', Courier, monospace";
+      el.style.color      = 'var(--primary)';
+      el.style.fontWeight = '700';
+      el.style.letterSpacing = '0.08em';
+
+      rafId = requestAnimationFrame(phase1);
+      return function() { cancelAnimationFrame(rafId); };
+    }
+
+    function resetStyle() {
+      el.style.fontFamily    = '';
+      el.style.color         = '';
+      el.style.fontWeight    = '';
+      el.style.letterSpacing = '';
+    }
+
+    let wordIdx = 0;
+    let cancelCurrent = null;
+
+    function runNext() {
+      if (cancelCurrent) { cancelCurrent(); cancelCurrent = null; }
+      const word = words[wordIdx % words.length];
+      wordIdx++;
+      cancelCurrent = scrambleWord(word, function() {
+        resetStyle();
+        setTimeout(function() {
+          setTimeout(runNext, LOOP_PAUSE);
+        }, HOLD_MS);
+      });
+    }
+
+    runNext();
+  })();
+
   /* ── Footer newsletter form ── */
   window.footerFormSubmit = function(e, form) {
     e.preventDefault();
