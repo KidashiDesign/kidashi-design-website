@@ -599,8 +599,8 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .about-teaser__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--sand); }
 .stat__number { font-family: var(--font-h); font-size: 2.8rem; font-weight: 300; color: var(--primary); line-height: 1; display: block; margin-bottom: 0.4rem; }
 .stat__label { font-family: var(--font-b); font-size: 0.72rem; font-weight: 400; letter-spacing: 0.05em; color: var(--muted); line-height: 1.4; }
-.about-teaser__portrait { padding-top: 0.25rem; } /* flush with H2 */
-.about-teaser__portrait img { width: 100%; height: auto; display: block; object-fit: contain; max-height: 520px; object-position: top; }
+.about-teaser__portrait { padding-top: 0.25rem; overflow: hidden; border-radius: clamp(16px, 2.5vw, 28px); }
+.about-teaser__portrait img { width: 100%; height: 100%; min-height: 480px; max-height: 580px; display: block; object-fit: cover; object-position: center top; }
 
 /* ── 3D Portrait — scene / card / glare ── */
 .p3d-scene {
@@ -1318,7 +1318,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .about-hero__grid, .about-teaser__grid { grid-template-columns: 1fr; gap: 3rem; }
   .about-hero__portrait.reveal { transform: translateY(40px); transition: opacity 0.75s var(--ease), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
   .about-hero__portrait img { height: 380px; object-fit: cover; object-position: top center; }
-  .about-teaser__portrait img { height: auto; max-height: 360px; object-fit: contain; }
+  .about-teaser__portrait img { height: 360px; min-height: unset; max-height: 360px; object-fit: cover; }
   .hero2__static-break { display: block; }
   .about-content__grid { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: repeat(3, 1fr); }
