@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  const MAX_TILT   = 13;      /* max degrees in any direction */
+  const MAX_TILT   = 6;       /* max degrees in any direction */
   const LERP_SPEED = 0.08;    /* 0–1: lower = smoother lag */
   const FLOAT_AMP  = 10;      /* px float amplitude */
   const FLOAT_SPEED = 0.0008; /* radians/ms */
@@ -39,19 +39,9 @@
     /* State */
     let targetRX = 0, targetRY = 0;
     let currentRX = 0, currentRY = 0;
-    let targetShadowX = 0, targetShadowY = 18;
-    let currentShadowX = 0, currentShadowY = 18;
     let hovered = false;
     let rafId = null;
     let startTime = performance.now();
-
-    /* ── Shadow CSS string ── */
-    function shadowStr(x, y, scale) {
-      const blur   = Math.round(lerp(32, 56, scale));
-      const spread = Math.round(lerp(0, 8, scale));
-      const alpha  = lerp(0.08, 0.22, scale).toFixed(3);
-      return `${x}px ${y}px ${blur}px ${spread}px rgba(10,10,11,${alpha})`;
-    }
 
     /* ── Main RAF loop ── */
     function tick(now) {
@@ -64,11 +54,6 @@
       /* Smooth tilt toward target */
       currentRX = lerp(currentRX, targetRX, LERP_SPEED);
       currentRY = lerp(currentRY, targetRY, LERP_SPEED);
-      currentShadowX = lerp(currentShadowX, targetShadowX, LERP_SPEED);
-      currentShadowY = lerp(currentShadowY, targetShadowY, LERP_SPEED);
-
-      /* Tilt magnitude for shadow strength */
-      const tiltMag = Math.sqrt(currentRX * currentRX + currentRY * currentRY) / MAX_TILT;
 
       /* Apply transform */
       const translateY = hovered ? 0 : floatY;
@@ -79,8 +64,6 @@
         `rotateX(${currentRX}deg) ` +
         `rotateY(${currentRY + extraRot}deg) ` +
         `scale(${hovered ? 1.015 : 1})`;
-
-      card.style.boxShadow = shadowStr(currentShadowX, currentShadowY + (hovered ? 6 : 0), tiltMag);
 
       /* Glare position — follows mouse tilt */
       const glareX = 50 + currentRY * 2;
@@ -107,17 +90,12 @@
       targetRY =  nx * MAX_TILT;
       targetRX = -ny * MAX_TILT;
 
-      /* Shadow shifts opposite to tilt */
-      targetShadowX = -nx * 14;
-      targetShadowY = 18 + ny * 8;
     });
 
     scene.addEventListener('mouseleave', () => {
       hovered = false;
       targetRX = 0;
       targetRY = 0;
-      targetShadowX = 0;
-      targetShadowY = 18;
     });
 
     /* ── Touch / gyroscope ── */
