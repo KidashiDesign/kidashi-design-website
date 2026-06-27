@@ -1433,12 +1433,48 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   h2 { font-size: clamp(2.4rem, 8vw, 3.4rem); }
   h3 { font-size: clamp(1.7rem, 6vw, 2.4rem); }
   .about-content__main h2 { font-size: clamp(2.4rem, 8vw, 3.2rem); }
+
+  /* ── Mobile spacing: reduce excess vertical whitespace ── */
+  :root { --section-pad: clamp(48px, 10vw, 80px); }
+
+  /* Sections */
+  .about-teaser { padding-block: clamp(40px, 8vw, 64px); }
+  .services-dark { padding-block: clamp(40px, 8vw, 64px); }
+  .portfolio-teaser { padding-block: clamp(40px, 8vw, 64px); }
+  .gallery-teaser { padding-block: clamp(40px, 8vw, 64px); }
+  .cta-footer { padding-block: clamp(40px, 8vw, 64px); }
+
+  /* About teaser: stack columns, tighten gap */
+  .about-teaser__grid { grid-template-columns: 1fr; gap: 2rem; }
+  .about-teaser__text p { margin-bottom: 1.5rem; }
+  .about-teaser__text h2 { margin-bottom: 1rem; }
+  .about-teaser__stats { margin-bottom: 1.5rem; padding-top: 1.25rem; }
+
+  /* Services dark: tighten header gap */
+  .services-dark__header { gap: 1.5rem; margin-bottom: clamp(2rem, 5vw, 3rem); }
+
+  /* Portfolio teaser header */
+  .portfolio-teaser__header { margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+  .portfolio-teaser__cta { margin-top: 1.5rem; }
+
+  /* Gallery teaser */
+  .gallery-teaser__inner { gap: 1.5rem; }
+  .gallery-teaser__text h2 { margin-bottom: 1rem; }
 }
+
 @media (max-width: 480px) {
   h1 { font-size: clamp(2.2rem, 8vw, 2.8rem); }
   h2 { font-size: clamp(2.2rem, 8.5vw, 3rem); }
   h3 { font-size: clamp(1.5rem, 6.5vw, 2rem); }
-  :root { --section-pad: clamp(48px, 12vw, 80px); }
+  :root { --section-pad: clamp(36px, 10vw, 56px); }
+
+  /* Tighter margins on small phones */
+  .about-teaser { padding-block: clamp(32px, 8vw, 48px); }
+  .services-dark { padding-block: clamp(32px, 8vw, 48px); }
+  .portfolio-teaser { padding-block: clamp(32px, 8vw, 48px); }
+  .gallery-teaser { padding-block: clamp(32px, 8vw, 48px); }
+  .cta-footer { padding-block: clamp(32px, 8vw, 48px); }
+  .about-teaser__grid { gap: 1.5rem; }
 }
 
 /* ============================================================
