@@ -106,25 +106,28 @@ class FluidParticles {
   }
 
   /* ── Setup ────────────────────────────────────────── */
+  _w() { return this.canvas.parentElement ? this.canvas.parentElement.offsetWidth  : window.innerWidth  }
+  _h() { return this.canvas.parentElement ? this.canvas.parentElement.offsetHeight : window.innerHeight }
+
   _initParticles() {
     this.particles = []
-    const count = Math.floor(
-      (window.innerWidth * window.innerHeight) / this.opts.particleDensity
-    )
+    const w = this._w(), h = this._h()
+    const count = Math.floor((w * h) / this.opts.particleDensity)
     for (let i = 0; i < count; i++) {
       this.particles.push(this._createParticle(
-        Math.random() * window.innerWidth,
-        Math.random() * window.innerHeight
+        Math.random() * w,
+        Math.random() * h
       ))
     }
   }
 
   _resize() {
     const pr = window.devicePixelRatio || 1
-    this.canvas.width  = window.innerWidth  * pr
-    this.canvas.height = window.innerHeight * pr
-    this.canvas.style.width  = `${window.innerWidth}px`
-    this.canvas.style.height = `${window.innerHeight}px`
+    const w  = this._w(), h = this._h()
+    this.canvas.width  = w * pr
+    this.canvas.height = h * pr
+    this.canvas.style.width  = `${w}px`
+    this.canvas.style.height = `${h}px`
     this.ctx.setTransform(pr, 0, 0, pr, 0, 0)
     this._initParticles()
   }
@@ -153,7 +156,7 @@ class FluidParticles {
   /* ── Animation loop ───────────────────────────────── */
   _animate() {
     const ctx = this.ctx
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+    ctx.clearRect(0, 0, this._w(), this._h())
     for (const p of this.particles) this._updateParticle(p)
     this.rafId = requestAnimationFrame(() => this._animate())
   }
@@ -173,10 +176,13 @@ class FluidParticles {
       if (now - lastMove < 10) return
       lastMove = now
 
+      const rect  = this.canvas.getBoundingClientRect()
+      const mx    = e.clientX - rect.left
+      const my    = e.clientY - rect.top
       const prevX = this.mouse.x, prevY = this.mouse.y
-      this.mouse = { x: e.clientX, y: e.clientY, prevX, prevY }
+      this.mouse = { x: mx, y: my, prevX, prevY }
 
-      const d = Math.hypot(e.clientX - prevX, e.clientY - prevY)
+      const d = Math.hypot(mx - prevX, my - prevY)
       if (d < 5) {
         if (!this.hoverTimer) {
           this.hoverTimer = setTimeout(() => this._triggerBlast(e.clientX, e.clientY), opts.hoverDelay)
@@ -186,17 +192,27 @@ class FluidParticles {
       }
     }
 
-    const onClick = (e) => this._triggerBlast(e.clientX, e.clientY)
+    const onClick = (e) => {
+      const rect = this.canvas.getBoundingClientRect()
+      this._triggerBlast(e.clientX - rect.left, e.clientY - rect.top)
+    }
 
     const onTouchMove = (e) => {
       if (!e.touches[0]) return
+      const rect  = this.canvas.getBoundingClientRect()
       const prevX = this.mouse.x, prevY = this.mouse.y
-      this.mouse = { x: e.touches[0].clientX, y: e.touches[0].clientY, prevX, prevY }
+      this.mouse = {
+        x: e.touches[0].clientX - rect.left,
+        y: e.touches[0].clientY - rect.top,
+        prevX, prevY
+      }
     }
 
     const onTouchStart = (e) => {
       if (!e.touches[0]) return
-      const x = e.touches[0].clientX, y = e.touches[0].clientY
+      const rect = this.canvas.getBoundingClientRect()
+      const x = e.touches[0].clientX - rect.left
+      const y = e.touches[0].clientY - rect.top
       this.hoverTimer = setTimeout(() => this._triggerBlast(x, y), opts.hoverDelay)
     }
 
