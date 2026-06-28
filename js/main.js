@@ -323,6 +323,37 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach(el => revealObserver.observe(el));
   }
 
+  /* ── About 3D tilt card (Aceternity-style, vanilla port) ── */
+  const tiltCards = document.querySelectorAll('[data-tilt]');
+  if (tiltCards.length
+      && window.matchMedia('(hover: hover) and (pointer: fine)').matches
+      && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    tiltCards.forEach(card => {
+      const items = card.querySelectorAll('[data-tilt-z]');
+      const setItems = (on) => {
+        items.forEach(item => {
+          const z = item.getAttribute('data-tilt-z') || 0;
+          const x = item.getAttribute('data-tilt-x') || 0;
+          const y = item.getAttribute('data-tilt-y') || 0;
+          item.style.transform = on
+            ? `translate3d(${x}px, ${y}px, ${z}px)`
+            : 'translate3d(0, 0, 0)';
+        });
+      };
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const rx = (e.clientX - r.left - r.width / 2) / 25;
+        const ry = (e.clientY - r.top - r.height / 2) / 25;
+        card.style.transform = `rotateY(${rx}deg) rotateX(${ry}deg)`;
+      });
+      card.addEventListener('mouseenter', () => setItems(true));
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+        setItems(false);
+      });
+    });
+  }
+
   /* ── Gallery float-in ── */
   const galleryItems = document.querySelectorAll('.gallery-item');
   if (galleryItems.length) {
@@ -530,7 +561,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navEl = document.querySelector('.nav');
   if (navEl && !document.querySelector('.proj-hero')) {
     const navH = navEl.offsetHeight;
-    const lightSections = document.querySelectorAll('.about-teaser, .portfolio-teaser, .services-section, section:not(.hero2):not(.services-dark):not(.gallery-teaser):not(.cta-footer):not(.footer)');
+    const lightSections = document.querySelectorAll('.about3d, .about-teaser, .portfolio-teaser, .services-section, section:not(.hero2):not(.services-dark):not(.gallery-teaser):not(.cta-footer):not(.footer)');
     function updateNavColor() {
       if (!navEl.classList.contains('scrolled')) {
         let overLight = false;
