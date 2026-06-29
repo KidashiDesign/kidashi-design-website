@@ -1664,7 +1664,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 }
 /* Per-image positions — all anchored around viewport centre (50%/50%) */
 .zp__item:nth-child(1) img { width: 25vw; height: 25vh; top: calc(50% - 12.5vh); left: calc(50% - 12.5vw); }
-.zp__item:nth-child(2) img { width: 35vw; height: 30vh; top: calc(50% - 32vh);   left: calc(50% - 17.5vw); }
+.zp__item:nth-child(2) img { width: 35vw; height: 30vh; top: calc(50% - 32vh);   left: calc(50% + 18vw); }
 .zp__item:nth-child(3) img { width: 20vw; height: 45vh; top: calc(50% - 22.5vh); left: calc(50% - 22vw); }
 .zp__item:nth-child(4) img { width: 25vw; height: 25vh; top: calc(50% - 12.5vh); left: calc(50% + 20vw); }
 .zp__item:nth-child(5) img { width: 20vw; height: 25vh; top: calc(50% + 12vh);   left: calc(50% + 6vw); }
