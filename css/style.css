@@ -929,14 +929,47 @@ p { font-size: 1.0625rem; line-height: 1.75; }
    GALLERY TEASER
    ============================================================ */
 .gallery-teaser { background: var(--dark); padding-block: var(--section-pad); overflow: hidden; }
-.gallery-teaser__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-.gallery-teaser__text { color: var(--cream); }
-.gallery-teaser__text h2 { color: var(--cream); margin-top: 0.5rem; margin-bottom: 2rem; }
-.gallery-teaser__images { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
-.gallery-teaser__img { aspect-ratio: 2/3; overflow: hidden; }
-.gallery-teaser__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
-.gallery-teaser__img:hover img { transform: scale(1.05); }
-.gallery-teaser__img:nth-child(2) { margin-top: 3rem; }
+
+/* Overlapping collage deck — runs off the right viewport edge */
+.gallery-teaser__deck {
+  display: flex;
+  align-items: center;
+  padding-left: var(--gutter);
+  padding-block: clamp(28px, 4vw, 56px); /* room for tilt + hover lift, no clipping top/bottom */
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+.gallery-teaser__card {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(180px, 22vw, 300px);
+  aspect-ratio: 3 / 4;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg2);
+  box-shadow: 0 18px 40px -14px rgba(0,0,0,0.55);
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+  will-change: transform;
+}
+.gallery-teaser__card:not(:first-child) { margin-left: clamp(-96px, -7vw, -56px); }
+.gallery-teaser__card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* alternating tilt for a hand-laid, stacked look */
+.gallery-teaser__card:nth-child(odd)  { transform: rotate(-4deg); }
+.gallery-teaser__card:nth-child(even) { transform: rotate(3deg) translateY(16px); }
+
+/* Desktop only: small hover lift — card straightens, rises, separates */
+@media (hover: hover) and (pointer: fine) {
+  .gallery-teaser__card:hover {
+    transform: rotate(0deg) translateY(-16px) scale(1.04);
+    z-index: 5;
+    box-shadow: 0 30px 62px -16px rgba(0,0,0,0.6);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-teaser__card { transition: none; }
+}
+
+.gallery-teaser__text { color: var(--cream); max-width: 640px; margin-inline: auto; text-align: center; }
+.gallery-teaser__text h2 { color: var(--cream); margin-top: 0.5rem; margin-bottom: 1.25rem; }
 
 /* ============================================================
    CTA FOOTER — "I BUILD DIFFERENT" statement section
@@ -1414,8 +1447,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .service-card { border-left: none; border-top: 1px solid rgba(196,173,148,0.12); }
   .service-card:first-child { border-top: none; }
   .portfolio-grid { grid-template-columns: 1fr; }
-  .gallery-teaser__inner { grid-template-columns: 1fr; gap: 3rem; }
-  .gallery-teaser__images { order: -1; }
+  .gallery-teaser__card { width: clamp(150px, 42vw, 230px); }
 
   .steps { grid-template-columns: 1fr; gap: 1.5rem; }
   .step { border-left: none; border-top: 1px solid var(--sand); padding: 2rem 0; }
@@ -1569,7 +1601,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .portfolio-teaser__cta { margin-top: 1.5rem; }
 
   /* Gallery teaser */
-  .gallery-teaser__inner { gap: 1.5rem; }
+  .gallery-teaser__deck { margin-bottom: clamp(28px, 8vw, 48px); }
   .gallery-teaser__text h2 { margin-bottom: 1rem; }
 }
 
