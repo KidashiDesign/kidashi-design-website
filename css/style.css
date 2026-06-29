@@ -1662,14 +1662,14 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   display: block;
   border-radius: 4px;
 }
-/* Per-image positions (match original component indices 0-6) */
-.zp__item:nth-child(1) img { width: 25vw; height: 25vh; }
-.zp__item:nth-child(2) img { width: 35vw; height: 30vh; top: calc(50% - 30vh); left: calc(50% + 5vw); }
-.zp__item:nth-child(3) img { width: 20vw; height: 45vh; top: calc(50% - 10vh); left: calc(50% - 25vw); }
-.zp__item:nth-child(4) img { width: 25vw; height: 25vh; top: 50%;              left: calc(50% + 27.5vw); }
-.zp__item:nth-child(5) img { width: 20vw; height: 25vh; top: calc(50% + 27.5vh); left: calc(50% + 5vw); }
-.zp__item:nth-child(6) img { width: 30vw; height: 25vh; top: calc(50% + 27.5vh); left: calc(50% - 22.5vw); }
-.zp__item:nth-child(7) img { width: 15vw; height: 15vh; top: calc(50% + 22.5vh); left: calc(50% + 25vw); }
+/* Per-image positions — all anchored around viewport centre (50%/50%) */
+.zp__item:nth-child(1) img { width: 25vw; height: 25vh; top: calc(50% - 12.5vh); left: calc(50% - 12.5vw); }
+.zp__item:nth-child(2) img { width: 35vw; height: 30vh; top: calc(50% - 32vh);   left: calc(50% - 17.5vw); }
+.zp__item:nth-child(3) img { width: 20vw; height: 45vh; top: calc(50% - 22.5vh); left: calc(50% - 22vw); }
+.zp__item:nth-child(4) img { width: 25vw; height: 25vh; top: calc(50% - 12.5vh); left: calc(50% + 20vw); }
+.zp__item:nth-child(5) img { width: 20vw; height: 25vh; top: calc(50% + 12vh);   left: calc(50% + 6vw); }
+.zp__item:nth-child(6) img { width: 30vw; height: 25vh; top: calc(50% + 10vh);   left: calc(50% - 32vw); }
+.zp__item:nth-child(7) img { width: 15vw; height: 15vh; top: calc(50% + 16vh);   left: calc(50% + 22vw); }
 
 /* Mobile: larger images so the collage is still visible */
 @media (max-width: 768px) {
