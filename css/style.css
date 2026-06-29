@@ -1663,23 +1663,25 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   border-radius: 4px;
 }
 /* Per-image positions — all anchored around viewport centre (50%/50%) */
-.zp__item:nth-child(1) img { width: 25vw; height: 25vh; top: calc(50% - 12.5vh); left: calc(50% - 12.5vw); }
-.zp__item:nth-child(2) img { width: 35vw; height: 30vh; top: calc(50% - 32vh);   left: calc(50% + 18vw); }
-.zp__item:nth-child(3) img { width: 20vw; height: 45vh; top: calc(50% - 22.5vh); left: calc(50% - 22vw); }
-.zp__item:nth-child(4) img { width: 25vw; height: 25vh; top: calc(50% - 12.5vh); left: calc(50% + 20vw); }
-.zp__item:nth-child(5) img { width: 20vw; height: 25vh; top: calc(50% + 12vh);   left: calc(50% + 6vw); }
-.zp__item:nth-child(6) img { width: 30vw; height: 25vh; top: calc(50% + 10vh);   left: calc(50% - 32vw); }
-.zp__item:nth-child(7) img { width: 15vw; height: 15vh; top: calc(50% + 16vh);   left: calc(50% + 22vw); }
+.zp__item:nth-child(1) { z-index: 10; }
+.zp__item:nth-child(1) img { width: 40vw; height: 50vh; top: calc(50% - 25vh); left: calc(50% - 20vw); }
+.zp__item:nth-child(2) img { width: 30vw; height: 38vh; top: calc(50% - 34vh); left: calc(50% - 28vw); }
+.zp__item:nth-child(3) img { width: 40vw; height: 50vh; top: calc(50% - 25vh); left: calc(50% - 20vw); }
+.zp__item:nth-child(4) img { width: 28vw; height: 42vh; top: calc(50% - 38vh); left: calc(50% + 8vw);  }
+.zp__item:nth-child(5) img { width: 32vw; height: 38vh; top: calc(50% + 5vh);  left: calc(50% - 12vw); }
+.zp__item:nth-child(6) img { width: 30vw; height: 38vh; top: calc(50% + 2vh);  left: calc(50% - 32vw); }
+.zp__item:nth-child(7) img { width: 28vw; height: 38vh; top: calc(50% - 12vh); left: calc(50% + 14vw); }
 
 /* Mobile: larger images so the collage is still visible */
 @media (max-width: 768px) {
-  .zp__item img            { width: 60vw; height: 30vh; }
-  .zp__item:nth-child(2) img { width: 70vw; height: 25vh; top: calc(50% - 25vh); left: calc(50% - 35vw); }
-  .zp__item:nth-child(3) img { width: 45vw; height: 35vh; top: calc(50% - 8vh);  left: calc(50% - 45vw); }
-  .zp__item:nth-child(4) img { width: 55vw; height: 25vh; top: 50%;              left: calc(50% - 27.5vw); }
-  .zp__item:nth-child(5) img { width: 45vw; height: 22vh; top: calc(50% + 22vh); left: calc(50% + 2vw); }
-  .zp__item:nth-child(6) img { width: 55vw; height: 22vh; top: calc(50% + 22vh); left: calc(50% - 55vw); }
-  .zp__item:nth-child(7) img { width: 30vw; height: 15vh; top: calc(50% + 20vh); left: calc(50% + 20vw); }
+  .zp__item img               { width: 75vw; height: 40vh; }
+  .zp__item:nth-child(1) img  { width: 80vw; height: 45vh; top: calc(50% - 22.5vh); left: calc(50% - 40vw); }
+  .zp__item:nth-child(2) img  { width: 65vw; height: 35vh; top: calc(50% - 38vh);   left: calc(50% - 32vw); }
+  .zp__item:nth-child(3) img  { width: 80vw; height: 45vh; top: calc(50% - 22.5vh); left: calc(50% - 40vw); }
+  .zp__item:nth-child(4) img  { width: 60vw; height: 38vh; top: calc(50% - 40vh);   left: calc(50% - 20vw); }
+  .zp__item:nth-child(5) img  { width: 70vw; height: 38vh; top: calc(50% + 5vh);    left: calc(50% - 35vw); }
+  .zp__item:nth-child(6) img  { width: 65vw; height: 35vh; top: calc(50% + 5vh);    left: calc(50% - 65vw); }
+  .zp__item:nth-child(7) img  { width: 60vw; height: 35vh; top: calc(50% - 12vh);   left: calc(50% + 8vw);  }
 }
 @media (prefers-reduced-motion: reduce) {
   .zp { height: auto; }
