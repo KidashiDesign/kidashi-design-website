@@ -930,11 +930,12 @@ p { font-size: 1.0625rem; line-height: 1.75; }
    ============================================================ */
 .gallery-teaser { background: var(--dark); padding-block: var(--section-pad); overflow: hidden; }
 
-/* Overlapping collage deck — runs off the right viewport edge */
+/* Overlapping collage deck — centred on desktop/tablet, bleeds right on mobile */
 .gallery-teaser__deck {
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding-left: var(--gutter);
+  padding-inline: var(--gutter);
   padding-block: clamp(28px, 4vw, 56px); /* room for tilt + hover lift, no clipping top/bottom */
   margin-bottom: clamp(40px, 5vw, 72px);
 }
@@ -1618,6 +1619,8 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .gallery-teaser { padding-block: clamp(32px, 8vw, 48px); }
   .cta-footer { padding-block: clamp(32px, 8vw, 48px); }
   .about-teaser__grid { gap: 1.5rem; }
+  /* Gallery teaser — small phone: left-aligned so cards bleed off right */
+  .gallery-teaser__deck { justify-content: flex-start; padding-left: var(--gutter); padding-right: 0; }
 }
 
 /* ============================================================
