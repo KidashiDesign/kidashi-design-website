@@ -790,4 +790,40 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(function() { thanks.textContent = ''; }, 4000);
   };
 
+  /* ── Footer newsletter GDPR micro-notice (injected, applies to all pages) ── */
+  const footerForm = document.querySelector('.footer__form');
+  if (footerForm) {
+    const privacyLink = document.querySelector('a[href*="datenschutz"]');
+    const privacyHref = privacyLink ? privacyLink.href : '/datenschutz/';
+    const gdprNote = document.createElement('p');
+    gdprNote.className = 'footer__gdpr';
+    gdprNote.innerHTML = `No tracking. Your email is used for project updates only. <a href="${privacyHref}">Privacy Policy</a>`;
+    footerForm.appendChild(gdprNote);
+  }
+
+  /* ── Cookie / Privacy Notice Banner ── */
+  (function () {
+    if (localStorage.getItem('kidashi_consent')) return;
+
+    const privacyLink = document.querySelector('a[href*="datenschutz"]');
+    const privacyHref = privacyLink ? privacyLink.href : '/datenschutz/';
+
+    const banner = document.createElement('div');
+    banner.className = 'cookie-banner';
+    banner.setAttribute('role', 'dialog');
+    banner.setAttribute('aria-label', 'Privacy notice');
+    banner.innerHTML =
+      `<p class="cookie-banner__text">This site sets no tracking cookies. We use Google Fonts (font data loaded from Google servers) and our hosting provider stores standard server logs (IP, timestamp). <a href="${privacyHref}">Privacy Policy</a></p>` +
+      `<div class="cookie-banner__actions"><button class="cookie-banner__btn" id="cookieAccept">Got it</button></div>`;
+
+    document.body.appendChild(banner);
+    requestAnimationFrame(() => requestAnimationFrame(() => banner.classList.add('cookie-banner--visible')));
+
+    document.getElementById('cookieAccept').addEventListener('click', function () {
+      localStorage.setItem('kidashi_consent', '1');
+      banner.classList.remove('cookie-banner--visible');
+      setTimeout(function () { banner.remove(); }, 500);
+    });
+  })();
+
 });
