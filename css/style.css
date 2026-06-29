@@ -7,42 +7,42 @@
 
 @font-face {
   font-family: 'Mango Grotesque';
-  src: url('../fonts/MangoGrotesque-Light.ttf') format('truetype');
+  src: url('../fonts/MangoGrotesque-Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Mango Grotesque';
-  src: url('../fonts/MangoGrotesque-LightItalic.ttf') format('truetype');
+  src: url('../fonts/MangoGrotesque-LightItalic.woff2') format('woff2');
   font-weight: 300;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: 'Mango Grotesque';
-  src: url('../fonts/MangoGrotesque-Regular.ttf') format('truetype');
+  src: url('../fonts/MangoGrotesque-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Mango Grotesque';
-  src: url('../fonts/MangoGrotesque-Italic.ttf') format('truetype');
+  src: url('../fonts/MangoGrotesque-Italic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: 'Mango Grotesque';
-  src: url('../fonts/MangoGrotesque-Medium.ttf') format('truetype');
+  src: url('../fonts/MangoGrotesque-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Mango Grotesque';
-  src: url('../fonts/MangoGrotesque-Bold.ttf') format('truetype');
+  src: url('../fonts/MangoGrotesque-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;

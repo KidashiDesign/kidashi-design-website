@@ -13,10 +13,10 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="fonts/MangoGrotesque-Bold.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="preload" href="fonts/MangoGrotesque-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" as="style" onload="this.rel='stylesheet'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
+  <link rel="preload" href="fonts/MangoGrotesque-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/MangoGrotesque-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" as="style" onload="this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -251,13 +251,13 @@
 <section class="gallery-teaser">
   <!-- Overlapping collage deck — bleeds off the right viewport edge, subtle hover lift on desktop -->
   <div class="gallery-teaser__deck reveal" data-delay="100">
-    <div class="gallery-teaser__card"><img src="images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-08.jpg" alt="Mixed media art collage, Tbilisi, Georgia" loading="lazy" decoding="async"></div>
-    <div class="gallery-teaser__card"><img src="images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-03-blue-edition.jpg" alt="Mixed media art collage, Bangkok, Thailand" loading="lazy" decoding="async"></div>
-    <div class="gallery-teaser__card"><img src="images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-04.jpg" alt="Mixed media art collage, Dharamshala, Himalayas" loading="lazy" decoding="async"></div>
-    <div class="gallery-teaser__card"><img src="images/gallery/kidashi-design-mixed-media-art-collage-koh-chang-thailand-01.jpg" alt="Mixed media art collage, Koh Chang, Thailand" loading="lazy" decoding="async"></div>
-    <div class="gallery-teaser__card"><img src="images/gallery/kidashi-design-mixed-media-art-collage-rishikesh-india-01.jpg" alt="Mixed media art collage, Rishikesh, India" loading="lazy" decoding="async"></div>
-    <div class="gallery-teaser__card"><img src="images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-11.jpg" alt="Mixed media art collage, Tbilisi, Georgia" loading="lazy" decoding="async"></div>
-    <div class="gallery-teaser__card"><img src="images/gallery/kidashi-design-mixed-media-art-collage-almaty-kazakhstan-01.jpg" alt="Mixed media art collage, Almaty, Kazakhstan" loading="lazy" decoding="async"></div>
+    <div class="gallery-teaser__card"><img src="images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-08.webp" alt="Mixed media art collage, Tbilisi, Georgia" loading="lazy" decoding="async"></div>
+    <div class="gallery-teaser__card"><img src="images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-03-blue-edition.webp" alt="Mixed media art collage, Bangkok, Thailand" loading="lazy" decoding="async"></div>
+    <div class="gallery-teaser__card"><img src="images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-04.webp" alt="Mixed media art collage, Dharamshala, Himalayas" loading="lazy" decoding="async"></div>
+    <div class="gallery-teaser__card"><img src="images/gallery/kidashi-design-mixed-media-art-collage-koh-chang-thailand-01.webp" alt="Mixed media art collage, Koh Chang, Thailand" loading="lazy" decoding="async"></div>
+    <div class="gallery-teaser__card"><img src="images/gallery/kidashi-design-mixed-media-art-collage-rishikesh-india-01.webp" alt="Mixed media art collage, Rishikesh, India" loading="lazy" decoding="async"></div>
+    <div class="gallery-teaser__card"><img src="images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-11.webp" alt="Mixed media art collage, Tbilisi, Georgia" loading="lazy" decoding="async"></div>
+    <div class="gallery-teaser__card"><img src="images/gallery/kidashi-design-mixed-media-art-collage-almaty-kazakhstan-01.webp" alt="Mixed media art collage, Almaty, Kazakhstan" loading="lazy" decoding="async"></div>
   </div>
   <div class="container">
     <div class="gallery-teaser__text">
@@ -345,18 +345,19 @@
   </div>
 </footer>
 
-<script src="js/main.js"></script>
-<script src="js/fluid-particles.js"></script>
-<script src="js/portrait-3d.js"></script>
+<script src="js/main.js" defer></script>
+<script src="js/fluid-particles.js" defer></script>
 <script>
-  new FluidParticles('#fluid-canvas', {
-    particleDensity:     window.innerWidth < 768 ? 200 : 100,
-    particleSize:        1,
-    particleColor:       '#333333',
-    activeColor:         '#FFBC95',
-    maxBlastRadius:      window.innerWidth < 768 ? 150 : 300,
-    hoverDelay:          1,
-    interactionDistance: window.innerWidth < 768 ? 60 : 100,
+  document.addEventListener('DOMContentLoaded', function() {
+    new FluidParticles('#fluid-canvas', {
+      particleDensity:     window.innerWidth < 768 ? 200 : 100,
+      particleSize:        1,
+      particleColor:       '#333333',
+      activeColor:         '#FFBC95',
+      maxBlastRadius:      window.innerWidth < 768 ? 150 : 300,
+      hoverDelay:          1,
+      interactionDistance: window.innerWidth < 768 ? 60 : 100,
+    });
   });
 </script>
 </body>
