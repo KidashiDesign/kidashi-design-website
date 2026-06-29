@@ -1630,6 +1630,65 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 }
 
 /* ============================================================
+   ZOOM PARALLAX — About page travel hero
+   300vh scroll container, images scale from 1 → --zp-scale-end
+   Positions mirror the original ZoomParallax React component.
+   ============================================================ */
+.zp {
+  position: relative;
+  height: 300vh;
+  background: var(--dark);
+}
+.zp__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+/* Each layer: full-screen, centred flex, image positioned absolutely */
+.zp__item {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+.zp__item img {
+  position: absolute;
+  width: 25vw;
+  height: 25vh;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+}
+/* Per-image positions (match original component indices 0-6) */
+.zp__item:nth-child(1) img { width: 25vw; height: 25vh; }
+.zp__item:nth-child(2) img { width: 35vw; height: 30vh; top: calc(50% - 30vh); left: calc(50% + 5vw); }
+.zp__item:nth-child(3) img { width: 20vw; height: 45vh; top: calc(50% - 10vh); left: calc(50% - 25vw); }
+.zp__item:nth-child(4) img { width: 25vw; height: 25vh; top: 50%;              left: calc(50% + 27.5vw); }
+.zp__item:nth-child(5) img { width: 20vw; height: 25vh; top: calc(50% + 27.5vh); left: calc(50% + 5vw); }
+.zp__item:nth-child(6) img { width: 30vw; height: 25vh; top: calc(50% + 27.5vh); left: calc(50% - 22.5vw); }
+.zp__item:nth-child(7) img { width: 15vw; height: 15vh; top: calc(50% + 22.5vh); left: calc(50% + 25vw); }
+
+/* Mobile: larger images so the collage is still visible */
+@media (max-width: 768px) {
+  .zp__item img            { width: 60vw; height: 30vh; }
+  .zp__item:nth-child(2) img { width: 70vw; height: 25vh; top: calc(50% - 25vh); left: calc(50% - 35vw); }
+  .zp__item:nth-child(3) img { width: 45vw; height: 35vh; top: calc(50% - 8vh);  left: calc(50% - 45vw); }
+  .zp__item:nth-child(4) img { width: 55vw; height: 25vh; top: 50%;              left: calc(50% - 27.5vw); }
+  .zp__item:nth-child(5) img { width: 45vw; height: 22vh; top: calc(50% + 22vh); left: calc(50% + 2vw); }
+  .zp__item:nth-child(6) img { width: 55vw; height: 22vh; top: calc(50% + 22vh); left: calc(50% - 55vw); }
+  .zp__item:nth-child(7) img { width: 30vw; height: 15vh; top: calc(50% + 20vh); left: calc(50% + 20vw); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .zp { height: auto; }
+  .zp__sticky { position: relative; height: auto; display: flex; flex-wrap: wrap; gap: 4px; padding: 2rem; }
+  .zp__item { position: relative; inset: auto; width: calc(33.33% - 4px); }
+  .zp__item img { position: relative; width: 100%; height: 200px; }
+}
+
+/* ============================================================
    CONTAINER SCROLL — services page 3D process reveal
    ============================================================ */
 .cs-section {
