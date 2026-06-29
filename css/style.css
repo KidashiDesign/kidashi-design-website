@@ -1623,9 +1623,10 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .gallery-teaser__deck { justify-content: flex-start; padding-left: var(--gutter); padding-right: 0; }
 }
 
-/* Gallery teaser — desktop: shrink cards so all 7 fit centred (7×200px − 6×96px overlap = 824px) */
+/* Gallery teaser — desktop: cards at 260px, overlap 100px → 7×260−6×100=1220px centred */
 @media (min-width: 769px) {
-  .gallery-teaser__card { width: clamp(160px, 14vw, 200px); }
+  .gallery-teaser__card { width: clamp(160px, 18vw, 260px); }
+  .gallery-teaser__card:not(:first-child) { margin-left: -100px; }
 }
 
 /* ============================================================
