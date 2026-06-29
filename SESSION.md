@@ -7,165 +7,164 @@ Aktualisiert: 2026-06-29
 
 | Key | Value |
 |-----|-------|
-| Repo | `KidashiDesign/kidashi-design-website` |
-| Branch (aktiv) | `main` |
-| Deploy | GitHub Pages automatisch bei Push auf `main` |
-| Stack | Statisches HTML/CSS/JS — kein Build-Tool, kein Framework |
-| Live-URL | `https://kidashidesign.github.io/kidashi-design-website/` |
+| Repo | `kidashidesign/kidashi-design-website` |
+| Branch (aktiv) | `claude/kidashi-design-website-1j16mj` |
+| Deploy | FTP → Hostinger (echte Live-Seite) + GitHub Pages (Preview) |
+| Stack | Statisches HTML/CSS/JS, kein Build-Tool, kein Framework |
+| Live-URL | `https://www.kidashidesign.com` |
+| GitHub Pages | `https://kidashidesign.github.io/kidashi-design-website/` |
 | Inhaberin | Nicole Szatkowski — Kidashi Design, Tbilisi (GMT+4) |
 
 ---
 
-## 🚨 DEPLOY-INFO
+## 🚨 DEPLOY-PFLICHT — bei jeder neuen Session als ERSTES prüfen
 
-**Kein Hostinger-Hoster.** Nur GitHub Pages.
-Der Workflow `Deploy to Hostinger` (deploy.yml) schlägt immer fehl — FTP-Secrets nicht gesetzt. Ignorieren.
+Die echte Live-Seite liegt auf **Hostinger** (nicht GitHub Pages).
+Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.yml` per FTP bei jedem Push auf `main`.
+
+**Beim Sessionstart immer prüfen:**
+1. Letzten Workflow-Run auf `main` checken → `mcp__github__actions_list`
+2. Wenn "Deploy to Hostinger" = `failure` → sofort melden und `rerun_failed_jobs` auslösen
 
 ---
 
 ## ⚠️ Vertraulichkeitsregeln (IMMER einhalten)
 
-- **Kein KI-Workflow sichtbar** auf der Seite (Nicole = echter Mensch, zertifizierter Designer)
+- **Kein KI-Workflow sichtbar** auf der öffentlichen Seite (Nicole = echter Mensch, zertifizierter Designer)
 - **Kein Name „Gianluca Crepaldi"** — nur „Freelance-Collaboration mit einem Esports-Event-Veranstalter"
-- **Projekt Wiedmann & Winz** → komplett ausgeschlossen
-- Keine privaten Kundenkontaktdaten öffentlich sichtbar
+- **Projekt Wiedmann & Winz** → komplett aus Portfolio ausgeschlossen
+- Keine privaten Kontaktdaten von Kunden sichtbar
 - `nicole@kidashidesign.com` nur als HTML-Kommentar, nie auf der Seite
+- Nicole ist **in Georgien steueransässig**, in Deutschland vollständig abgemeldet → keine deutschen Behörden in Impressum/Datenschutz erwähnen
 
 ---
 
-## 🎨 Design-Tokens (CSS Custom Properties)
+## CSS Design Tokens (aus `css/style.css`)
 
 ```css
---primary:      #FFBC95
---dark:         #0A0A0B
---cream:        #F7F3EE
---ease:         cubic-bezier(0.25, 0.46, 0.45, 0.94)
---gutter:       clamp(24px, 5vw, 80px)
---section-pad:  clamp(80px, 10vw, 140px)
+--font-h: 'Mango Grotesque'      /* Headlines */
+--font-b: 'Jost'                  /* Body/UI */
+--dark:   #0A0A0B
+--cream:  #F7F3EE
+--bg:     #FAF9F5
+--bg2:    #F3EFE8
+--sand:   #E8E2D9
+--primary: #2E54FE (Blau)
+--accent:  #FFBC95 (Orange)
+--muted:   rgba(10,10,11,0.45)
+--nav-h:   4rem
+--gutter:  clamp(1.5rem, 5vw, 5rem)
 ```
 
 ---
 
-## 📁 Dateistruktur (relevante Verzeichnisse)
+## Nav-Farbsystem
+
+| Klasse | Verwendung | Textfarbe |
+|--------|-----------|-----------|
+| `class="nav"` | Landingpage + alle Projekt-Detailseiten | Weiß (cream) |
+| `class="nav nav--light"` | portfolio/index, about, services, contact, gallery | Dunkel |
+| `.scrolled` (JS-Toggle) | Alle Seiten beim Scrollen | Frosted-Glass dunkel |
+
+---
+
+## 🔴 PRIORITÄT 1 — NÄCHSTE SESSION: Google Fonts → Self-Hosted
+
+Nicole hat diese TTF-Dateien in `fonts/` auf `main` hochgeladen:
+- `fonts/Jost-VariableFont_wght.ttf` — Variable Font, alle Weights 100–900
+- `fonts/Jost-Italic-VariableFont_wght.ttf` — Variable Font Italic
+
+**4 Schritte zum Umstellen:**
+
+**Schritt 1 — `@font-face` in `css/style.css` ergänzen** (ganz oben):
+```css
+@font-face {
+  font-family: 'Jost';
+  src: url('../fonts/Jost-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Jost';
+  src: url('../fonts/Jost-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+```
+
+**Schritt 2 — Google Fonts CDN aus ALLEN HTML-Seiten entfernen:**
+Diese 4 Zeilen (Varianten je nach Pfadtiefe) in jeder HTML-Datei löschen:
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Jost..." as="style" onload="this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Jost..." rel="stylesheet"></noscript>
+```
+Betrifft: `index.html`, `about/`, `services/`, `contact/`, `portfolio/index.html`, `gallery/`, `datenschutz/`, `impressum/`, und alle 13 Portfolio-Detailseiten.
+
+**Schritt 3 — Cookie-Banner-Text updaten** (`js/main.js` ~Zeile 820):
+```
+VORHER: "...We use Google Fonts (font data loaded from Google servers) and our hosting provider..."
+NACHHER: "...Our hosting provider stores standard server logs (IP address, timestamp) for security purposes..."
+```
+
+**Schritt 4 — Datenschutz updaten** (`datenschutz/index.html`):
+Abschnitt `<h2>Google Fonts</h2>` komplett entfernen (Schrift ist jetzt lokal, kein Datentransfer mehr).
+
+---
+
+## Dateistruktur
 
 ```
 /
-├── index.html                    ← Landingpage
-├── about/index.html              ← About-Seite (ZoomParallax Hero)
-├── gallery/index.html            ← Galerie-Seite
+├── index.html                    # Landingpage (JSON-LD Schema vorhanden)
+├── css/
+│   ├── style.css                 # Globales CSS + Tokens + Cookie-Banner CSS
+│   └── project.css               # Portfolio-Detailseiten CSS
+├── js/main.js                    # Nav, Cursor, Cookie-Banner, ZP-Animation, Footer-GDPR
+├── fonts/
+│   ├── MangoGrotesque-*.woff2    # Headline-Font (self-hosted ✓)
+│   ├── Jost-VariableFont_wght.ttf        # Body-Font — hochgeladen, noch NICHT eingebunden
+│   └── Jost-Italic-VariableFont_wght.ttf # Body-Font Italic — hochgeladen, noch NICHT eingebunden
 ├── portfolio/
-│   ├── index.html                ← Portfolio-Übersicht (Kacheln)
-│   ├── art-gerecht-modular/      ← NEU — cinematic hero animation
-│   ├── xp-days/
-│   ├── rohyma-jet/
-│   ├── tm-studio/
-│   ├── galerie-kronsbein/
-│   ├── selvoma/
-│   └── ...weitere Projekte
-├── css/style.css                 ← Haupt-Stylesheet
-├── js/main.js                    ← Haupt-JS (scroll, cursor, nav, ZoomParallax)
-├── fonts/                        ← Mango Grotesque WOFF2 (6 Schnitte)
-├── images/
-│   ├── about/                    ← 8 Reisefotos (WebP, q95/lossless)
-│   ├── artgerecht/               ← Art Gerecht Assets (WebP)
-│   └── gallery/                  ← Collagen (WebP q82)
+│   ├── index.html
+│   ├── art-gerecht-modular/ · xp-days/ · tm-studio/ · galerie-kronsbein/
+│   ├── rohyma-jet/ · hideout-georgia/ · studio995/ · selvoma/
+│   ├── seestern/ · mystic-drops/ · artista-magazin/ · piano-post/
+│   └── westgrowth-capital/
+├── about/ · services/ · contact/ · gallery/
+├── datenschutz/ · impressum/
+├── sitemap.xml                   # 19 URLs, lastmod 2026-06-29
+└── robots.txt
 ```
 
 ---
 
-## ✅ Was in dieser Session gebaut wurde (2026-06-29)
+## Was heute gemacht wurde (2026-06-29)
 
-### 1. Gallery Teaser Kacheln (index.html)
-- Overlapping Collage Card Deck — 7 Karten, überlappend mit Rotation
-- Desktop: zentriert, 260px Breite, -100px Overlap
-- Mobile: linksbündig, Karten laufen aus dem Rand
-- Hover: `lift + scale` nur auf Desktop (`@media (hover: hover) and (pointer: fine)`)
+### PR #49 — ZP-Animation + TM Studio (gemergt)
+- About Me ZP: Bilder zentriert + vergrößert, himalaya-mountains (z-index:10) über jungle-rest gelegt
+- Alle 7 Alt-Texte auf tatsächlichen Bildinhalt korrigiert
+- TM Studio Animation: Reihenfolge Logo → Visitenkarten → Banner
 
-### 2. Performance-Optimierung
-- Alle 6 TTF-Fonts → WOFF2 (~68% kleiner)
-- 7 Gallery-Teaser-Bilder → WebP q82
-- `@font-face` mit `font-display: swap`
-- JS defer, toten Script-Tag entfernt
-
-### 3. Gallery-Beschreibungstext (beide Seiten)
-- `index.html` + `gallery/index.html` aktualisiert:
-  > "Collages born from the places I've lived and traveld by— Germany, Georgia, Thailand, Vietnam, the Himalayas …"
-
-### 4. ZoomParallax Hero — About-Seite
-**Dateien:** `about/index.html`, `css/style.css`, `js/main.js`
-
-Vanilla-Port des React/Framer-Motion ZoomParallax-Komponenten:
-- `position: sticky` Container (300vh)
-- 7 Reisefotos, jedes mit `--zp-scale-end` (4–9)
-- Scroll-Progress → `transform: scale()` via JS (`passive: true`)
-- `prefers-reduced-motion`: statisches 3-Spalten-Grid
-- Alle Bilder zentriert um Viewport-Mitte (50%/50%)
-
-**Bilder in `images/about/` (alle WebP):**
-| Datei | Position | scale-end | Qualität |
-|-------|----------|-----------|----------|
-| himalaya-mountains.webp | #1 | 4 | q95 |
-| himalaya-pointing.webp | #2 — Ersatz f. Moped | 5 | q95 |
-| jungle-rest.webp | #3 | 6 | q95 |
-| prayer-flags-dharamshala.webp | #4 | 5 | q95 |
-| forest-path.webp | #5 | 6 | q95 |
-| boat-thailand.webp | #6 | 8 | q95 |
-| chai-india.webp | #7 — letztes Bild | 9 | lossless |
-
-> **Item #2 Desktop-Position:** `left: calc(50% + 18vw)` — bewusst weit rechts, damit beim Vollzoom (scale 9) nur Item #7 sichtbar ist.
-
-### 5. Art Gerecht Modular — neues Portfolioprojekt
-**Dateien:**
-- `portfolio/art-gerecht-modular/art-gerecht-animation.html`
-- `portfolio/art-gerecht-modular/index.html`
-- `images/artgerecht/*.webp`
-- `portfolio/index.html` — Kachel als erste im Grid ergänzt
-
-**Animation (4 Phasen):**
-1. Logo erscheint aus Unschärfe + 3D-Rotation (`agm-logo-reveal`)
-2. Logo wandert nach oben (`agm-logo-to-top`)
-3. Technische Zeichnung wird eingeblendet
-4. 3D-Flyer (Vorder/Rückseite) dreht sich orbital (`agm-flyer-orbit`)
-
-**Tile-Modus** (`?tile=1`): überspringt Intro, Flyer dreht sofort in Dauerschleife.
-
-**Assets in `images/artgerecht/`:**
-| Datei | Größe | Zweck |
-|-------|-------|-------|
-| agm-logo.webp | 16KB lossless | Logo |
-| agm-drawing.webp | 40KB | Technische Zeichnung |
-| agm-flyer-front.webp | 449KB | Flyer Vorderseite |
-| agm-flyer-back.webp | 423KB | Flyer Rückseite |
-| agm-texture.webp | 1.8MB | Betonhintergrund |
+### PR #50 — DSGVO / Cookie-Banner (gemergt)
+- Cookie/Privacy-Notice-Banner (JS-injiziert via main.js, localStorage, alle Seiten)
+- Kontaktformular: Datenschutzhinweis unter Submit-Button
+- Footer-Newsletter: GDPR-Micro-Notice per JS auf allen Seiten
+- Datenschutzseite: Abschnitte Kontaktformular, Newsletter, Hosting, Google Fonts, Rechte (Art. 15–22)
+- Impressum: E-Mail-only (kein Telefon), IHK, BayLDA-Referenz entfernt (Georgia)
+- Sitemap: datenschutz/impressum raus (noindex), art-gerecht-modular rein, lastmod
+- JSON-LD ProfessionalService + Person Schema auf index.html
 
 ---
 
-## 🔧 Dauerhafte Animations-Regeln (IMMER bei Upload anwenden)
+## Schnellstart für neuen Chat
 
-Bei jeder hochgeladenen Bundle-Animation:
-1. `__bundler_thumbnail` SVG → `<div id="__bundler_thumbnail" style="background:FARBE;"></div>`
-2. `loading="lazy"` auf alle Iframes (Hero-Detailseite: `loading="eager"`)
-3. PlaybackBar / Pause / Fullscreen entfernen falls vorhanden
-4. `?tile=1`-Script prüfen und ggf. ergänzen
-
----
-
-## 🗺 Portfolio-Übersicht (aktuell)
-
-| Projekt | Ordner | Animation |
-|---------|--------|-----------|
-| Art Gerecht Modular | art-gerecht-modular/ | ✅ cinematic 4-phase |
-| XP-Days | xp-days/ | ✅ iframe |
-| Rohyma Jet | rohyma-jet/ | ✅ iframe |
-| TM Studio | tm-studio/ | ✅ iframe |
-| Galerie Kronsbein | galerie-kronsbein/ | ✅ iframe |
-| Selvoma | selvoma/ | ✅ iframe |
-| Seestern | seestern/ | statisch |
-| Westgrowth Capital | westgrowth-capital/ | statisch |
-| Hideout Georgia | hideout-georgia/ | statisch |
-| Mystic Drops | mystic-drops/ | statisch |
-| Artista Magazin | artista-magazin/ | statisch |
-| Piano Post | piano-post/ | statisch |
-| Studio995 | studio995/ | statisch |
-| WH4 | wh4/ | archiviert |
-| Wiedmann & Winz | — | **AUSGESCHLOSSEN** |
+```
+Ich arbeite am Repo kidashidesign/kidashi-design-website auf Branch
+claude/kidashi-design-website-1j16mj. Statisches HTML/CSS/JS, Hostinger-Deploy.
+Lies SESSION.md im Root. Priorität: Jost-Font auf self-hosted TTF umstellen
+(alle Details in SESSION.md unter "PRIORITÄT 1").
+```
