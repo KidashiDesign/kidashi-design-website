@@ -336,6 +336,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
+  /* ── About page: floating scene (mouse-parallax, port of Floating/FloatingElement) ── */
+  const aboutFloat = document.getElementById('aboutFloat');
+  if (aboutFloat) {
+    const scene  = document.getElementById('aboutFloatScene');
+    const EASING = 0.06;
+    const SENS   = 1;
+    let mouse    = { x: 0, y: 0 };
+    let isMobile = window.matchMedia('(max-width: 1024px)').matches;
+
+    /* Build state from [data-depth] elements — mirrors FloatingElement.registerElement */
+    const items = scene
+      ? Array.from(scene.querySelectorAll('[data-depth]')).map(el => ({
+          el, depth: parseFloat(el.dataset.depth) || 1, x: 0, y: 0
+        }))
+      : [];
+
+    /* Track mouse relative to container centre — mirrors useMousePositionRef */
+    aboutFloat.addEventListener('mousemove', e => {
+      if (isMobile) return;
+      const r = aboutFloat.getBoundingClientRect();
+      mouse.x = e.clientX - r.left  - r.width  * 0.5;
+      mouse.y = e.clientY - r.top   - r.height * 0.5;
+    }, { passive: true });
+
+    /* Ease back to centre on leave */
+    aboutFloat.addEventListener('mouseleave', () => { mouse.x = 0; mouse.y = 0; }, { passive: true });
+
+    /* Disable on tablet/mobile breakpoint */
+    window.matchMedia('(max-width: 1024px)').addEventListener('change', e => {
+      isMobile = e.matches;
+      if (isMobile) { mouse.x = 0; mouse.y = 0; }
+    });
+
+    /* rAF loop — mirrors useAnimationFrame + easing from Floating */
+    (function floatLoop() {
+      items.forEach(s => {
+        const strength = (s.depth * SENS) / 20;
+        s.x += (mouse.x * strength - s.x) * EASING;
+        s.y += (mouse.y * strength - s.y) * EASING;
+        s.el.style.transform = `translate3d(${s.x.toFixed(2)}px,${s.y.toFixed(2)}px,0)`;
+      });
+      requestAnimationFrame(floatLoop);
+    })();
+  }
+
   /* ── Scroll reveal ── */
   const revealEls = document.querySelectorAll('.reveal');
   if (revealEls.length) {
@@ -747,36 +792,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     runNext();
-  })();
-
-  /* ── Zoom Parallax — About page travel hero ── */
-  (function () {
-    const section = document.querySelector('.zp');
-    if (!section) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const items = section.querySelectorAll('.zp__item');
-    if (!items.length) return;
-
-    /* Read the target scale from the inline CSS custom property */
-    const scaleEnds = Array.from(items).map(el =>
-      parseFloat(getComputedStyle(el).getPropertyValue('--zp-scale-end')) || 4
-    );
-
-    function onScroll() {
-      const rect   = section.getBoundingClientRect();
-      const total  = section.offsetHeight - window.innerHeight;
-      /* progress: 0 (section top hits viewport top) → 1 (section bottom hits viewport bottom) */
-      const progress = Math.max(0, Math.min(1, -rect.top / total));
-
-      items.forEach((item, i) => {
-        const scale = 1 + (scaleEnds[i] - 1) * progress;
-        item.style.transform = `scale(${scale})`;
-      });
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); /* init */
   })();
 
   /* ── Footer newsletter form ── */
