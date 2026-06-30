@@ -8,7 +8,7 @@ Aktualisiert: 2026-06-30
 | Key | Value |
 |-----|-------|
 | Repo | `kidashidesign/kidashi-design-website` |
-| Branch (aktiv) | `claude/jost-font-self-hosted-mei2v7` |
+| Branch (aktiv) | `fix/tm-studio-animation-comments` |
 | Deploy | FTP → Hostinger (echte Live-Seite) + GitHub Pages (Preview) |
 | Stack | Statisches HTML/CSS/JS, kein Build-Tool, kein Framework |
 | Live-URL | `https://www.kidashidesign.com` |
@@ -73,6 +73,19 @@ Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.
 
 ---
 
+## DC Runtime Animation Bundles — Wichtige Hinweise
+
+Die Portfolio-Animationsdateien (`*-animation.html`) sind DC Runtime Bundles:
+- `<script type="__bundler/manifest">` — Base64-kodierte Bilddaten (groß, nicht anfassen)
+- `<script type="__bundler/template">` — JSON-kodiertes HTML+CSS+JS (hier werden Änderungen gemacht)
+
+**Kritisch beim Bearbeiten:**
+- Template-JSON immer mit `json.JSONDecoder().raw_decode()` lesen (nicht regex-basiert!)
+- Nach `json.dumps()` zwingend `<\/` → `<\\u002F` ersetzen, sonst bricht der HTML-Parser den Script-Tag ab
+- Niemals Python regex-Substitution direkt auf das Template-JSON anwenden
+
+---
+
 ## Dateistruktur
 
 ```
@@ -100,18 +113,28 @@ Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.
 
 ---
 
-## Was zuletzt gemacht wurde (2026-06-30)
+## Was in dieser Session gemacht wurde (2026-06-30)
 
-### Jost Font — Self-Hosted
-- Google Fonts `@import` aus `css/style.css` entfernt
-- `fonts/Jost-Variable.ttf` (132 KB) + `fonts/Jost-Italic-Variable.ttf` (142 KB) eingebunden
-- Zwei `@font-face`-Regeln mit `font-weight: 100 900` und `font-display: swap`
-- Google Fonts Preconnect-Links müssen noch aus allen HTML-Seiten entfernt werden
+### Jost Font — Self-Hosted ✅
+- Google Fonts CDN-Links aus allen 23 HTML-Seiten entfernt
+- `@font-face` mit Variable TTF in `css/style.css`
+- Cookie-Banner-Text + Datenschutz-Seite aktualisiert
 
-### TM Studio Animation — Error-Fix
-- dc-runtime JS hatte `s.integrity` + `s.crossOrigin` beim dynamischen React-Laden von unpkg.com gesetzt
-- SRI-Hash-Mismatch verursachte `window.React is not available yet` Error-Overlay
-- Fix: integrity + crossOrigin aus `loadScript()` entfernt (gzip-Patch im eingebetteten Bundle)
+### Testimonials — Services & Homepage ✅
+- Draggable Card-Stack auf `services/index.html` hinzugefügt
+- Glassmorphism-Effekt (`backdrop-filter: blur`) auf beiden Seiten
+
+### TM Studio Animation — Komplett-Fix ✅
+- **Root cause:** Python-Skript hatte `</script>` im Template-JSON nicht als `</script>` escaped → HTML-Parser brach JSON nach 185 Zeichen ab → DC Runtime "Bundle unpack error"
+- Template aus Original-Commit `08bbdb2` wiederhergestellt
+- Animationsreihenfolge korrekt: **Logo (0–27%) → Visitenkarten (27–67%) → Banner (69–98%)**
+- Commit `3e57575` auf `main`
+
+### Selvoma Slideshow ✅
+- `object-fit: contain` → Bilder vollständig sichtbar (kein Abschneiden)
+- Border-radius: 26px → 12px
+- Timing: 6s → 5s pro Slide
+- Commit `5ce32c7` auf `main`
 
 ---
 
@@ -119,11 +142,9 @@ Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.
 
 | # | Task | Status |
 |---|------|--------|
-| 1 | Google Fonts Preconnect-Links aus allen HTML-Seiten entfernen | ❌ Offen |
-| 2 | Cookie-Banner-Text: Google Fonts Erwähnung entfernen (`js/main.js`) | ❌ Offen |
-| 3 | Datenschutz: Google Fonts Abschnitt entfernen (`datenschutz/index.html`) | ❌ Offen |
-| 4 | Testimonials: echte Kundenstimmen + Fotos eintragen | ❌ Warten auf Inhaberin |
-| 5 | Google Analytics einbauen | ❌ Warten auf Measurement-ID |
+| 1 | Testimonials: echte Kundenstimmen + Fotos | ⏳ Warten auf Inhaberin |
+| 2 | Google Analytics GA4 | ⏳ Warten auf Measurement-ID |
+| 3 | Hostinger Deploy-Secrets prüfen (bei Sessionstart) | ⚠️ Immer checken |
 
 ---
 
@@ -131,6 +152,6 @@ Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.
 
 ```
 Ich arbeite am Repo kidashidesign/kidashi-design-website auf Branch
-claude/jost-font-self-hosted-mei2v7. Statisches HTML/CSS/JS, Hostinger-Deploy.
+fix/tm-studio-animation-comments. Statisches HTML/CSS/JS, Hostinger-Deploy.
 Lies SESSION.md im Root für alle Infos.
 ```
