@@ -1727,64 +1727,146 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 }
 
 /* ============================================================
-   ZOOM PARALLAX — About page travel hero
-   300vh scroll container, images scale from 1 → --zp-scale-end
-   Positions mirror the original ZoomParallax React component.
+   FLOATING SCENE — About page, mouse-parallax portrait + badges
+   Replaces old ZoomParallax travel-photo scroll section.
    ============================================================ */
-.zp {
-  position: relative;
-  height: 300vh;
+.about-hero-float {
   background: var(--dark);
-}
-.zp__sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
+  color: var(--cream);
+  padding-block: clamp(4rem, 8vh, 7rem);
+  position: relative;
   overflow: hidden;
 }
-/* Each layer: full-screen, centred flex, image positioned absolutely */
-.zp__item {
+.about-hero-float::before {
+  content: '';
   position: absolute;
   inset: 0;
-  display: flex;
+  background:
+    radial-gradient(ellipse 55% 70% at 88% 62%, rgba(255,188,149,0.08) 0%, transparent 58%),
+    radial-gradient(ellipse 48% 58% at 8%  28%, rgba(46,84,254,0.09)  0%, transparent 55%);
+  pointer-events: none;
+}
+.about-hero-float__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
   align-items: center;
-  justify-content: center;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+.about-hero-float__grid--scene-only { grid-template-columns: 1fr; justify-items: center; }
+.about-hero-float__text .eyebrow { color: var(--primary); }
+.about-hero-float__text h1      { color: var(--cream); margin-bottom: 1.25rem; }
+.about-hero-float__text p       { color: rgba(247,243,238,0.6); max-width: 460px; }
+
+/* ── Floating scene ── */
+.about-float-scene {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 3 / 4;
+  max-height: 72vh;
+}
+.about-float-scene__inner {
+  position: absolute;
+  inset: 0;
+}
+.about-float-el {
+  position: absolute;
   will-change: transform;
 }
-.zp__item img {
-  position: absolute;
-  width: 25vw;
-  height: 25vh;
-  object-fit: cover;
-  display: block;
-  border-radius: 4px;
-}
-/* Per-image positions — all anchored around viewport centre (50%/50%) */
-.zp__item:nth-child(1) { z-index: 10; }
-.zp__item:nth-child(1) img { width: 40vw; height: 50vh; top: calc(50% - 25vh); left: calc(50% - 20vw); }
-.zp__item:nth-child(2) img { width: 30vw; height: 38vh; top: calc(50% - 34vh); left: calc(50% - 28vw); }
-.zp__item:nth-child(3) img { width: 40vw; height: 50vh; top: calc(50% - 25vh); left: calc(50% - 20vw); }
-.zp__item:nth-child(4) img { width: 28vw; height: 42vh; top: calc(50% - 38vh); left: calc(50% + 8vw);  }
-.zp__item:nth-child(5) img { width: 32vw; height: 38vh; top: calc(50% + 5vh);  left: calc(50% - 12vw); }
-.zp__item:nth-child(6) img { width: 30vw; height: 38vh; top: calc(50% + 2vh);  left: calc(50% - 32vw); }
-.zp__item:nth-child(7) img { width: 28vw; height: 38vh; top: calc(50% - 12vh); left: calc(50% + 14vw); }
 
-/* Mobile: larger images so the collage is still visible */
-@media (max-width: 768px) {
-  .zp__item img               { width: 75vw; height: 40vh; }
-  .zp__item:nth-child(1) img  { width: 80vw; height: 45vh; top: calc(50% - 22.5vh); left: calc(50% - 40vw); }
-  .zp__item:nth-child(2) img  { width: 65vw; height: 35vh; top: calc(50% - 38vh);   left: calc(50% - 32vw); }
-  .zp__item:nth-child(3) img  { width: 80vw; height: 45vh; top: calc(50% - 22.5vh); left: calc(50% - 40vw); }
-  .zp__item:nth-child(4) img  { width: 60vw; height: 38vh; top: calc(50% - 40vh);   left: calc(50% - 20vw); }
-  .zp__item:nth-child(5) img  { width: 70vw; height: 38vh; top: calc(50% + 5vh);    left: calc(50% - 35vw); }
-  .zp__item:nth-child(6) img  { width: 65vw; height: 35vh; top: calc(50% + 5vh);    left: calc(50% - 65vw); }
-  .zp__item:nth-child(7) img  { width: 60vw; height: 35vh; top: calc(50% - 12vh);   left: calc(50% + 8vw);  }
+/* Portrait */
+.about-float-el--portrait {
+  inset: 5% 8%;
+  overflow: hidden;
+  border-radius: 3px;
+  box-shadow:
+    0 48px 120px rgba(0,0,0,0.65),
+    0 12px 40px  rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(247,243,238,0.06);
 }
-@media (prefers-reduced-motion: reduce) {
-  .zp { height: auto; }
-  .zp__sticky { position: relative; height: auto; display: flex; flex-wrap: wrap; gap: 4px; padding: 2rem; }
-  .zp__item { position: relative; inset: auto; width: calc(33.33% - 4px); }
-  .zp__item img { position: relative; width: 100%; height: 200px; }
+.about-float-el--portrait img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top center;
+  display: block;
+}
+
+/* Floating badge */
+.about-float-el--badge-tl { top: 8%;  left: 3%; }
+.about-float-el--badge-br { bottom: 12%; right: 2%; }
+.about-float-badge {
+  background: rgba(10,10,11,0.62);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid rgba(247,243,238,0.1);
+  border-radius: 2px;
+  padding: 0.6rem 0.85rem;
+  white-space: nowrap;
+}
+.about-float-badge__label {
+  font-family: var(--font-b);
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--primary);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.about-float-badge__value {
+  font-family: var(--font-h);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--cream);
+  display: block;
+  line-height: 1.2;
+}
+
+/* Accent dot */
+.about-float-el--dot {
+  top: 6%; right: 17%;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0.65;
+}
+
+/* Vertical label */
+.about-float-el--label {
+  top: 38%; right: 1%;
+  writing-mode: vertical-rl;
+}
+.about-float-el--label span {
+  font-family: var(--font-b);
+  font-size: 0.5rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(247,243,238,0.2);
+}
+
+/* Grain overlay (static, not animated) */
+.about-float-grain {
+  position: absolute;
+  inset: 5% 8%;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.16;
+  border-radius: 3px;
+}
+
+@media (max-width: 1024px) {
+  .about-hero-float__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-float-scene { max-height: 55vh; aspect-ratio: 4 / 3; }
+  .about-float-el { transform: none !important; will-change: auto; }
+  .about-float-el--badge-tl { top: 5%;  left: 7%; }
+  .about-float-el--badge-br { bottom: 7%; right: 5%; }
+}
+@media (max-width: 768px) {
+  .about-float-badge, .about-float-el--dot, .about-float-el--label { display: none; }
+  .about-float-scene { aspect-ratio: 3 / 4; max-height: none; }
 }
 
 /* ============================================================

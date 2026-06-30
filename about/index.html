@@ -85,18 +85,57 @@
   </div>
 </section>
 
-<!-- ZOOM PARALLAX HERO — vanilla port of ZoomParallax (framer-motion → IntersectionObserver + scroll) -->
-<section class="zp" aria-label="Travel moments">
-  <div class="zp__sticky">
-    <div class="zp__item" style="--zp-scale-end:4"><img src="../images/about/himalaya-mountains.webp"        alt="Nicole hiking through jungle forest, Himalayas"  loading="lazy" decoding="async"></div>
-    <div class="zp__item" style="--zp-scale-end:5"><img src="../images/about/himalaya-pointing.webp"       alt="Resting in jungle vegetation, India"             loading="lazy" decoding="async"></div>
-    <div class="zp__item" style="--zp-scale-end:6"><img src="../images/about/jungle-rest.webp"              alt="Nicole pointing at snow-capped peaks, Himalayas" loading="lazy" decoding="async"></div>
-    <div class="zp__item" style="--zp-scale-end:5"><img src="../images/about/prayer-flags-dharamshala.webp" alt="Yoga at sunrise, Dharamshala"                   loading="lazy" decoding="async"></div>
-    <div class="zp__item" style="--zp-scale-end:6"><img src="../images/about/forest-path.webp"              alt="Nicole at the Lotus Temple, New Delhi"           loading="lazy" decoding="async"></div>
-    <div class="zp__item" style="--zp-scale-end:8"><img src="../images/about/boat-thailand.webp"            alt="Nicole on a wooden boat in Thailand"             loading="lazy" decoding="async"></div>
-    <div class="zp__item" style="--zp-scale-end:9"><img src="../images/about/chai-india.webp"               alt="Watching sunset from a mountain summit, India"   loading="lazy" decoding="async"></div>
+<!-- Floating scene — mouse-parallax portrait + badges, replaces old scroll-zoom travel photos -->
+<div class="about-hero-float" id="aboutFloat">
+  <div class="container">
+    <div class="about-hero-float__grid about-hero-float__grid--scene-only">
+
+      <!-- Floating scene -->
+      <div class="about-float-scene">
+        <div class="about-float-scene__inner" id="aboutFloatScene">
+
+          <!-- Portrait — depth 1 (main layer) -->
+          <div class="about-float-el about-float-el--portrait" data-depth="1">
+            <img src="../images/kidashi-design-nicole-szatkowski-about-me-portrait-austria-tbilisi.jpg"
+                 alt="Nicole Szatkowski, founder of Kidashi Design — double exposure portrait blending Austria and Tbilisi, Georgia"
+                 loading="lazy" decoding="async">
+          </div>
+
+          <!-- Badge: Education — depth 2 (upper left) -->
+          <div class="about-float-el about-float-el--badge about-float-el--badge-tl" data-depth="2" aria-hidden="true">
+            <div class="about-float-badge">
+              <span class="about-float-badge__label">Education</span>
+              <span class="about-float-badge__value">IHK Certified</span>
+            </div>
+          </div>
+
+          <!-- Badge: Location — depth 1.5 (lower right) -->
+          <div class="about-float-el about-float-el--badge about-float-el--badge-br" data-depth="1.5" aria-hidden="true">
+            <div class="about-float-badge">
+              <span class="about-float-badge__label">Based in</span>
+              <span class="about-float-badge__value">Tbilisi · GMT+4</span>
+            </div>
+          </div>
+
+          <!-- Accent dot — depth 2.5 -->
+          <div class="about-float-el about-float-el--dot" data-depth="2.5" aria-hidden="true"></div>
+
+          <!-- Vertical label — depth 0.7 (slow layer, subtle) -->
+          <div class="about-float-el about-float-el--label" data-depth="0.7" aria-hidden="true">
+            <span>Kidashi Design · 2026</span>
+          </div>
+
+        </div>
+        <!-- Grain texture overlay -->
+        <svg class="about-float-grain" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+          <filter id="afGrain"><feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+          <rect width="100%" height="100%" filter="url(#afGrain)"/>
+        </svg>
+      </div>
+
+    </div>
   </div>
-</section>
+</div>
 
 <section class="about-content">
   <div class="container">
