@@ -3,7 +3,21 @@
    Nicole Szatkowski · kidashidesign.com
    ============================================================ */
 
-/* Jost loaded via <link> in HTML — @import removed (render-blocking) */
+@font-face {
+  font-family: 'Jost';
+  src: url('../fonts/Jost-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Jost';
+  src: url('../fonts/Jost-Italic-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'Mango Grotesque';
@@ -1183,6 +1197,85 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 
 @media (max-width: 768px) {
   .cta-footer__contact { flex-direction: column; align-items: flex-start; }
+}
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.testimonials { background: var(--cream); padding-block: var(--section-pad); overflow: hidden; }
+.testimonials__header { text-align: center; margin-bottom: clamp(3rem, 6vw, 5rem); }
+.testimonials__header h2 { color: var(--dark); margin-top: 0.5rem; }
+.testimonials__stage { display: flex; flex-direction: column; align-items: center; gap: 2.5rem; }
+.testimonials__stack {
+  position: relative;
+  width: 580px;
+  height: 440px;
+  max-width: 100%;
+}
+.tcard {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 320px;
+  height: 420px;
+  background: var(--dark);
+  border: 1px solid rgba(232, 226, 217, 0.1);
+  border-radius: 1.25rem;
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  user-select: none;
+  will-change: transform;
+}
+.tcard[data-pos="front"] { z-index: 3; transform: rotate(-6deg) translateX(0); cursor: grab; }
+.tcard[data-pos="middle"] { z-index: 2; transform: rotate(0deg) translateX(106px); }
+.tcard[data-pos="back"]   { z-index: 1; transform: rotate(6deg)  translateX(212px); }
+.tcard__avatar {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(232, 226, 217, 0.15);
+  pointer-events: none;
+  display: block;
+  flex-shrink: 0;
+}
+.tcard__text {
+  font-family: var(--font-b);
+  font-size: 0.95rem;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(247, 243, 238, 0.75);
+  text-align: center;
+  line-height: 1.65;
+  margin: 0;
+}
+.tcard__author {
+  font-family: var(--font-b);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  text-align: center;
+  text-transform: uppercase;
+}
+.testimonials__hint {
+  font-family: var(--font-b);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(10, 10, 11, 0.35);
+  text-align: center;
+}
+@media (max-width: 640px) {
+  .testimonials__stack { width: 100%; height: 400px; }
+  .tcard { width: calc(100vw - 6rem); max-width: 300px; height: 400px; }
+  .tcard[data-pos="middle"] { transform: rotate(0deg) translateX(14vw); }
+  .tcard[data-pos="back"]   { transform: rotate(6deg)  translateX(28vw); }
 }
 
 /* ============================================================

@@ -813,7 +813,7 @@ document.addEventListener('DOMContentLoaded', () => {
     banner.setAttribute('role', 'dialog');
     banner.setAttribute('aria-label', 'Privacy notice');
     banner.innerHTML =
-      `<p class="cookie-banner__text">This site sets no tracking cookies. We use Google Fonts (font data loaded from Google servers) and our hosting provider stores standard server logs (IP, timestamp). <a href="${privacyHref}">Privacy Policy</a></p>` +
+      `<p class="cookie-banner__text">This site sets no tracking cookies. Our hosting provider stores standard server logs (IP address, timestamp) for security purposes. <a href="${privacyHref}">Privacy Policy</a></p>` +
       `<div class="cookie-banner__actions"><button class="cookie-banner__btn" id="cookieAccept">Got it</button></div>`;
 
     document.body.appendChild(banner);
