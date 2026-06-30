@@ -1764,9 +1764,9 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .about-float-scene {
   position: relative;
   width: 100%;
-  max-width: 640px;
-  aspect-ratio: 3 / 4;
-  max-height: 72vh;
+  max-width: 960px;
+  aspect-ratio: 16 / 10;
+  max-height: 70vh;
 }
 .about-float-scene__inner {
   position: absolute;
@@ -1777,21 +1777,27 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   will-change: transform;
 }
 
-/* Portrait */
-.about-float-el--portrait {
-  inset: 5% 8%;
+/* Travel photo collage (replaces single portrait) */
+.about-float-el--photo {
   overflow: hidden;
   border-radius: 3px;
   box-shadow:
-    0 48px 120px rgba(0,0,0,0.65),
-    0 12px 40px  rgba(0,0,0,0.35),
+    0 30px 70px rgba(0,0,0,0.55),
+    0 8px 24px  rgba(0,0,0,0.3),
     inset 0 1px 0 rgba(247,243,238,0.06);
 }
-.about-float-el--portrait img {
+.about-float-el--photo img {
   width: 100%; height: 100%;
-  object-fit: cover; object-position: top center;
+  object-fit: cover; object-position: center;
   display: block;
 }
+.about-float-photo--1 { top: 22%; left: 3%;  width: 36%; height: 56%; z-index: 4; }
+.about-float-photo--2 { top: 3%;  left: 43%; width: 21%; height: 30%; z-index: 3; }
+.about-float-photo--3 { top: 62%; left: 1%;  width: 23%; height: 32%; z-index: 2; }
+.about-float-photo--4 { top: 1%;  left: 74%; width: 19%; height: 25%; z-index: 2; }
+.about-float-photo--5 { top: 28%; left: 67%; width: 29%; height: 42%; z-index: 3; }
+.about-float-photo--6 { top: 60%; left: 30%; width: 25%; height: 34%; z-index: 2; }
+.about-float-photo--7 { top: 68%; left: 74%; width: 21%; height: 28%; z-index: 1; }
 
 /* Floating badge */
 .about-float-el--badge-tl { top: 8%;  left: 3%; }
@@ -1847,14 +1853,13 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   color: rgba(247,243,238,0.2);
 }
 
-/* Grain overlay (static, not animated) */
+/* Grain overlay (static, not animated) — spans the full collage */
 .about-float-grain {
   position: absolute;
-  inset: 5% 8%;
+  inset: 0;
   pointer-events: none;
   mix-blend-mode: overlay;
   opacity: 0.16;
-  border-radius: 3px;
 }
 
 @media (max-width: 1024px) {
@@ -1867,6 +1872,12 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 @media (max-width: 768px) {
   .about-float-badge, .about-float-el--dot, .about-float-el--label { display: none; }
   .about-float-scene { aspect-ratio: 3 / 4; max-height: none; }
+  /* Declutter the 7-photo collage down to 4 larger photos on small screens */
+  .about-float-photo--2, .about-float-photo--4, .about-float-photo--7 { display: none; }
+  .about-float-photo--1 { top: 0%;  left: 5%;  width: 55%; height: 42%; }
+  .about-float-photo--3 { top: 4%;  left: 58%; width: 38%; height: 30%; }
+  .about-float-photo--6 { top: 46%; left: 2%;  width: 46%; height: 30%; }
+  .about-float-photo--5 { top: 50%; left: 50%; width: 46%; height: 38%; }
 }
 
 /* ============================================================
