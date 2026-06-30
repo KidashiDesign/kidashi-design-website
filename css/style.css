@@ -1202,9 +1202,10 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 /* ============================================================
    TESTIMONIALS
    ============================================================ */
-.testimonials { background: var(--cream); padding-block: var(--section-pad); overflow: hidden; }
+.testimonials { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); padding-block: var(--section-pad); overflow: hidden; }
 .testimonials__header { text-align: center; margin-bottom: clamp(3rem, 6vw, 5rem); }
-.testimonials__header h2 { color: var(--dark); margin-top: 0.5rem; }
+.testimonials__header h2 { color: var(--cream); margin-top: 0.5rem; }
+.testimonials__header .eyebrow { color: var(--accent); }
 .testimonials__stage { display: flex; flex-direction: column; align-items: center; gap: 2.5rem; }
 .testimonials__stack {
   position: relative;
@@ -1218,8 +1219,10 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   top: 0;
   width: 320px;
   height: 420px;
-  background: var(--dark);
-  border: 1px solid rgba(232, 226, 217, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 1.25rem;
   padding: 2.25rem 2rem;
   display: flex;
@@ -1230,6 +1233,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   user-select: none;
   will-change: transform;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 .tcard[data-pos="front"] { z-index: 3; transform: rotate(-6deg) translateX(0); cursor: grab; }
 .tcard[data-pos="middle"] { z-index: 2; transform: rotate(0deg) translateX(106px); }
@@ -1239,7 +1243,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   height: 7rem;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba(232, 226, 217, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   pointer-events: none;
   display: block;
   flex-shrink: 0;
