@@ -1,5 +1,5 @@
 # Session Handoff — Kidashi Design Website
-Aktualisiert: 2026-06-29
+Aktualisiert: 2026-06-30
 
 ---
 
@@ -8,12 +8,12 @@ Aktualisiert: 2026-06-29
 | Key | Value |
 |-----|-------|
 | Repo | `kidashidesign/kidashi-design-website` |
-| Branch (aktiv) | `claude/kidashi-design-website-1j16mj` |
+| Branch (aktiv) | `claude/jost-font-self-hosted-mei2v7` |
 | Deploy | FTP → Hostinger (echte Live-Seite) + GitHub Pages (Preview) |
 | Stack | Statisches HTML/CSS/JS, kein Build-Tool, kein Framework |
 | Live-URL | `https://www.kidashidesign.com` |
 | GitHub Pages | `https://kidashidesign.github.io/kidashi-design-website/` |
-| Inhaberin | Nicole Szatkowski — Kidashi Design, Tbilisi (GMT+4) |
+| Zeitzone | GMT+4 |
 
 ---
 
@@ -25,17 +25,22 @@ Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.
 **Beim Sessionstart immer prüfen:**
 1. Letzten Workflow-Run auf `main` checken → `mcp__github__actions_list`
 2. Wenn "Deploy to Hostinger" = `failure` → sofort melden und `rerun_failed_jobs` auslösen
+3. Secrets die dafür gesetzt sein müssen (in GitHub Repo Settings → Secrets):
+   - `FTP_SERVER`
+   - `FTP_USERNAME`
+   - `FTP_PASSWORD`
+4. Wenn Secrets fehlen → Inhaberin auffordern sie in GitHub Repo Settings → Secrets einzutragen (Werte aus Hostinger hPanel → Hosting → FTP-Konten)
+
+**Merke:** GitHub Pages Deploy kann grün sein, aber Hostinger trotzdem rot — Inhaberin schaut immer auf www.kidashidesign.com, nicht auf github.io!
 
 ---
 
 ## ⚠️ Vertraulichkeitsregeln (IMMER einhalten)
 
-- **Kein KI-Workflow sichtbar** auf der öffentlichen Seite (Nicole = echter Mensch, zertifizierter Designer)
-- **Kein Name „Gianluca Crepaldi"** — nur „Freelance-Collaboration mit einem Esports-Event-Veranstalter"
 - **Projekt Wiedmann & Winz** → komplett aus Portfolio ausgeschlossen
+- **Esports-Projekt** → nur als „Freelance-Collaboration mit einem Esports-Event-Veranstalter" erwähnen, nie mit Kundennamen
 - Keine privaten Kontaktdaten von Kunden sichtbar
-- `nicole@kidashidesign.com` nur als HTML-Kommentar, nie auf der Seite
-- Nicole ist **in Georgien steueransässig**, in Deutschland vollständig abgemeldet → keine deutschen Behörden in Impressum/Datenschutz erwähnen
+- Kontakt-E-Mail nur als HTML-Kommentar, nie direkt auf der Seite
 
 ---
 
@@ -68,53 +73,6 @@ Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.
 
 ---
 
-## 🔴 PRIORITÄT 1 — NÄCHSTE SESSION: Google Fonts → Self-Hosted
-
-Nicole hat diese TTF-Dateien in `fonts/` auf `main` hochgeladen:
-- `fonts/Jost-VariableFont_wght.ttf` — Variable Font, alle Weights 100–900
-- `fonts/Jost-Italic-VariableFont_wght.ttf` — Variable Font Italic
-
-**4 Schritte zum Umstellen:**
-
-**Schritt 1 — `@font-face` in `css/style.css` ergänzen** (ganz oben):
-```css
-@font-face {
-  font-family: 'Jost';
-  src: url('../fonts/Jost-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Jost';
-  src: url('../fonts/Jost-Italic-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
-```
-
-**Schritt 2 — Google Fonts CDN aus ALLEN HTML-Seiten entfernen:**
-Diese 4 Zeilen (Varianten je nach Pfadtiefe) in jeder HTML-Datei löschen:
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Jost..." as="style" onload="this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Jost..." rel="stylesheet"></noscript>
-```
-Betrifft: `index.html`, `about/`, `services/`, `contact/`, `portfolio/index.html`, `gallery/`, `datenschutz/`, `impressum/`, und alle 13 Portfolio-Detailseiten.
-
-**Schritt 3 — Cookie-Banner-Text updaten** (`js/main.js` ~Zeile 820):
-```
-VORHER: "...We use Google Fonts (font data loaded from Google servers) and our hosting provider..."
-NACHHER: "...Our hosting provider stores standard server logs (IP address, timestamp) for security purposes..."
-```
-
-**Schritt 4 — Datenschutz updaten** (`datenschutz/index.html`):
-Abschnitt `<h2>Google Fonts</h2>` komplett entfernen (Schrift ist jetzt lokal, kein Datentransfer mehr).
-
----
-
 ## Dateistruktur
 
 ```
@@ -125,9 +83,9 @@ Abschnitt `<h2>Google Fonts</h2>` komplett entfernen (Schrift ist jetzt lokal, k
 │   └── project.css               # Portfolio-Detailseiten CSS
 ├── js/main.js                    # Nav, Cursor, Cookie-Banner, ZP-Animation, Footer-GDPR
 ├── fonts/
-│   ├── MangoGrotesque-*.woff2    # Headline-Font (self-hosted ✓)
-│   ├── Jost-VariableFont_wght.ttf        # Body-Font — hochgeladen, noch NICHT eingebunden
-│   └── Jost-Italic-VariableFont_wght.ttf # Body-Font Italic — hochgeladen, noch NICHT eingebunden
+│   ├── MangoGrotesque-*.ttf      # Headline-Font (self-hosted ✓)
+│   ├── Jost-Variable.ttf         # Body-Font (self-hosted ✓)
+│   └── Jost-Italic-Variable.ttf  # Body-Font Italic (self-hosted ✓)
 ├── portfolio/
 │   ├── index.html
 │   ├── art-gerecht-modular/ · xp-days/ · tm-studio/ · galerie-kronsbein/
@@ -142,21 +100,30 @@ Abschnitt `<h2>Google Fonts</h2>` komplett entfernen (Schrift ist jetzt lokal, k
 
 ---
 
-## Was heute gemacht wurde (2026-06-29)
+## Was zuletzt gemacht wurde (2026-06-30)
 
-### PR #49 — ZP-Animation + TM Studio (gemergt)
-- About Me ZP: Bilder zentriert + vergrößert, himalaya-mountains (z-index:10) über jungle-rest gelegt
-- Alle 7 Alt-Texte auf tatsächlichen Bildinhalt korrigiert
-- TM Studio Animation: Reihenfolge Logo → Visitenkarten → Banner
+### Jost Font — Self-Hosted
+- Google Fonts `@import` aus `css/style.css` entfernt
+- `fonts/Jost-Variable.ttf` (132 KB) + `fonts/Jost-Italic-Variable.ttf` (142 KB) eingebunden
+- Zwei `@font-face`-Regeln mit `font-weight: 100 900` und `font-display: swap`
+- Google Fonts Preconnect-Links müssen noch aus allen HTML-Seiten entfernt werden
 
-### PR #50 — DSGVO / Cookie-Banner (gemergt)
-- Cookie/Privacy-Notice-Banner (JS-injiziert via main.js, localStorage, alle Seiten)
-- Kontaktformular: Datenschutzhinweis unter Submit-Button
-- Footer-Newsletter: GDPR-Micro-Notice per JS auf allen Seiten
-- Datenschutzseite: Abschnitte Kontaktformular, Newsletter, Hosting, Google Fonts, Rechte (Art. 15–22)
-- Impressum: E-Mail-only (kein Telefon), IHK, BayLDA-Referenz entfernt (Georgia)
-- Sitemap: datenschutz/impressum raus (noindex), art-gerecht-modular rein, lastmod
-- JSON-LD ProfessionalService + Person Schema auf index.html
+### TM Studio Animation — Error-Fix
+- dc-runtime JS hatte `s.integrity` + `s.crossOrigin` beim dynamischen React-Laden von unpkg.com gesetzt
+- SRI-Hash-Mismatch verursachte `window.React is not available yet` Error-Overlay
+- Fix: integrity + crossOrigin aus `loadScript()` entfernt (gzip-Patch im eingebetteten Bundle)
+
+---
+
+## Offene Aufgaben
+
+| # | Task | Status |
+|---|------|--------|
+| 1 | Google Fonts Preconnect-Links aus allen HTML-Seiten entfernen | ❌ Offen |
+| 2 | Cookie-Banner-Text: Google Fonts Erwähnung entfernen (`js/main.js`) | ❌ Offen |
+| 3 | Datenschutz: Google Fonts Abschnitt entfernen (`datenschutz/index.html`) | ❌ Offen |
+| 4 | Testimonials: echte Kundenstimmen + Fotos eintragen | ❌ Warten auf Inhaberin |
+| 5 | Google Analytics einbauen | ❌ Warten auf Measurement-ID |
 
 ---
 
@@ -164,7 +131,6 @@ Abschnitt `<h2>Google Fonts</h2>` komplett entfernen (Schrift ist jetzt lokal, k
 
 ```
 Ich arbeite am Repo kidashidesign/kidashi-design-website auf Branch
-claude/kidashi-design-website-1j16mj. Statisches HTML/CSS/JS, Hostinger-Deploy.
-Lies SESSION.md im Root. Priorität: Jost-Font auf self-hosted TTF umstellen
-(alle Details in SESSION.md unter "PRIORITÄT 1").
+claude/jost-font-self-hosted-mei2v7. Statisches HTML/CSS/JS, Hostinger-Deploy.
+Lies SESSION.md im Root für alle Infos.
 ```
