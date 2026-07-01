@@ -499,7 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ── Portfolio glow cards (mouse-tracking border effect) ── */
+  /* ── Glow cards (mouse-tracking border effect) ── */
   const glowColorMap = {
     blue: { base: 220, spread: 200 },
     orange: { base: 30, spread: 200 },
@@ -508,11 +508,11 @@ document.addEventListener('DOMContentLoaded', () => {
     red: { base: 0, spread: 200 }
   };
 
-  const portfolioItems = document.querySelectorAll('.portfolio-item[data-glow]');
-  if (portfolioItems.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const glowItems = document.querySelectorAll('[data-glow]');
+  if (glowItems.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const syncPointer = (e) => {
       const { clientX: x, clientY: y } = e;
-      portfolioItems.forEach(item => {
+      glowItems.forEach(item => {
         item.style.setProperty('--x', x.toFixed(2));
         item.style.setProperty('--xp', (x / window.innerWidth).toFixed(2));
         item.style.setProperty('--y', y.toFixed(2));

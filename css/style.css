@@ -1417,9 +1417,10 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   width: 177.8%;
   left: -38.9%;
 }
-/* ── Portfolio glow effect (mouse-tracking border glow) ── */
+/* ── Mouse-tracking glow effect (portfolio tiles, sidebar cards, etc.) ── */
 @supports (selector(:has(*))) {
-  .portfolio-item[data-glow] {
+  [data-glow] {
+    position: relative;
     --border-size: 2px;
     --spotlight-size: 200px;
     --hue: 220;
@@ -1444,8 +1445,8 @@ p { font-size: 1.0625rem; line-height: 1.75; }
     background-repeat: no-repeat;
   }
 
-  .portfolio-item[data-glow]::before,
-  .portfolio-item[data-glow]::after {
+  [data-glow]::before,
+  [data-glow]::after {
     pointer-events: none;
     content: "";
     position: absolute;
@@ -1461,7 +1462,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
     mask-composite: intersect;
   }
 
-  .portfolio-item[data-glow]::before {
+  [data-glow]::before {
     background-image: radial-gradient(
       calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
       calc(var(--x, 0) * 1px)
@@ -1471,7 +1472,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
     filter: brightness(2);
   }
 
-  .portfolio-item[data-glow]::after {
+  [data-glow]::after {
     background-image: radial-gradient(
       calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
       calc(var(--x, 0) * 1px)
@@ -1479,6 +1480,8 @@ p { font-size: 1.0625rem; line-height: 1.75; }
       hsl(0 100% 100% / var(--border-light-opacity)), transparent 100%
     );
   }
+
+  .sidebar-block[data-glow] { --radius: 14; --spotlight-size: 240px; }
 }
 
 .portfolio-item:hover .portfolio-item__bg { transform: scale(1.04); }
