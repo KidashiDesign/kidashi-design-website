@@ -10,6 +10,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check FTP secrets
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          if [ -z "$FTP_SERVER" ] || [ -z "$FTP_USERNAME" ] || [ -z "$FTP_PASSWORD" ]; then
+            echo "❌ FTP-Secrets fehlen. Bitte FTP_SERVER, FTP_USERNAME und FTP_PASSWORD"
+            echo "   unter Settings → Secrets and variables → Actions im Repo eintragen."
+            echo "   Werte findest du in Hostinger hPanel → Hosting → FTP-Konten."
+            exit 1
+          fi
+          echo "✅ FTP-Secrets vorhanden."
+
       - name: Deploy via FTP
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
