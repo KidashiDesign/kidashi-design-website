@@ -499,6 +499,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ── Portfolio glow cards (mouse-tracking border effect) ── */
+  const glowColorMap = {
+    blue: { base: 220, spread: 200 },
+    orange: { base: 30, spread: 200 },
+    purple: { base: 280, spread: 300 },
+    green: { base: 120, spread: 200 },
+    red: { base: 0, spread: 200 }
+  };
+
+  const portfolioItems = document.querySelectorAll('.portfolio-item[data-glow]');
+  if (portfolioItems.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const syncPointer = (e) => {
+      const { clientX: x, clientY: y } = e;
+      portfolioItems.forEach(item => {
+        item.style.setProperty('--x', x.toFixed(2));
+        item.style.setProperty('--xp', (x / window.innerWidth).toFixed(2));
+        item.style.setProperty('--y', y.toFixed(2));
+        item.style.setProperty('--yp', (y / window.innerHeight).toFixed(2));
+
+        // Calculate hue based on glow color and mouse position
+        const glowColor = item.dataset.glow || 'blue';
+        const { base, spread } = glowColorMap[glowColor] || glowColorMap.blue;
+        const hue = base + (parseFloat(item.style.getPropertyValue('--xp') || 0) * spread);
+        item.style.setProperty('--hue', hue % 360);
+      });
+    };
+
+    document.addEventListener('pointermove', syncPointer, { passive: true });
+  }
+
   /* ── Active nav link ── */
   const currentPath = window.location.pathname;
   document.querySelectorAll('.nav__link, .nav__mobile .nav__link').forEach(link => {

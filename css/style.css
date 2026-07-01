@@ -1417,6 +1417,70 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   width: 177.8%;
   left: -38.9%;
 }
+/* ── Portfolio glow effect (mouse-tracking border glow) ── */
+@supports (selector(:has(*))) {
+  .portfolio-item[data-glow] {
+    --border-size: 2px;
+    --spotlight-size: 200px;
+    --hue: 220;
+    --saturation: 100%;
+    --lightness: 70%;
+    --radius: 0;
+    --backdrop: hsl(0 0% 60% / 0.08);
+    --bg-spot-opacity: 0.1;
+    --border-spot-opacity: 1;
+    --border-light-opacity: 0.8;
+
+    border: var(--border-size) solid var(--backdrop);
+    background-image: radial-gradient(
+      var(--spotlight-size) var(--spotlight-size) at
+      calc(var(--x, 0) * 1px)
+      calc(var(--y, 0) * 1px),
+      hsl(var(--hue) var(--saturation) var(--lightness) / var(--bg-spot-opacity)), transparent
+    );
+    background-attachment: fixed;
+    background-size: calc(100% + calc(var(--border-size) * 2)) calc(100% + calc(var(--border-size) * 2));
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+  }
+
+  .portfolio-item[data-glow]::before,
+  .portfolio-item[data-glow]::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    inset: calc(var(--border-size) * -1);
+    border: var(--border-size) solid transparent;
+    border-radius: var(--radius);
+    background-attachment: fixed;
+    background-size: calc(100% + calc(var(--border-size) * 2)) calc(100% + calc(var(--border-size) * 2));
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+    mask-clip: padding-box, border-box;
+    mask-composite: intersect;
+  }
+
+  .portfolio-item[data-glow]::before {
+    background-image: radial-gradient(
+      calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
+      calc(var(--x, 0) * 1px)
+      calc(var(--y, 0) * 1px),
+      hsl(var(--hue) var(--saturation) 50% / var(--border-spot-opacity)), transparent 100%
+    );
+    filter: brightness(2);
+  }
+
+  .portfolio-item[data-glow]::after {
+    background-image: radial-gradient(
+      calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
+      calc(var(--x, 0) * 1px)
+      calc(var(--y, 0) * 1px),
+      hsl(0 100% 100% / var(--border-light-opacity)), transparent 100%
+    );
+  }
+}
+
 .portfolio-item:hover .portfolio-item__bg { transform: scale(1.04); }
 .portfolio-item__content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); opacity: 0; transition: opacity 0.35s var(--ease); }
 .portfolio-item.is-hidden { display: none; }
