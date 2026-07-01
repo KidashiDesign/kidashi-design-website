@@ -1,5 +1,5 @@
 # Session Handoff — Kidashi Design Website
-Aktualisiert: 2026-06-30
+Aktualisiert: 2026-07-01
 
 ---
 
@@ -8,7 +8,7 @@ Aktualisiert: 2026-06-30
 | Key | Value |
 |-----|-------|
 | Repo | `kidashidesign/kidashi-design-website` |
-| Branch (aktiv) | `fix/tm-studio-animation-comments` |
+| Branch (aktiv) | `main` |
 | Deploy | FTP → Hostinger (echte Live-Seite) + GitHub Pages (Preview) |
 | Stack | Statisches HTML/CSS/JS, kein Build-Tool, kein Framework |
 | Live-URL | `https://www.kidashidesign.com` |
@@ -113,28 +113,45 @@ Die Portfolio-Animationsdateien (`*-animation.html`) sind DC Runtime Bundles:
 
 ---
 
-## Was in dieser Session gemacht wurde (2026-06-30)
+## Was in dieser Session gemacht wurde (2026-07-01)
 
-### Jost Font — Self-Hosted ✅
-- Google Fonts CDN-Links aus allen 23 HTML-Seiten entfernt
-- `@font-face` mit Variable TTF in `css/style.css`
-- Cookie-Banner-Text + Datenschutz-Seite aktualisiert
+### A11y + Hardening: Testimonials & Floating-Szene ✅
+- `prefers-reduced-motion` respektiert: Floating-Szene (About), Testimonial-Drag-Transitions (Home + Services)
+- Avatar-Bild-ID vor Interpolation in `pravatar.cc`-URL sanitized
+- `loading="lazy"` + `decoding="async"` bei Testimonial-Avataren ergänzt
+- Commit `99943a7`
 
-### Testimonials — Services & Homepage ✅
-- Draggable Card-Stack auf `services/index.html` hinzugefügt
-- Glassmorphism-Effekt (`backdrop-filter: blur`) auf beiden Seiten
+### Testimonials: Homepage-Sektion entfernt ✅
+- Komplette Testimonials-Section (inkl. Drag-to-Shuffle-Script) von `index.html` entfernt
+- Bleibt unverändert auf `services/index.html`
+- Commit `09a4689`
 
-### TM Studio Animation — Komplett-Fix ✅
-- **Root cause:** Python-Skript hatte `</script>` im Template-JSON nicht als `</script>` escaped → HTML-Parser brach JSON nach 185 Zeichen ab → DC Runtime "Bundle unpack error"
-- Template aus Original-Commit `08bbdb2` wiederhergestellt
-- Animationsreihenfolge korrekt: **Logo (0–27%) → Visitenkarten (27–67%) → Banner (69–98%)**
-- Commit `3e57575` auf `main`
+### Glow-Card-Effekt (Mouse-Tracking-Spotlight) ✅
+- Neuer `[data-glow]`-CSS/JS-Mechanismus: radialer Spotlight-Rahmen folgt der Maus, Hue verschiebt sich mit horizontaler Position
+- Farb-Mapping: `blue` (#2E54FE-Bereich), `orange` (Accent), `purple`, `green`, `red`
+- Eingesetzt auf: allen 16 Portfolio-Kacheln (`portfolio/index.html`) + den 4 "My Path"-Sidebar-Karten auf `about/index.html` (Education/Experience/Services/Currently Based)
+- Selektor bewusst generisch gehalten (`[data-glow]`, nicht `.portfolio-item[data-glow]`), damit er auf beliebige Elemente anwendbar ist
+- Commits `eff6637`, `a608b06`
 
-### Selvoma Slideshow ✅
-- `object-fit: contain` → Bilder vollständig sichtbar (kein Abschneiden)
-- Border-radius: 26px → 12px
-- Timing: 6s → 5s pro Slide
-- Commit `5ce32c7` auf `main`
+### Seestern Britzer Garten — Animation gebaut & eingebunden ✅
+- 4 vom Kunden gelieferte DC-Runtime-Exports (Start-Animation, Hero-Strip, Rotating Badge, Endscreen) zu **einer** Sequenz kombiniert: Start (Foto-Reveal ~4s) → Strip mit 5 Panels + rotierendem Badge (~11s) → Endscreen (~4.6s) → Loop
+- Bilder von PNG auf WebP komprimiert (Originale bis zu 10MB/Bild → kombiniertes Bundle ~1.5MB, in Linie mit bestehenden Animationen)
+- Neue Datei: `portfolio/seestern/seestern-animation.html`
+- Eingebunden in Portfolio-Kachel + Projekt-Hero (`portfolio/seestern/index.html`) — dabei 2 fehlende `</div>` im bestehenden Hero-Markup mitgefixt
+- Respektiert `prefers-reduced-motion` (zeigt dann nur den statischen Endscreen)
+- Commit `a608b06`
+- **Getestet mit Playwright** (unpkg.com für React/Babel ist in dieser Sandbox durch Org-Policy blockiert → lokal mit `page.route()` gemockt, um die DC-Runtime zu verifizieren. Auf der echten Live-Seite lädt React normal von unpkg.com.)
+
+---
+
+## DC Runtime Animation Bundles — erweiterte Hinweise
+
+Mehrere DC-Runtime-Bundles lassen sich zu einer neuen Sequenz kombinieren:
+1. `__bundler/template` jedes Bundles einzeln als JSON dekodieren (`json.loads`, nie Regex)
+2. Bilder/Fonts/JS-Assets aus allen Quell-Manifesten in ein gemeinsames Manifest mergen (Duplikate wie `dc-runtime.js`/`gsap.js` nur einmal übernehmen — Hash-Vergleich zeigt, ob mehrere Bundles dieselbe Library referenzieren)
+3. Eigenes kombiniertes Template schreiben: mehrere „Szenen"-`<div>`s absolut gestapelt, per `ref`-Callback + direkter DOM-Style-Manipulation ein-/ausblenden (kein Verlass auf unbekannte `{{ }}`-Bedingungslogik)
+4. **Kritisch:** nach `json.dumps(template)` alle `/` durch `/` ersetzen (nicht nur `</script>`!) — das Original-Tool escaped pauschal jeden Slash im Template-JSON, sonst bricht der HTML-Parser das Script-Tag ab
+5. Große Quellbilder (>1MB) vor dem Einbetten mit Pillow auf WebP komprimieren (`quality=82-88`, `method=6`), sonst wird das Bundle unnötig groß
 
 ---
 
@@ -142,9 +159,10 @@ Die Portfolio-Animationsdateien (`*-animation.html`) sind DC Runtime Bundles:
 
 | # | Task | Status |
 |---|------|--------|
-| 1 | Testimonials: echte Kundenstimmen + Fotos | ⏳ Warten auf Inhaberin |
-| 2 | Google Analytics GA4 | ⏳ Warten auf Measurement-ID |
-| 3 | Hostinger Deploy-Secrets prüfen (bei Sessionstart) | ⚠️ Immer checken |
+| 1 | **Hostinger Deploy schlägt fehl** (FTP-Secrets fehlen: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`) | 🔴 Blockiert Live-Deploy seit mehreren Sessions — Inhaberin muss Secrets in GitHub Repo Settings → Secrets → Actions eintragen |
+| 2 | Testimonials: echte Kundenstimmen + Fotos (aktuell nur auf Services-Seite, Platzhalter-Daten) | ⏳ Warten auf Inhaberin |
+| 3 | Google Analytics GA4 | ⏳ Warten auf Measurement-ID |
+| 4 | Seestern: Bilder für Portfolio-Detailseite (Merch/Print-Fotos) fehlen noch, nur Hero-Animation vorhanden | ⏳ Warten auf Inhaberin |
 
 ---
 
@@ -152,6 +170,6 @@ Die Portfolio-Animationsdateien (`*-animation.html`) sind DC Runtime Bundles:
 
 ```
 Ich arbeite am Repo kidashidesign/kidashi-design-website auf Branch
-fix/tm-studio-animation-comments. Statisches HTML/CSS/JS, Hostinger-Deploy.
+main. Statisches HTML/CSS/JS, Hostinger-Deploy (aktuell rot, Secrets fehlen).
 Lies SESSION.md im Root für alle Infos.
 ```
