@@ -348,11 +348,12 @@
     for (var i = 0; i < 3; i++) {
       var t = TESTIMONIALS[order[i]];
       var pos = i === 0 ? 'front' : i === 1 ? 'middle' : 'back';
+      var safeId = String(t.id).replace(/[^0-9]/g, '') || '1';
       var card = document.createElement('div');
       card.className = 'tcard';
       card.dataset.pos = pos;
       card.innerHTML =
-        '<img src="https://i.pravatar.cc/128?img=' + t.id + '" alt="Client photo" class="tcard__avatar">' +
+        '<img src="https://i.pravatar.cc/128?img=' + safeId + '" alt="Client photo" class="tcard__avatar" loading="lazy" decoding="async">' +
         '<blockquote class="tcard__text">“' + t.text + '”</blockquote>' +
         '<span class="tcard__author">' + t.author + '</span>';
       stack.appendChild(card);
@@ -392,13 +393,15 @@
       window.removeEventListener('mouseup', onEnd);
       window.removeEventListener('touchend', onEnd);
 
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
       if (currentDx < -150) {
-        front.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+        front.style.transition = reduceMotion ? 'none' : 'transform 0.3s ease, opacity 0.3s ease';
         front.style.transform = 'rotate(-18deg) translateX(-130%)';
         front.style.opacity = '0';
-        setTimeout(shuffle, 300);
+        setTimeout(shuffle, reduceMotion ? 0 : 300);
       } else {
-        front.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        front.style.transition = reduceMotion ? 'none' : 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         front.style.transform = 'rotate(-6deg) translateX(0)';
       }
       currentDx = 0;

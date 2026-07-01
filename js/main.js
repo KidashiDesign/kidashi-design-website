@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── About page: floating scene (mouse-parallax, port of Floating/FloatingElement) ── */
   const aboutFloat = document.getElementById('aboutFloat');
-  if (aboutFloat) {
+  if (aboutFloat && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const scene  = document.getElementById('aboutFloatScene');
     const EASING = 0.06;
     const SENS   = 1;
