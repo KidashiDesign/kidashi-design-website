@@ -72,6 +72,7 @@
   --primary:   #FFBC95;
   --secondary: #2E54FE;
   --accent:    #FFF083;
+  --pastel-blue: #8BE2E9;
   --text:      #0A0A0B;
   --muted:     rgba(10,10,11,0.45);
   --sand:      rgba(10,10,11,0.22);
@@ -586,7 +587,9 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 /* ============================================================
    BUTTONS — liquid-glass pill (structure ported from a GlassButton
    React/CVA component; re-expressed as plain CSS since this site has
-   no build step). One shared shell, tinted per variant.
+   no build step). One shared glass shell (blur, rim-light, diagonal
+   reflection sweep, bottom mirror-sheen), tinted per variant.
+   No CI blue here — hover tint is --pastel-blue.
    ============================================================ */
 .btn {
   display: inline-flex; align-items: center; gap: 0.5rem;
@@ -594,43 +597,72 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   letter-spacing: 0.12em; text-transform: uppercase;
   padding: 1rem 2rem; border-radius: 999px;
   position: relative; isolation: isolate;
-  border: 1px solid rgba(255,255,255,0.32);
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(16px) saturate(1.6);
-  -webkit-backdrop-filter: blur(16px) saturate(1.6);
+  border: 1px solid rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(22px) saturate(1.8);
+  -webkit-backdrop-filter: blur(22px) saturate(1.8);
   box-shadow:
-    inset 0 1px 1px rgba(255,255,255,0.5),
-    inset 0 -8px 12px -8px rgba(255,255,255,0.16),
-    0 8px 22px -8px rgba(10,10,11,0.32);
+    inset 0 1px 0 rgba(255,255,255,0.75),
+    inset 0 -1px 0 rgba(255,255,255,0.1),
+    inset 0 0 22px rgba(255,255,255,0.08),
+    0 10px 26px -10px rgba(10,10,11,0.35);
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
   cursor: pointer; white-space: nowrap;
+}
+/* Diagonal glass reflection sweep — sits behind the label, above the tint */
+.btn::before {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg,
+    rgba(255,255,255,0.75) 0%,
+    rgba(255,255,255,0.22) 18%,
+    transparent 40%,
+    transparent 58%,
+    rgba(255,255,255,0.18) 82%,
+    transparent 100%);
+  mix-blend-mode: overlay;
+  z-index: -1;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease);
+}
+/* Mirror-sheen along the bottom edge, like light bouncing off frosted glass */
+.btn::after {
+  content: "";
+  position: absolute; left: 6%; right: 6%; bottom: 2px; height: 46%;
+  border-radius: inherit;
+  background: linear-gradient(to top, rgba(255,255,255,0.22), transparent);
+  z-index: -1;
+  pointer-events: none;
 }
 .btn:hover {
   transform: translateY(-2px);
   box-shadow:
-    inset 0 1px 1px rgba(255,255,255,0.6),
-    inset 0 -8px 14px -8px rgba(255,255,255,0.22),
-    0 14px 30px -8px rgba(10,10,11,0.4);
+    inset 0 1px 0 rgba(255,255,255,0.85),
+    inset 0 -1px 0 rgba(255,255,255,0.16),
+    inset 0 0 26px rgba(255,255,255,0.12),
+    0 16px 34px -10px rgba(10,10,11,0.42);
 }
 .btn:active { transform: translateY(0); }
 
 .btn--primary {
-  background: linear-gradient(180deg, rgba(255,188,149,0.65), rgba(255,188,149,0.38));
-  border-color: rgba(255,224,201,0.6);
+  background: linear-gradient(180deg, rgba(255,188,149,0.5), rgba(255,188,149,0.22));
+  border-color: rgba(255,224,201,0.65);
   color: var(--dark);
 }
-.btn--primary:hover { background: linear-gradient(180deg, rgba(46,84,254,0.55), rgba(46,84,254,0.32)); border-color: rgba(46,84,254,0.5); color: var(--cream); }
+.btn--primary:hover { background: linear-gradient(180deg, rgba(139,226,233,0.5), rgba(139,226,233,0.22)); border-color: rgba(139,226,233,0.7); color: var(--dark); }
 
-.btn--outline { border-color: rgba(247,243,238,0.35); color: var(--cream); background: rgba(247,243,238,0.08); }
-.btn--outline:hover { border-color: rgba(255,188,149,0.6); background: rgba(255,188,149,0.16); color: var(--cream); }
+.btn--outline { border-color: rgba(247,243,238,0.4); color: var(--cream); background: rgba(247,243,238,0.05); }
+.btn--outline:hover { border-color: rgba(139,226,233,0.65); background: rgba(139,226,233,0.16); color: var(--cream); }
 
-.btn--outline-dark { border-color: rgba(10,10,11,0.16); color: var(--text); background: rgba(255,255,255,0.5); }
-.btn--outline-dark:hover { border-color: rgba(255,188,149,0.7); background: rgba(255,188,149,0.28); color: var(--dark); }
+.btn--outline-dark { border-color: rgba(10,10,11,0.14); color: var(--text); background: rgba(255,255,255,0.32); }
+.btn--outline-dark:hover { border-color: rgba(139,226,233,0.75); background: rgba(139,226,233,0.24); color: var(--dark); }
 
-.btn--ghost { font-size: 0.9rem; font-weight: 400; letter-spacing: 0.04em; text-transform: none; color: var(--secondary); padding: 0; border: none; border-radius: 0; background: none; backdrop-filter: none; box-shadow: none; border-bottom: 1px solid transparent; transition: border-color 0.25s var(--ease), color 0.25s var(--ease); }
-.btn--ghost:hover { border-color: var(--secondary); transform: none; }
-.btn--ghost-light { color: var(--primary); }
-.btn--ghost-light:hover { border-color: var(--primary); color: var(--cream); }
+.btn--ghost { font-size: 0.9rem; font-weight: 400; letter-spacing: 0.04em; text-transform: none; color: var(--muted); padding: 0; border: none; border-radius: 0; background: none; backdrop-filter: none; box-shadow: none; border-bottom: 1px solid transparent; transition: border-color 0.25s var(--ease), color 0.25s var(--ease); }
+.btn--ghost::before, .btn--ghost::after { content: none; }
+.btn--ghost:hover { border-color: var(--pastel-blue); transform: none; }
+.btn--ghost-light { color: var(--pastel-blue); }
+.btn--ghost-light:hover { border-color: var(--pastel-blue); color: var(--cream); }
 
 /* ============================================================
    ABOUT TEASER
