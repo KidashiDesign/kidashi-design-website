@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seestern Britzer Garten — Showreel</title>
+<style>
+  /* ── Local fonts (only used by the endscreen) ── */
+  @font-face { font-family:'Lato'; font-style:normal; font-weight:300; font-display:swap; src:url("fonts/lato-300.woff2") format('woff2'); }
+  @font-face { font-family:'Lato'; font-style:normal; font-weight:400; font-display:swap; src:url("fonts/lato-400.woff2") format('woff2'); }
+  @font-face { font-family:'Playfair Display'; font-style:normal; font-weight:700; font-display:swap; src:url("fonts/playfair-700.woff2") format('woff2'); }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#0a0906; }
+  body { font-family:Helvetica, Arial, sans-serif; }
+
+  /* ── Stage: fills the iframe at any aspect ratio ── */
+  .stage { position:fixed; inset:0; overflow:hidden; background:#0a0906; }
+
+  .slide {
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; visibility:hidden;
+    transition:opacity 0.9s ease, visibility 0s linear 0.9s;
+    will-change:opacity;
+  }
+  .slide.is-active { opacity:1; visibility:visible; transition:opacity 0.9s ease; }
+
+  /* ============================================================
+     SLIDE 1 — START (cinematic logo reveal)
+     ============================================================ */
+  .s-start { background:#0a0906; }
+  .s-start__frame {
+    position:relative; width:100%; height:100%; overflow:hidden;
+  }
+  @keyframes bgReveal   { 0%{filter:brightness(0.5) blur(9px) saturate(0.92);} 100%{filter:brightness(0.85) blur(3.5px) saturate(1.02);} }
+  @keyframes bgDrift    { 0%{transform:scale(1.06) translate(0%,0%);} 100%{transform:scale(1.12) translate(-1.4%,-1%);} }
+  @keyframes vignetteIn { 0%{opacity:0.22;} 100%{opacity:0.48;} }
+  @keyframes sweepMove  { 0%{transform:translateX(-140%) rotate(8deg); opacity:0;} 8%{opacity:0.75;} 48%{opacity:0.5;} 100%{transform:translateX(140%) rotate(8deg); opacity:0;} }
+  @keyframes glowIn     { 0%{opacity:0; transform:translate(-50%,-50%) scale(0.86);} 100%{opacity:0.7; transform:translate(-50%,-50%) scale(1);} }
+  @keyframes logoSharpen{ 0%{opacity:0; filter:blur(7px) brightness(0.86); transform:scale(0.965);} 100%{opacity:1; filter:blur(0) brightness(1.03); transform:scale(1);} }
+
+  .s-start__bg {
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    transform-origin:center; backface-visibility:hidden;
+    animation:bgReveal 3s ease-out forwards, bgDrift 22s ease-in-out infinite alternate;
+  }
+  .s-start__vignette {
+    position:absolute; inset:0; pointer-events:none; opacity:0;
+    background:radial-gradient(ellipse at 50% 48%, transparent 42%, rgba(0,0,0,0.55) 100%);
+    animation:vignetteIn 3s ease-out forwards;
+  }
+  .s-start__sweep {
+    position:absolute; inset:-20%; pointer-events:none; opacity:0; mix-blend-mode:soft-light;
+    background:linear-gradient(115deg, transparent 42%, rgba(255,247,230,0.55) 50%, transparent 58%);
+    animation:sweepMove 2.6s cubic-bezier(0.4,0,0.2,1) 0.2s forwards;
+  }
+  .s-start__glow {
+    position:absolute; left:50.5%; top:50%; width:34%; height:46%;
+    transform:translate(-50%,-50%); border-radius:50%; pointer-events:none; opacity:0;
+    background:radial-gradient(circle, rgba(255,232,196,0.9) 0%, rgba(255,206,140,0.35) 38%, transparent 72%);
+    filter:blur(22px); mix-blend-mode:screen;
+    animation:glowIn 2.4s ease-out 1.7s forwards;
+  }
+  .s-start__logo {
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; opacity:0;
+    -webkit-mask-image:radial-gradient(ellipse 21% 27% at 52% 51%, #000 0%, #000 42%, transparent 80%);
+            mask-image:radial-gradient(ellipse 21% 27% at 52% 51%, #000 0%, #000 42%, transparent 80%);
+    animation:logoSharpen 2.6s ease-out 1.6s forwards;
+  }
+
+  /* ============================================================
+     SLIDE 2 — HERO STRIP (5-panel accordion, JS-driven)
+     ============================================================ */
+  .s-hero { background:#F6F3EC; padding:clamp(18px,4vw,64px) clamp(12px,3vw,44px); }
+  .s-hero__row {
+    width:100%; max-width:1600px; height:clamp(240px,60vh,620px);
+    display:flex; flex-direction:row; align-items:center; gap:clamp(5px,0.9vw,14px);
+  }
+  .s-hero__panel {
+    flex:1 1 0; height:74%; border-radius:clamp(10px,1.3vw,20px);
+    padding:clamp(4px,0.7vw,12px); overflow:hidden; will-change:height;
+  }
+  .s-hero__panel[data-i="0"] { background:#EADECA; box-shadow:0 10px 30px -12px rgba(40,30,20,0.25); }
+  .s-hero__panel[data-i="1"] { background:#C2DCD1; box-shadow:0 10px 30px -12px rgba(20,40,35,0.22); }
+  .s-hero__panel[data-i="2"] { background:#AAC9C3; box-shadow:0 10px 30px -12px rgba(15,35,32,0.22); }
+  .s-hero__panel[data-i="3"] { background:#DE7749; box-shadow:0 10px 30px -12px rgba(60,25,10,0.28); }
+  .s-hero__panel[data-i="4"] { background:#F4A34C; box-shadow:0 10px 30px -12px rgba(60,35,10,0.25); }
+  .s-hero__clip { width:100%; height:100%; border-radius:clamp(6px,0.9vw,14px); overflow:hidden; }
+  .s-hero__img {
+    width:100%; height:100%; object-fit:cover; display:block;
+    transform:scale(1); transform-origin:center center; will-change:transform; backface-visibility:hidden;
+  }
+
+  /* ============================================================
+     SLIDE 3 — ROTATING CIRCLE BADGE
+     ============================================================ */
+  .s-badge { background:#AAC9C3; overflow:hidden; }
+  .s-badge__wrap { position:relative; width:min(90vw,1100px); max-height:88vh; aspect-ratio:5464/3072; }
+  .s-badge__svg { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+  @keyframes rotateInner { from{transform:rotate(0);} to{transform:rotate(-360deg);} }
+  @keyframes rotateOuter { from{transform:rotate(0);} to{transform:rotate(360deg);} }
+  .s-badge__inner { transform-origin:2732px 1536px; animation:rotateInner 16s linear infinite; }
+  .s-badge__outer { transform-origin:2732px 1536px; animation:rotateOuter 20s linear infinite; }
+
+  /* ============================================================
+     SLIDE 4 — ENDSCREEN (SVG SMIL logo lockup)
+     ============================================================ */
+  .s-end { background:#E8815F; }
+  .s-end__host { width:100%; height:100%; }
+  .s-end svg { display:block; width:100%; height:100%; }
+
+  /* ── Reduced motion: hold static, gentle fades only ── */
+  @media (prefers-reduced-motion: reduce) {
+    .s-start__bg { animation:bgReveal 0.6s ease-out forwards; }
+    .s-start__vignette, .s-start__sweep, .s-start__glow { animation:none; opacity:0.4; }
+    .s-start__logo { animation:none; opacity:1; filter:none; }
+    .s-badge__inner, .s-badge__outer { animation:none; }
+  }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <!-- SLIDE 1 — START -->
+  <section class="slide s-start" data-scene="start">
+    <div class="s-start__frame" data-oneshot>
+      <img class="s-start__bg" src="../../images/portfolio/seestern/start-bg.webp" alt="">
+      <div class="s-start__vignette"></div>
+      <div class="s-start__sweep"></div>
+      <div class="s-start__glow"></div>
+      <img class="s-start__logo" src="../../images/portfolio/seestern/start-bg.webp" alt="Seestern – Britzer Garten">
+    </div>
+  </section>
+
+  <!-- SLIDE 2 — HERO STRIP -->
+  <section class="slide s-hero" data-scene="hero">
+    <div class="s-hero__row" id="heroRow">
+      <div class="s-hero__panel" data-i="0"><div class="s-hero__clip"><img class="s-hero__img" src="../../images/portfolio/seestern/hero-sand.webp" alt="Sand texture"></div></div>
+      <div class="s-hero__panel" data-i="1"><div class="s-hero__clip"><img class="s-hero__img" src="../../images/portfolio/seestern/hero-sky.webp" alt="Sky and clouds"></div></div>
+      <div class="s-hero__panel" data-i="2"><div class="s-hero__clip"><img class="s-hero__img" src="../../images/portfolio/seestern/hero-water.webp" alt="Clear water"></div></div>
+      <div class="s-hero__panel" data-i="3"><div class="s-hero__clip"><img class="s-hero__img" src="../../images/portfolio/seestern/hero-cocktail.webp" alt="Cocktail"></div></div>
+      <div class="s-hero__panel" data-i="4"><div class="s-hero__clip"><img class="s-hero__img" src="../../images/portfolio/seestern/hero-dining.webp" alt="Fine dining table"></div></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 3 — BADGE -->
+  <section class="slide s-badge" data-scene="badge">
+    <div class="s-badge__wrap">
+      <svg class="s-badge__svg" viewBox="0 0 5464 3072">
+        <image href="../../images/portfolio/seestern/badge-base.webp" x="0" y="0" width="5464" height="3072"></image>
+        <g class="s-badge__inner">
+          <image href="../../images/portfolio/seestern/badge-inner-ring.webp" x="1891.07" y="695.07" width="1681.86" height="1681.86" preserveAspectRatio="none"></image>
+        </g>
+        <g class="s-badge__outer">
+          <image href="../../images/portfolio/seestern/badge-outer-ring.webp" x="1560" y="300" width="2344" height="2472" preserveAspectRatio="none"></image>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- SLIDE 4 — ENDSCREEN -->
+  <section class="slide s-end" data-scene="end">
+    <div class="s-end__host" data-oneshot></div>
+  </section>
+
+</div>
+
+<!-- Endscreen SVG markup, injected on activation so SMIL restarts each cycle -->
+<template id="endTpl">
+<svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="42%" r="70%">
+      <stop offset="0%" stop-color="#F19067"/><stop offset="55%" stop-color="#E8815F"/><stop offset="100%" stop-color="#C9663F"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFF3E4" stop-opacity="0.9"/><stop offset="35%" stop-color="#FFE0B8" stop-opacity="0.45"/>
+      <stop offset="70%" stop-color="#FFCF9A" stop-opacity="0.12"/><stop offset="100%" stop-color="#FFCF9A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rayGrad" x1="960" y1="430" x2="960" y2="-260" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFF6E9" stop-opacity="0.55"/><stop offset="45%" stop-color="#FFE4C2" stop-opacity="0.18"/><stop offset="100%" stop-color="#FFE4C2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="sweepGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFF" stop-opacity="0"/><stop offset="50%" stop-color="#FFF" stop-opacity="0.55"/><stop offset="100%" stop-color="#FFF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="vignette" cx="50%" cy="42%" r="72%">
+      <stop offset="0%" stop-color="#000" stop-opacity="0"/><stop offset="68%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#7A3A20" stop-opacity="0.38"/>
+    </radialGradient>
+    <polygon id="ray" points="944,286 976,286 963,-260 957,-260" fill="url(#rayGrad)"/>
+    <clipPath id="badgeClip"><circle cx="960" cy="430" r="149"/></clipPath>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  <rect width="1920" height="1080" fill="url(#vignette)"/>
+
+  <!-- Radiant light rays -->
+  <g style="transform-origin:960px 430px;" opacity="0">
+    <animate attributeName="opacity" values="0;0.85;0.7" keyTimes="0;0.5;1" dur="1.4s" begin="0.25s" fill="freeze"/>
+    <animateTransform attributeName="transform" type="scale" values="0.6;1.05;1" keyTimes="0;0.6;1" dur="1.3s" begin="0.25s" calcMode="spline" keySplines="0.16,1,0.3,1;0.4,0,0.2,1" additive="sum" fill="freeze"/>
+    <g style="transform-origin:960px 430px;">
+      <animateTransform attributeName="transform" type="rotate" from="0 960 430" to="360 960 430" dur="90s" repeatCount="indefinite" additive="sum"/>
+      <use href="#ray" transform="rotate(0 960 430)"/><use href="#ray" transform="rotate(30 960 430)"/><use href="#ray" transform="rotate(60 960 430)"/>
+      <use href="#ray" transform="rotate(90 960 430)"/><use href="#ray" transform="rotate(120 960 430)"/><use href="#ray" transform="rotate(150 960 430)"/>
+      <use href="#ray" transform="rotate(180 960 430)"/><use href="#ray" transform="rotate(210 960 430)"/><use href="#ray" transform="rotate(240 960 430)"/>
+      <use href="#ray" transform="rotate(270 960 430)"/><use href="#ray" transform="rotate(300 960 430)"/><use href="#ray" transform="rotate(330 960 430)"/>
+    </g>
+  </g>
+
+  <!-- Breathing halo -->
+  <circle cx="960" cy="430" r="300" fill="url(#halo)" opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="1s" begin="0.4s" fill="freeze"/>
+    <animate attributeName="r" values="290;315;290" dur="6s" begin="1.6s" repeatCount="indefinite" calcMode="spline" keySplines="0.45,0,0.55,1;0.45,0,0.55,1"/>
+  </circle>
+
+  <!-- Energy rings -->
+  <circle cx="960" cy="430" r="150" fill="none" stroke="#FFF3E2" stroke-width="6" opacity="0">
+    <animate attributeName="r" values="150;520" dur="1.1s" begin="0.75s" calcMode="spline" keySplines="0.1,0.7,0.2,1" fill="freeze"/>
+    <animate attributeName="opacity" values="0.9;0" dur="1.1s" begin="0.75s" fill="freeze"/>
+    <animate attributeName="stroke-width" values="6;0.5" dur="1.1s" begin="0.75s" fill="freeze"/>
+  </circle>
+  <circle cx="960" cy="430" r="150" fill="none" stroke="#FFE6C6" stroke-width="4" opacity="0">
+    <animate attributeName="r" values="150;470" dur="1.2s" begin="0.95s" calcMode="spline" keySplines="0.1,0.7,0.2,1" fill="freeze"/>
+    <animate attributeName="opacity" values="0.7;0" dur="1.2s" begin="0.95s" fill="freeze"/>
+    <animate attributeName="stroke-width" values="4;0.5" dur="1.2s" begin="0.95s" fill="freeze"/>
+  </circle>
+  <circle cx="960" cy="430" r="150" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0">
+    <animate attributeName="r" values="150;420" dur="1.2s" begin="1.15s" calcMode="spline" keySplines="0.1,0.7,0.2,1" fill="freeze"/>
+    <animate attributeName="opacity" values="0.5;0" dur="1.2s" begin="1.15s" fill="freeze"/>
+  </circle>
+
+  <!-- Logo entrance -->
+  <g style="transform-origin:960px 430px;" opacity="0">
+    <animate attributeName="opacity" values="0;1" keyTimes="0;1" dur="0.5s" begin="0.35s" calcMode="spline" keySplines="0.3,0,0.2,1" fill="freeze"/>
+    <animateTransform attributeName="transform" type="scale" values="0.55;1.07;0.985;1" keyTimes="0;0.62;0.84;1" dur="1s" begin="0.35s" calcMode="spline" keySplines="0.16,1,0.3,1;0.4,0,0.2,1;0.4,0,0.2,1" fill="freeze"/>
+    <g style="transform-origin:960px 430px;">
+      <animateTransform attributeName="transform" type="scale" values="1;1.014;1" dur="6s" begin="1.6s" repeatCount="indefinite" calcMode="spline" keySplines="0.45,0,0.55,1;0.45,0,0.55,1" additive="sum"/>
+      <image href="../../images/portfolio/seestern/end-logo.webp" x="810" y="280" width="300" height="300"/>
+      <g clip-path="url(#badgeClip)">
+        <rect x="700" y="250" width="120" height="360" fill="url(#sweepGrad)" transform="skewX(-18)" opacity="0">
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="0.85s" begin="0.95s" fill="freeze"/>
+          <animateTransform attributeName="transform" type="translate" values="-40,0;520,0" dur="0.85s" begin="0.95s" additive="sum" calcMode="spline" keySplines="0.4,0,0.2,1" fill="freeze"/>
+        </rect>
+      </g>
+    </g>
+  </g>
+
+  <!-- Sparkles -->
+  <g fill="#FFF6E9">
+    <circle cx="1180" cy="330" r="3" opacity="0"><animate attributeName="opacity" values="0;0.9;0" dur="2.6s" begin="1.9s" repeatCount="indefinite"/></circle>
+    <circle cx="760" cy="360" r="2.5" opacity="0"><animate attributeName="opacity" values="0;0.8;0" dur="3.1s" begin="2.4s" repeatCount="indefinite"/></circle>
+    <circle cx="1130" cy="520" r="2" opacity="0"><animate attributeName="opacity" values="0;0.7;0" dur="2.9s" begin="2.9s" repeatCount="indefinite"/></circle>
+    <circle cx="820" cy="530" r="2.5" opacity="0"><animate attributeName="opacity" values="0;0.75;0" dur="3.4s" begin="2.1s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- Brand text -->
+  <g opacity="0" style="transform-origin:960px 660px;">
+    <animate attributeName="opacity" values="0;1" dur="0.7s" begin="1.15s" calcMode="spline" keySplines="0.3,0,0.2,1" fill="freeze"/>
+    <animateTransform attributeName="transform" type="translate" values="0,22;0,0" dur="0.8s" begin="1.15s" calcMode="spline" keySplines="0.16,1,0.3,1" fill="freeze"/>
+    <text x="960" y="672" font-family="'Playfair Display', serif" font-size="76" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">Seestern</text>
+    <text x="960" y="720" font-family="'Lato', sans-serif" font-size="30" font-weight="300" fill="#FFFFFF" text-anchor="middle" letter-spacing="9" opacity="0.9">BRITZER GARTEN</text>
+  </g>
+
+  <!-- Impact flash -->
+  <rect width="1920" height="1080" fill="#FFFFFF" opacity="0" style="pointer-events:none;">
+    <animate attributeName="opacity" values="0;0.28;0" keyTimes="0;0.35;1" dur="0.5s" begin="0.7s" fill="freeze"/>
+  </rect>
+</svg>
+</template>
+
+<script>
+(function () {
+  "use strict";
+  var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var byScene = {};
+  slides.forEach(function (s) { byScene[s.dataset.scene] = s; });
+  var badgeRings = Array.prototype.slice.call(document.querySelectorAll('.s-badge__inner, .s-badge__outer'));
+
+  // Scene running-order and on-screen duration (seconds). Fade overlaps the tail.
+  var ORDER = [
+    { scene: 'start', dur: 6.0 },
+    { scene: 'hero',  dur: 13.0 },
+    { scene: 'badge', dur: 9.0 },
+    { scene: 'end',   dur: 8.0 }
+  ];
+
+  /* ── Restart a "one-shot" scene by re-cloning its markup (start + end) ── */
+  var endTpl = document.getElementById('endTpl').innerHTML;
+  function resetOneShot(slide) {
+    var host = slide.querySelector('[data-oneshot]');
+    if (!host) return;
+    if (slide.dataset.scene === 'end') {
+      host.innerHTML = endTpl;            // fresh SVG → SMIL replays from 0
+    } else {
+      // start: clone-swap to restart CSS keyframe animations
+      var fresh = host.cloneNode(true);
+      host.parentNode.replaceChild(fresh, host);
+    }
+  }
+
+  /* ── Hero-strip accordion timeline (faithful port of the GSAP timeline) ── */
+  var STEP = 2, EXPAND = 1, HOLD = 1, SHRINK = 1, LOOP = 11; // seconds
+  var heroPanels = Array.prototype.slice.call(document.querySelectorAll('#heroRow .s-hero__panel'));
+  var heroImgs = heroPanels.map(function (p) { return p.querySelector('.s-hero__img'); });
+  var heroStart = 0, heroRunning = false;
+
+  function easeInOutCubic(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2; }   // power2.inOut
+  function easeInOutSine(t)  { return -(Math.cos(Math.PI*t) - 1)/2; }                        // sine.inOut
+  function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+
+  function renderHero(now) {
+    var local = ((now - heroStart) / 1000) % LOOP;
+    for (var i = 0; i < heroPanels.length; i++) {
+      var t0 = i * STEP;
+      var dt = local - t0;
+      var h = 74, sc = 1;
+      if (dt >= 0 && dt <= EXPAND + HOLD + SHRINK) {
+        if (dt <= EXPAND) {                       // expanding
+          h = 74 + 26 * easeInOutCubic(dt / EXPAND);
+        } else if (dt <= EXPAND + HOLD) {         // hold open
+          h = 100;
+        } else {                                  // shrinking
+          h = 100 - 26 * easeInOutCubic((dt - EXPAND - HOLD) / SHRINK);
+        }
+        if (dt <= EXPAND + HOLD) {                // scale grows over expand+hold
+          sc = 1 + 0.12 * easeInOutSine(dt / (EXPAND + HOLD));
+        } else {                                  // scale shrinks
+          sc = 1.12 - 0.12 * easeInOutSine((dt - EXPAND - HOLD) / SHRINK);
+        }
+      }
+      heroPanels[i].style.height = h + '%';
+      heroImgs[i].style.transform = 'scale(' + sc.toFixed(4) + ')';
+    }
+  }
+
+  var rafId = null;
+  function heroLoop(now) {
+    if (!heroRunning) return;
+    renderHero(now);
+    rafId = requestAnimationFrame(heroLoop);
+  }
+  function startHero() {
+    if (REDUCED) { heroImgs.forEach(function (im) { im.style.transform = 'scale(1.06)'; }); return; }
+    heroStart = performance.now(); heroRunning = true;
+    cancelAnimationFrame(rafId); rafId = requestAnimationFrame(heroLoop);
+  }
+  function stopHero() { heroRunning = false; cancelAnimationFrame(rafId); }
+
+  /* ── Scene sequencer ── */
+  var idx = -1, timer = null;
+  function show(i) {
+    var prev = idx; idx = i;
+    var cur = ORDER[i];
+    slides.forEach(function (s) { s.classList.remove('is-active'); });
+
+    if (cur.scene === 'start' || cur.scene === 'end') resetOneShot(byScene[cur.scene]);
+    byScene[cur.scene].classList.add('is-active');
+
+    if (cur.scene === 'hero') startHero(); else stopHero();
+
+    // Keep the badge's CSS ring rotation running only while visible (perf).
+    var badgeState = (cur.scene === 'badge') ? 'running' : 'paused';
+    badgeRings.forEach(function (r) { r.style.animationPlayState = badgeState; });
+
+    var wait = cur.dur * 1000;
+    clearTimeout(timer);
+    timer = setTimeout(function () { show((i + 1) % ORDER.length); }, wait);
+  }
+
+  // Kick off once the first background image is ready (avoids a black flash).
+  var first = new Image();
+  first.onload = first.onerror = function () { show(0); };
+  first.src = '../../images/portfolio/seestern/start-bg.webp';
+
+  // Pause the whole reel when the tab/iframe is hidden (saves battery/CPU).
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { stopHero(); clearTimeout(timer); }
+    else if (idx >= 0) { if (ORDER[idx].scene === 'hero') startHero(); show(idx); }
+  });
+})();
+</script>
+</body>
+</html>
