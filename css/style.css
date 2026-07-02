@@ -584,23 +584,51 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .hero__ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
 /* ============================================================
-   BUTTONS
+   BUTTONS — liquid-glass pill (structure ported from a GlassButton
+   React/CVA component; re-expressed as plain CSS since this site has
+   no build step). One shared shell, tinted per variant.
    ============================================================ */
 .btn {
   display: inline-flex; align-items: center; gap: 0.5rem;
   font-family: var(--font-b); font-size: 0.78rem; font-weight: 500;
   letter-spacing: 0.12em; text-transform: uppercase;
-  padding: 1rem 2rem; border-radius: 2px;
-  transition: all 0.3s var(--ease); cursor: pointer; white-space: nowrap;
+  padding: 1rem 2rem; border-radius: 999px;
+  position: relative; isolation: isolate;
+  border: 1px solid rgba(255,255,255,0.32);
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(16px) saturate(1.6);
+  -webkit-backdrop-filter: blur(16px) saturate(1.6);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.5),
+    inset 0 -8px 12px -8px rgba(255,255,255,0.16),
+    0 8px 22px -8px rgba(10,10,11,0.32);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
+  cursor: pointer; white-space: nowrap;
 }
-.btn--primary { background: var(--accent); color: var(--dark); }
-.btn--primary:hover { background: var(--primary); color: var(--dark); transform: translateY(-2px); }
-.btn--outline { border: 1px solid rgba(247,240,131,0.55); color: var(--accent); }
-.btn--outline:hover { border-color: var(--accent); background: rgba(255,240,131,0.1); transform: translateY(-2px); }
-.btn--outline-dark { border: 1px solid rgba(10,10,11,0.28); color: var(--text); }
-.btn--outline-dark:hover { background: var(--accent); border-color: var(--accent); color: var(--dark); transform: translateY(-2px); }
-.btn--ghost { font-size: 0.9rem; font-weight: 400; letter-spacing: 0.04em; text-transform: none; color: var(--secondary); padding: 0; border-bottom: 1px solid transparent; transition: border-color 0.25s var(--ease), color 0.25s var(--ease); }
-.btn--ghost:hover { border-color: var(--secondary); }
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.6),
+    inset 0 -8px 14px -8px rgba(255,255,255,0.22),
+    0 14px 30px -8px rgba(10,10,11,0.4);
+}
+.btn:active { transform: translateY(0); }
+
+.btn--primary {
+  background: linear-gradient(180deg, rgba(255,188,149,0.65), rgba(255,188,149,0.38));
+  border-color: rgba(255,224,201,0.6);
+  color: var(--dark);
+}
+.btn--primary:hover { background: linear-gradient(180deg, rgba(46,84,254,0.55), rgba(46,84,254,0.32)); border-color: rgba(46,84,254,0.5); color: var(--cream); }
+
+.btn--outline { border-color: rgba(247,243,238,0.35); color: var(--cream); background: rgba(247,243,238,0.08); }
+.btn--outline:hover { border-color: rgba(255,188,149,0.6); background: rgba(255,188,149,0.16); color: var(--cream); }
+
+.btn--outline-dark { border-color: rgba(10,10,11,0.16); color: var(--text); background: rgba(255,255,255,0.5); }
+.btn--outline-dark:hover { border-color: rgba(255,188,149,0.7); background: rgba(255,188,149,0.28); color: var(--dark); }
+
+.btn--ghost { font-size: 0.9rem; font-weight: 400; letter-spacing: 0.04em; text-transform: none; color: var(--secondary); padding: 0; border: none; border-radius: 0; background: none; backdrop-filter: none; box-shadow: none; border-bottom: 1px solid transparent; transition: border-color 0.25s var(--ease), color 0.25s var(--ease); }
+.btn--ghost:hover { border-color: var(--secondary); transform: none; }
 .btn--ghost-light { color: var(--primary); }
 .btn--ghost-light:hover { border-color: var(--primary); color: var(--cream); }
 
@@ -1881,64 +1909,12 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .about-float-photo--6 { top: 60%; left: 30%; width: 25%; height: 34%; z-index: 2; }
 .about-float-photo--7 { top: 68%; left: 74%; width: 21%; height: 28%; z-index: 1; }
 
-/* Floating badge */
-.about-float-el--badge-tl { top: 8%;  left: 3%; }
-.about-float-el--badge-br { bottom: 12%; right: 2%; }
-.about-float-badge {
-  background: rgba(10,10,11,0.62);
-  backdrop-filter: blur(20px) saturate(1.5);
-  -webkit-backdrop-filter: blur(20px) saturate(1.5);
-  border: 1px solid rgba(247,243,238,0.1);
-  border-radius: 2px;
-  padding: 0.6rem 0.85rem;
-  white-space: nowrap;
-}
-.about-float-badge__label {
-  font-family: var(--font-b);
-  font-size: 0.55rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--primary);
-  display: block;
-  margin-bottom: 0.2rem;
-}
-.about-float-badge__value {
-  font-family: var(--font-h);
-  font-size: 0.95rem;
-  font-weight: 300;
-  color: var(--cream);
-  display: block;
-  line-height: 1.2;
-}
-
-/* Accent dot */
-.about-float-el--dot {
-  top: 6%; right: 17%;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--primary);
-  opacity: 0.65;
-}
-
-/* Vertical label */
-.about-float-el--label {
-  top: 38%; right: 1%;
-  writing-mode: vertical-rl;
-}
-.about-float-el--label span {
-  font-family: var(--font-b);
-  font-size: 0.5rem;
-  font-weight: 300;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(247,243,238,0.2);
-}
-
 /* Grain overlay (static, not animated) — spans the full collage */
 .about-float-grain {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   mix-blend-mode: overlay;
   opacity: 0.16;
@@ -1948,11 +1924,8 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .about-hero-float__grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .about-float-scene { max-height: 55vh; aspect-ratio: 4 / 3; }
   .about-float-el { transform: none !important; will-change: auto; }
-  .about-float-el--badge-tl { top: 5%;  left: 7%; }
-  .about-float-el--badge-br { bottom: 7%; right: 5%; }
 }
 @media (max-width: 768px) {
-  .about-float-badge, .about-float-el--dot, .about-float-el--label { display: none; }
   .about-float-scene { aspect-ratio: 3 / 4; max-height: none; }
   /* Declutter the 7-photo collage down to 4 larger photos on small screens */
   .about-float-photo--2, .about-float-photo--4, .about-float-photo--7 { display: none; }

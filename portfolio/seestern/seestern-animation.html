@@ -79,9 +79,12 @@
   /* ============================================================
      SLIDE 2 — HERO STRIP (5-panel accordion, JS-driven)
      ============================================================ */
-  .s-hero { background:#F6F3EC; padding:clamp(18px,4vw,64px) clamp(12px,3vw,44px); }
+  .s-hero {
+    background:#F6F3EC; display:flex; align-items:center; justify-content:center;
+    padding:clamp(64px,12vh,120px) clamp(12px,3vw,44px) clamp(32px,7vh,72px);
+  }
   .s-hero__row {
-    width:100%; max-width:1600px; height:clamp(240px,60vh,620px);
+    width:100%; max-width:1600px; height:clamp(200px,44vh,480px);
     display:flex; flex-direction:row; align-items:center; gap:clamp(5px,0.9vw,14px);
   }
   .s-hero__panel {
