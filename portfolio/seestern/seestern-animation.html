@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+(function(){
+  if(!location.search.includes('tile'))return;
+  var css='text,tspan{display:none!important}[class*="text"],[class*="Text"],[class*="title"],[class*="Title"],[class*="label"],[class*="Label"],[class*="caption"],[class*="Caption"],[class*="heading"],[class*="Heading"]{visibility:hidden!important}';
+  function inject(){var s=document.createElement('style');s.textContent=css;(document.head||document.documentElement).appendChild(s);}
+  inject();document.addEventListener('DOMContentLoaded',inject);setTimeout(inject,500);setTimeout(inject,1500);
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Seestern Britzer Garten — Showreel</title>

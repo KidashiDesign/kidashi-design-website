@@ -11,9 +11,8 @@
   <meta property="og:description" content="Nicole Szatkowski — IHK-certified graphic designer, digital nomad based in Tbilisi, Georgia. The person behind Kidashi Design.">
   <meta property="og:image" content="https://www.kidashidesign.com/images/kidashi-design-nicole-szatkowski-about-me-portrait-austria-tbilisi.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="../fonts/MangoGrotesque-Light.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/MangoGrotesque-Bold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -52,26 +51,104 @@
       <button class="nav__mobile-close" aria-label="Close menu">Close</button>
     </div>
     <div class="nav__mobile-meta">
-      <span class="nav__mobile-meta-month" id="mobileMonth"></span>
-      <span class="nav__mobile-meta-day" id="mobileDay"></span>
+      <span class="nav__mobile-meta-date" id="mobileDate"></span>
+      
       <span class="nav__mobile-meta-time" id="mobileTime"></span>
       <span class="nav__mobile-meta-tz">GMT +4</span>
     </div>
   </div>
 </div>
 
-<div class="about-hero">
+<section class="about3d" style="padding-top: calc(var(--nav-h) + clamp(3rem, 6vw, 6rem));">
   <div class="container">
-    <div class="about-hero__grid">
-      <div class="about-hero__text">
-        <span class="eyebrow reveal">About Me</span>
-        <h1 class="reveal" data-delay="100">The Designer Behind Kidashi Design</h1>
-        <p class="reveal" data-delay="200">Hi, I'm Nicole. I'm a certified graphic designer with a background that's a little less linear than most — and that's exactly what shapes how I work with clients today.</p>
-        <a href="../contact/" class="btn btn--outline-dark reveal" data-delay="300" style="margin-top:2rem;">Let's Work Together</a>
+    <div class="about3d__stage reveal">
+      <div class="about3d__card" data-tilt>
+        <div class="about3d__media" data-tilt-z="40">
+          <img class="about3d__img" src="../images/kidashi-design-nicole-szatkowski-about-me-portrait-austria-tbilisi.jpg" alt="Nicole Szatkowski, founder of Kidashi Design — double exposure portrait blending Austria and Tbilisi, Georgia" decoding="async">
+        </div>
+        <div class="about3d__content">
+          <span class="eyebrow" data-tilt-z="50">About Me</span>
+          <h1 class="about3d__title" data-tilt-z="70">Hi. I'm Nicole.</h1>
+          <p class="about3d__text" data-tilt-z="30">As a certified graphic designer from Bavaria&nbsp;-&nbsp;Germany with over 5 years of experience in web design, branding, and visual communication, I work as a digital nomad from Tbilisi&nbsp;-&nbsp;Georgia, from the first sketch to final launch — wherever you are in the world.</p>
+          <div class="about3d__foot">
+            <ul class="about3d__points" data-tilt-z="20">
+              <li>5+ years of experience</li>
+              <li>IHK-certified Media Designer (Digital &amp; Print)</li>
+              <li>Web · Branding · Print · Social Media</li>
+              <li>Based in Tbilisi — working worldwide</li>
+            </ul>
+            <a href="../contact/" class="btn btn--outline-dark about3d__btn" data-tilt-z="60">Let's Work Together</a>
+          </div>
+        </div>
       </div>
-      <div class="about-hero__portrait reveal" data-delay="200">
-        <img src="../images/kidashi-design-nicole-szatkowski-about-me-portrait-austria-tbilisi.jpg" alt="Nicole Szatkowski, founder of Kidashi Design — double exposure portrait blending Austria and Tbilisi, Georgia">
+    </div>
+  </div>
+</section>
+
+<!-- Floating scene — mouse-parallax portrait + badges, replaces old scroll-zoom travel photos -->
+<div class="about-hero-float" id="aboutFloat">
+  <div class="container">
+    <div class="about-hero-float__grid about-hero-float__grid--scene-only">
+
+      <!-- Floating scene -->
+      <div class="about-float-scene">
+        <div class="about-float-scene__inner" id="aboutFloatScene">
+
+          <!-- Travel photo collage — replaces portrait, each photo its own depth layer -->
+          <div class="about-float-el about-float-el--photo about-float-photo--1" data-depth="1">
+            <img src="../images/about/himalaya-mountains.webp" alt="Nicole hiking through jungle forest, Himalayas" loading="lazy" decoding="async">
+          </div>
+          <div class="about-float-el about-float-el--photo about-float-photo--2" data-depth="1.8">
+            <img src="../images/about/himalaya-pointing.webp" alt="Resting in jungle vegetation, India" loading="lazy" decoding="async">
+          </div>
+          <div class="about-float-el about-float-el--photo about-float-photo--3" data-depth="1.3">
+            <img src="../images/about/jungle-rest.webp" alt="Nicole pointing at snow-capped peaks, Himalayas" loading="lazy" decoding="async">
+          </div>
+          <div class="about-float-el about-float-el--photo about-float-photo--4" data-depth="2.2">
+            <img src="../images/about/prayer-flags-dharamshala.webp" alt="Yoga at sunrise, Dharamshala" loading="lazy" decoding="async">
+          </div>
+          <div class="about-float-el about-float-el--photo about-float-photo--5" data-depth="1.6">
+            <img src="../images/about/forest-path.webp" alt="Nicole at the Lotus Temple, New Delhi" loading="lazy" decoding="async">
+          </div>
+          <div class="about-float-el about-float-el--photo about-float-photo--6" data-depth="2.4">
+            <img src="../images/about/boat-thailand.webp" alt="Nicole on a wooden boat in Thailand" loading="lazy" decoding="async">
+          </div>
+          <div class="about-float-el about-float-el--photo about-float-photo--7" data-depth="1.9">
+            <img src="../images/about/chai-india.webp" alt="Watching sunset from a mountain summit, India" loading="lazy" decoding="async">
+          </div>
+
+          <!-- Badge: Education — depth 2 (upper left) -->
+          <div class="about-float-el about-float-el--badge about-float-el--badge-tl" data-depth="2" aria-hidden="true">
+            <div class="about-float-badge">
+              <span class="about-float-badge__label">Education</span>
+              <span class="about-float-badge__value">IHK Certified</span>
+            </div>
+          </div>
+
+          <!-- Badge: Location — depth 1.5 (lower right) -->
+          <div class="about-float-el about-float-el--badge about-float-el--badge-br" data-depth="1.5" aria-hidden="true">
+            <div class="about-float-badge">
+              <span class="about-float-badge__label">Based in</span>
+              <span class="about-float-badge__value">Tbilisi · GMT+4</span>
+            </div>
+          </div>
+
+          <!-- Accent dot — depth 2.5 -->
+          <div class="about-float-el about-float-el--dot" data-depth="2.5" aria-hidden="true"></div>
+
+          <!-- Vertical label — depth 0.7 (slow layer, subtle) -->
+          <div class="about-float-el about-float-el--label" data-depth="0.7" aria-hidden="true">
+            <span>Kidashi Design · 2026</span>
+          </div>
+
+        </div>
+        <!-- Grain texture overlay -->
+        <svg class="about-float-grain" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+          <filter id="afGrain"><feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+          <rect width="100%" height="100%" filter="url(#afGrain)"/>
+        </svg>
       </div>
+
     </div>
   </div>
 </div>
@@ -91,14 +168,14 @@
         <p class="reveal" data-delay="100">I work well independently, but the best ideas usually come from working closely with my clients, not around them. I bring structure and fast turnarounds, paired with genuine curiosity about your business — so the result doesn't just look good, it actually fits.</p>
       </div>
       <aside>
-        <div class="sidebar-block reveal">
+        <div class="sidebar-block reveal" data-glow="blue">
           <span class="sidebar-block__label">Education</span>
           <ul>
             <li>IHK-certified Media Designer (Digital &amp; Print)</li>
             <li>Mediadesign Hochschule (MD.H), Munich</li>
           </ul>
         </div>
-        <div class="sidebar-block reveal" data-delay="100">
+        <div class="sidebar-block reveal" data-delay="100" data-glow="orange">
           <span class="sidebar-block__label">Experience</span>
           <ul>
             <li>5+ years in design &amp; visual communication</li>
@@ -107,7 +184,7 @@
             <li>Freelance since 2025 — Kidashi Design</li>
           </ul>
         </div>
-        <div class="sidebar-block reveal" data-delay="200">
+        <div class="sidebar-block reveal" data-delay="200" data-glow="blue">
           <span class="sidebar-block__label">Services</span>
           <ul>
             <li>Web Design &amp; Development</li>
@@ -116,7 +193,7 @@
             <li>Social Media Management</li>
           </ul>
         </div>
-        <div class="sidebar-block reveal" data-delay="300">
+        <div class="sidebar-block reveal" data-delay="300" data-glow="orange">
           <span class="sidebar-block__label">Currently Based</span>
           <ul>
             <li>Tbilisi, Georgia</li>
@@ -137,40 +214,80 @@
     </div>
   </div>
 </section>
-
-
 <footer class="footer">
   <div class="container">
-    <div class="footer__inner">
-      <div class="footer__brand">
-        <a href="../" class="nav__logo">
+    <div class="footer__grid">
+
+      <div class="footer__col footer__col--wide">
+        <a href="../" class="nav__logo footer__logo">
           <span class="nav__logo-k" data-text="Kidashi">Kidashi</span>
           <span class="nav__logo-d">Design</span>
         </a>
         <p class="footer__tagline">Certified Graphic Designer — Working Worldwide</p>
+        <h3 class="footer__col-h">Stay in the Loop</h3>
+        <p class="footer__col-desc">New projects, design updates — no noise, no spam.</p>
+        <form class="footer__form" onsubmit="footerFormSubmit(event,this)">
+          <div class="footer__form-wrap">
+            <input type="email" class="footer__input" placeholder="Your email address" aria-label="Email" required>
+            <button type="submit" class="footer__submit" aria-label="Subscribe">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+          <p class="footer__form-thanks" aria-live="polite"></p>
+        </form>
       </div>
-      <nav class="footer__nav">
-        <a href="../">Home</a>
-        <a href="../services/">Services</a>
-        <a href="../about/">About</a>
-        <a href="../portfolio/">Portfolio</a>
-        <a href="../gallery/">Gallery</a>
-        <a href="../contact/">Contact</a>
-            <a href="../impressum/">Legal Notice</a>
-      <a href="../datenschutz/">Privacy Policy</a>
-    </nav>
+
+      <div class="footer__col">
+        <h3 class="footer__col-h">Quick Links</h3>
+        <nav class="footer__links">
+          <a href="../">Home</a>
+          <a href="../services/">Services</a>
+          <a href="../about/">About</a>
+          <a href="../portfolio/">Portfolio</a>
+          <a href="../gallery/">Gallery</a>
+          <a href="../contact/">Contact</a>
+        </nav>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__col-h">Contact</h3>
+        <div class="footer__contact">
+          <p>Based in Tbilisi, Georgia</p>
+          <p>Available Worldwide</p>
+          <a href="../contact/">Send a Message &rarr;</a>
+          <a href="https://linktr.ee/kidashi.design" target="_blank" rel="noopener noreferrer">linktr.ee/kidashi.design</a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__col-h">Follow Me</h3>
+        <div class="footer__socials">
+          <a href="#" class="footer__social-btn" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="footer__social-btn" aria-label="Behance" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.226.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.336.5-.837.9-1.502 1.22.906.26 1.576.72 2.022 1.37.448.66.67 1.45.67 2.36 0 .75-.13 1.39-.41 1.93-.28.55-.67 1-1.16 1.35-.48.33-1.05.59-1.7.75-.64.16-1.32.24-2.03.24H1V4.503h5.938zm-.31 4.965c.6 0 1.09-.14 1.48-.42.37-.28.56-.73.56-1.35 0-.34-.07-.62-.2-.84-.13-.22-.31-.4-.53-.53-.22-.13-.48-.22-.76-.27-.28-.05-.57-.08-.87-.08H3.5v3.49h3.128zm.14 5.188c.34 0 .66-.03.96-.1.3-.07.56-.18.78-.33.22-.15.4-.36.52-.61.13-.25.2-.57.2-.94 0-.75-.22-1.29-.67-1.63-.44-.34-1.04-.5-1.8-.5H3.5v4.11h3.268zM22 9.957c0 .19-.01.38-.04.57H16.7c.05.56.23.99.55 1.3.31.31.72.46 1.21.46.36 0 .67-.09.93-.28.26-.18.43-.38.51-.6h2.9c-.22.74-.64 1.34-1.26 1.8-.62.45-1.39.68-2.3.68-.66 0-1.24-.11-1.75-.32-.51-.21-.94-.51-1.3-.89-.36-.38-.63-.84-.82-1.36-.19-.52-.28-1.1-.28-1.72 0-.61.09-1.17.28-1.69.19-.52.46-.97.82-1.36.36-.38.79-.68 1.3-.9.51-.22 1.08-.33 1.72-.33.67 0 1.25.12 1.76.36.5.24.92.57 1.25.97.33.41.57.88.72 1.42.15.54.21 1.11.18 1.73zm-2.83-1.06c-.03-.46-.2-.83-.5-1.11-.3-.28-.68-.42-1.13-.42-.47 0-.86.14-1.16.42-.3.28-.48.65-.54 1.11h3.33zM15.37 5.13h4.07v1.27h-4.07V5.13z"/></svg>
+          </a>
+          <a href="../contact/" class="footer__social-btn" aria-label="Send a message">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+          <a href="#" class="footer__social-btn" aria-label="Soundcloud" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M11.56 8.87V17h8.77c1.5 0 2.67-1.17 2.67-2.67a2.66 2.66 0 0 0-2.63-2.67h-.08a5.34 5.34 0 0 0-5.24-4.4 5.37 5.37 0 0 0-3.49 1.61zM0 15.24a1.97 1.97 0 0 0 3.95 0V12.4a1.97 1.97 0 0 0-3.95 0zm7.26 1.9a1.5 1.5 0 0 0 3 0V9.71a1.5 1.5 0 1 0-3 0zm4.05 0a1.5 1.5 0 0 0 3 0V8.87c-.98-.63-2.05-1.03-3-1.06z"/></svg>
+          </a>
+        </div>
+      </div>
+
     </div>
     <div class="footer__bottom">
-      <span class="footer__copy">© 2026 Kidashi Design — Nicole Szatkowski</span>
-      <div class="footer__social">
+      <span class="footer__copy">&copy; 2026 Kidashi Design &mdash; Nicole Szatkowski</span>
+      <nav class="footer__legal">
         <a href="../impressum/">Legal Notice</a>
         <a href="../datenschutz/">Privacy Policy</a>
-        <a href="https://linktr.ee/kidashi.design" target="_blank" rel="noopener">linktr.ee/kidashi.design</a>
-      </div>
+      </nav>
     </div>
   </div>
 </footer>
 
-<script src="../js/main.js"></script>
+<script src="../js/main.js" defer></script>
 </body>
 </html>

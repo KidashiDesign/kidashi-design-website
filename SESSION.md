@@ -1,5 +1,5 @@
 # Session Handoff — Kidashi Design Website
-Aktualisiert: 2026-06-21
+Aktualisiert: 2026-07-01
 
 ---
 
@@ -8,12 +8,12 @@ Aktualisiert: 2026-06-21
 | Key | Value |
 |-----|-------|
 | Repo | `kidashidesign/kidashi-design-website` |
-| Branch (aktiv) | `claude/practical-shannon-gj5oop` |
+| Branch (aktiv) | `main` |
 | Deploy | FTP → Hostinger (echte Live-Seite) + GitHub Pages (Preview) |
 | Stack | Statisches HTML/CSS/JS, kein Build-Tool, kein Framework |
 | Live-URL | `https://www.kidashidesign.com` |
 | GitHub Pages | `https://kidashidesign.github.io/kidashi-design-website/` |
-| Inhaberin | Nicole Szatkowski — Kidashi Design, Tbilisi (GMT+4) |
+| Zeitzone | GMT+4 |
 
 ---
 
@@ -23,25 +23,24 @@ Die echte Live-Seite liegt auf **Hostinger** (nicht GitHub Pages).
 Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.yml` per FTP bei jedem Push auf `main`.
 
 **Beim Sessionstart immer prüfen:**
-1. Letzten Workflow-Run auf `main` checken → `mcp__github__actions_list` (list_workflow_runs)
+1. Letzten Workflow-Run auf `main` checken → `mcp__github__actions_list`
 2. Wenn "Deploy to Hostinger" = `failure` → sofort melden und `rerun_failed_jobs` auslösen
 3. Secrets die dafür gesetzt sein müssen (in GitHub Repo Settings → Secrets):
    - `FTP_SERVER`
    - `FTP_USERNAME`
    - `FTP_PASSWORD`
-4. Wenn Secrets fehlen → Nicole auffordern sie in https://github.com/KidashiDesign/kidashi-design-website/settings/secrets/actions einzutragen (Werte aus Hostinger hPanel → Hosting → FTP-Konten)
+4. Wenn Secrets fehlen → Inhaberin auffordern sie in GitHub Repo Settings → Secrets einzutragen (Werte aus Hostinger hPanel → Hosting → FTP-Konten)
 
-**Merke:** GitHub Pages Deploy kann grün sein, aber Hostinger trotzdem rot — Nicole schaut immer auf www.kidashidesign.com, nicht auf github.io!
+**Merke:** GitHub Pages Deploy kann grün sein, aber Hostinger trotzdem rot — Inhaberin schaut immer auf www.kidashidesign.com, nicht auf github.io!
 
 ---
 
 ## ⚠️ Vertraulichkeitsregeln (IMMER einhalten)
 
-- **Kein KI-Workflow sichtbar** auf der öffentlichen Seite (Nicole = echter Mensch, zertifizierter Designer)
-- **Kein Name „Gianluca Crepaldi"** — nur „Freelance-Collaboration mit einem Esports-Event-Veranstalter"
 - **Projekt Wiedmann & Winz** → komplett aus Portfolio ausgeschlossen
+- **Esports-Projekt** → nur als „Freelance-Collaboration mit einem Esports-Event-Veranstalter" erwähnen, nie mit Kundennamen
 - Keine privaten Kontaktdaten von Kunden sichtbar
-- `nicole@kidashidesign.com` nur als HTML-Kommentar, nie auf der Seite
+- Kontakt-E-Mail nur als HTML-Kommentar, nie direkt auf der Seite
 
 ---
 
@@ -52,13 +51,13 @@ Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.
 --font-b: 'Jost'                  /* Body/UI */
 --dark:   #0A0A0B
 --cream:  #F7F3EE
---bg:     #FAF9F5 (heller Hintergrund)
+--bg:     #FAF9F5
 --bg2:    #F3EFE8
 --sand:   #E8E2D9
 --primary: #2E54FE (Blau)
 --accent:  #FFBC95 (Orange)
 --muted:   rgba(10,10,11,0.45)
---nav-h:   4rem (Nav-Höhe)
+--nav-h:   4rem
 --gutter:  clamp(1.5rem, 5vw, 5rem)
 ```
 
@@ -68,103 +67,102 @@ Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.
 
 | Klasse | Verwendung | Textfarbe |
 |--------|-----------|-----------|
-| `class="nav"` | Landingpage + alle 13 Projekt-Detailseiten | Weiß (cream) |
-| `class="nav nav--light"` | portfolio/index.html, about, services, contact, gallery | Dunkel |
+| `class="nav"` | Landingpage + alle Projekt-Detailseiten | Weiß (cream) |
+| `class="nav nav--light"` | portfolio/index, about, services, contact, gallery | Dunkel |
 | `.scrolled` (JS-Toggle) | Alle Seiten beim Scrollen | Frosted-Glass dunkel |
-| `.over-light` (JS-Toggle) | Landingpage über hellen Sektionen | Dunkel |
 
 ---
 
-## Dateistruktur (wichtigste Dateien)
+## DC Runtime Animation Bundles — Wichtige Hinweise
+
+Die Portfolio-Animationsdateien (`*-animation.html`) sind DC Runtime Bundles:
+- `<script type="__bundler/manifest">` — Base64-kodierte Bilddaten (groß, nicht anfassen)
+- `<script type="__bundler/template">` — JSON-kodiertes HTML+CSS+JS (hier werden Änderungen gemacht)
+
+**Kritisch beim Bearbeiten:**
+- Template-JSON immer mit `json.JSONDecoder().raw_decode()` lesen (nicht regex-basiert!)
+- Nach `json.dumps()` zwingend `<\/` → `<\\u002F` ersetzen, sonst bricht der HTML-Parser den Script-Tag ab
+- Niemals Python regex-Substitution direkt auf das Template-JSON anwenden
+
+---
+
+## Dateistruktur
 
 ```
 /
-├── index.html                    # Landingpage (nav class="nav")
+├── index.html                    # Landingpage (JSON-LD Schema vorhanden)
 ├── css/
-│   ├── style.css                 # Globales CSS + Tokens
+│   ├── style.css                 # Globales CSS + Tokens + Cookie-Banner CSS
 │   └── project.css               # Portfolio-Detailseiten CSS
-├── js/main.js                    # Nav-Scroll, Cursor, Animationen
+├── js/main.js                    # Nav, Cursor, Cookie-Banner, ZP-Animation, Footer-GDPR
+├── fonts/
+│   ├── MangoGrotesque-*.ttf      # Headline-Font (self-hosted ✓)
+│   ├── Jost-Variable.ttf         # Body-Font (self-hosted ✓)
+│   └── Jost-Italic-Variable.ttf  # Body-Font Italic (self-hosted ✓)
 ├── portfolio/
-│   ├── index.html                # Portfolio-Übersicht (nav--light, 4-col grid)
-│   └── xp-days/
-│       ├── index.html            # XP-Days Detailseite
-│       └── xp-days-animation.html  # Selbst-enthaltene Animation (805KB, alle Bilder als Data-URI eingebettet)
-├── images/portfolio/xp-days/    # 12 JPEG-Assets vorhanden
-├── CLAUDE.md                     # Code-Review-Standard (Pflichtformat)
-├── robots.txt
-└── sitemap.xml                   # 21 URLs
+│   ├── index.html
+│   ├── art-gerecht-modular/ · xp-days/ · tm-studio/ · galerie-kronsbein/
+│   ├── rohyma-jet/ · hideout-georgia/ · studio995/ · selvoma/
+│   ├── seestern/ · mystic-drops/ · artista-magazin/ · piano-post/
+│   └── westgrowth-capital/
+├── about/ · services/ · contact/ · gallery/
+├── datenschutz/ · impressum/
+├── sitemap.xml                   # 19 URLs, lastmod 2026-06-29
+└── robots.txt
 ```
 
 ---
 
-## Was diese Session gemacht wurde
+## Was in dieser Session gemacht wurde (2026-07-01)
 
-### Commits (neueste zuerst)
-```
-28e37de  Simplify video hero CSS: remove redundant declarations
-8fc9b08  Full-screen animation hero, hide playback bar, light nav
-5007615  Add CLAUDE.md: code review standard
-47c173c  Replace XP-Days animation (self-contained, images inlined)
-a7c147e  Embed XP-Days animation as 16:9 video hero
-2cd9bf5  Add animated hero to XP-Days project page
-6865735  Fix nav text color on all 13 project pages → white
-a50ea5c  Fix portfolio index preview images
-3f73dae  Fix next-project images
-4effc6c  Add robots.txt + sitemap.xml
-```
+### A11y + Hardening: Testimonials & Floating-Szene ✅
+- `prefers-reduced-motion` respektiert: Floating-Szene (About), Testimonial-Drag-Transitions (Home + Services)
+- Avatar-Bild-ID vor Interpolation in `pravatar.cc`-URL sanitized
+- `loading="lazy"` + `decoding="async"` bei Testimonial-Avataren ergänzt
+- Commit `99943a7`
 
-### Technische Details — XP-Days Animation
-- `xp-days-animation.html` = Claude Design Export (Bundle-Format)
-- Bundle-Struktur: `<script type="__bundler/manifest">` JSON mit 22 Einträgen (3 JS/JSX, 19 fonts)
-- Bilder (logo, logoWhite, banner, cup, gewinnspiel) als base64 Data-URIs in UUID `ca7c7755`
-- PlaybackBar (Scrubber) entfernt: UUID `a81fe188` (animations.jsx gzip) wurde gepacht
-- Python-Patch-Methode: `base64.b64decode → gzip.decompress → str.replace → gzip.compress → base64.b64encode`
+### Testimonials: Homepage-Sektion entfernt ✅
+- Komplette Testimonials-Section (inkl. Drag-to-Shuffle-Script) von `index.html` entfernt
+- Bleibt unverändert auf `services/index.html`
+- Commit `09a4689`
 
-### CSS-Muster — Projekt-Hero-Varianten
-```css
-/* Standard-Hero (Bild-Hintergrund, dunkle Überlagerung) */
-<section class="proj-hero">
+### Glow-Card-Effekt (Mouse-Tracking-Spotlight) ✅
+- Neuer `[data-glow]`-CSS/JS-Mechanismus: radialer Spotlight-Rahmen folgt der Maus, Hue verschiebt sich mit horizontaler Position
+- Farb-Mapping: `blue` (#2E54FE-Bereich), `orange` (Accent), `purple`, `green`, `red`
+- Eingesetzt auf: allen 16 Portfolio-Kacheln (`portfolio/index.html`) + den 4 "My Path"-Sidebar-Karten auf `about/index.html` (Education/Experience/Services/Currently Based)
+- Selektor bewusst generisch gehalten (`[data-glow]`, nicht `.portfolio-item[data-glow]`), damit er auf beliebige Elemente anwendbar ist
+- Commits `eff6637`, `a608b06`
 
-/* Video/Animation-Hero (Vollbild-Iframe) */
-<section class="proj-hero proj-hero--video" style="background:#06120D;">
-  <div class="proj-hero__eyebrow"> <!-- absolut über dem Video -->
-  <div class="proj-hero--video .proj-hero__video-wrap"> <!-- height: 100svh -->
-    <iframe class="proj-hero__video-frame" ...>
-  </div>
-  <div class="proj-hero__content"> <!-- fließt nach dem Video -->
-```
+### Seestern Britzer Garten — Animation gebaut & eingebunden ✅
+- 4 vom Kunden gelieferte DC-Runtime-Exports (Start-Animation, Hero-Strip, Rotating Badge, Endscreen) zu **einer** Sequenz kombiniert: Start (Foto-Reveal ~4s) → Strip mit 5 Panels + rotierendem Badge (~11s) → Endscreen (~4.6s) → Loop
+- Bilder von PNG auf WebP komprimiert (Originale bis zu 10MB/Bild → kombiniertes Bundle ~1.5MB, in Linie mit bestehenden Animationen)
+- Neue Datei: `portfolio/seestern/seestern-animation.html`
+- Eingebunden in Portfolio-Kachel + Projekt-Hero (`portfolio/seestern/index.html`) — dabei 2 fehlende `</div>` im bestehenden Hero-Markup mitgefixt
+- Respektiert `prefers-reduced-motion` (zeigt dann nur den statischen Endscreen)
+- Commit `a608b06`
+- **Getestet mit Playwright** (unpkg.com für React/Babel ist in dieser Sandbox durch Org-Policy blockiert → lokal mit `page.route()` gemockt, um die DC-Runtime zu verifizieren. Auf der echten Live-Seite lädt React normal von unpkg.com.)
 
 ---
 
-## Code-Review-Standard (`CLAUDE.md`)
+## DC Runtime Animation Bundles — erweiterte Hinweise
 
-Bei jeder Fehleranalyse:
-1. Kritische Fehler (Security/Crash) zuerst
-2. Zeile · Erklärung · Fix für jeden Fehler
-3. Optimierungen mit Aufwand / Nutzen-Rating
-4. Gesamtbewertung 1–10 + Top 3 Maßnahmen
-5. Vorher / Nachher-Beispiele
-
-Slash-Kommandos: `/simplify` = Vereinfachung, `/code-review` = Fehlersuche
+Mehrere DC-Runtime-Bundles lassen sich zu einer neuen Sequenz kombinieren:
+1. `__bundler/template` jedes Bundles einzeln als JSON dekodieren (`json.loads`, nie Regex)
+2. Bilder/Fonts/JS-Assets aus allen Quell-Manifesten in ein gemeinsames Manifest mergen (Duplikate wie `dc-runtime.js`/`gsap.js` nur einmal übernehmen — Hash-Vergleich zeigt, ob mehrere Bundles dieselbe Library referenzieren)
+3. Eigenes kombiniertes Template schreiben: mehrere „Szenen"-`<div>`s absolut gestapelt, per `ref`-Callback + direkter DOM-Style-Manipulation ein-/ausblenden (kein Verlass auf unbekannte `{{ }}`-Bedingungslogik)
+4. **Kritisch:** nach `json.dumps(template)` alle `/` durch `/` ersetzen (nicht nur `</script>`!) — das Original-Tool escaped pauschal jeden Slash im Template-JSON, sonst bricht der HTML-Parser das Script-Tag ab
+5. Große Quellbilder (>1MB) vor dem Einbetten mit Pillow auf WebP komprimieren (`quality=82-88`, `method=6`), sonst wird das Bundle unnötig groß
 
 ---
 
-## Offene Aufgaben / Pending
+## Offene Aufgaben
 
 | # | Task | Status |
 |---|------|--------|
-| 1 | PR #1 mergen für Live-Deployment → https://github.com/KidashiDesign/kidashi-design-website/pull/1 | ❌ Offen |
-| 2 | Portfolio-Bilder für 8 leere Projekte | ❌ Warten auf Nicole |
-| 3 | artista-magazin, galerie-kronsbein, mystic-drops, piano-post, seestern, selvoma, westgrowth-capital, wh4 | ❌ Nur `.gitkeep` |
-
----
-
-## Portfolio-Seiten (alle 13 Detailseiten)
-
-`xp-days` · `wh4` · `rohyma-jet` · `tm-studio` · `galerie-kronsbein` · `seestern` · `westgrowth-capital` · `hideout-georgia` · `selvoma` · `mystic-drops` · `artista-magazin` · `piano-post` · `studio995`
-
-**Bilder vorhanden:** xp-days (12), tm-studio (6), hideout-georgia (2), studio995 (2), rohyma-jet (1)
-**Bilder fehlen:** artista-magazin, galerie-kronsbein, mystic-drops, piano-post, seestern, selvoma, westgrowth-capital, wh4
+| 1 | **Hostinger Deploy schlägt fehl** (FTP-Secrets fehlen: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`) | 🔴 Blockiert Live-Deploy seit mehreren Sessions — Inhaberin muss Secrets in GitHub Repo Settings → Secrets → Actions eintragen |
+| 2 | Testimonials: echte Kundenstimmen + Fotos (aktuell nur auf Services-Seite, Platzhalter-Daten) | ⏳ Warten auf Inhaberin |
+| 3 | Google Analytics GA4 | ⏳ Warten auf Measurement-ID |
+| 4 | Seestern: Bilder für Portfolio-Detailseite (Merch/Print-Fotos) fehlen noch, nur Hero-Animation vorhanden | ⏳ Warten auf Inhaberin |
 
 ---
 
@@ -172,6 +170,6 @@ Slash-Kommandos: `/simplify` = Vereinfachung, `/code-review` = Fehlersuche
 
 ```
 Ich arbeite am Repo kidashidesign/kidashi-design-website auf Branch
-claude/epic-curie-r5ed0o. Statisches HTML/CSS/JS, GitHub Pages.
+main. Statisches HTML/CSS/JS, Hostinger-Deploy (aktuell rot, Secrets fehlen).
 Lies SESSION.md im Root für alle Infos.
 ```
