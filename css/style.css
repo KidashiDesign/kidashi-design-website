@@ -1050,7 +1050,22 @@ p { font-size: 1.0625rem; line-height: 1.75; }
    ============================================================ */
 .contact-page { padding-top: calc(var(--nav-h) + clamp(4rem, 8vw, 8rem)); padding-bottom: var(--section-pad); background: var(--bg); }
 .contact-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 6rem; align-items: start; }
-.contact-form-wrap h1 { font-style: italic; margin-bottom: 1rem; }
+.contact-form-wrap { position: relative; isolation: isolate; }
+.contact-form-wrap h1 { font-style: italic; margin-bottom: 1rem; position: relative; }
+/* Morphing background shape — sits slightly offset behind the heading, subtle grey */
+.contact-morph {
+  position: absolute;
+  z-index: -1;
+  top: clamp(-1rem, 1vw, 1.5rem);
+  left: clamp(-3rem, -2vw, -0.5rem);
+  width: clamp(230px, 30vw, 420px);
+  aspect-ratio: 1 / 1;
+  color: rgba(10, 10, 11, 0.06);
+  pointer-events: none;
+}
+.contact-morph svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.contact-morph polygon { fill: currentColor; }
+.contact-morph polygon + polygon { fill: none; }
 .contact-form-wrap .sub { color: var(--muted); margin-bottom: 3rem; max-width: 520px; line-height: 1.75; }
 .form { display: flex; flex-direction: column; gap: 1.5rem; }
 .form-group { display: flex; flex-direction: column; gap: 0.45rem; }
