@@ -64,6 +64,12 @@
   <div class="container">
     <div class="contact-grid">
       <div class="contact-form-wrap">
+        <div class="contact-morph" aria-hidden="true">
+          <svg viewBox="88 -8 128 128" fill="none">
+            <polygon points="152,0 163,1 173,4 183,9 192,16 199,25 204,35 207,45 208,56 207,67 204,77 199,87 192,96 183,103 173,108 163,111 152,112 141,111 131,108 121,103 112,96 105,87 100,77 97,67 96,56 97,45 100,35 105,25 112,16 121,9 131,4 141,1"></polygon>
+            <polygon points="152,0 208,56 152,112 96,56"></polygon>
+          </svg>
+        </div>
         <span class="page-hero__eyebrow reveal">Get in Touch</span>
         <h1 class="reveal" data-delay="100">Let's Start Something Great Together.</h1>
         <p class="sub reveal" data-delay="200">Got a project in mind, a question about my services, or just want to say hi? Fill out the form below or reach out directly — I personally read and respond to every message, usually within 1–2 business days.</p>
@@ -165,6 +171,49 @@
       btn.disabled = true;
       setTimeout(() => { btn.textContent = 'Send Message'; btn.disabled = false; form.reset(); }, 3000);
     });
+  }
+</script>
+
+<!-- Morphing background shape behind the contact heading (anime.js v4) -->
+<script type="module">
+  import { animate, svg, utils } from '../js/anime.esm.min.js';
+
+  const polys = utils.$('.contact-morph polygon');
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (polys.length >= 2 && !reduce) {
+    const [ $path1, $path2 ] = polys;
+
+    function animateRandomPoints() {
+      // Update the points attribute on the hidden target polygon
+      utils.set($path2, { points: generatePoints() });
+      // Morph the visible polygon into the new shape
+      animate($path1, {
+        points: svg.morphTo($path2),
+        ease: 'inOutCirc',
+        duration: 500,
+        onComplete: animateRandomPoints
+      });
+    }
+
+    animateRandomPoints();
+
+    // Generate a fresh random polygon on each iteration
+    function generatePoints() {
+      const total = utils.random(4, 64);
+      const r1 = utils.random(4, 56);
+      const r2 = 56;
+      const isOdd = n => n % 2;
+      let points = '';
+      for (let i = 0, l = isOdd(total) ? total + 1 : total; i < l; i++) {
+        const r = isOdd(i) ? r1 : r2;
+        const a = (2 * Math.PI * i / l) - Math.PI / 2;
+        const x = 152 + utils.round(r * Math.cos(a), 0);
+        const y = 56 + utils.round(r * Math.sin(a), 0);
+        points += `${x},${y} `;
+      }
+      return points;
+    }
   }
 </script>
 </body>
