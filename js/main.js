@@ -508,6 +508,13 @@ document.addEventListener('DOMContentLoaded', () => {
     red: { base: 0, spread: 200 }
   };
 
+  // Kidashi Design corporate colors — exact hue/saturation/lightness of --primary and --accent.
+  // Used on brand-owned cards (About page sidebar) so the glow never drifts into off-brand hues.
+  const CI_COLOR_MAP = {
+    blue:   { hue: 229, saturation: '99%', lightness: '59%' }, // --primary #2E54FE
+    orange: { hue: 22,  saturation: '100%', lightness: '79%' } // --accent  #FFBC95
+  };
+
   const glowItems = document.querySelectorAll('[data-glow]');
   if (glowItems.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const syncPointer = (e) => {
@@ -518,11 +525,19 @@ document.addEventListener('DOMContentLoaded', () => {
         item.style.setProperty('--y', y.toFixed(2));
         item.style.setProperty('--yp', (y / window.innerHeight).toFixed(2));
 
-        // Calculate hue based on glow color and mouse position
         const glowColor = item.dataset.glow || 'blue';
-        const { base, spread } = glowColorMap[glowColor] || glowColorMap.blue;
-        const hue = base + (parseFloat(item.style.getPropertyValue('--xp') || 0) * spread);
-        item.style.setProperty('--hue', hue % 360);
+        const ci = item.classList.contains('sidebar-block') ? CI_COLOR_MAP[glowColor] : null;
+        if (ci) {
+          // Brand-owned card: lock to the exact CD color, no mouse-driven hue drift.
+          item.style.setProperty('--hue', ci.hue);
+          item.style.setProperty('--saturation', ci.saturation);
+          item.style.setProperty('--lightness', ci.lightness);
+        } else {
+          // Calculate hue based on glow color and mouse position
+          const { base, spread } = glowColorMap[glowColor] || glowColorMap.blue;
+          const hue = base + (parseFloat(item.style.getPropertyValue('--xp') || 0) * spread);
+          item.style.setProperty('--hue', hue % 360);
+        }
       });
     };
 
