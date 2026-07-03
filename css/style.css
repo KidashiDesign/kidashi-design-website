@@ -624,7 +624,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   mix-blend-mode: overlay;
   z-index: -1;
   pointer-events: none;
-  transition: opacity 0.55s var(--ease);
+  transition: opacity 0.55s var(--ease), background 0.55s var(--ease);
 }
 /* Mirror-sheen along the bottom edge — a very, very faint wash of both
    brand tones (peach + pastel-blue), so every glass button — light
@@ -657,8 +657,38 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 }
 .btn--primary:hover { background: linear-gradient(135deg, rgba(139,226,233,0.2) 0%, rgba(139,226,233,0.34) 55%, rgba(139,226,233,0.5) 100%); border-color: rgba(139,226,233,0.7); color: var(--dark); }
 
+/* Dark-background variant: the reflection reads strongest against dark
+   glass, so it gets its own richer, more graduated sweep + mirror —
+   smooth multi-stop gradients instead of the shared hard-edged stripe. */
 .btn--outline { border-color: rgba(247,243,238,0.4); color: var(--cream); background: linear-gradient(135deg, rgba(255,188,149,0.06), rgba(247,243,238,0.04) 50%, rgba(139,226,233,0.07)); }
 .btn--outline:hover { border-color: rgba(139,226,233,0.65); background: linear-gradient(135deg, rgba(139,226,233,0.1), rgba(139,226,233,0.2)); color: var(--cream); }
+.btn--outline::before {
+  background: linear-gradient(125deg,
+    rgba(255,255,255,0.9) 0%,
+    rgba(255,255,255,0.45) 10%,
+    rgba(255,255,255,0.14) 24%,
+    transparent 38%,
+    transparent 56%,
+    rgba(139,226,233,0.1) 70%,
+    rgba(255,255,255,0.32) 88%,
+    rgba(255,255,255,0.05) 100%);
+}
+.btn--outline::after {
+  background:
+    linear-gradient(90deg, rgba(255,188,149,0.18), rgba(139,226,233,0.22)),
+    linear-gradient(to top, rgba(255,255,255,0.36), rgba(255,255,255,0.05) 70%, transparent);
+}
+.btn--outline:hover::before {
+  background: linear-gradient(125deg,
+    rgba(255,255,255,0.95) 0%,
+    rgba(255,255,255,0.5) 10%,
+    rgba(139,226,233,0.2) 26%,
+    transparent 40%,
+    transparent 54%,
+    rgba(139,226,233,0.22) 68%,
+    rgba(255,255,255,0.4) 88%,
+    rgba(255,255,255,0.08) 100%);
+}
 
 .btn--outline-dark { border-color: rgba(10,10,11,0.12); color: var(--text); background: linear-gradient(135deg, rgba(255,188,149,0.12), rgba(255,255,255,0.14) 50%, rgba(139,226,233,0.13)); }
 .btn--outline-dark:hover { border-color: rgba(139,226,233,0.75); background: linear-gradient(135deg, rgba(139,226,233,0.18), rgba(139,226,233,0.3)); color: var(--dark); }
@@ -1409,8 +1439,18 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .services-full__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: clamp(2.5rem, 4vw, 4rem); }
 .service-full-card { padding: 3rem 2.5rem; background: var(--bg2); transition: background 0.3s var(--ease); }
 .service-full-card:hover { background: var(--cream); }
-.service-full-card--core { background: var(--dark); color: var(--cream); }
-.service-full-card--core:hover { background: var(--secondary); }
+.service-full-card--core {
+  background: var(--dark); color: var(--cream);
+  transition: background 0.6s var(--ease);
+}
+/* .reveal's own `transition` shorthand (opacity/transform, for the scroll-in
+   animation) has equal specificity and comes later in the cascade, so it
+   would otherwise wipe the background transition above. Re-declare all
+   three here with a higher-specificity compound selector. */
+.service-full-card--core.reveal {
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), background 0.6s var(--ease);
+}
+.service-full-card--core:hover { background: var(--pastel-blue); }
 .service-full-card__tag { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--primary); display: block; margin-bottom: 0.75rem; }
 .service-full-card--core .service-full-card__tag { color: var(--primary); }
 .service-full-card h3 { font-family: var(--font-h); font-size: 2rem; font-weight: 300; margin-bottom: 1.75rem; color: var(--text); }
@@ -1908,12 +1948,16 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .about-hero-float__text p       { color: rgba(247,243,238,0.6); max-width: 460px; }
 
 /* ── Floating scene ── */
+/* Lets the collage break out of the standard .container width so the
+   photos fill the dark section itself, rather than sitting inside a
+   visibly smaller boxed-off area. */
+.about-hero-float .container { max-width: 1560px; }
 .about-float-scene {
   position: relative;
   width: 100%;
-  max-width: 960px;
+  max-width: 1480px;
   aspect-ratio: 16 / 10;
-  max-height: 70vh;
+  max-height: 82vh;
 }
 .about-float-scene__inner {
   position: absolute;
