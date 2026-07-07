@@ -1460,6 +1460,9 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .service-full-card ul li::before { content: '–'; position: absolute; left: 0; color: var(--sand); }
 .service-full-card--core ul li { color: rgba(196,173,148,0.75); }
 .service-full-card--core ul li::before { color: var(--primary); }
+.service-full-card--core:hover h3 { color: #ffffff; }
+.service-full-card--core:hover ul li { color: #333333; }
+.service-full-card--core:hover ul li::before { color: #ffffff; }
 .services-full__cta { margin-top: clamp(3rem, 5vw, 5rem); text-align: center; }
 
 /* ============================================================
@@ -1600,6 +1603,10 @@ p { font-size: 1.0625rem; line-height: 1.75; }
    GALLERY PAGE
    ============================================================ */
 .gallery-page { background: var(--dark); min-height: 100vh; }
+.gallery-page .nav__link { color: var(--primary); }
+.gallery-page .nav__link:hover, .gallery-page .nav__link.active { color: var(--primary); }
+.gallery-page .nav__location { color: var(--primary); }
+.gallery-page .nav__location-tz { color: var(--primary); }
 .gallery-page .page-hero { background: var(--dark); padding-bottom: clamp(3rem, 5vw, 5rem); }
 .gallery-page .page-hero h1 { color: var(--cream); }
 .gallery-page .page-hero__sub { color: rgba(196,173,148,0.7); }
