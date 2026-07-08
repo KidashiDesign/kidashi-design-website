@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hideout Georgia — Outro</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#C4DE44; }
+  .stage { position:fixed; inset:0; overflow:hidden; background:#C4DE44; opacity:0; animation:bgIn 0.6s ease-out forwards; }
+  @keyframes bgIn { to { opacity:1; } }
+
+  .logo {
+    position:absolute; left:50%; top:50%; width:40%; max-width:760px;
+    transform:translate(-50%,calc(-50% + 24px)) scale(0.85); opacity:0;
+    animation:logoIn 1s cubic-bezier(0.34,1.56,0.64,1) 0.3s forwards,
+              logoOut 1.4s cubic-bezier(0.55,0,1,0.45) 3.2s forwards;
+  }
+  @keyframes logoIn  { to { transform:translate(-50%,-50%) scale(1); opacity:1; } }
+  @keyframes logoOut { to { transform:translate(-50%,calc(-50% - 40px)) scale(1.35); opacity:0; filter:blur(18px); } }
+  .logo img { display:block; width:100%; height:auto; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stage, .logo { animation-duration:0.01s !important; animation-delay:0s !important; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="logo"><img src="../../images/portfolio/hideout-georgia/anim/outro-logo.webp" alt="Hideout Georgia"></div>
+</div>
+</body>
+</html>
