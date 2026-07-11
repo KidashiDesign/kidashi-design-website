@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Café Mira — Handwerkskaffee & Frühstück in Berlin-Mitte</title>
+<meta name="description" content="Café Mira in Berlin-Mitte: Spezialitätenkaffee, hausgemachtes Frühstück und Kuchen. Täglich geöffnet ab 8 Uhr. Jetzt Tisch reservieren.">
+<meta name="keywords" content="Café Berlin, Kaffee, Frühstück, Brunch, Specialty Coffee, Café Mitte">
+<meta name="author" content="Café Mira">
+<link rel="canonical" href="https://www.cafe-mira.example/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="restaurant.menu">
+<meta property="og:title" content="Café Mira — Handwerkskaffee & Frühstück in Berlin-Mitte">
+<meta property="og:description" content="Spezialitätenkaffee, hausgemachtes Frühstück und Kuchen mitten in Berlin. Jetzt Tisch reservieren.">
+<meta property="og:image" content="images/og-cover.jpg">
+<meta property="og:locale" content="de_DE">
+<meta property="og:url" content="https://www.cafe-mira.example/">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Café Mira — Handwerkskaffee & Frühstück">
+<meta name="twitter:description" content="Spezialitätenkaffee, hausgemachtes Frühstück und Kuchen in Berlin-Mitte.">
+<meta name="twitter:image" content="images/og-cover.jpg">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Structured data: LocalBusiness / CafeOrCoffeeShop -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CafeOrCoffeeShop",
+  "name": "Café Mira",
+  "image": "https://www.cafe-mira.example/images/og-cover.jpg",
+  "url": "https://www.cafe-mira.example/",
+  "telephone": "+49-30-1234567",
+  "servesCuisine": "Café, Frühstück, Kuchen",
+  "priceRange": "€€",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Torstraße 12",
+    "addressLocality": "Berlin",
+    "postalCode": "10119",
+    "addressCountry": "DE"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 52.5296, "longitude": 13.4014 },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "19:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "09:00", "closes": "20:00" }
+  ],
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "312" },
+  "sameAs": ["https://www.instagram.com/cafemira", "https://www.facebook.com/cafemira"]
+}
+</script>
+</head>
+<body>
+
+<!-- Cookie consent (GDPR / EU market) -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Cookie-Hinweis">
+  <p>Wir verwenden Cookies, um dir die beste Erfahrung auf unserer Website zu bieten. <a href="datenschutz.html">Mehr erfahren</a></p>
+  <div class="cookie-actions">
+    <button class="btn btn--ghost" id="cookieDecline">Nur notwendige</button>
+    <button class="btn btn--primary" id="cookieAccept">Akzeptieren</button>
+  </div>
+</div>
+
+<!-- Nav -->
+<header class="nav" id="nav">
+  <a href="#top" class="nav__logo">Café <span>Mira</span></a>
+  <nav class="nav__links" id="navLinks">
+    <a href="#about">Über uns</a>
+    <a href="#menu">Speisekarte</a>
+    <a href="#gallery">Galerie</a>
+    <a href="#reviews">Bewertungen</a>
+    <a href="#location">Standort</a>
+    <a href="#contact" class="btn btn--primary btn--sm">Tisch reservieren</a>
+  </nav>
+  <button class="nav__burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__content">
+    <p class="eyebrow">Berlin-Mitte · seit 2019</p>
+    <h1>Kaffee, der<br><em>langsamer</em> macht.</h1>
+    <p class="hero__lede">Spezialitätenkaffee, hausgemachtes Frühstück und Kuchen — mitten in der Stadt, aber ganz für dich.</p>
+    <div class="hero__cta">
+      <a href="#contact" class="btn btn--primary btn--lg">Tisch reservieren</a>
+      <a href="#menu" class="btn btn--ghost btn--lg">Speisekarte ansehen</a>
+    </div>
+    <div class="hero__trust">
+      <span>★★★★★ 4.8/5</span><span>·</span><span>312 Google-Bewertungen</span>
+    </div>
+  </div>
+  <a href="#about" class="hero__scroll" aria-label="Nach unten scrollen">↓</a>
+</section>
+
+<!-- Social proof strip -->
+<section class="strip">
+  <div class="strip__item"><strong>100%</strong><span>Fair-Trade Bohnen</span></div>
+  <div class="strip__item"><strong>täglich</strong><span>frisch gebacken</span></div>
+  <div class="strip__item"><strong>4.8★</strong><span>312 Bewertungen</span></div>
+  <div class="strip__item"><strong>seit 2019</strong><span>in Berlin-Mitte</span></div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+  <div class="about__media" aria-hidden="true"></div>
+  <div class="about__text">
+    <p class="eyebrow">Unsere Geschichte</p>
+    <h2>Ein Zuhause für Kaffeeliebhaber</h2>
+    <p>Café Mira wurde 2019 aus einer einfachen Idee geboren: guter Kaffee sollte Zeit haben. Wir rösten in kleinen Chargen, arbeiten direkt mit Farmern zusammen und backen jeden Morgen frisch. Kommt vorbei, bleibt sitzen, lest ein Buch — wir freuen uns auf euch.</p>
+    <ul class="about__facts">
+      <li>Direct-Trade-Kaffee aus Äthiopien &amp; Kolumbien</li>
+      <li>Vegane &amp; glutenfreie Optionen täglich</li>
+      <li>Hundefreundlich &amp; ruhige Arbeitsplätze</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Menu -->
+<section class="menu" id="menu">
+  <p class="eyebrow center">Speisekarte</p>
+  <h2 class="center">Kleine Karte, große Liebe</h2>
+  <div class="menu__grid">
+    <div class="menu__col">
+      <h3>Kaffee</h3>
+      <div class="menu__row"><span>Espresso</span><span class="dots"></span><span>3,20 €</span></div>
+      <div class="menu__row"><span>Flat White</span><span class="dots"></span><span>4,20 €</span></div>
+      <div class="menu__row"><span>Cappuccino</span><span class="dots"></span><span>3,80 €</span></div>
+      <div class="menu__row"><span>Filterkaffee, V60</span><span class="dots"></span><span>4,50 €</span></div>
+      <div class="menu__row"><span>Matcha Latte</span><span class="dots"></span><span>4,80 €</span></div>
+    </div>
+    <div class="menu__col">
+      <h3>Frühstück &amp; Kuchen</h3>
+      <div class="menu__row"><span>Avocado-Sourdough</span><span class="dots"></span><span>9,50 €</span></div>
+      <div class="menu__row"><span>Shakshuka</span><span class="dots"></span><span>10,90 €</span></div>
+      <div class="menu__row"><span>Overnight Oats (vegan)</span><span class="dots"></span><span>7,50 €</span></div>
+      <div class="menu__row"><span>Zitronen-Olivenöl-Kuchen</span><span class="dots"></span><span>4,90 €</span></div>
+      <div class="menu__row"><span>Karottenkuchen</span><span class="dots"></span><span>5,20 €</span></div>
+    </div>
+  </div>
+  <p class="menu__note">Vollständige Karte inkl. Allergeninfos vor Ort &amp; per PDF.</p>
+</section>
+
+<!-- Gallery -->
+<section class="gallery" id="gallery">
+  <p class="eyebrow center">Impressionen</p>
+  <h2 class="center">Ein Blick ins Café</h2>
+  <div class="gallery__grid">
+    <div class="gallery__item gallery__item--a"></div>
+    <div class="gallery__item gallery__item--b"></div>
+    <div class="gallery__item gallery__item--c"></div>
+    <div class="gallery__item gallery__item--d"></div>
+    <div class="gallery__item gallery__item--e"></div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="reviews" id="reviews">
+  <p class="eyebrow center">Was Gäste sagen</p>
+  <h2 class="center">312 Bewertungen, 4.8★ im Schnitt</h2>
+  <div class="reviews__grid">
+    <blockquote class="review">
+      <p>„Bester Flat White in Mitte, und das Frühstück ist jedes Mal ein Highlight.“</p>
+      <cite>— Lena K., Google</cite>
+    </blockquote>
+    <blockquote class="review">
+      <p>„Ruhige Ecke zum Arbeiten, super WLAN, freundliches Team.“</p>
+      <cite>— Tomás R., Google</cite>
+    </blockquote>
+    <blockquote class="review">
+      <p>„Der Zitronenkuchen ist Kult. Komme jede Woche vorbei.“</p>
+      <cite>— Anna S., Google</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- Location & hours -->
+<section class="location" id="location">
+  <div class="location__info">
+    <p class="eyebrow">Besucht uns</p>
+    <h2>Standort &amp; Öffnungszeiten</h2>
+    <p class="location__address">Torstraße 12, 10119 Berlin</p>
+    <table class="hours">
+      <tr><td>Montag – Freitag</td><td>08:00 – 19:00</td></tr>
+      <tr><td>Samstag – Sonntag</td><td>09:00 – 20:00</td></tr>
+    </table>
+    <div class="location__actions">
+      <a class="btn btn--primary" href="tel:+493012345678">+49 30 123 45 678</a>
+      <a class="btn btn--ghost" href="https://maps.google.com/?q=Torstraße+12+Berlin" target="_blank" rel="noopener">Route planen</a>
+    </div>
+  </div>
+  <div class="location__map" aria-hidden="true">
+    <iframe title="Café Mira Standort" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      src="https://maps.google.com/maps?q=Torstra%C3%9Fe%2012%2C%20Berlin&t=&z=15&ie=UTF8&iwloc=&output=embed">
+    </iframe>
+  </div>
+</section>
+
+<!-- Reservation / contact -->
+<section class="contact" id="contact">
+  <div class="contact__inner">
+    <p class="eyebrow">Reservierung</p>
+    <h2>Sichert euch einen Tisch</h2>
+    <form class="contact__form" id="reserveForm" novalidate>
+      <div class="field-row">
+        <label>Name<input type="text" name="name" required autocomplete="name"></label>
+        <label>E-Mail<input type="email" name="email" required autocomplete="email"></label>
+      </div>
+      <div class="field-row">
+        <label>Datum<input type="date" name="date" required></label>
+        <label>Uhrzeit<input type="time" name="time" required></label>
+        <label>Personen<input type="number" name="guests" min="1" max="12" value="2" required></label>
+      </div>
+      <label class="field-full">Nachricht (optional)<textarea name="message" rows="3"></textarea></label>
+      <label class="consent">
+        <input type="checkbox" name="privacy" required>
+        Ich stimme der <a href="datenschutz.html">Datenschutzerklärung</a> zu.
+      </label>
+      <button type="submit" class="btn btn--primary btn--lg">Reservierung anfragen</button>
+      <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter">
+  <h2>Verpasst nichts</h2>
+  <p>Neue Bohnen, saisonale Karten &amp; Events — einmal im Monat, kein Spam.</p>
+  <form class="newsletter__form" id="newsletterForm">
+    <input type="email" name="email" placeholder="deine@email.de" required aria-label="E-Mail-Adresse">
+    <button type="submit" class="btn btn--primary">Anmelden</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer__col">
+    <p class="footer__logo">Café Mira</p>
+    <p>Torstraße 12, 10119 Berlin</p>
+    <p><a href="tel:+493012345678">+49 30 123 45 678</a></p>
+    <p><a href="mailto:hallo@cafe-mira.example">hallo@cafe-mira.example</a></p>
+  </div>
+  <div class="footer__col">
+    <p class="footer__heading">Social</p>
+    <p><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></p>
+    <p><a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a></p>
+  </div>
+  <div class="footer__col">
+    <p class="footer__heading">Rechtliches</p>
+    <p><a href="impressum.html">Impressum</a></p>
+    <p><a href="datenschutz.html">Datenschutz</a></p>
+  </div>
+  <p class="footer__bottom">© 2026 Café Mira. Alle Rechte vorbehalten.</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
