@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Product Photos - Commerce X</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #333;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        .upload-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .drag-drop-area {
+            border: 3px dashed #2563eb;
+            border-radius: 8px;
+            padding: 60px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+
+        .drag-drop-area:hover,
+        .drag-drop-area.dragover {
+            background: #eff6ff;
+            border-color: #1d4ed8;
+            transform: scale(1.01);
+        }
+
+        .drag-drop-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .drag-drop-area h3 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .drag-drop-area p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .upload-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .upload-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .file-list {
+            margin-top: 40px;
+        }
+
+        .file-list h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .file-item {
+            display: grid;
+            grid-template-columns: 150px 1fr 100px;
+            gap: 20px;
+            align-items: center;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #2563eb;
+        }
+
+        .file-preview {
+            width: 150px;
+            height: 150px;
+            background: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+
+        .file-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .file-info h4 {
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .file-info p {
+            color: #666;
+            font-size: 0.9em;
+            margin: 4px 0;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .file-actions button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+
+        .copy-btn {
+            background: #10b981;
+            color: white;
+        }
+
+        .copy-btn:hover {
+            background: #059669;
+        }
+
+        .delete-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #dc2626;
+        }
+
+        .product-info {
+            background: #f0f9ff;
+            border-left: 4px solid #0284c7;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 30px;
+        }
+
+        .product-info h4 {
+            color: #0284c7;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .save-product-btn {
+            background: #059669;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .save-product-btn:hover {
+            background: #047857;
+        }
+
+        .message {
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+            display: block;
+        }
+
+        .message.error {
+            background: #fee2e2;
+            color: #7f1d1d;
+            border: 1px solid #fca5a5;
+            display: block;
+        }
+
+        .info-box {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 30px;
+            border-left: 4px solid #6366f1;
+        }
+
+        .info-box h4 {
+            color: #4f46e5;
+            margin-bottom: 10px;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+            color: #666;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📸 Product Photo Upload</h1>
+            <p>Upload transparent PNG images for your shop products</p>
+        </div>
+
+        <div class="upload-section">
+            <div id="successMessage" class="message success"></div>
+            <div id="errorMessage" class="message error"></div>
+
+            <!-- Drag & Drop Area -->
+            <div class="drag-drop-area" id="dragDropArea">
+                <div class="drag-drop-icon">📤</div>
+                <h3>Drop your images here</h3>
+                <p>or</p>
+                <button type="button" class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                    Select Files
+                </button>
+                <p style="color: #999; margin-top: 20px; font-size: 0.9em;">
+                    Supported: PNG, JPG, GIF (transparent backgrounds preferred)
+                </p>
+            </div>
+
+            <input type="file" id="fileInput" multiple accept="image/*">
+
+            <!-- File List -->
+            <div class="file-list" id="fileList" style="display: none;">
+                <h3>Uploaded Files</h3>
+                <div id="filesContainer"></div>
+            </div>
+        </div>
+
+        <!-- Product Info Form -->
+        <div class="upload-section">
+            <h2>Add Product Information</h2>
+            <form id="productForm">
+                <div class="form-group">
+                    <label for="productName">Product Name *</label>
+                    <input type="text" id="productName" required placeholder="e.g., Wireless Earphones">
+                </div>
+
+                <div class="form-group">
+                    <label for="productCategory">Category *</label>
+                    <select id="productCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="technology">Technology</option>
+                        <option value="audio">Audio</option>
+                        <option value="gear">Gear</option>
+                        <option value="computers">Computers</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="productPrice">Price (USD) *</label>
+                    <input type="number" id="productPrice" required placeholder="59.99" step="0.01">
+                </div>
+
+                <div class="form-group">
+                    <label for="productDescription">Description *</label>
+                    <textarea id="productDescription" required placeholder="Enter product description..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="productBrand">Brand</label>
+                    <input type="text" id="productBrand" placeholder="e.g., TechBrand">
+                </div>
+
+                <div class="form-group">
+                    <label for="productSize">Size/Dimensions</label>
+                    <input type="text" id="productSize" placeholder="e.g., 5.12 x 3.45 x 1.37 inches">
+                </div>
+
+                <button type="submit" class="save-product-btn">Save Product</button>
+            </form>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <h4>📋 Tips for Best Results:</h4>
+            <ul>
+                <li>Use transparent PNG backgrounds for product images</li>
+                <li>Minimum image size: 500x500 pixels</li>
+                <li>Keep file size under 5MB</li>
+                <li>Use high-quality product photos</li>
+                <li>Product names should be descriptive and clear</li>
+                <li>Prices should be in USD</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const dragDropArea = document.getElementById('dragDropArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        const filesContainer = document.getElementById('filesContainer');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const productForm = document.getElementById('productForm');
+
+        let uploadedFiles = [];
+
+        // Drag and Drop Events
+        dragDropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dragDropArea.classList.add('dragover');
+        });
+
+        dragDropArea.addEventListener('dragleave', () => {
+            dragDropArea.classList.remove('dragover');
+        });
+
+        dragDropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dragDropArea.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const fileData = {
+                            name: file.name,
+                            size: (file.size / 1024).toFixed(2),
+                            data: e.target.result,
+                            type: file.type
+                        };
+                        uploadedFiles.push(fileData);
+                        displayFiles();
+                        showSuccess(`File "${file.name}" uploaded successfully!`);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        function displayFiles() {
+            if (uploadedFiles.length === 0) {
+                fileList.style.display = 'none';
+                return;
+            }
+
+            fileList.style.display = 'block';
+            filesContainer.innerHTML = uploadedFiles.map((file, index) => `
+                <div class="file-item">
+                    <div class="file-preview">
+                        <img src="${file.data}" alt="${file.name}">
+                    </div>
+                    <div class="file-info">
+                        <h4>${file.name}</h4>
+                        <p>Size: ${file.size} KB</p>
+                        <p>Type: ${file.type}</p>
+                    </div>
+                    <div class="file-actions">
+                        <button type="button" class="copy-btn" onclick="copyFilePath(${index})">
+                            Copy
+                        </button>
+                        <button type="button" class="delete-btn" onclick="deleteFile(${index})">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function deleteFile(index) {
+            uploadedFiles.splice(index, 1);
+            displayFiles();
+            showSuccess('File removed');
+        }
+
+        function copyFilePath(index) {
+            const file = uploadedFiles[index];
+            const pathString = `File: ${file.name} | Size: ${file.size}KB`;
+            navigator.clipboard.writeText(pathString);
+            showSuccess('File info copied to clipboard!');
+        }
+
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        productForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (uploadedFiles.length === 0) {
+                showError('Please upload at least one product image');
+                return;
+            }
+
+            const productData = {
+                id: Date.now(),
+                name: document.getElementById('productName').value,
+                category: document.getElementById('productCategory').value,
+                price: parseFloat(document.getElementById('productPrice').value),
+                description: document.getElementById('productDescription').value,
+                brand: document.getElementById('productBrand').value || 'TechBrand',
+                size: document.getElementById('productSize').value || 'Standard',
+                image: uploadedFiles[0].data,
+                images: uploadedFiles.map(f => f.data),
+                rating: 4.5,
+                reviews: Math.floor(Math.random() * 200) + 50,
+                inStock: true,
+                createdAt: new Date().toISOString()
+            };
+
+            // Save to localStorage
+            let products = JSON.parse(localStorage.getItem('products') || '[]');
+            products.push(productData);
+            localStorage.setItem('products', JSON.stringify(products));
+
+            // Reset form
+            productForm.reset();
+            uploadedFiles = [];
+            displayFiles();
+            showSuccess(`✅ Product "${productData.name}" saved successfully! It's now available in your shop.`);
+        });
+
+        // Load existing products on page load
+        window.addEventListener('load', () => {
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+            console.log(`📦 ${products.length} products currently in your shop`);
+        });
+    </script>
+</body>
+</html>

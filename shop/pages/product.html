@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Commerce X</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/animations.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">Commerce X</a>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../shop.html" class="nav-link">Shop</a></li>
+                <li><a href="../contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="../index.html">Home</a>
+            <span>/</span>
+            <a href="../shop.html">Products</a>
+            <span>/</span>
+            <span id="breadcrumbName">Product</span>
+        </div>
+    </div>
+
+    <!-- Product Detail -->
+    <section class="product-detail">
+        <div class="container">
+            <div class="product-gallery">
+                <div class="main-image" id="mainImage">
+                    <img src="" alt="Product" id="productImage">
+                </div>
+                <div class="thumbnails" id="thumbnails">
+                    <!-- Thumbnails loaded via JavaScript -->
+                </div>
+            </div>
+
+            <div class="product-info">
+                <h1 id="productName">Product Name</h1>
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="review-count">(128 reviews)</span>
+                </div>
+
+                <div class="price-section">
+                    <span class="price" id="productPrice">$59.99</span>
+                    <span class="original-price" id="productOriginalPrice">$99.99</span>
+                </div>
+
+                <p class="description" id="productDescription">
+                    High-quality product description goes here
+                </p>
+
+                <div class="product-options">
+                    <div class="option-group">
+                        <label>Color</label>
+                        <select id="colorSelect">
+                            <option>Select color</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Quantity</label>
+                        <div class="quantity-control">
+                            <button class="qty-btn" id="decreaseQty">−</button>
+                            <input type="number" min="1" value="1" id="quantity">
+                            <button class="qty-btn" id="increaseQty">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-lg">Add to Cart</button>
+
+                <div class="product-specs">
+                    <h3>Product Specifications</h3>
+                    <div class="spec-row">
+                        <span>Brand</span>
+                        <strong id="specBrand">-</strong>
+                    </div>
+                    <div class="spec-row">
+                        <span>Size</span>
+                        <strong id="specSize">-</strong>
+                    </div>
+                    <div class="spec-row">
+                        <span>Weight</span>
+                        <strong id="specWeight">-</strong>
+                    </div>
+                </div>
+
+                <div class="payment-methods">
+                    <h3>Accepted Payment Methods</h3>
+                    <div class="payment-icons">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 32'%3E%3Crect fill='%231434CB' width='48' height='32' rx='4'/%3E%3Ctext x='24' y='20' fill='white' font-size='14' text-anchor='middle' font-weight='bold'%3EPayPal%3C/text%3E%3C/svg%3E" alt="PayPal">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 32'%3E%3Crect fill='%231F51BA' width='48' height='32' rx='4'/%3E%3Ctext x='24' y='20' fill='white' font-size='10' text-anchor='middle'%3EStripe%3C/text%3E%3C/svg%3E" alt="Stripe">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 32'%3E%3Crect fill='%23003D82' width='48' height='32' rx='4'/%3E%3Ctext x='24' y='20' fill='white' font-size='10' text-anchor='middle'%3EMastercard%3C/text%3E%3C/svg%3E" alt="Mastercard">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Details Tabs -->
+    <section class="product-tabs">
+        <div class="container">
+            <div class="tabs-header">
+                <button class="tab-button active" data-tab="description">Product Description</button>
+                <button class="tab-button" data-tab="specs">Specifications</button>
+                <button class="tab-button" data-tab="shipping">Shipping</button>
+            </div>
+
+            <div class="tab-content" id="description">
+                <h3>About This Product</h3>
+                <p id="detailDescription">
+                    This premium tech product is engineered for excellence. Built with premium materials and cutting-edge technology, it delivers exceptional performance and reliability. Perfect for professionals and enthusiasts alike, this product combines functionality with sleek design.
+                </p>
+                <h4>Key Features:</h4>
+                <ul id="featuresList">
+                    <li>Premium build quality</li>
+                    <li>Advanced technology</li>
+                    <li>Ergonomic design</li>
+                    <li>Long battery life</li>
+                </ul>
+            </div>
+
+            <div class="tab-content" id="specs" style="display:none;">
+                <table class="specs-table">
+                    <tr>
+                        <td>Dimensions</td>
+                        <td id="specDimensions">-</td>
+                    </tr>
+                    <tr>
+                        <td>Weight</td>
+                        <td id="specWeightDetail">-</td>
+                    </tr>
+                    <tr>
+                        <td>Material</td>
+                        <td id="specMaterial">Premium Aluminum</td>
+                    </tr>
+                    <tr>
+                        <td>Warranty</td>
+                        <td>2-Year Limited Warranty</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="tab-content" id="shipping" style="display:none;">
+                <h3>Shipping Information</h3>
+                <ul>
+                    <li><strong>Free Shipping:</strong> Orders over $100 USD</li>
+                    <li><strong>Standard Shipping:</strong> 5-7 business days</li>
+                    <li><strong>Express Shipping:</strong> 2-3 business days</li>
+                    <li><strong>International:</strong> 10-15 business days</li>
+                    <li><strong>Returns:</strong> 30-day satisfaction guarantee</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="related-products">
+        <div class="container">
+            <h2>Related Products</h2>
+            <div class="products-grid" id="relatedProducts">
+                <!-- Related products loaded via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Commerce X</h4>
+                <p>Your trusted source for premium tech gadgets and accessories</p>
+                <div class="social-links">
+                    <a href="#">f</a>
+                    <a href="#">𝕏</a>
+                    <a href="#">in</a>
+                    <a href="#">ig</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Products</h4>
+                <ul>
+                    <li><a href="../shop.html">All Products</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Commerce X. All rights reserved</p>
+        </div>
+    </footer>
+
+    <script src="../js/products.js"></script>
+    <script src="../js/animations.js"></script>
+    <script src="../js/product-detail.js"></script>
+</body>
+</html>
