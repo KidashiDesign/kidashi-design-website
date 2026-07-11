@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /impressum.html
-Disallow: /datenschutz.html
-
-Sitemap: https://www.cafe-mira.example/sitemap.xml
