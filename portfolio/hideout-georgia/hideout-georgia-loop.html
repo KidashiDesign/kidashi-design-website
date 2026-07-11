@@ -8,7 +8,7 @@
   html, body { margin:0; padding:0; width:100%; height:100%; background:#467B11; overflow:hidden; }
   #stage { position:fixed; inset:0; background:#467B11; }
   .col { position:absolute; top:0; height:100%; overflow:hidden; background:#467B11; }
-  .col img { position:absolute; left:0; width:100%; display:block; object-fit:cover; }
+  .col img { position:absolute; display:block; }
 </style>
 </head>
 <body>
@@ -20,6 +20,10 @@
 </div>
 <script>
   var OVERSIZE = 1.18;
+  // The source stills have a flat placeholder-color band across their top ~44%
+  // (export defect, no photo content there) — crop it out so only the real
+  // photo portion is ever rendered.
+  var CROP_TOP = 0.45;
   var COLS = [
     { amp: 34, period: 7.0, phase: 0.0 },
     { amp: 48, period: 5.4, phase: 1.6 },
@@ -29,14 +33,23 @@
 
   var stage = document.getElementById('stage');
   var els = COLS.map(function (cfg, i) {
-    return { cfg: cfg, col: document.getElementById('col-' + i), img: document.getElementById('col-' + i).querySelector('img') };
+    var col = document.getElementById('col-' + i);
+    return { cfg: cfg, col: col, img: col.querySelector('img') };
   });
 
   function layout() {
     var h = stage.clientHeight;
+    var coverH = h * OVERSIZE;
     els.forEach(function (e) {
-      e.img.style.height = (h * OVERSIZE) + 'px';
-      e.baseTop = -(h * OVERSIZE - h) / 2;
+      var img = e.img, naturalW = img.naturalWidth, naturalH = img.naturalHeight;
+      if (!naturalW || !naturalH) return;
+      var colW = e.col.clientWidth;
+      var renderedH = coverH / (1 - CROP_TOP);
+      var renderedW = renderedH * (naturalW / naturalH);
+      img.style.width = renderedW + 'px';
+      img.style.height = renderedH + 'px';
+      img.style.left = (-(renderedW - colW) / 2) + 'px';
+      e.baseTop = -(coverH - h) / 2 - CROP_TOP * renderedH;
     });
   }
 
@@ -45,12 +58,17 @@
     if (!running) return;
     var t = ts / 1000;
     els.forEach(function (e) {
+      if (e.baseTop === undefined) return;
       var offset = e.cfg.amp * Math.sin((t * 2 * Math.PI) / e.cfg.period + e.cfg.phase);
       e.img.style.top = (e.baseTop + offset) + 'px';
     });
     requestAnimationFrame(tick);
   }
 
+  els.forEach(function (e) {
+    if (e.img.complete && e.img.naturalWidth) layout();
+    else e.img.addEventListener('load', layout);
+  });
   window.addEventListener('resize', layout);
   document.addEventListener('visibilitychange', function () {
     running = !document.hidden;
