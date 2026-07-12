@@ -1,5 +1,5 @@
 # Session Handoff — Kidashi Design Website
-Aktualisiert: 2026-07-02
+Aktualisiert: 2026-07-12
 
 ---
 
@@ -157,6 +157,24 @@ Siehe eigener Abschnitt oben. Mehrere Iterationen: erst Basis-Glaseffekt, dann C
 
 ---
 
+## Was in dieser Session gemacht wurde (2026-07-12)
+
+**Branch-Hinweis:** Diese Session lief auf `claude/kidashi-design-session-suhse0`, war beim Start aber 116 Commits hinter `main` (alter Stand vom 21.06., keine eigene unmerged Arbeit) — Branch wurde per `git checkout -B <branch> origin/main` neu von `main` aufgesetzt, bevor irgendetwas geändert wurde. **Lektion:** Bei Sessionstart immer `git log HEAD..origin/main --oneline | wc -l` prüfen, bevor man SESSION.md oder Code als aktuell annimmt — der lokale Branch kann massiv veraltet sein, auch wenn `git status` „clean" meldet.
+
+### Hideout Georgia Animation — Timing- und Asset-Bug behoben
+Nicole meldete: Übergänge zwischen den Szenen passen nicht (manche zu kurz, manche zu lang angezeigt), und die „Farbanimation" (Ambient-Loop-Hintergrund) wird nicht richtig angezeigt.
+
+Dritte Bauweise für `*-animation.html` im Repo (weder Format A noch B oben): `hideout-georgia-animation.html` ist ein reiner Sequencer, der 4 **separate** Szenen-HTML-Dateien (`hideout-georgia-intro/logo/slide/outro.html`) nacheinander in ein Iframe lädt/crossfaded, plus eine permanent laufende, nie neu geladene Ambient-Loop-Iframe (`hideout-georgia-loop.html`) im Hintergrund, die nur während der 0.9s-Crossfades kurz durchscheint.
+
+1. **Timing-Fix** (`hideout-georgia-animation.html`, `ORDER`-Array): Die konfigurierten Anzeigedauern waren nicht an die tatsächliche CSS-Keyframe-Länge jeder Szene gekoppelt. `logo` war nach 9.45s inhaltlich fertig, lief aber 13.0s (3.55s toter Leerlauf), `outro` war nach 4.6s fertig, lief aber 6.5s (1.9s Leerlauf) — `intro` (7.6s) und `slide` (7.8s) waren dagegen schon fast exakt getroffen. Dadurch wirkte der Rhythmus ungleichmäßig. Fix: alle vier Szenen auf einen einheitlichen ~0.45s-Puffer nach Animationsende umgerechnet → `logo: 13.0→9.9`, `outro: 6.5→5.1`, `intro`/`slide` unverändert. Mit Playwright verifiziert (MutationObserver auf `.scene.is-active`-Wechsel, echte Transition-Zeitstempel geloggt statt nominale `waitForTimeout`-Werte zu vertrauen — Screenshot-I/O-Overhead verfälscht sonst die gemessene Zeit um mehrere Sekunden).
+2. **Farbanimation-Bug** (`hideout-georgia-loop.html`): Die vier Quellbilder `images/portfolio/hideout-georgia/anim/loop-col-0…3.webp` haben **in den Bild-Assets selbst** einen fehlerhaften flachen Farbblock über den obersten ~44% der Bildhöhe (kein Bildinhalt dort — Export-Defekt, vermutlich aus dem ursprünglichen Design-Tool). Da die Spalten schmal/hoch sind (Box-Seitenverhältnis < Bild-Seitenverhältnis), konnte `object-fit:cover` diesen Bereich nie wegschneiden — er wurde bei jedem Szenen-Crossfade als sichtbarer Farbbalken oben im Frame eingeblendet. Fix: `object-fit:cover` entfernt, Bildgröße/-position jetzt manuell in JS berechnet (`CROP_TOP = 0.45`-Konstante), sodass gezielt nur der untere, echte Fotoanteil gerendert wird. Mit Playwright verifiziert (Canvas-Pixel-Scan fand die Farb/Foto-Kante bei exakt ~44.1% Bildhöhe in allen 4 Assets; Vorher/Nachher-Screenshots bestätigen den Fix).
+
+Commit `de61695` auf `claude/kidashi-design-session-suhse0` gepusht, **noch kein PR erstellt** (nicht explizit angefragt) und **noch nicht in `main` gemergt** — nächste Session sollte prüfen, ob das gemergt werden soll.
+
+**Für neue Agenten, falls weitere Hideout-Georgia-Assets nötig werden:** Alle 4 `loop-col-*.webp`-Dateien haben denselben Asset-Defekt (Flat-Color-Band exakt bei ~44% der Höhe). Falls diese Bilder je neu exportiert werden, prüfen ob der Defekt in der Quelle behoben ist — dann wird `CROP_TOP` in `hideout-georgia-loop.html` obsolet/falsch und muss auf `0` bzw. entfernt werden.
+
+---
+
 ## Verifikations-Setup für neue Agenten (Sandbox ohne echten Internet-Zugriff)
 
 - Lokaler Server: `python3 -m http.server 8199 --bind 127.0.0.1 --directory /home/user/kidashi-design-website` **immer mit `nohup ... &` + `disown`** starten, sonst stirbt er beim nächsten Bash-Tool-Call (kein echtes Hintergrund-Prozess-Handling in einfachen `&`-Backgrounds dieser Sandbox)
@@ -175,6 +193,7 @@ Siehe eigener Abschnitt oben. Mehrere Iterationen: erst Basis-Glaseffekt, dann C
 | 3 | Google Analytics GA4 | ⏳ Warten auf Measurement-ID |
 | 4 | Seestern: Bilder für Portfolio-Detailseite (Merch/Print-Fotos) fehlen noch, nur Hero-Animation vorhanden | ⏳ Warten auf Nicole |
 | 5 | 8 Portfolio-Projekte ohne Bilder (artista-magazin, galerie-kronsbein, mystic-drops, piano-post, seestern-detail, selvoma, westgrowth-capital, wh4) | ⏳ Warten auf Nicole |
+| 6 | Hideout-Georgia-Animation-Fix (Timing + Farbanimation, Commit `de61695`) in `main` mergen | ⏳ Branch `claude/kidashi-design-session-suhse0`, noch kein PR |
 
 ---
 
