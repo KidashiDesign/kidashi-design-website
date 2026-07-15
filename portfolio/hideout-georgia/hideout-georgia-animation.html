@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hideout Georgia — Intro Animation</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#0d1207; }
+  body { font-family:Georgia, 'Times New Roman', serif; }
+
+  /* Stage fills the iframe at any aspect ratio — fluid, no fixed canvas. */
+  .stage { position:fixed; inset:0; overflow:hidden; background:#0d1207; }
+
+  .slide {
+    position:absolute; inset:0;
+    opacity:0;
+    transition:opacity 1.4s ease;
+    will-change:opacity;
+  }
+  .slide.is-active { opacity:1; }
+
+  .slide__img {
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    transform:scale(1.08);
+    transform-origin:center;
+    animation:kenburns 9s ease-in-out infinite alternate;
+    backface-visibility:hidden;
+  }
+  .slide:nth-child(2) .slide__img { animation-delay:-4.5s; }
+  @keyframes kenburns {
+    0%   { transform:scale(1.08) translate(0%, 0%); }
+    100% { transform:scale(1.16) translate(-1.6%, -1.2%); }
+  }
+
+  .slide__scrim {
+    position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(to bottom,
+      rgba(13,18,7,0.35) 0%,
+      rgba(13,18,7,0.15) 35%,
+      rgba(13,18,7,0.55) 78%,
+      rgba(13,18,7,0.85) 100%);
+  }
+
+  /* Wordmark, present throughout, gently fades in on load */
+  .wordmark {
+    position:absolute; left:0; right:0; bottom:9%;
+    display:flex; flex-direction:column; align-items:center;
+    text-align:center; opacity:0; pointer-events:none;
+    animation:wordmarkIn 1.4s ease-out 0.4s forwards;
+  }
+  .wordmark__title {
+    font-size:clamp(28px, 6vw, 72px);
+    font-weight:400; letter-spacing:0.04em;
+    color:#F4EFE4;
+    text-shadow:0 4px 24px rgba(0,0,0,0.45);
+  }
+  .wordmark__sub {
+    margin-top:0.5em;
+    font-family:Helvetica, Arial, sans-serif;
+    font-size:clamp(9px, 1.1vw, 13px);
+    font-weight:500; letter-spacing:0.32em; text-transform:uppercase;
+    color:#B7C9A9;
+  }
+  @keyframes wordmarkIn {
+    from { opacity:0; transform:translateY(14px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slide__img { animation:none; transform:scale(1.02); }
+    .wordmark { animation:none; opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <section class="slide" data-i="0">
+    <img class="slide__img" src="../../images/portfolio/hideout-georgia/kidashi-design-hideout-georgia-social-asset-01.jpg" alt="Hideout Georgia — social media asset">
+  </section>
+  <section class="slide" data-i="1">
+    <img class="slide__img" src="../../images/portfolio/hideout-georgia/kidashi-design-hideout-georgia-social-asset-02.jpg" alt="Hideout Georgia — social media asset">
+  </section>
+  <div class="slide__scrim"></div>
+  <div class="wordmark">
+    <span class="wordmark__title">Hideout Georgia</span>
+    <span class="wordmark__sub">Brand Identity · Social Media</span>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var idx = 0, timer = null;
+  var HOLD = 5000; // ms per image
+
+  function show(i) {
+    idx = i;
+    slides.forEach(function (s) { s.classList.remove('is-active'); });
+    slides[idx].classList.add('is-active');
+    clearTimeout(timer);
+    timer = setTimeout(function () { show((idx + 1) % slides.length); }, HOLD);
+  }
+
+  // Start once the first image is ready (avoids a black flash).
+  var first = new Image();
+  first.onload = first.onerror = function () { show(0); };
+  first.src = slides[0].querySelector('img').src;
+
+  // Pause the loop while the iframe/tab is hidden (saves battery/CPU).
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { clearTimeout(timer); }
+    else { show(idx); }
+  });
+
+  if (REDUCED) { slides[0].classList.add('is-active'); }
+})();
+</script>
+</body>
+</html>

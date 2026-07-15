@@ -510,4 +510,7 @@
    16:9 canvas is never stretched into a taller/shorter box. */
 @media (max-width: 900px) {
   .proj-hero--video .proj-hero__video-wrap { height: auto; aspect-ratio: 16 / 9; }
+  /* Fluid full-bleed animations (photo cover + Ken Burns, no fixed canvas)
+     opt out of the 16:9 box and stay full-viewport on mobile too. */
+  .proj-hero--video .proj-hero__video-wrap--fill { height: 100svh; aspect-ratio: auto; }
 }
