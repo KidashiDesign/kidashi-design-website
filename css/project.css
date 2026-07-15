@@ -489,6 +489,10 @@
   .proj-details__inner { grid-template-columns: 1fr 1fr; }
   .proj-process__step { grid-template-columns: 1fr; gap: 0.5rem; }
   .proj-process__num { display: none; }
-  /* Mobile: 16:9 ratio instead of full-screen height */
+}
+/* Video/animation hero: 16:9 ratio instead of full-screen height on any
+   viewport narrower than desktop, so the embedded animation's native
+   16:9 canvas is never stretched into a taller/shorter box. */
+@media (max-width: 900px) {
   .proj-hero--video .proj-hero__video-wrap { height: auto; aspect-ratio: 16 / 9; }
 }
