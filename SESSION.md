@@ -1,5 +1,5 @@
 # Session Handoff — Kidashi Design Website
-Aktualisiert: 2026-06-21
+Aktualisiert: 2026-07-15
 
 ---
 
@@ -8,7 +8,7 @@ Aktualisiert: 2026-06-21
 | Key | Value |
 |-----|-------|
 | Repo | `kidashidesign/kidashi-design-website` |
-| Branch (aktiv) | `claude/practical-shannon-gj5oop` |
+| Branch (aktiv) | `claude/portfolio-animations-mobile-z12e04` |
 | Deploy | FTP → Hostinger (echte Live-Seite) + GitHub Pages (Preview) |
 | Stack | Statisches HTML/CSS/JS, kein Build-Tool, kein Framework |
 | Live-URL | `https://www.kidashidesign.com` |
@@ -94,6 +94,54 @@ Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.
 ├── robots.txt
 └── sitemap.xml                   # 21 URLs
 ```
+
+---
+
+## Session 2026-07-15 — Portfolio-Animationen Mobile-Fixes
+
+**Branch:** `claude/portfolio-animations-mobile-z12e04` (gepusht, noch kein PR eröffnet)
+**Auftrag:** Portfolio-Animationen auf Mobile optimieren — Ziel: Animationen vollständig anzeigen ohne Anschneiden, Layout auf allen 13 Projekt-Detailseiten geprüft.
+
+### Gefundene & behobene Bugs (4 Commits)
+
+1. **Rohyma-Jet-Animation croppte auf Mobile** (`portfolio/rohyma-jet/rohyma-jet-animation.html`)
+   Eigene (nicht-Stage-basierte) Komponente skalierte den festen 1920×1080-Canvas mit
+   `Math.max(innerWidth/1920, innerHeight/1080)` = Cover-Fit → schnitt auf jedem
+   Nicht-16:9-Viewport (jedes Handy-Hochformat) Ränder ab.
+   **Fix:** `Math.max` → `Math.min` (Contain-Fit, kommt 2× vor: Kommentar + tatsächlicher Code).
+
+2. **Video-Hero-Breakpoint zu eng** (`css/project.css`, `.proj-hero--video .proj-hero__video-wrap`)
+   16:9-`aspect-ratio`-Regel galt nur bis `max-width:600px`. Zwischen 600–900px (große
+   Phones/kleine Tablets im Querformat) blieb `height:100svh` aktiv → Container passte
+   nicht mehr zum 16:9-Ursprungsformat. Breakpoint auf 900px erweitert.
+
+3. **XP-Days-Animation: falscher Maßstab** (`portfolio/xp-days/xp-days-animation.html`,
+   gzip-komprimierte Stage-Komponente, UUID `a81fe188`)
+   `measure()` zog weiterhin `barH = 44` (Reserve für die längst entfernte Scrubber-Leiste)
+   von `clientHeight` ab, bevor der Fit-Faktor berechnet wurde → Animation wurde auf Mobile
+   minimal zu klein skaliert (unnötiger schwarzer Rand). `barH`-Subtraktion entfernt.
+
+4. **Titel überlappt "Visual Coming Soon"-Platzhalter auf 8 Detailseiten**
+   (artista-magazin, galerie-kronsbein, hideout-georgia, mystic-drops, piano-post,
+   selvoma, studio995, westgrowth-capital)
+   Platzhaltertext war zentriert über die volle `100svh`-Hero-Höhe absolut positioniert,
+   während Titel + Meta-Strip unten verankert sind (`justify-content:flex-end`). Bricht
+   der Titel auf schmalen Viewports zweizeilig um (z.B. "Westgrowth Capital"), wächst er
+   so weit nach oben, dass er den Platzhalter überlagert.
+   **Fix:** Inline-Style → neue Klasse `.proj-hero__placeholder` in `css/project.css`,
+   ab `max-width:900px` komplett ausgeblendet (rein dekorativ, auf Desktop unverändert
+   sichtbar).
+
+### Geprüft, aber unauffällig
+- **xp-days Stage-Komponente:** nutzt bereits `ResizeObserver` + `Math.min(clientWidth/w, clientHeight/h)` = korrekter Contain-Fit (abgesehen vom barH-Bug oben).
+- **wh4, tm-studio:** komplett fluid mit `clamp()`/`vmin`, kein fixer Canvas → kein Crop-Risiko.
+- **seestern:** eigene handgeschriebene Animation (kein Figma-Bundle-Export), ebenfalls fluid mit `clamp()`/`vw`/`vh`.
+- **Portfolio-Grid-Tile-Crop** (`portfolio-card__anim`, 16:9→4:3 auf der Landingpage): bewusstes Cover-Thumbnail-Design, mathematisch identisches Seitenverhältnis wie das Iframe selbst → von den Fixes nicht betroffen.
+
+### Offen für nächste Session
+- Live/Preview auf echtem Mobilgerät gegentesten (Sandbox hat keinen Netzwerkzugriff, Bundle-Runtime lädt lokal nicht vollständig — `[bundle] error` beim lokalen Testen ist erwartbar und kein echter Bug).
+- Ggf. PR für `claude/portfolio-animations-mobile-z12e04` öffnen (bisher nur gepusht, PR-Erstellung nicht angefragt).
+- Playwright ist im Sandbox-Image vorhanden, aber `NODE_PATH=/opt/node22/lib/node_modules` muss gesetzt werden (globales npm-Modul, nicht lokal installiert). Chromium-Pfad: `/opt/pw-browsers/chromium`.
 
 ---
 
