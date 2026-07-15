@@ -25,6 +25,21 @@
   opacity: 0.38;
   display: block;
 }
+/* "Visual coming soon" watermark for projects without hero imagery yet.
+   Hidden on mobile: it's purely decorative and, centered over the full
+   section height, collides with the bottom-anchored title/meta strip
+   once the title wraps to two lines on narrow viewports. */
+.proj-hero__placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.18;
+}
+@media (max-width: 900px) {
+  .proj-hero__placeholder { display: none; }
+}
 
 /* Video / animation hero variant — full-screen */
 .proj-hero--video {
