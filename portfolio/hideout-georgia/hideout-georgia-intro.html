@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hideout Georgia — Intro</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#0d1207; }
+  .stage { position:fixed; inset:0; overflow:hidden; background:#0d1207; }
+
+  .bg {
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    transform-origin:50% 42%; opacity:0;
+    animation:bgFadeIn 0.6s ease-out forwards, bgDrift 7.15s ease-in-out forwards;
+  }
+  @keyframes bgFadeIn { from{opacity:0;} to{opacity:1;} }
+  @keyframes bgDrift   { from{transform:scale(1);} to{transform:scale(1.035) translateX(1%);} }
+
+  .vignette {
+    position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(ellipse 75% 75% at 50% 50%, rgba(6,26,6,0) 45%, rgba(4,18,4,0.55) 100%);
+  }
+
+  .lockup { position:absolute; left:50%; top:50%; width:44%; max-width:620px; transform:translate(-50%,-50%); }
+  .lockup__inner { position:relative; width:100%; aspect-ratio:825/475; }
+
+  .bird {
+    position:absolute; left:27.5%; top:66.4%; width:51.9%; transform-origin:center;
+    opacity:0; animation:birdIn 1.7s cubic-bezier(0.16,1,0.3,1) 0.15s forwards;
+  }
+  @keyframes birdIn {
+    0%   { opacity:0; transform:translate(calc(-50% - 90px), calc(-50% + 70px)) rotate(-10deg) scale(0.82); }
+    100% { opacity:1; transform:translate(-50%,-50%) rotate(0deg) scale(1); }
+  }
+
+  .word {
+    position:absolute; left:53.4%; top:25.9%; width:93.2%; transform-origin:center;
+    opacity:0; animation:wordIn 1.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+  }
+  @keyframes wordIn {
+    0%   { opacity:0; transform:translate(calc(-50% + 80px), calc(-50% - 60px)) rotate(8deg) scale(0.85); }
+    100% { opacity:1; transform:translate(-50%,-50%) rotate(0deg) scale(1); }
+  }
+
+  .lockup__finish {
+    position:absolute; inset:0; transform-origin:50% 50%;
+    animation:finishPulse 0.65s ease-out 2.45s 1 both;
+  }
+  @keyframes finishPulse {
+    0%   { transform:scale(1) rotate(0deg); }
+    50%  { transform:scale(1.026) rotate(0.8deg); }
+    100% { transform:scale(1) rotate(0deg); }
+  }
+
+  .tagline {
+    position:absolute; left:50%; width:40%; max-width:560px;
+    transform:translate(-50%,13px); opacity:0;
+  }
+  .tagline--top    { top:16.95%; animation:taglineIn 0.8s ease-out 3.45s forwards; }
+  .tagline--bottom { top:83.17%; animation:taglineIn 0.8s ease-out 4.55s forwards; }
+  .tagline img { display:block; width:100%; height:auto; }
+  @keyframes taglineIn { to { opacity:1; transform:translate(-50%,0); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg, .bird, .word, .lockup__finish, .tagline { animation-duration:0.01s !important; animation-delay:0s !important; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <img class="bg" src="../../images/portfolio/hideout-georgia/anim/intro-bg.webp" alt="">
+  <div class="vignette"></div>
+
+  <div class="lockup">
+    <div class="lockup__inner">
+      <div class="lockup__finish">
+        <img class="word" src="../../images/portfolio/hideout-georgia/anim/intro-word.webp" alt="Hideout Georgia">
+        <img class="bird" src="../../images/portfolio/hideout-georgia/anim/intro-bird.webp" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="tagline tagline--top"><img src="../../images/portfolio/hideout-georgia/anim/intro-tagline-top.webp" alt="Cabins over hotels"></div>
+  <div class="tagline tagline--bottom"><img src="../../images/portfolio/hideout-georgia/anim/intro-tagline-bottom.webp" alt="Simply switch off"></div>
+</div>
+</body>
+</html>

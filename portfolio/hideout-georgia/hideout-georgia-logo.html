@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hideout Georgia — Logomark</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#0e3f0e; }
+  .stage { position:fixed; inset:0; overflow:hidden; background:#0e3f0e; }
+
+  .bg {
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    animation:bgBreathe 12.5s ease-in-out infinite;
+  }
+  @keyframes bgBreathe { 0%,100%{transform:scale(1);} 50%{transform:scale(1.01);} }
+  .bg-glow {
+    position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(ellipse 70% 60% at 52% 47%, rgba(196,222,67,0.10), rgba(196,222,67,0) 62%);
+  }
+  .bg-vignette {
+    position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(ellipse 75% 75% at 50% 50%, rgba(6,26,6,0) 45%, rgba(4,18,4,0.48) 100%);
+    opacity:0; animation:vignetteFocus 1s ease-in-out 6.35s forwards;
+  }
+  @keyframes vignetteFocus { to { opacity:1; } }
+
+  .grid {
+    position:absolute; left:50%; top:50%; width:min(64vh,64vw,640px); height:min(64vh,64vw,640px);
+    transform:translate(-50%,-50%);
+    filter:drop-shadow(0 0 18px rgba(196,222,67,0.18));
+    opacity:1; animation:gridFade 1s ease-in-out 6.35s forwards;
+  }
+  @keyframes gridFade { to { opacity:0; } }
+  .grid line {
+    stroke:#C4DE43; stroke-linecap:round; opacity:0;
+    animation-name:drawLine; animation-timing-function:cubic-bezier(0.33,1,0.68,1); animation-duration:0.42s; animation-fill-mode:forwards;
+  }
+  @keyframes drawLine { from { opacity:1; stroke-dashoffset: var(--len); } to { opacity:1; stroke-dashoffset:0; } }
+  .grid line:nth-child(1)  { animation-delay:2.20s; }
+  .grid line:nth-child(2)  { animation-delay:2.42s; }
+  .grid line:nth-child(3)  { animation-delay:2.64s; }
+  .grid line:nth-child(4)  { animation-delay:2.86s; }
+  .grid line:nth-child(5)  { animation-delay:3.08s; }
+  .grid line:nth-child(6)  { animation-delay:3.30s; }
+  .grid line:nth-child(7)  { animation-delay:3.52s; }
+  .grid line:nth-child(8)  { animation-delay:3.74s; }
+  .grid line:nth-child(9)  { animation-delay:3.96s; }
+  .grid line:nth-child(10) { animation-delay:4.18s; }
+  .grid line:nth-child(11) { animation-delay:4.40s; }
+  .grid line:nth-child(12) { animation-delay:4.62s; }
+  .grid line:nth-child(13) { animation-delay:4.84s; }
+  .grid line:nth-child(14) { animation-delay:5.06s; }
+
+  .mark {
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) scale(0.965);
+    width:min(64vh,64vw,640px);
+    filter:drop-shadow(0 12px 34px rgba(4,18,4,0.35));
+    opacity:0;
+    animation:markFadeIn 1s ease-in-out 6.35s forwards, markScale 2.1s ease-in-out 7.35s forwards;
+  }
+  @keyframes markFadeIn { to { opacity:1; } }
+  @keyframes markScale  { to { transform:translate(-50%,-50%) scale(1.76); } }
+  .mark img { display:block; width:100%; height:auto; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg, .bg-vignette, .grid, .grid line, .mark { animation-duration:0.01s !important; animation-delay:0s !important; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <img class="bg" src="../../images/portfolio/hideout-georgia/anim/logo-bg.webp" alt="">
+  <div class="bg-glow"></div>
+  <div class="bg-vignette"></div>
+
+  <svg class="grid" viewBox="0 0 620 620">
+    <line x1="309.5" y1="0.5"   x2="309.5" y2="619.5" stroke-width="1"   style="--len:619"></line>
+    <line x1="0.5"   y1="319.5" x2="619.5" y2="319.5" stroke-width="1"   style="--len:619"></line>
+    <line x1="192.5" y1="0.5"   x2="192.5" y2="619.5" stroke-width="1"   style="--len:619"></line>
+    <line x1="0.2"   y1="429.8" x2="619.8" y2="429.8" stroke-width="0.4" style="--len:619.6"></line>
+    <line x1="432.5" y1="0.5"   x2="432.5" y2="619.5" stroke-width="1"   style="--len:619"></line>
+    <line x1="468.2" y1="0.2"   x2="468.2" y2="619.8" stroke-width="0.4" style="--len:619.6"></line>
+    <line x1="0.5"   y1="146.5" x2="619.5" y2="146.5" stroke-width="1"   style="--len:619"></line>
+    <line x1="146.5" y1="0.5"   x2="146.5" y2="619.5" stroke-width="1"   style="--len:619"></line>
+    <line x1="0.2"   y1="473.8" x2="619.8" y2="473.8" stroke-width="0.4" style="--len:619.6"></line>
+    <line x1="479.5" y1="0.5"   x2="479.5" y2="619.5" stroke-width="1"   style="--len:619"></line>
+    <line x1="0.5"   y1="486.5" x2="619.5" y2="486.5" stroke-width="1"   style="--len:619"></line>
+    <line x1="132.2" y1="0.2"   x2="132.2" y2="619.8" stroke-width="0.4" style="--len:619.6"></line>
+    <line x1="0.2"   y1="126.8" x2="619.8" y2="126.8" stroke-width="0.4" style="--len:619.6"></line>
+    <line x1="500.2" y1="0.2"   x2="500.2" y2="619.8" stroke-width="0.4" style="--len:619.6"></line>
+  </svg>
+
+  <div class="mark"><img src="../../images/portfolio/hideout-georgia/anim/logo-mark.webp" alt="Hideout Georgia"></div>
+</div>
+</body>
+</html>
