@@ -1,9 +1,5 @@
 /* ============================================================
-   KIDASHI DESIGN — fluid-particles.js
-   Canvas-based particle system with mouse/touch interaction.
-   Usage:
-     const fp = new FluidParticles('#my-canvas', { options })
-     fp.destroy() // cleanup
+   KIDASHI DESIGN — fluid-particles.js (Optimized)
    ============================================================ */
 
 class FluidParticles {
@@ -15,22 +11,29 @@ class FluidParticles {
     if (!this.canvas) return
 
     this.opts = {
-      particleDensity:     options.particleDensity     ?? 100,
-      particleSize:        options.particleSize         ?? 1,
-      particleColor:       options.particleColor        ?? '#555555',
-      activeColor:         options.activeColor          ?? '#ffffff',
-      maxBlastRadius:      options.maxBlastRadius       ?? 300,
-      hoverDelay:          options.hoverDelay           ?? 100,
-      interactionDistance: options.interactionDistance  ?? 10,
+      particleDensity:     options.particleDensity     ?? 50,
+      particleSize:        options.particleSize        ?? 1,
+      particleColor:       options.particleColor       ?? '#555555',
+      activeColor:         options.activeColor         ?? '#ffffff',
+      maxBlastRadius:      options.maxBlastRadius      ?? 300,
+      hoverDelay:          options.hoverDelay          ?? 100,
+      interactionDistance: options.interactionDistance ?? 10,
     }
+    
+    // Pre-calculate squared values for faster math
+    this.opts.interactionSq = this.opts.interactionDistance ** 2;
 
     this.ctx         = null
     this.particles   = []
-    this.mouse       = { x: 0, y: 0, prevX: 0, prevY: 0 }
+    this.mouse       = { x: -1000, y: -1000, prevX: 0, prevY: 0 } // Reusable object
     this.blast       = { active: false, x: 0, y: 0, radius: 0 }
     this.rafId       = 0
     this.hoverTimer  = null
     this._handlers   = {}
+    this._rect       = { left: 0, top: 0 } // Cache bounding rect
+
+    // Pre-compute 256 blast color strings to avoid GC pauses
+    this._blastColors = Array.from({ length: 256 }, (_, i) => `rgba(${i},100,255,0.8)`);
 
     this._init()
   }
@@ -38,26 +41,18 @@ class FluidParticles {
   /* ── Particle ─────────────────────────────────────── */
   _createParticle(x, y) {
     const opts = this.opts
+    const density = Math.random() * 3 + 1
     return {
       x, y,
       baseX:    x,
       baseY:    y,
       size:     Math.random() * opts.particleSize + 0.5,
-      density:  Math.random() * 3 + 1,
+      density:  density,
       color:    opts.particleColor,
       vx:       0,
       vy:       0,
-      get friction() { return 0.9 - 0.01 * this.density },
+      friction: 0.9 - 0.01 * density,
     }
-  }
-
-  _drawParticle(p) {
-    const ctx = this.ctx
-    ctx.fillStyle = p.color
-    ctx.beginPath()
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-    ctx.closePath()
-    ctx.fill()
   }
 
   _updateParticle(p) {
@@ -72,9 +67,11 @@ class FluidParticles {
 
     const dx = mouse.x - p.x
     const dy = mouse.y - p.y
-    const dist = Math.sqrt(dx * dx + dy * dy)
+    const distSq = dx * dx + dy * dy
 
-    if (dist < opts.interactionDistance) {
+    // Use squared distance check before doing expensive Math.sqrt()
+    if (distSq < opts.interactionSq) {
+      const dist = Math.sqrt(distSq) || 1
       const fdx   = dx / dist
       const fdy   = dy / dist
       const force = (opts.interactionDistance - dist) / opts.interactionDistance
@@ -90,19 +87,22 @@ class FluidParticles {
     if (blast.active) {
       const bdx   = p.x - blast.x
       const bdy   = p.y - blast.y
-      const bdist = Math.sqrt(bdx * bdx + bdy * bdy)
-      if (bdist < blast.radius) {
-        const bfx    = bdx / (bdist || 1)
-        const bfy    = bdy / (bdist || 1)
+      const bdistSq = bdx * bdx + bdy * bdy
+      
+      const blastRadSq = blast.radius * blast.radius;
+      
+      if (bdistSq < blastRadSq) {
+        const bdist = Math.sqrt(bdistSq) || 1
+        const bfx    = bdx / bdist
+        const bfy    = bdy / bdist
         const bforce = (blast.radius - bdist) / blast.radius
         p.vx += bfx * bforce * 15
         p.vy += bfy * bforce * 15
-        const intensity = Math.min(255, Math.floor(255 - bdist))
-        p.color = `rgba(${intensity},100,255,0.8)`
+        
+        const intensity = Math.min(255, Math.max(0, 255 - Math.floor(bdist)))
+        p.color = this._blastColors[intensity] // Use pre-allocated string
       }
     }
-
-    this._drawParticle(p)
   }
 
   /* ── Setup ────────────────────────────────────────── */
@@ -113,12 +113,19 @@ class FluidParticles {
     this.particles = []
     const w = this._w(), h = this._h()
     const count = Math.floor((w * h) / this.opts.particleDensity)
+    
+    // Pre-allocate array size for slight memory optimization
+    this.particles = new Array(count);
     for (let i = 0; i < count; i++) {
-      this.particles.push(this._createParticle(
+      this.particles[i] = this._createParticle(
         Math.random() * w,
         Math.random() * h
-      ))
+      )
     }
+  }
+  
+  _updateRect() {
+      this._rect = this.canvas.getBoundingClientRect();
   }
 
   _resize() {
@@ -129,12 +136,17 @@ class FluidParticles {
     this.canvas.style.width  = `${w}px`
     this.canvas.style.height = `${h}px`
     this.ctx.setTransform(pr, 0, 0, pr, 0, 0)
+    this._updateRect()
     this._initParticles()
   }
 
   /* ── Blast ────────────────────────────────────────── */
   _triggerBlast(x, y) {
-    this.blast = { active: true, x, y, radius: 0 }
+    this.blast.active = true;
+    this.blast.x = x;
+    this.blast.y = y;
+    this.blast.radius = 0;
+    
     const start    = performance.now()
     const duration = 300
     const maxR     = this.opts.maxBlastRadius
@@ -157,7 +169,25 @@ class FluidParticles {
   _animate() {
     const ctx = this.ctx
     ctx.clearRect(0, 0, this._w(), this._h())
-    for (const p of this.particles) this._updateParticle(p)
+    
+    let lastColor = null;
+    
+    // Traditional for-loop is slightly faster than for...of for huge arrays
+    const len = this.particles.length;
+    for (let i = 0; i < len; i++) {
+      const p = this.particles[i];
+      this._updateParticle(p);
+      
+      // Batch state changes: Only update fillStyle if the color changed
+      if (p.color !== lastColor) {
+          ctx.fillStyle = p.color;
+          lastColor = p.color;
+      }
+      
+      // Use fillRect instead of arc for massive performance gain on tiny particles
+      ctx.fillRect(p.x, p.y, p.size, p.size);
+    }
+    
     this.rafId = requestAnimationFrame(() => this._animate())
   }
 
@@ -170,19 +200,20 @@ class FluidParticles {
     let lastMove = 0
 
     const onResize = () => this._resize()
+    const onScroll = () => this._updateRect() // Keep cache accurate
 
     const onMouseMove = (e) => {
       const now = performance.now()
       if (now - lastMove < 10) return
       lastMove = now
 
-      const rect  = this.canvas.getBoundingClientRect()
-      const mx    = e.clientX - rect.left
-      const my    = e.clientY - rect.top
-      const prevX = this.mouse.x, prevY = this.mouse.y
-      this.mouse = { x: mx, y: my, prevX, prevY }
+      // Mutate existing object rather than creating a new one
+      this.mouse.prevX = this.mouse.x;
+      this.mouse.prevY = this.mouse.y;
+      this.mouse.x = e.clientX - this._rect.left;
+      this.mouse.y = e.clientY - this._rect.top;
 
-      const d = Math.hypot(mx - prevX, my - prevY)
+      const d = Math.hypot(this.mouse.x - this.mouse.prevX, this.mouse.y - this.mouse.prevY)
       if (d < 5) {
         if (!this.hoverTimer) {
           this.hoverTimer = setTimeout(() => this._triggerBlast(e.clientX, e.clientY), opts.hoverDelay)
@@ -193,26 +224,21 @@ class FluidParticles {
     }
 
     const onClick = (e) => {
-      const rect = this.canvas.getBoundingClientRect()
-      this._triggerBlast(e.clientX - rect.left, e.clientY - rect.top)
+      this._triggerBlast(e.clientX - this._rect.left, e.clientY - this._rect.top)
     }
 
     const onTouchMove = (e) => {
       if (!e.touches[0]) return
-      const rect  = this.canvas.getBoundingClientRect()
-      const prevX = this.mouse.x, prevY = this.mouse.y
-      this.mouse = {
-        x: e.touches[0].clientX - rect.left,
-        y: e.touches[0].clientY - rect.top,
-        prevX, prevY
-      }
+      this.mouse.prevX = this.mouse.x;
+      this.mouse.prevY = this.mouse.y;
+      this.mouse.x = e.touches[0].clientX - this._rect.left;
+      this.mouse.y = e.touches[0].clientY - this._rect.top;
     }
 
     const onTouchStart = (e) => {
       if (!e.touches[0]) return
-      const rect = this.canvas.getBoundingClientRect()
-      const x = e.touches[0].clientX - rect.left
-      const y = e.touches[0].clientY - rect.top
+      const x = e.touches[0].clientX - this._rect.left
+      const y = e.touches[0].clientY - this._rect.top
       this.hoverTimer = setTimeout(() => this._triggerBlast(x, y), opts.hoverDelay)
     }
 
@@ -221,13 +247,14 @@ class FluidParticles {
     }
 
     window.addEventListener('resize',     onResize)
+    window.addEventListener('scroll',     onScroll, { passive: true })
     window.addEventListener('mousemove',  onMouseMove)
     window.addEventListener('click',      onClick)
     window.addEventListener('touchmove',  onTouchMove,  { passive: true })
     window.addEventListener('touchstart', onTouchStart, { passive: true })
     window.addEventListener('touchend',   onTouchEnd)
 
-    this._handlers = { onResize, onMouseMove, onClick, onTouchMove, onTouchStart, onTouchEnd }
+    this._handlers = { onResize, onScroll, onMouseMove, onClick, onTouchMove, onTouchStart, onTouchEnd }
 
     this._resize()
     this._animate()
@@ -239,6 +266,7 @@ class FluidParticles {
     if (this.hoverTimer) clearTimeout(this.hoverTimer)
     const h = this._handlers
     window.removeEventListener('resize',     h.onResize)
+    window.removeEventListener('scroll',     h.onScroll)
     window.removeEventListener('mousemove',  h.onMouseMove)
     window.removeEventListener('click',      h.onClick)
     window.removeEventListener('touchmove',  h.onTouchMove)
