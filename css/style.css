@@ -1925,20 +1925,9 @@ p { font-size: 1.0625rem; line-height: 1.75; }
    Replaces old ZoomParallax travel-photo scroll section.
    ============================================================ */
 .about-hero-float {
-  background: var(--dark);
-  color: var(--cream);
   padding-block: clamp(4rem, 8vh, 7rem);
   position: relative;
   overflow: hidden;
-}
-.about-hero-float::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 55% 70% at 88% 62%, rgba(255,188,149,0.08) 0%, transparent 58%),
-    radial-gradient(ellipse 48% 58% at 8%  28%, rgba(46,84,254,0.09)  0%, transparent 55%);
-  pointer-events: none;
 }
 .about-hero-float__grid {
   display: grid;
