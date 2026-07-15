@@ -513,4 +513,8 @@
   /* Fluid full-bleed animations (photo cover + Ken Burns, no fixed canvas)
      opt out of the 16:9 box and stay full-viewport on mobile too. */
   .proj-hero--video .proj-hero__video-wrap--fill { height: 100svh; aspect-ratio: auto; }
+  /* UI-mockup showreels (browser-frame + info panel): swap to 4:3 on
+     mobile — the animation itself hides the info panel/numbering below
+     760px and lets the browser-frame fill the tighter box. */
+  .proj-hero--video .proj-hero__video-wrap--ratio-4-3 { aspect-ratio: 4 / 3; }
 }
