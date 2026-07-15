@@ -41,6 +41,7 @@
   overflow: hidden;
   display: block;
   position: relative;
+  padding-top: 130px;
 }
 .proj-hero--video .proj-hero__video-frame {
   width: 100%;
