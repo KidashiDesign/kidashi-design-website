@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Art Gerecht — Animation Sequence</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; background: #0A0A0A; overflow: hidden; }
+  .stage { position: relative; width: 100%; height: 100vh; overflow: hidden; background: #0A0A0A; }
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity;
+  }
+  .slide.is-active { opacity: 1; }
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <iframe class="slide" data-src="artgerecht-01-intro.html" data-hold="3200" title="Art Gerecht — Intro" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+    <iframe class="slide" data-src="artgerecht-02-modular-reveal.html" data-hold="3200" title="Art Gerecht — Modular Reveal" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+    <iframe class="slide" data-src="artgerecht-03-agm-reveal.html" data-hold="3200" title="Art Gerecht — Vehicle Reveal" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+    <iframe class="slide" data-src="artgerecht-04-zoom-blur.html" data-hold="3200" title="Art Gerecht — Interior Zoom" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+    <iframe class="slide" data-src="artgerecht-05-brochure-mockup.html" data-hold="3200" title="Art Gerecht — Brochure Mockup" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+    <iframe class="slide" data-src="artgerecht-06-bumper.html" data-hold="5200" title="Art Gerecht — Closing Bumper" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+  </div>
+
+  <script>
+  (function () {
+    var DEFAULT_HOLD_MS = 3200; // fallback when a slide has no data-hold
+    var PRELOAD_LEAD_MS = 1100; // how far ahead of its cue the next clip gets prefetched
+
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    var n = slides.length;
+    var idx = 0;
+    var timers = [];
+    var prefetched = {};
+
+    function prefetch(url) {
+      if (prefetched[url]) return;
+      prefetched[url] = true;
+      var link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = url;
+      document.head.appendChild(link);
+    }
+
+    function activate(i) {
+      var el = slides[i];
+      var url = el.getAttribute('data-src');
+      // Force a fresh mount so the clip's own timeline always restarts at frame 0.
+      el.src = 'about:blank';
+      requestAnimationFrame(function () {
+        el.src = url;
+      });
+      slides.forEach(function (s, j) {
+        s.classList.toggle('is-active', j === i);
+      });
+    }
+
+    function clearTimers() {
+      timers.forEach(clearTimeout);
+      timers = [];
+    }
+
+    function holdFor(i) {
+      var v = parseInt(slides[i].getAttribute('data-hold'), 10);
+      return isNaN(v) ? DEFAULT_HOLD_MS : v;
+    }
+
+    function cycle() {
+      activate(idx);
+      var holdMs = holdFor(idx);
+      var nextIdx = (idx + 1) % n;
+
+      timers.push(setTimeout(function () {
+        prefetch(slides[nextIdx].getAttribute('data-src'));
+      }, Math.max(holdMs - PRELOAD_LEAD_MS, 300)));
+
+      timers.push(setTimeout(function () {
+        idx = nextIdx;
+        cycle();
+      }, holdMs));
+    }
+
+    function start() {
+      clearTimers();
+      prefetch(slides[(idx + 1) % n].getAttribute('data-src'));
+      cycle();
+    }
+
+    function stop() {
+      clearTimers();
+    }
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) { stop(); } else { start(); }
+    });
+
+    start();
+  })();
+  </script>
+</body>
+</html>
