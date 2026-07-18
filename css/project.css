@@ -36,14 +36,22 @@
   z-index: 3;
 }
 .proj-hero--video .proj-hero__video-wrap {
+  position: relative;
   width: 100%;
   height: 100svh;
   overflow: hidden;
   display: block;
 }
+/* Animation source is natively 16:9 — scale it up (never down) so it always
+   covers the full viewport edge-to-edge, centered, whatever the device
+   aspect ratio is (ultra-wide desktop down to tall mobile). */
 .proj-hero--video .proj-hero__video-frame {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 177.78svh);
+  height: max(100svh, 56.25vw);
+  transform: translate(-50%, -50%);
   border: none;
   display: block;
   pointer-events: none;
@@ -489,6 +497,4 @@
   .proj-details__inner { grid-template-columns: 1fr 1fr; }
   .proj-process__step { grid-template-columns: 1fr; gap: 0.5rem; }
   .proj-process__num { display: none; }
-  /* Mobile: 16:9 ratio instead of full-screen height */
-  .proj-hero--video .proj-hero__video-wrap { height: auto; aspect-ratio: 16 / 9; }
 }
