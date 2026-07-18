@@ -8,7 +8,7 @@
     body { background: #0b0b0e; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
     #__bundler_loading { position: fixed; bottom: 20px; right: 20px; font: 13px/1.4 -apple-system, BlinkMacSystemFont, sans-serif; color: #666; background: #fff; padding: 8px 14px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.12); z-index: 10000; }
     #__bundler_thumbnail { position: fixed; inset: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #0b0b0e; z-index: 9999; }
-    #__bundler_thumbnail svg { width: 100%; height: 100%; object-fit: contain; }
+    #__bundler_thumbnail svg { width: 100%; height: 100%; object-fit: cover; }
     #__bundler_placeholder { color: #999; font-size: 14px; }
   </style>
   <noscript>
@@ -58,7 +58,7 @@
 </head>
 <body>
   <div id="__bundler_thumbnail">
-<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
 <rect width="1200" height="800" fill="#0b0b0e"></rect>
 <circle cx="600" cy="400" r="180" fill="none" stroke="#f4a418" stroke-width="24"></circle>
 <path d="M600 260 L740 400 L600 540 L460 400 Z" fill="#f4a418"></path>
