@@ -4,7 +4,7 @@
 <script>
 (function(){
   if(!location.search.includes('tile'))return;
-  var css='text,tspan{display:none!important}[class*="text"],[class*="Text"],[class*="title"],[class*="Title"],[class*="label"],[class*="Label"],[class*="caption"],[class*="Caption"],[class*="heading"],[class*="Heading"]{visibility:hidden!important}';
+  var css='text,tspan{display:none!important}[class*="text"],[class*="Text"],[class*="title"],[class*="Title"],[class*="label"],[class*="Label"],[class*="caption"],[class*="Caption"],[class*="heading"],[class*="Heading"]{visibility:hidden!important}#__bundler_err{display:none!important}';
   function inject(){var s=document.createElement('style');s.textContent=css;(document.head||document.documentElement).appendChild(s);}
   inject();document.addEventListener('DOMContentLoaded',inject);setTimeout(inject,500);setTimeout(inject,1500);
 })();

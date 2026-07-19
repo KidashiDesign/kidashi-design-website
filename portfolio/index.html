@@ -85,10 +85,12 @@
       </a>
 
 
-      <!-- XP-Days -->
+      <!-- XP-Days: full React animation lives on the detail page; the grid
+           tile only needs a still loop, so it ships as a pre-rendered WebP
+           instead of mounting the whole app just to show a cropped corner. -->
       <a href="xp-days/" class="portfolio-item reveal" data-glow="blue" data-categories="web-design,branding,social-media">
         <div class="portfolio-item__bg" style="background:#06120D;">
-          <iframe data-src="xp-days/xp-days-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+          <img src="../images/portfolio/xp-days/tile-preview.webp" class="portfolio-item__anim" alt="" loading="lazy">
         </div>
       </a>
 
@@ -97,7 +99,7 @@
       <!-- Rohyma Jet -->
       <a href="rohyma-jet/" class="portfolio-item reveal" data-glow="orange" data-delay="100" data-categories="branding">
         <div class="portfolio-item__bg" style="background:#0a0a0a;overflow:hidden;">
-          <iframe data-src="rohyma-jet/rohyma-jet-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+          <img src="../images/portfolio/rohyma-jet/tile-preview.webp" class="portfolio-item__anim" alt="" loading="lazy">
         </div>
       </a>
 
@@ -108,19 +110,16 @@
         </div>
       </a>
 
-      <!-- Galerie Kronsbein -->
+      <!-- Galerie Kronsbein: same tile-preview WebP for both layouts (desktop
+           crop + mobile phone-frame mockup) — a single cached file, no JS
+           needed to pick one, so the old duplicate-iframe load is structurally
+           impossible now. -->
       <a href="galerie-kronsbein/" class="portfolio-item reveal" data-glow="blue" data-categories="web-design">
         <div class="portfolio-item__bg" style="background:#141110;">
-          <iframe data-src="galerie-kronsbein/galerie-kronsbein-animation.html?tile=1" class="portfolio-item__anim portfolio-gk-desktop" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+          <img src="../images/portfolio/galerie-kronsbein/tile-preview.webp" class="portfolio-item__anim portfolio-gk-desktop" alt="" loading="lazy">
           <div class="portfolio-gk-phone" aria-hidden="true">
             <div class="portfolio-gk-phone__frame">
-              <iframe
-                class="portfolio-gk-phone__iframe"
-                data-src="galerie-kronsbein/galerie-kronsbein-animation.html?tile=1"
-                scrolling="no"
-                tabindex="-1"
-                loading="lazy">
-              </iframe>
+              <img src="../images/portfolio/galerie-kronsbein/tile-preview.webp" class="portfolio-gk-phone__iframe" alt="" loading="lazy">
             </div>
           </div>
         </div>
@@ -143,7 +142,7 @@
       <!-- Selvoma -->
       <a href="selvoma/" class="portfolio-item reveal" data-glow="green" data-delay="200" data-categories="branding">
         <div class="portfolio-item__bg" style="background:#26340f;">
-          <iframe data-src="selvoma/selvoma-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+          <img src="../images/portfolio/selvoma/tile-preview.webp" class="portfolio-item__anim" alt="" loading="lazy">
         </div>
       </a>
 
@@ -271,18 +270,7 @@
     entries.forEach(function (entry) {
       if (!entry.isIntersecting) return;
       observer.unobserve(entry.target);
-
-      var tile = entry.target;
-      var phoneFrame = tile.querySelector('.portfolio-gk-phone__iframe');
-      if (phoneFrame) {
-        // Galerie Kronsbein renders two layouts (desktop crop vs. phone
-        // mockup); only the one CSS actually shows for this viewport may load —
-        // loading both would fetch the same animation twice.
-        var isPhoneLayout = window.matchMedia('(max-width:600px)').matches;
-        activate(isPhoneLayout ? phoneFrame : tile.querySelector('.portfolio-gk-desktop'));
-      } else {
-        activate(tile.querySelector('iframe[data-src]'));
-      }
+      activate(entry.target.querySelector('iframe[data-src]'));
     });
   }
 
