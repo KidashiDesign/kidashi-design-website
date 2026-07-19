@@ -80,7 +80,7 @@
       <!-- Seestern -->
       <a href="seestern/" class="portfolio-item reveal" data-glow="orange" data-delay="200" data-categories="branding,print-design,appereal">
         <div class="portfolio-item__bg" style="background:#0a0906;">
-          <iframe src="seestern/seestern-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+          <iframe data-src="seestern/seestern-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
       </a>
 
@@ -88,7 +88,7 @@
       <!-- XP-Days -->
       <a href="xp-days/" class="portfolio-item reveal" data-glow="blue" data-categories="web-design,branding,social-media">
         <div class="portfolio-item__bg" style="background:#06120D;">
-          <iframe src="xp-days/xp-days-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+          <iframe data-src="xp-days/xp-days-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
       </a>
 
@@ -97,29 +97,29 @@
       <!-- Rohyma Jet -->
       <a href="rohyma-jet/" class="portfolio-item reveal" data-glow="orange" data-delay="100" data-categories="branding">
         <div class="portfolio-item__bg" style="background:#0a0a0a;overflow:hidden;">
-          <iframe src="rohyma-jet/rohyma-jet-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+          <iframe data-src="rohyma-jet/rohyma-jet-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
       </a>
 
       <!-- TM Studio -->
       <a href="tm-studio/" class="portfolio-item reveal" data-glow="blue" data-delay="200" data-categories="branding,print-design">
         <div class="portfolio-item__bg" style="background:#efe2c9;">
-          <iframe src="tm-studio/tm-studio-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+          <iframe data-src="tm-studio/tm-studio-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
       </a>
 
       <!-- Galerie Kronsbein -->
       <a href="galerie-kronsbein/" class="portfolio-item reveal" data-glow="blue" data-categories="web-design">
         <div class="portfolio-item__bg" style="background:#141110;">
-          <iframe src="galerie-kronsbein/galerie-kronsbein-animation.html?tile=1" class="portfolio-item__anim portfolio-gk-desktop" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+          <iframe data-src="galerie-kronsbein/galerie-kronsbein-animation.html?tile=1" class="portfolio-item__anim portfolio-gk-desktop" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
           <div class="portfolio-gk-phone" aria-hidden="true">
             <div class="portfolio-gk-phone__frame">
               <iframe
-                id="gkTilePhone"
                 class="portfolio-gk-phone__iframe"
                 data-src="galerie-kronsbein/galerie-kronsbein-animation.html?tile=1"
                 scrolling="no"
-                tabindex="-1">
+                tabindex="-1"
+                loading="lazy">
               </iframe>
             </div>
           </div>
@@ -129,28 +129,28 @@
       <!-- Art Gerecht Modular -->
       <a href="art-gerecht-modular/" class="portfolio-item reveal" data-glow="blue" data-categories="print-design,branding">
         <div class="portfolio-item__bg" style="background:#0A0A0A;">
-          <iframe src="art-gerecht-modular/artgerecht-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+          <iframe data-src="art-gerecht-modular/artgerecht-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
       </a>
 
       <!-- Hideout Georgia -->
       <a href="hideout-georgia/" class="portfolio-item reveal" data-glow="blue" data-delay="100" data-categories="branding,social-media">
         <div class="portfolio-item__bg" style="background:#0d1207;overflow:hidden;">
-          <iframe src="hideout-georgia/hideout-georgia-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+          <iframe data-src="hideout-georgia/hideout-georgia-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
       </a>
 
       <!-- Selvoma -->
       <a href="selvoma/" class="portfolio-item reveal" data-glow="green" data-delay="200" data-categories="branding">
         <div class="portfolio-item__bg" style="background:#26340f;">
-          <iframe src="selvoma/selvoma-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+          <iframe data-src="selvoma/selvoma-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
       </a>
 
       <!-- Studio995 -->
       <a href="studio995/" class="portfolio-item reveal" data-glow="red" data-categories="social-media,print-design">
         <div class="portfolio-item__bg" style="background:linear-gradient(135deg,#3A1A2E,#0A0408);">
-          <iframe src="studio995/studio995-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+          <iframe data-src="studio995/studio995-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
       </a>
 
@@ -258,10 +258,44 @@
 })();
 </script>
 <script>
-(function(){
-  if(window.matchMedia('(max-width:600px)').matches){
-    var el=document.getElementById('gkTilePhone');
-    if(el) el.src=el.dataset.src;
+(function () {
+  // Loads each portfolio tile's animation iframe only once it's actually near
+  // the viewport — rootMargin gives it a head start so the tile isn't blank
+  // when it scrolls into view. loading="lazy" stays on as a native fallback.
+  function activate(iframe) {
+    if (!iframe || iframe.src) return;
+    iframe.src = iframe.dataset.src;
+  }
+
+  function onIntersect(entries, observer) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+
+      var tile = entry.target;
+      var phoneFrame = tile.querySelector('.portfolio-gk-phone__iframe');
+      if (phoneFrame) {
+        // Galerie Kronsbein renders two layouts (desktop crop vs. phone
+        // mockup); only the one CSS actually shows for this viewport may load —
+        // loading both would fetch the same animation twice.
+        var isPhoneLayout = window.matchMedia('(max-width:600px)').matches;
+        activate(isPhoneLayout ? phoneFrame : tile.querySelector('.portfolio-gk-desktop'));
+      } else {
+        activate(tile.querySelector('iframe[data-src]'));
+      }
+    });
+  }
+
+  var tiles = Array.prototype.filter.call(
+    document.querySelectorAll('.portfolio-item'),
+    function (tile) { return tile.querySelector('iframe[data-src]'); }
+  );
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(onIntersect, { rootMargin: '600px 0px', threshold: 0.01 });
+    tiles.forEach(function (tile) { observer.observe(tile); });
+  } else {
+    tiles.forEach(function (tile) { onIntersect([{ isIntersecting: true, target: tile }], { unobserve: function () {} }); });
   }
 })();
 </script>

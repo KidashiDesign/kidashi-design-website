@@ -1,5 +1,5 @@
 # Session Handoff — Kidashi Design Website
-Aktualisiert: 2026-07-02
+Aktualisiert: 2026-07-19
 
 ---
 
@@ -110,11 +110,12 @@ Wichtig: `.nav { position:fixed; top:0; }` liegt **transparent über dem Hero** 
 **Wichtig für neue Agenten:** Es gibt zwei völlig unterschiedliche Bauweisen für `*-animation.html`-Dateien im Portfolio-Ordner. Vor dem Bearbeiten immer den Dateikopf prüfen, welches Format vorliegt.
 
 ### Format A — DC-Runtime-Bundle-Export (älteres Format, mehrere Projekte)
-- `<script type="__bundler/manifest">` — Base64-kodierte Bilddaten (groß, nicht anfassen)
+- `<script type="__bundler/manifest">` — Base64+gzip-kodierte Assets (Bilder, Fonts, JS/JSX; groß, nicht ohne Grund anfassen)
 - `<script type="__bundler/template">` — JSON-kodiertes HTML+CSS+JS
-- **Braucht React von `https://unpkg.com/react@...`** zur Laufzeit → in Sandbox-Umgebungen ohne Internet-Zugriff auf unpkg.com **nicht renderbar** (`[bundle] error`), auf der echten Live-Seite lädt es normal
-- Kritisch beim Bearbeiten: Template-JSON immer mit `json.JSONDecoder().raw_decode()` lesen (nie Regex!). Nach `json.dumps()` **alle** `/` durch `\/` ersetzen (nicht nur `</script>`) — sonst bricht der HTML-Parser den Script-Tag ab
+- **Seit 2026-07-19 kein Live-CDN mehr nötig** (siehe Session-Eintrag unten): React/ReactDOM sind für alle Projekte lokal im Manifest gebündelt (`<script src="UUID">` vor dem dc-runtime-Tag), `@babel/standalone` wurde für alle Projekte, die tatsächlich rohes JSX geladen haben, durch vorkompiliertes JS ersetzt. Rendert jetzt auch in Sandbox-Umgebungen **ohne** Internet-Zugriff auf unpkg.com.
+- Kritisch beim Bearbeiten: Template-JSON immer mit `json.loads()`/`re.search(r'<script type="__bundler/template">\s*(".*?")\s*</script>', content, re.S)` lesen (nie naiver Regex ohne DOTALL!). Nach `json.dumps()` **alle** `</script>` durch `</script>` ersetzen — sonst bricht der HTML-Parser den äußeren Script-Tag ab
 - `?tile=1`-Query-Param-Konvention: Bundle-Skript am Dateianfang blendet Text-Elemente aus, wenn die Animation als kleine Portfolio-Kachel eingebettet wird (`text,tspan{display:none}` + class-basierte Heuristik für „title"/„label" etc.)
+- **x-import `kind` (jsx vs. js) wird NICHT aus dem Manifest-Mimetype abgeleitet**, sondern rein aus der Dateiendung im `from`-Attribut (`kindOf = u => /\.(jsx|tsx)(\?|#|$)/i.test(u) ? "jsx" : "js"`, siehe dc-runtime-Quelle). Mehrere Projekte hatten bereits vorkompiliertes JS, das nur wegen der `.jsx`-Endung im Referenz-Namen unnötig `ensureBabel()` ausgelöst hat — beim Umbenennen auf `.js` **immer erst den tatsächlichen Inhalt auf echte JSX-Syntax prüfen** (`<Tag ...>`/`return (<div>`-Muster), sonst rendert die Komponente nach dem Rename nicht mehr (passiert, siehe unten).
 
 ### Format B — Native, dependency-freie Animation (`portfolio/seestern/seestern-animation.html`)
 - Komplett selbst gebaut (Sonnet 5, 2026-07-02), keine externen Libraries, keine CDN-Abhängigkeit
@@ -157,11 +158,29 @@ Siehe eigener Abschnitt oben. Mehrere Iterationen: erst Basis-Glaseffekt, dann C
 
 ---
 
+## Was in dieser Session gemacht wurde (2026-07-19) — Portfolio-Performance
+
+**Ausgangslage:** Branch `claude/portfolio-performance-optimization-19k2fp` war von einem alten `main`-Stand abgespalten (~90 Commits zurück) und hatte gar nicht die Dateien, um die es ging (galerie-kronsbein-, selvoma-, studio995-, hideout-georgia-, wh4-animation.html existierten dort nicht). Branch wurde per `git checkout -B <branch> origin/main` neu aus `main` aufgesetzt, bevor irgendetwas analysiert wurde — sonst hätte man am falschen Dateistand gearbeitet.
+
+1. **Doppel-Load Galerie Kronsbein behoben** (zwei unabhängige Ursachen):
+   - `portfolio/index.html`: Desktop- und Phone-iframe zeigten beide fest auf dieselbe URL; auf Mobile (≤600px) hat ein `matchMedia`-Script nur das Phone-iframe befüllt, aber das Desktop-iframe blieb aktiv → beide luden dieselbe Datei. Auf ein gemeinsames IntersectionObserver-gesteuertes `data-src` umgestellt, das pro Kachel nur genau ein iframe aktiviert.
+   - **Der eigentliche Bug**, den die Aufgabenbeschreibung meinte: der dc-runtime (siehe Format A oben) hat beim Booten **unconditional** `fetch(location.href)` aufgerufen, um sein eigenes, bereits geladenes Dokument ein zweites Mal herunterzuladen und mit identischem Inhalt erneut zu rendern — komplett redundant. Betraf **alle 6** dc-runtime-Bundle-Dateien (xp-days, wh4, selvoma, tm-studio, galerie-kronsbein, rohyma-jet — alle teilen denselben Runtime-Blob, SHA256-Hash identisch). Per base64→gunzip→str.replace→gzip→base64-Patch entfernt (gleiche Methode wie frühere PlaybackBar-Patches).
+2. **`loading="eager"` → `lazy`** auf allen 8 betroffenen Kachel-iframes (`portfolio/index.html`) + gemeinsamer IntersectionObserver (`rootMargin: 600px`) ergänzt, der `data-src` erst bei echter Nähe zum Viewport auf `src` überträgt. `loading="lazy"` bleibt als natives Fallback bestehen.
+3. **@babel/standalone-Laufzeitkompilierung entfernt** (Build-Step via esbuild, einmalig lokal ausgeführt, Ergebnis committed):
+   - Alle 6 dc-runtime-Dateien luden `react`+`react-dom` **unconditional** live von unpkg.com (nicht nur konditional für Babel, wie ursprünglich vermutet). React/ReactDOM UMD-Bundles jetzt lokal im Manifest gebündelt (Vorbild: `rohyma-jet` machte das schon immer so — Assets von dort für die anderen 5 wiederverwendet).
+   - `studio995-animation.html` + alle 6 `art-gerecht-modular`-Szenen luden zusätzlich `@babel/standalone` live und kompilierten echtes JSX im Browser. JSX-Quellen aus dem Manifest extrahiert, mit `esbuild.transform({loader:'jsx', jsx:'transform', jsxFactory:'React.createElement'})` vorkompiliert, Manifest-Eintrag durch kompiliertes JS ersetzt, `.jsx`→`.js` in den `x-import from`-Referenzen umbenannt (siehe Hinweis oben zu `kindOf()`). Verworfene Babel-Blobs (~660–900 KB pro Datei) aus Manifest **und** `ext_resources` entfernt.
+   - Gesamtergebnis: `studio995-animation.html` 2,26 MB → 1,36 MB; die 6 `art-gerecht-modular`-Szenen zusammen von ~10,45 MB auf ~6 MB (der Rest ist ein einzelnes 3,48 MB PNG in Szene 3, das noch als WebP optimiert werden sollte — offener Punkt); `xp-days` zusätzlich ein verbliebenes JSX-x-import (`animations.jsx`, `XPDaysMovie.jsx`) mit vorkompiliert.
+   - **Verifikation ohne Internet:** Playwright mit `context.route('**/*', ...)`, das alles außer `http://127.0.0.1:PORT/` und `blob:` abbricht — zeigt zuverlässig, ob eine Datei noch eine Live-CDN-Abhängigkeit hat (`window.React`/`window.Babel` nach Laden prüfen). Damit lassen sich Format-A-Dateien in dieser Sandbox jetzt doch vollständig rendern/screenshotten, sofern kein Rest-unpkg-Aufruf mehr drin ist — die alte Annahme unten („nicht renderbar in Sandbox") galt nur, solange die Live-CDN-Abhängigkeit noch bestand.
+4. **Noch offen:** Kachel-Vorschau (`?tile=1`) von voller React-Animation auf leichtes WebP/Video umstellen (Aufwand hoch: braucht Capture-Pipeline, s. Analyse im Chat-Verlauf). Priorisierung laut Analyse: selvoma → galerie-kronsbein → rohyma-jet → xp-days (haben schon Tile-Modus) vor tm-studio/studio995 vor art-gerecht-modular (kein Tile-Modus, 6 Szenen, am aufwendigsten).
+5. **Nicht angefasst, pre-existing, außerhalb Scope:** `selvoma-animation.html` hat einen unrenderten Template-Platzhalter `{{ s.src }}` als literale URL (→ 404); `galerie-kronsbein-animation.html` wirft vereinzelt `ERR_INVALID_URL` (nicht reproduzierbar außerhalb des Netzwerk-Block-Tests). Beides pre-existing, nicht Teil dieser Aufgabe.
+
+---
+
 ## Verifikations-Setup für neue Agenten (Sandbox ohne echten Internet-Zugriff)
 
 - Lokaler Server: `python3 -m http.server 8199 --bind 127.0.0.1 --directory /home/user/kidashi-design-website` **immer mit `nohup ... &` + `disown`** starten, sonst stirbt er beim nächsten Bash-Tool-Call (kein echtes Hintergrund-Prozess-Handling in einfachen `&`-Backgrounds dieser Sandbox)
-- Playwright: `npm install --no-save playwright-core`, Chromium liegt vorinstalliert unter `/opt/pw-browsers/chromium-1194/chrome-linux/chrome` — **nicht** `playwright install` ausführen
-- `fonts.googleapis.com` und `unpkg.com` sind in dieser Sandbox **netzwerk-blockiert** — das ist normal und kein Bug in eigenem Code. Format-A-Animationen (DC-Runtime, siehe oben) können deshalb hier nicht vollständig gerendert/gescreenshottet werden.
+- Playwright: `npm install --no-save playwright`, Chromium liegt vorinstalliert unter `/opt/pw-browsers/chromium` — **nicht** `playwright install` ausführen (`executablePath: '/opt/pw-browsers/chromium'` explizit setzen)
+- `fonts.googleapis.com` und `unpkg.com` sind in dieser Sandbox **netzwerk-blockiert** — das ist normal und kein Bug in eigenem Code. Format-A-Animationen (DC-Runtime, siehe oben) mit einer **verbleibenden** Live-CDN-Abhängigkeit lassen sich deshalb hier nicht vollständig rendern (`[bundle] error` bzw. `[dc] failed to load React or boot`); Dateien ohne Live-CDN-Abhängigkeit (Stand 2026-07-19: alle bearbeiteten Format-A-Dateien) rendern auch offline einwandfrei — am besten testen mit `context.route('**/*', route => route.request().url().startsWith('blob:') || route.request().url().startsWith('http://127.0.0.1') ? route.continue() : route.abort())`.
 - Nach jeder Playwright-Session: `pkill -f http.server`, `rm -rf node_modules package.json package-lock.json` vor dem Commit (sonst landen Test-Artefakte im Git-Diff)
 
 ---
