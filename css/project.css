@@ -491,4 +491,6 @@
   .proj-process__num { display: none; }
   /* Mobile: 16:9 ratio instead of full-screen height */
   .proj-hero--video .proj-hero__video-wrap { height: auto; aspect-ratio: 16 / 9; }
+  /* Opt-out: some hero animations are designed to fill the full screen on every device */
+  .proj-hero--video-fill .proj-hero__video-wrap { height: 100svh; aspect-ratio: unset; }
 }

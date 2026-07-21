@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Art Gerecht — Animation Sequence</title>
+<link rel="prefetch" href="artgerecht-01-intro.html">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; background: #0A0A0A; overflow: hidden; }
+  .stage { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0A0A0A; }
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity;
+  }
+  .slide.is-active { opacity: 1; }
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <iframe class="slide" data-src="artgerecht-01-intro.html" data-hold="3200" title="Art Gerecht — Intro" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+    <iframe class="slide" data-src="artgerecht-02-modular-reveal.html" data-hold="3200" title="Art Gerecht — Modular Reveal" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+    <iframe class="slide" data-src="artgerecht-03-agm-reveal.html" data-hold="3200" title="Art Gerecht — Vehicle Reveal" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+    <iframe class="slide" data-src="artgerecht-04-zoom-blur.html" data-hold="3200" title="Art Gerecht — Interior Zoom" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+    <iframe class="slide" data-src="artgerecht-05-brochure-mockup.html" data-hold="3200" title="Art Gerecht — Brochure Mockup" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+    <iframe class="slide" data-src="artgerecht-06-bumper.html" data-hold="5200" title="Art Gerecht — Closing Bumper" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+  </div>
+
+  <script>
+  (function () {
+    var DEFAULT_HOLD_MS = 3200; // fallback when a slide has no data-hold
+    var PRELOAD_LEAD_MS = 1400; // how far ahead of its cue the next clip gets fully loaded (hidden)
+    var UNLOAD_DELAY_MS = 950;  // wait for the crossfade-out to finish before resetting the old clip
+
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    var n = slides.length;
+    var idx = 0;
+    var timers = [];
+    var loaded = [];
+
+    // Loads the clip's real document into its iframe ahead of time, while it's
+    // still hidden (opacity 0), so the crossfade never reveals a blank/loading frame.
+    function loadSlide(i) {
+      if (loaded[i]) return;
+      loaded[i] = true;
+      slides[i].src = slides[i].getAttribute('data-src');
+    }
+
+    // Resets a clip back to blank once it's fully faded out, so its one-shot
+    // timeline restarts cleanly at frame 0 the next time it's preloaded.
+    function unloadSlide(i) {
+      if (!loaded[i]) return;
+      loaded[i] = false;
+      slides[i].src = 'about:blank';
+    }
+
+    function activate(i) {
+      loadSlide(i);
+      slides.forEach(function (s, j) {
+        s.classList.toggle('is-active', j === i);
+      });
+    }
+
+    function clearTimers() {
+      timers.forEach(clearTimeout);
+      timers = [];
+    }
+
+    function holdFor(i) {
+      var v = parseInt(slides[i].getAttribute('data-hold'), 10);
+      return isNaN(v) ? DEFAULT_HOLD_MS : v;
+    }
+
+    function cycle() {
+      var prevIdx = (idx - 1 + n) % n;
+      activate(idx);
+
+      timers.push(setTimeout(function () {
+        unloadSlide(prevIdx);
+      }, UNLOAD_DELAY_MS));
+
+      var holdMs = holdFor(idx);
+      var nextIdx = (idx + 1) % n;
+
+      timers.push(setTimeout(function () {
+        loadSlide(nextIdx);
+      }, Math.max(holdMs - PRELOAD_LEAD_MS, 300)));
+
+      timers.push(setTimeout(function () {
+        idx = nextIdx;
+        cycle();
+      }, holdMs));
+    }
+
+    function start() {
+      clearTimers();
+      cycle();
+    }
+
+    function stop() {
+      clearTimers();
+    }
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) { stop(); } else { start(); }
+    });
+
+    start();
+  })();
+  </script>
+</body>
+</html>
