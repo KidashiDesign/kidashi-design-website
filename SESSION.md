@@ -1,5 +1,5 @@
 # Session Handoff — Kidashi Design Website
-Aktualisiert: 2026-07-18
+Aktualisiert: 2026-07-21
 
 ---
 
@@ -8,24 +8,44 @@ Aktualisiert: 2026-07-18
 | Key | Value |
 |-----|-------|
 | Repo | `kidashidesign/kidashi-design-website` |
-| Branch (aktiv) | `claude/fullscreen-animation-responsive-lxc04m` |
-| Deploy | FTP → Hostinger (echte Live-Seite) + GitHub Pages (Preview) |
+| Branch (aktiv) | `claude/session-uvyxdk` |
+| Deploy | FTP → Hostinger (**aktuell defekt**, siehe unten) + GitHub Pages (Preview) + **Cloudflare Pages** (neu, `https://kidashi-design-website.pages.dev/`) |
 | Stack | Statisches HTML/CSS/JS, kein Build-Tool, kein Framework |
-| Live-URL | `https://www.kidashidesign.com` |
+| Live-URL | `https://www.kidashidesign.com` (Hostinger, Deploy aktuell rot) |
+| Neue Live-URL (Nicole, seit 21.07.) | `https://kidashi-design-website.pages.dev/` — Cloudflare Pages. **Nicht erreichbar aus der Sandbox** (Proxy/Netzwerkrichtlinie blockt `pages.dev`, 403 sowohl via curl als auch WebFetch). Keine Cloudflare-Config im Repo gefunden (kein `wrangler.toml`, kein `.github/workflows` dafür) → vermutlich über Cloudflare-eigene GitHub-App direkt an einen Branch gekoppelt (wahrscheinlich `main`), nicht über ein Repo-File steuerbar. **Noch ungeklärt: welchen Branch Cloudflare Pages genau beobachtet** — mit Nicole klären. |
 | Referenz/Staging-URL (Nicole) | `https://workspace.kidashidesign.com` — **nicht erreichbar aus der Sandbox** (Proxy blockt, 403, auch via Chromium direkt: `ERR_TUNNEL_CONNECTION_FAILED`) |
 | Inhaberin | Nicole Szatkowski — Kidashi Design, Tbilisi (GMT+4) |
 
 ---
 
+## 🚨 KRITISCH: Hostinger FTP-Deploy ist seit mind. 16.07. defekt (Stand 21.07.)
+
+**Root Cause bestätigt (Job-Logs geprüft):** `Deploy via FTP`-Step scheitert mit `mirror: Not connected`.
+Im Log erscheinen `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` als **leer** — die GitHub-Secrets fehlen
+oder sind falsch benannt/leer. Mind. 3 aufeinanderfolgende Runs auf `main` fehlgeschlagen (16.07., 17.07., 19.07.).
+
+**Konsequenz:** `www.kidashidesign.com` (Hostinger) liefert seit dem möglicherweise veralteten Code aus —
+z. B. noch die alte Google-Fonts-CDN-Einbindung, obwohl der Code in `main` bereits gefixt ist (siehe unten).
+Für Nicoles DSGVO-Ziel (deutsche Kunden) ist das der eigentliche Blocker, nicht der Code.
+
+**Ich kann das nicht selbst fixen** (kein Zugriff auf GitHub-Repo-Secrets). Nicole muss:
+1. GitHub → Repo Settings → Secrets and variables → Actions
+2. Prüfen/neu setzen: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` (aktuelle Hostinger-FTP-Zugangsdaten)
+3. Danach Workflow-Re-Run auslösen lassen (`mcp__github__actions_get` / rerun) und Live-Seite verifizieren
+
+**Offen seit 21.07., noch nicht behoben — bei jedem Sessionstart erneut prüfen, ob das erledigt wurde.**
+
+---
+
 ## 🚨 DEPLOY-PFLICHT — bei jeder neuen Session als ERSTES prüfen
 
-Die echte Live-Seite liegt auf **Hostinger** (nicht GitHub Pages).
 Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.yml` per FTP bei jedem Push auf `main`.
 
 **Beim Sessionstart immer prüfen:**
 1. Letzten Workflow-Run auf `main` checken → `mcp__github__actions_list` (list_workflow_runs)
-2. Wenn "Deploy to Hostinger" = `failure` → sofort melden und `rerun_failed_jobs` auslösen
+2. Wenn "Deploy to Hostinger" = `failure` → sofort melden (siehe Abschnitt oben — bekannter, noch offener Bug)
 3. Secrets: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` (GitHub Repo Settings → Secrets)
+4. Zusätzlich: Cloudflare Pages (`kidashi-design-website.pages.dev`) prüfen/im Blick behalten — Details oben.
 
 **Merke:** GitHub Pages Deploy kann grün sein, aber Hostinger trotzdem rot.
 
