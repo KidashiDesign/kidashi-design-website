@@ -135,6 +135,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   display: flex; align-items: center; justify-content: space-between;
   width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter);
 }
+.nav__dock { display: flex; align-items: center; }
 .nav__logo { display: flex; align-items: baseline; gap: 8px; text-decoration: none; }
 .nav__logo-k { font-family: var(--font-h); font-size: 2rem; font-weight: 400; letter-spacing: 0.06em; color: var(--cream); line-height: 1; position: relative; display: inline-block; }
 .nav__logo-d { font-family: var(--font-b); font-size: 0.75rem; font-weight: 300; letter-spacing: 0.28em; text-transform: uppercase; color: #FFBC95; line-height: 1; }
@@ -244,7 +245,6 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(247,243,238,0.4);
-  margin-right: 1.5rem;
   white-space: nowrap;
 }
 .nav__location { color: rgba(247,243,238,0.4); }
@@ -353,10 +353,10 @@ p { font-size: 1.0625rem; line-height: 1.75; }
     backdrop-filter: none;
   }
 
-  /* Links container becomes the floating glass dock */
-  .nav__links {
-    gap: 0.3rem;
-    padding: 0.4rem;
+  /* Dock becomes the floating glass pill: logo + links + timezone together */
+  .nav__dock {
+    gap: 1.4rem;
+    padding: 0.4rem 0.4rem 0.4rem 1.1rem;
     border-radius: 999px;
     background: rgba(247, 243, 238, 0.55);
     border: 1px solid rgba(255, 255, 255, 0.4);
@@ -367,6 +367,16 @@ p { font-size: 1.0625rem; line-height: 1.75; }
       0 1px 2px rgba(10, 10, 11, 0.10),
       inset 1px 1px 1px rgba(255, 255, 255, 0.65),
       inset -1px -1px 1px rgba(255, 255, 255, 0.35);
+  }
+
+  /* Logo shrinks slightly to sit comfortably inside the pill */
+  .nav__dock .nav__logo-k { font-size: 1.5rem; }
+  .nav__dock .nav__logo-d { font-size: 0.6rem; }
+
+  /* Timezone widget sits inside the pill after the links, with a divider */
+  .nav__dock .nav__location {
+    padding-left: 1.2rem;
+    border-left: 1px solid rgba(10, 10, 11, 0.14);
   }
 
   /* Each menu point is a pill item — dark corporate text on glass */
