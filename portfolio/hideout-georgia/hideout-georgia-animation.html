@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hideout Georgia — Showreel</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#0d1207; }
+
+  .stage { position:fixed; inset:0; overflow:hidden; background:#0d1207; }
+
+  /* Persistent ambient loop — runs underneath every scene, at every breakpoint,
+     never reloaded or paused by the sequencer. */
+  .loop-bg {
+    position:absolute; inset:0; width:100%; height:100%; border:0; display:block; z-index:0;
+  }
+
+  .scene {
+    position:absolute; inset:0; width:100%; height:100%; border:0; display:block; z-index:1;
+    opacity:0; visibility:hidden;
+    transition:opacity 0.9s ease, visibility 0s linear 0.9s;
+  }
+  .scene.is-active { opacity:1; visibility:visible; transition:opacity 0.9s ease; }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <iframe class="loop-bg" src="hideout-georgia-loop.html" scrolling="no" tabindex="-1" aria-hidden="true" title=""></iframe>
+
+  <iframe class="scene" data-scene="intro" data-src="hideout-georgia-intro.html" scrolling="no" tabindex="-1" aria-hidden="true" title="Intro"></iframe>
+  <iframe class="scene" data-scene="logo"  data-src="hideout-georgia-logo.html"  scrolling="no" tabindex="-1" aria-hidden="true" title="Logomark"></iframe>
+  <iframe class="scene" data-scene="slide" data-src="hideout-georgia-slide.html" scrolling="no" tabindex="-1" aria-hidden="true" title="Slide"></iframe>
+  <iframe class="scene" data-scene="outro" data-src="hideout-georgia-outro.html" scrolling="no" tabindex="-1" aria-hidden="true" title="Outro"></iframe>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
+  var byName = {};
+  scenes.forEach(function (s) { byName[s.dataset.scene] = s; });
+
+  // Running order + on-screen duration (seconds), matched to each scene's
+  // own animation length. Fade overlaps the tail (see .scene transition).
+  var ORDER = [
+    { scene: 'intro', dur: 7.6 },
+    { scene: 'logo',  dur: 13.0 },
+    { scene: 'slide', dur: 7.8 },
+    { scene: 'outro', dur: 6.5 }
+  ];
+
+  function reload(iframe) {
+    iframe.src = iframe.dataset.src + '?t=' + Date.now();
+  }
+
+  var idx = -1, timer = null;
+  function show(i) {
+    idx = i;
+    var cur = ORDER[i];
+    reload(byName[cur.scene]);
+    scenes.forEach(function (s) { s.classList.toggle('is-active', s.dataset.scene === cur.scene); });
+
+    clearTimeout(timer);
+    timer = setTimeout(function () { show((i + 1) % ORDER.length); }, cur.dur * 1000);
+  }
+
+  show(0);
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { clearTimeout(timer); }
+    else if (idx >= 0) { show(idx); }
+  });
+})();
+</script>
+</body>
+</html>

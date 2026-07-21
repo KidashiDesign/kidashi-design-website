@@ -41,6 +41,15 @@ Für Nicoles DSGVO-Ziel (deutsche Kunden) ist das der eigentliche Blocker, nicht
 
 Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.yml` per FTP bei jedem Push auf `main`.
 
+**Status per 2026-07-02: 🔴 Deploy schlägt fehl.**
+Geprüft für mehrere aufeinanderfolgende Commits (`98f5340`, `37fe1c93`) — Workflow läuft nur ~20 Sekunden und bricht ab mit:
+```
+env: FTP_SERVER: (leer)  FTP_USERNAME: (leer)  FTP_PASSWORD: (leer)
+mirror: Not connected
+##[error]Process completed with exit code 1.
+```
+**Root Cause:** Die drei GitHub Secrets sind nicht gesetzt. Das ist kein Code-Problem — ein `rerun_failed_jobs` würde identisch fehlschlagen. **Nicht sinnlos rerunnen.**
+
 **Beim Sessionstart immer prüfen:**
 1. Letzten Workflow-Run auf `main` checken → `mcp__github__actions_list` (list_workflow_runs)
 2. Wenn "Deploy to Hostinger" = `failure` → sofort melden (siehe Abschnitt oben — bekannter, noch offener Bug)
@@ -53,11 +62,12 @@ Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.
 
 ## ⚠️ Vertraulichkeitsregeln (IMMER einhalten)
 
-- Kein KI-Workflow sichtbar auf der öffentlichen Seite
-- Kein Name „Gianluca Crepaldi" — nur „Freelance-Collaboration mit einem Esports-Event-Veranstalter"
-- Projekt Wiedmann & Winz → komplett aus Portfolio ausgeschlossen
+- **Kein KI-Workflow sichtbar** auf der öffentlichen Seite (Nicole = echter Mensch, zertifizierter Designer)
+- **Esports-Projekt** → nur als „Freelance-Collaboration mit einem Esports-Event-Veranstalter" erwähnen, nie Kundenname
+- **Projekt Wiedmann & Winz** → komplett aus Portfolio ausgeschlossen
 - Keine privaten Kontaktdaten von Kunden sichtbar
-- `nicole@kidashidesign.com` nur als HTML-Kommentar, nie auf der Seite
+- Kontakt-E-Mail nur als HTML-Kommentar, nie direkt auf der Seite
+- PR-Beschreibungen und Commit-Messages: **keine** AI-Zuschreibungen im sichtbaren Seiten-Content (Commit-Trailer mit Co-Authored-By sind ok, das ist Git-Metadata, keine Seite)
 
 ---
 
@@ -182,6 +192,22 @@ cd /home/user/kidashi-design-website && python3 -m http.server 8123 &
 --gutter:  clamp(1.5rem, 5vw, 5rem)
 ```
 
+⚠️ **Variablen-Namen sind kontraintuitiv:** `--primary` ist Pfirsich/Orange, `--secondary` ist das Blau. Frühere SESSION.md-Versionen hatten das vertauscht — beim Zitieren von Hex-Werten immer den tatsächlichen CSS-Wert in `css/style.css` prüfen, nicht aus dem Variablennamen raten.
+
+**Nicole möchte das CI-Blau (`--secondary` #2E54FE) nicht mehr sichtbar in Buttons/Hover-States** — sie empfindet es als irritierend. Wo Blau als Akzent gebraucht wird, `--pastel-blue` (#8BE2E9) verwenden, nicht `--secondary`.
+
+---
+
+## Button-System — Liquid-Glass-Pills (2026-07-02 komplett neu gebaut)
+
+`.btn` + Modifier (`.btn--primary`, `.btn--outline`, `.btn--outline-dark`) sind jetzt Glasmorphismus-Pills:
+- `border-radius:999px`, `backdrop-filter:blur(26px) saturate(2)`, sehr transparenter Hintergrund
+- `::before` = diagonaler Reflexions-Sweep, `::after` = Spiegel-Sheen am unteren Rand + sehr leichter Zweifarben-Wash (Pfirsich→Pastellblau), beide `z-index:-1` (painten hinter dem Text, vor dem Hintergrund — funktioniert nur wegen `isolation:isolate` + `position:relative` auf `.btn`)
+- `.btn--outline` (dunkle Sections, z.B. Hero) hat eine eigene, reichhaltigere Reflexions-Gradient-Überschreibung — Glaseffekt liest auf Dunkel am stärksten
+- Hover-Übergang bewusst langsam: `0.55s` (nicht 0.3s) für ruhigeres Wirken
+- Textfarbe in dunklen Bereichen bleibt **immer hell** (nie zu dunkel wechseln, auch nicht bei hellerem Hover-Hintergrund) — explizite Nicole-Vorgabe
+- `.btn--ghost`/`.btn--ghost-light` sind aktuell **ungenutzt** (kein HTML referenziert sie), aber Teil des Systems — CI-Blau dort ebenfalls durch `--pastel-blue` ersetzt
+
 ---
 
 ## CSS-Muster — Projekt-Hero-Varianten
@@ -205,7 +231,7 @@ cd /home/user/kidashi-design-website && python3 -m http.server 8123 &
 
 ---
 
-## Code-Review-Standard (`CLAUDE.md`)
+## Verifikations-Setup für neue Agenten (Sandbox ohne echten Internet-Zugriff)
 
 Bei jeder Fehleranalyse: 1) kritische Fehler zuerst, 2) Zeile·Erklärung·Fix pro Fehler,
 3) Optimierungen mit Aufwand/Nutzen, 4) Gesamtbewertung 1–10 + Top 3, 5) Vorher/Nachher-Beispiele.
