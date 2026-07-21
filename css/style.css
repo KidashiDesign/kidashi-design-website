@@ -335,6 +335,106 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 }
 
 /* ============================================================
+   GLASS DOCK — Desktop main navigation (liquid-glass, no icons)
+   Only affects screens >= 769px. Mobile keeps the hamburger menu.
+   Uses GPU-accelerated backdrop-filter (no costly SVG filters) so
+   scroll/paint stays fast. Corporate colours: blue = --secondary,
+   peach = --primary, on a frosted cream (--cream) glass surface.
+   ============================================================ */
+@media (min-width: 769px) {
+
+  /* The nav bar itself is just a positioning layer — the dock pill
+     provides the visible surface, so drop the old full-width frosted
+     bar (also removes a second, redundant backdrop-filter pass). */
+  .nav.scrolled {
+    background: transparent;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  /* Links container becomes the floating glass dock */
+  .nav__links {
+    gap: 0.3rem;
+    padding: 0.4rem;
+    border-radius: 999px;
+    background: rgba(247, 243, 238, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.7);
+    backdrop-filter: blur(18px) saturate(1.7);
+    box-shadow:
+      0 8px 24px rgba(10, 10, 11, 0.16),
+      0 1px 2px rgba(10, 10, 11, 0.10),
+      inset 1px 1px 1px rgba(255, 255, 255, 0.65),
+      inset -1px -1px 1px rgba(255, 255, 255, 0.35);
+  }
+
+  /* Each menu point is a pill item — dark corporate text on glass */
+  .nav__links .nav__link {
+    padding: 0.5rem 1.05rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    color: rgba(10, 10, 11, 0.6);
+    transition:
+      color 0.25s var(--ease),
+      background-color 0.25s var(--ease),
+      transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+  }
+  /* Pill highlight replaces the underline in the dock */
+  .nav__links .nav__link::after { display: none; }
+
+  .nav__links .nav__link:hover {
+    color: var(--dark);
+    background: rgba(255, 255, 255, 0.55);
+    transform: translateY(-1px);
+  }
+  .nav__links .nav__link.active {
+    color: var(--secondary);
+    background: rgba(46, 84, 254, 0.12);
+  }
+
+  /* Glass is always light, so keep dock text dark in every nav state
+     (scrolled / over-light / light subpages) — higher specificity wins */
+  .nav.scrolled .nav__links .nav__link,
+  .nav.over-light .nav__links .nav__link,
+  .nav--light .nav__links .nav__link { color: rgba(10, 10, 11, 0.6); }
+
+  .nav.scrolled .nav__links .nav__link:hover,
+  .nav.over-light .nav__links .nav__link:hover,
+  .nav--light .nav__links .nav__link:hover {
+    color: var(--dark);
+    background: rgba(255, 255, 255, 0.55);
+  }
+  .nav.scrolled .nav__links .nav__link.active,
+  .nav.over-light .nav__links .nav__link.active,
+  .nav--light .nav__links .nav__link.active {
+    color: var(--secondary);
+    background: rgba(46, 84, 254, 0.12);
+  }
+
+  /* Without the old full-width dark bar, the scrolled state no longer
+     implies a dark surface. Keep logo + clock dark when the nav sits
+     over a light page/section (light subpages or over-light sections),
+     so they stay readable. Over the dark hero (plain .scrolled) they
+     remain cream as before. */
+  .nav--light.scrolled .nav__logo-k,
+  .nav--light.scrolled .nav__logo-d,
+  .nav.over-light.scrolled .nav__logo-k,
+  .nav.over-light.scrolled .nav__logo-d { color: var(--dark); }
+
+  .nav--light.scrolled .nav__location,
+  .nav.over-light.scrolled .nav__location { color: rgba(10, 10, 11, 0.4); }
+  .nav--light.scrolled .nav__location-tz,
+  .nav.over-light.scrolled .nav__location-tz { color: var(--primary); }
+}
+
+/* Respect reduced-motion: no bounce transforms on dock items */
+@media (prefers-reduced-motion: reduce) {
+  .nav__links .nav__link { transition: color 0.25s, background-color 0.25s; }
+  .nav__links .nav__link:hover { transform: none; }
+}
+
+/* ============================================================
    HERO 2 — Full-screen name + scroll-reveal
    ============================================================ */
 .hero2 {
