@@ -523,7 +523,7 @@
   .proj-details__inner { grid-template-columns: 1fr 1fr; }
   .proj-process__step { grid-template-columns: 1fr; gap: 0.5rem; }
   .proj-process__num { display: none; }
-  
+
 @media (max-width: 900px) {
    .proj-hero--video .proj-hero__video-wrap { height: auto; aspect-ratio: 16 / 9; }
  }
@@ -533,6 +533,8 @@
     aspect-ratio: 1 / 1;
     display: block;
   }
+  /* Opt-out: some hero animations are designed to fill the full screen on every device */
+  .proj-hero--video.proj-hero--video-fill .proj-hero__video-wrap { height: 100svh; aspect-ratio: unset; display: block; }
 
   /* Galerie Kronsbein: full-screen phone hero */
   .proj-hero--phone .proj-hero__video-wrap {

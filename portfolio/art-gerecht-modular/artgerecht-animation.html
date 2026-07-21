@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Art Gerecht — Animation Sequence</title>
+<link rel="prefetch" href="artgerecht-01-intro.html">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: 100%; height: 100%; background: #0A0A0A; overflow: hidden; }
-  .stage { position: relative; width: 100%; height: 100vh; overflow: hidden; background: #0A0A0A; }
+  .stage { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0A0A0A; }
   .slide {
     position: absolute;
     inset: 0;
@@ -16,7 +17,7 @@
     display: block;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: opacity;
   }
   .slide.is-active { opacity: 1; }
@@ -35,31 +36,33 @@
   <script>
   (function () {
     var DEFAULT_HOLD_MS = 3200; // fallback when a slide has no data-hold
-    var PRELOAD_LEAD_MS = 1100; // how far ahead of its cue the next clip gets prefetched
+    var PRELOAD_LEAD_MS = 1400; // how far ahead of its cue the next clip gets fully loaded (hidden)
+    var UNLOAD_DELAY_MS = 950;  // wait for the crossfade-out to finish before resetting the old clip
 
     var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
     var n = slides.length;
     var idx = 0;
     var timers = [];
-    var prefetched = {};
+    var loaded = [];
 
-    function prefetch(url) {
-      if (prefetched[url]) return;
-      prefetched[url] = true;
-      var link = document.createElement('link');
-      link.rel = 'prefetch';
-      link.href = url;
-      document.head.appendChild(link);
+    // Loads the clip's real document into its iframe ahead of time, while it's
+    // still hidden (opacity 0), so the crossfade never reveals a blank/loading frame.
+    function loadSlide(i) {
+      if (loaded[i]) return;
+      loaded[i] = true;
+      slides[i].src = slides[i].getAttribute('data-src');
+    }
+
+    // Resets a clip back to blank once it's fully faded out, so its one-shot
+    // timeline restarts cleanly at frame 0 the next time it's preloaded.
+    function unloadSlide(i) {
+      if (!loaded[i]) return;
+      loaded[i] = false;
+      slides[i].src = 'about:blank';
     }
 
     function activate(i) {
-      var el = slides[i];
-      var url = el.getAttribute('data-src');
-      // Force a fresh mount so the clip's own timeline always restarts at frame 0.
-      el.src = 'about:blank';
-      requestAnimationFrame(function () {
-        el.src = url;
-      });
+      loadSlide(i);
       slides.forEach(function (s, j) {
         s.classList.toggle('is-active', j === i);
       });
@@ -76,12 +79,18 @@
     }
 
     function cycle() {
+      var prevIdx = (idx - 1 + n) % n;
       activate(idx);
+
+      timers.push(setTimeout(function () {
+        unloadSlide(prevIdx);
+      }, UNLOAD_DELAY_MS));
+
       var holdMs = holdFor(idx);
       var nextIdx = (idx + 1) % n;
 
       timers.push(setTimeout(function () {
-        prefetch(slides[nextIdx].getAttribute('data-src'));
+        loadSlide(nextIdx);
       }, Math.max(holdMs - PRELOAD_LEAD_MS, 300)));
 
       timers.push(setTimeout(function () {
@@ -92,7 +101,6 @@
 
     function start() {
       clearTimers();
-      prefetch(slides[(idx + 1) % n].getAttribute('data-src'));
       cycle();
     }
 

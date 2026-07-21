@@ -1,5 +1,5 @@
 # Session Handoff — Kidashi Design Website
-Aktualisiert: 2026-07-02
+Aktualisiert: 2026-07-21
 
 ---
 
@@ -7,19 +7,38 @@ Aktualisiert: 2026-07-02
 
 | Key | Value |
 |-----|-------|
-| Repo | `KidashiDesign/kidashi-design-website` |
-| Branch (aktiv) | `main` |
-| Deploy | FTP → Hostinger (echte Live-Seite) + GitHub Pages (Preview) |
+| Repo | `kidashidesign/kidashi-design-website` |
+| Branch (aktiv) | `claude/session-uvyxdk` |
+| Deploy | FTP → Hostinger (**aktuell defekt**, siehe unten) + GitHub Pages (Preview) + **Cloudflare Pages** (neu, `https://kidashi-design-website.pages.dev/`) |
 | Stack | Statisches HTML/CSS/JS, kein Build-Tool, kein Framework |
-| Live-URL | `https://www.kidashidesign.com` |
-| GitHub Pages | `https://kidashidesign.github.io/kidashi-design-website/` |
+| Live-URL | `https://www.kidashidesign.com` (Hostinger, Deploy aktuell rot) |
+| Neue Live-URL (Nicole, seit 21.07.) | `https://kidashi-design-website.pages.dev/` — Cloudflare Pages. **Nicht erreichbar aus der Sandbox** (Proxy/Netzwerkrichtlinie blockt `pages.dev`, 403 sowohl via curl als auch WebFetch). Keine Cloudflare-Config im Repo gefunden (kein `wrangler.toml`, kein `.github/workflows` dafür) → vermutlich über Cloudflare-eigene GitHub-App direkt an einen Branch gekoppelt (wahrscheinlich `main`), nicht über ein Repo-File steuerbar. **Noch ungeklärt: welchen Branch Cloudflare Pages genau beobachtet** — mit Nicole klären. |
+| Referenz/Staging-URL (Nicole) | `https://workspace.kidashidesign.com` — **nicht erreichbar aus der Sandbox** (Proxy blockt, 403, auch via Chromium direkt: `ERR_TUNNEL_CONNECTION_FAILED`) |
 | Inhaberin | Nicole Szatkowski — Kidashi Design, Tbilisi (GMT+4) |
+
+---
+
+## 🚨 KRITISCH: Hostinger FTP-Deploy ist seit mind. 16.07. defekt (Stand 21.07.)
+
+**Root Cause bestätigt (Job-Logs geprüft):** `Deploy via FTP`-Step scheitert mit `mirror: Not connected`.
+Im Log erscheinen `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` als **leer** — die GitHub-Secrets fehlen
+oder sind falsch benannt/leer. Mind. 3 aufeinanderfolgende Runs auf `main` fehlgeschlagen (16.07., 17.07., 19.07.).
+
+**Konsequenz:** `www.kidashidesign.com` (Hostinger) liefert seit dem möglicherweise veralteten Code aus —
+z. B. noch die alte Google-Fonts-CDN-Einbindung, obwohl der Code in `main` bereits gefixt ist (siehe unten).
+Für Nicoles DSGVO-Ziel (deutsche Kunden) ist das der eigentliche Blocker, nicht der Code.
+
+**Ich kann das nicht selbst fixen** (kein Zugriff auf GitHub-Repo-Secrets). Nicole muss:
+1. GitHub → Repo Settings → Secrets and variables → Actions
+2. Prüfen/neu setzen: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` (aktuelle Hostinger-FTP-Zugangsdaten)
+3. Danach Workflow-Re-Run auslösen lassen (`mcp__github__actions_get` / rerun) und Live-Seite verifizieren
+
+**Offen seit 21.07., noch nicht behoben — bei jedem Sessionstart erneut prüfen, ob das erledigt wurde.**
 
 ---
 
 ## 🚨 DEPLOY-PFLICHT — bei jeder neuen Session als ERSTES prüfen
 
-Die echte Live-Seite liegt auf **Hostinger** (nicht GitHub Pages).
 Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.yml` per FTP bei jedem Push auf `main`.
 
 **Status per 2026-07-02: 🔴 Deploy schlägt fehl.**
@@ -32,15 +51,12 @@ mirror: Not connected
 **Root Cause:** Die drei GitHub Secrets sind nicht gesetzt. Das ist kein Code-Problem — ein `rerun_failed_jobs` würde identisch fehlschlagen. **Nicht sinnlos rerunnen.**
 
 **Beim Sessionstart immer prüfen:**
-1. Letzten Workflow-Run auf `main` checken → `mcp__github__actions_get` mit `get_workflow_run` (NICHT `list_workflow_runs` — das liefert bei diesem Repo einen übergroßen Payload, der das Context-Limit sprengt; IDs stattdessen über `mcp__github__get_commit` → `check_suite`/PR-Historie ermitteln, oder gezielt nach der bekannten Run-ID fragen)
-2. Wenn „Deploy to Hostinger" = `failure` mit obigem Log-Muster → das ist der bekannte Secrets-Fehler, direkt melden, **nicht** reflexartig rerunnen
-3. Secrets die gesetzt sein müssen (GitHub Repo Settings → Secrets → Actions):
-   - `FTP_SERVER`
-   - `FTP_USERNAME`
-   - `FTP_PASSWORD`
-4. Fix liegt einzig bei Nicole: Werte aus Hostinger hPanel → Hosting → FTP-Konten in **https://github.com/KidashiDesign/kidashi-design-website/settings/secrets/actions** eintragen
+1. Letzten Workflow-Run auf `main` checken → `mcp__github__actions_list` (list_workflow_runs)
+2. Wenn "Deploy to Hostinger" = `failure` → sofort melden (siehe Abschnitt oben — bekannter, noch offener Bug)
+3. Secrets: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` (GitHub Repo Settings → Secrets)
+4. Zusätzlich: Cloudflare Pages (`kidashi-design-website.pages.dev`) prüfen/im Blick behalten — Details oben.
 
-**Merke:** GitHub Pages Deploy kann grün sein, aber Hostinger trotzdem rot — Nicole schaut immer auf www.kidashidesign.com, nicht auf github.io!
+**Merke:** GitHub Pages Deploy kann grün sein, aber Hostinger trotzdem rot.
 
 ---
 
@@ -55,24 +71,125 @@ mirror: Not connected
 
 ---
 
-## CSS Design Tokens (aus `css/style.css`, `:root`)
+## ⚠️ WICHTIG: Dieser Branch war 135 Commits hinter `main`
+
+`claude/fullscreen-animation-responsive-lxc04m` zweigte von einem alten Stand ab und hat eigene Commits
+(u.a. Löschung von `portfolio/piano-post`, `portfolio/mystic-drops`, `portfolio/artista-magazin`).
+`main` hat seitdem u.a. `portfolio/art-gerecht-modular` neu bekommen — das fehlte auf diesem Branch
+komplett (deshalb "unsichtbar" für Nicole). **Nicht blind `main` mergen** (würde die bewusst gelöschten
+Ordner zurückbringen) — bei Bedarf gezielt einzelne Ordner via `git checkout origin/main -- <pfad>` holen,
+wie in dieser Session für `art-gerecht-modular` gemacht.
+
+`portfolio/index.html` auf diesem Branch verlinkt noch tote Pfade zu `mystic-drops/`, `artista-magazin/`,
+`piano-post/` (Ordner existieren nicht mehr) — nicht in dieser Session angefasst, aber bekannt.
+
+---
+
+## Diese Session: Art Gerecht Modular — Vollbild-Animation
+
+**Auftrag:** Hero-Animation auf `portfolio/art-gerecht-modular/` soll auf Desktop/Tablet/Mobile randlos
+(oben/unten/links/rechts) füllen, vorladen, und alle 6 Slides sollen als EINE flüssige Animation wirken.
+Später erweitert: auch die Grid-Kachel in `portfolio/index.html` soll bildschirmfüllend sein.
+
+### Bereits committed & gepusht (Commit `50814f4`)
+1. `portfolio/art-gerecht-modular/` komplett von `origin/main` übernommen (existierte auf diesem Branch nicht).
+2. **CSS-Bug gefunden & gefixt** (`css/project.css`): Mobile-Breakpoint (≤600px) zwang alle
+   `.proj-hero--video` Hero-Animationen in eine 16:9-Box statt Vollbild. Neue Opt-in-Klasse
+   `.proj-hero--video-fill` hinzugefügt (nur für dieses Projekt, andere Projekte unangetastet).
+3. **Markup-Bug gefunden & gefixt** (`portfolio/art-gerecht-modular/index.html`): Loser
+   `.proj-hero__back--top` Link (keine CSS-Regel existierte dafür!) stand im normalen Dokumentfluss
+   vor dem Video-Wrapper und schob die Animation ~27px vom oberen Rand weg. Ersetzt durch das
+   Standard-Muster `.proj-hero__eyebrow` (wie bei wh4, tm-studio, …) — jetzt `y:0` auf allen Breakpoints
+   verifiziert (390×844 mobil, 820×1180 tablet, 1440×900 desktop, per Playwright computed-style-Check).
+4. **Sequencer verbessert** (`artgerecht-animation.html`): Nächste Szene wird jetzt während der
+   Haltezeit der aktuellen Szene bereits unsichtbar vorgeladen (statt nur `<link rel=prefetch>` +
+   Reload im exakten Wechselmoment) → kein Blank-Flash mehr beim Crossfade. `.stage` von `100vh` auf
+   `100%` (robuster in verschachtelten iframes). Crossfade-Dauer 0.7s → 0.9s.
+5. Fehlende Grid-Kachel in `portfolio/index.html` ergänzt (Position zwischen Galerie Kronsbein und
+   Seestern, gleiches Muster wie TM Studio: `<iframe ... ?tile=1>`).
+
+Alles verifiziert per lokalem `python3 -m http.server` + Playwright-Core (headless Chromium aus
+`/opt/pw-browsers/`) — Screenshots + `getBoundingClientRect()`/computed-style-Checks für 3 Viewports.
+
+### 🔴 NICHT committed — laufende Untersuchung (Kachel-Ansicht füllt intern noch nicht randlos)
+
+Nutzer meldete danach: Kachel-Ansicht UND Detailseite sollen "bildschirmfüllend" sein. Detailseite ist
+strukturell bestätigt korrekt (Iframe-Box füllt exakt 100% × 100%). Kachel-Iframe-Box füllt ebenfalls
+exakt die 4:3-Kachel (`.portfolio-item__anim` mit `width:133.4%; left:-16.7%`-Crop-Trick, bereits
+vorhandenes CSS-Muster, unverändert korrekt).
+
+**Der eigentliche Rest-Bug liegt in den 6 Szenen-Dateien selbst** (`artgerecht-01…06`), die aus einem
+proprietären "Omelette/DC-Bundler"-Export stammen (`<script type="__bundler/manifest">`, riesige
+JSON-Blobs, `<x-import>`/`<x-dc>`-Custom-Elements, `#__bundler_thumbnail`-Fallback-SVG). Wichtiger
+Fund in dieser Session: **Es wird NICHT extern von unpkg.com geladen** (frühere Annahme war falsch) —
+der Renderer ist selbst-enthalten. Live-DOM-Inspektion (`artgerecht-02-modular-reveal.html`, lokal
+über `http.server` + Playwright) zeigt:
+
+```html
+<svg width="1920" height="1080" style="transform: scale(0.237037); transform-origin: center center; ...">
+  <foreignObject x="0" y="0" width="100%" height="100%">
+    <div style="width:1920px; height:1080px; ...">…die eigentliche Szene…</div>
+  </foreignObject>
+</svg>
+```
+
+D.h. der interne Renderer zeichnet die Szene IMMER auf eine feste 1920×1080-Leinwand und skaliert sie
+per CSS `transform: scale(x)` gleichmäßig (ein einzelner Skalierungsfaktor) so, dass sie in den
+Container **passt** (contain/letterbox-Verhalten) — nicht **crop-fill/cover**. Das erzeugt genau die
+schwarzen Balken oben/unten, die im Kachel-Screenshot sichtbar waren (Kachel-Seitenverhältnis ≠ 16:9
+bei manchen Kachelgrößen/Slides). Das ist der wahrscheinliche Kern des User-Feedbacks.
+
+**Bereits (unkommitiert!) geänderte, sichere Fixes an den 6 Szenen-Dateien** (nur die statischen
+Fallback-`<svg>`-Elemente, NICHT der interne DC-Renderer/Manifest-Blob):
+- `preserveAspectRatio="xMidYMid slice"` auf jedes Fallback-`<svg viewBox="0 0 100 100|1200 800">`
+  ergänzt (betrifft `#__bundler_thumbnail`, den Platzhalter vor/bei Render-Fehler).
+- `object-fit: contain` → `cover` in der `#__bundler_thumbnail svg` CSS-Regel (alle 6 Dateien).
+- `artgerecht-05-brochure-mockup.html`: Template-HTML für das Mockup-Bild von
+  `padding:24px; max-width:1500px; height:auto` (gerahmt/eingerückt) auf `position:absolute; inset:0;
+  object-fit:cover` (randlos, croppt das Bild) umgestellt — **Achtung: das ist eine Design-Änderung**,
+  das Broschüren-Mockup wird jetzt beschnitten statt komplett sichtbar mit Rand gezeigt. Mit Nicole
+  ggf. gegenprüfen, ob das gewünscht ist.
+
+**Diese Fallback-SVG-Fixes lösen NICHT das eigentliche `transform:scale()`-Letterboxing im echten
+DC-Renderer** — das sitzt im großen `__bundler/manifest`-JSON-Blob (>1 MB pro Datei) und in einer
+kompilierten JSX-Komponente, die nicht sicher von Hand editierbar ist, ohne das Bundle zu riskieren.
+
+### Nächste Schritte (offen)
+1. Entscheiden: Soll der `transform:scale()`-Letterbox-Mechanismus im DC-Renderer angegangen werden?
+   Dafür müsste der genaue Skalierungscode im Manifest-Blob lokalisiert werden (z. B. Suche nach
+   `"scale("`, `getBoundingClientRect`, `Math.min(` im dekodierten Manifest — noch nicht gemacht).
+   Hohes Risiko, da die Datei nicht komplett lesbar/prüfbar ist (>1 MB, Base64/JSON-verschachtelt).
+   Alternative: Nicole fragen, ob die Szenen im Ursprungstool (Omelette/DC) neu mit "Cover"-Skalierung
+   statt "Contain" exportiert werden können — sauberer als Hex-Chirurgie am Bundle.
+2. Die uncommitted Fallback-SVG-Fixes (siehe oben) noch reviewen/committen oder verwerfen.
+3. Live-Referenz (`workspace.kidashidesign.com`) bleibt aus der Sandbox nicht erreichbar — jede
+   visuelle Prüfung lief nur lokal via `http.server` + headless Chromium (kein Zugriff auf evtl.
+   Deploy-spezifische Unterschiede).
+
+### Test-Setup (für Fortsetzung)
+```bash
+cd /home/user/kidashi-design-website && python3 -m http.server 8123 &
+# Playwright-Core Testskripte liegen im Scratchpad: .../scratchpad/pwtest/*.js
+# Chromium-Binary: /opt/pw-browsers/chromium-1194/chrome-linux/chrome
+```
+
+---
+
+## CSS Design Tokens (aus `css/style.css`)
 
 ```css
---bg:          #F7F3EE
---bg2:         #EDE9E2
---dark:        #0A0A0B
---primary:     #FFBC95   /* Pfirsich/Orange — NICHT Blau! */
---secondary:   #2E54FE   /* CI-Blau — bewusst NICHT mehr in Buttons/Hovers verwendet, siehe unten */
---accent:      #FFF083   /* Gelb */
---pastel-blue: #8BE2E9   /* NEU (2026-07-02) — ersetzt CI-Blau als Hover-/Akzentfarbe */
---text:        #0A0A0B
---muted:       rgba(10,10,11,0.45)
---cream:       #F7F3EE
---font-h:     'Mango Grotesque'   /* Headlines, self-hosted TTF/WOFF2 */
---font-b:     'Jost'               /* Body/UI, self-hosted + Google Fonts fallback */
---nav-h:       72px
---gutter:      clamp(24px, 5vw, 80px)
---container:   1280px
+--font-h: 'Mango Grotesque'      /* Headlines */
+--font-b: 'Jost'                  /* Body/UI */
+--dark:   #0A0A0B
+--cream:  #F7F3EE
+--bg:     #FAF9F5
+--bg2:    #F3EFE8
+--sand:   #E8E2D9
+--primary: #2E54FE (Blau)
+--accent:  #FFBC95 (Orange)
+--muted:   rgba(10,10,11,0.45)
+--nav-h:   4rem
+--gutter:  clamp(1.5rem, 5vw, 5rem)
 ```
 
 ⚠️ **Variablen-Namen sind kontraintuitiv:** `--primary` ist Pfirsich/Orange, `--secondary` ist das Blau. Frühere SESSION.md-Versionen hatten das vertauscht — beim Zitieren von Hex-Werten immer den tatsächlichen CSS-Wert in `css/style.css` prüfen, nicht aus dem Variablennamen raten.
@@ -93,98 +210,51 @@ mirror: Not connected
 
 ---
 
-## Nav-Farbsystem
+## CSS-Muster — Projekt-Hero-Varianten
 
-| Klasse | Verwendung | Textfarbe |
-|--------|-----------|-----------|
-| `class="nav"` | Landingpage + alle Projekt-Detailseiten | Weiß (cream) |
-| `class="nav nav--light"` | portfolio/index, about, services, contact, gallery | Dunkel |
-| `.scrolled` (JS-Toggle) | Alle Seiten beim Scrollen | Frosted-Glass dunkel |
+```html
+<!-- Video/Animation-Hero (Vollbild-Iframe), Standardmuster -->
+<section class="proj-hero proj-hero--video" style="background:#06120D;">
+  <div class="proj-hero__eyebrow">
+    <a href="../../portfolio/" class="proj-hero__back">← Portfolio</a>
+    <span class="proj-hero__category">…</span>
+  </div>
+  <div class="proj-hero__video-wrap"> <!-- height: 100svh (Desktop/Tablet), 16:9-Box ab 600px Mobile -->
+    <iframe class="proj-hero__video-frame" ...>
+  </div>
+  <div class="proj-hero__content">…</div>
+</section>
 
-Wichtig: `.nav { position:fixed; top:0; }` liegt **transparent über dem Hero** bis gescrollt wird — Content im Hero darf am oberen Rand nicht zu hell/kontrastreich sein, sonst "verdeckt" er optisch das Logo/die Nav-Links (siehe Seestern-Fix unten).
-
----
-
-## Portfolio-Animationen — zwei verschiedene Formate im Repo
-
-**Wichtig für neue Agenten:** Es gibt zwei völlig unterschiedliche Bauweisen für `*-animation.html`-Dateien im Portfolio-Ordner. Vor dem Bearbeiten immer den Dateikopf prüfen, welches Format vorliegt.
-
-### Format A — DC-Runtime-Bundle-Export (älteres Format, mehrere Projekte)
-- `<script type="__bundler/manifest">` — Base64-kodierte Bilddaten (groß, nicht anfassen)
-- `<script type="__bundler/template">` — JSON-kodiertes HTML+CSS+JS
-- **Braucht React von `https://unpkg.com/react@...`** zur Laufzeit → in Sandbox-Umgebungen ohne Internet-Zugriff auf unpkg.com **nicht renderbar** (`[bundle] error`), auf der echten Live-Seite lädt es normal
-- Kritisch beim Bearbeiten: Template-JSON immer mit `json.JSONDecoder().raw_decode()` lesen (nie Regex!). Nach `json.dumps()` **alle** `/` durch `\/` ersetzen (nicht nur `</script>`) — sonst bricht der HTML-Parser den Script-Tag ab
-- `?tile=1`-Query-Param-Konvention: Bundle-Skript am Dateianfang blendet Text-Elemente aus, wenn die Animation als kleine Portfolio-Kachel eingebettet wird (`text,tspan{display:none}` + class-basierte Heuristik für „title"/„label" etc.)
-
-### Format B — Native, dependency-freie Animation (`portfolio/seestern/seestern-animation.html`)
-- Komplett selbst gebaut (Sonnet 5, 2026-07-02), keine externen Libraries, keine CDN-Abhängigkeit
-- 4 Szenen (Start-Reveal, Hero-Strip mit 5 Foto-Panels, rotierendes Badge, SVG-SMIL-Endscreen), per JS-Sequencer mit Cross-Fade durchgeschaltet
-- Unterstützt dieselbe `?tile=1`-Konvention wie Format A (eigenes Snippet, gleiche CSS-Heuristik)
-- Assets als externe WebP-Dateien (`images/portfolio/seestern/*.webp`), nicht base64-inline — dadurch **21,5 MB → 0,99 MB** kleiner als ein Bundle-Export derselben Quellen wäre
-- Bevorzugtes Format für neue Animationen: kein CDN-Risiko, kleiner, in Sandbox-Umgebungen vollständig testbar
-
----
-
-## Was in dieser Session gemacht wurde (2026-07-02)
-
-### 1. Kritischer Merge-Konflikt gelöst: `claude/epic-curie-r5ed0o` vs. `main`
-`main` hatte sich seit einer alten Branch-Abspaltung um **~90 unabhängige Commits** weiterentwickelt (About-Redesign, Testimonials, Homepage-Partikel, Portfolio-Glow-Effekt), inklusive einer **eigenen, älteren Seestern-Animation** (Format A, DC-Runtime-Bundle). Die neue, native Seestern-Animation (Format B) wurde zugunsten der Nutzer-Entscheidung übernommen, alle anderen main-Commits blieben erhalten. **Lektion:** vor jedem Merge nach `main` immer `git log --oneline origin/main..HEAD` UND umgekehrt prüfen — Branches können in Sandbox-Sessions unbemerkt stark auseinanderlaufen.
-
-### 2. Contact-Seite: Morph-Effekt (anime.js v4)
-`js/anime.js` lokal gevendort (kein CDN). SVG-Polygon-Morph läuft dezent grau, leicht versetzt hinter der H1.
-
-### 3. Button-System komplett neu: Liquid-Glass-Pills
-Siehe eigener Abschnitt oben. Mehrere Iterationen: erst Basis-Glaseffekt, dann CI-Blau raus (→ `--pastel-blue`), dann Schatten/Transparenz/Übergangsgeschwindigkeit feinjustiert, dann Verlauf/Spiegelung in dunklen Bereichen ausgebaut.
-
-### 4. Services-Seite: CORE-SERVICE-Hover-Bug
-`.service-full-card--core:hover` nutzte noch CI-Blau. **Zusätzlicher, nicht offensichtlicher Bug:** `.reveal` (Scroll-Einblend-Klasse, gleiche Selektor-Spezifität `0,1,0`, aber später in der Cascade) überschrieb die `transition`-Deklaration der Karte komplett → Hintergrundfarbe wechselte beim Hover ohne jede Animation. Fix: höher-spezifischer Compound-Selektor `.service-full-card--core.reveal`, der alle drei nötigen Transitions (opacity/transform von `.reveal` + background) neu deklariert. **Lektion für neue Agenten:** Wenn eine `transition`/Hover-Animation trotz korrektem CSS nicht greift, immer `getComputedStyle(el).transitionProperty` im Browser prüfen — eine andere gleich-spezifische Klasse kann die komplette `transition`-Shorthand stillschweigend überschreiben.
-
-### 5. About-Me-Seite — mehrere Fixes
-- „My Path"-Text gekürzt, Erwähnung von „Ajaska GmbH" (ehemaliger Arbeitgeber) komplett entfernt (Fließtext + Sidebar)
-- Reisefoto-„Floating Scene": Text-Badges (Education/Based-in) und vertikales Label entfernt — nur noch Fotos sichtbar
-- **Bug gefunden und gefixt:** `.about-float-grain`-SVG-Overlay hatte kein explizites `width`/`height` und fiel bei `position:absolute; inset:0` auf die Browser-Default-Ersatzgröße für Replaced Elements (300×150px) zurück, statt die volle Szene zu füllen — sichtbar als kleines texturiertes Rechteck. Fix: `width:100%; height:100%;` explizit ergänzen. **Lektion:** `inset:0` allein reicht bei `<svg>`/`<img>`/`<canvas>` ohne eigene intrinsische Maße nicht zum Strecken — explizite width/height nötig.
-- Sichtbarer „Kasten" um die Foto-Collage entfernt: `.about-float-scene` war auf 960px/70vh begrenzt und wirkte gegen den schwarzen Hero-Hintergrund wie ein separater, hellerer Kasten. Container + Szene auf 1560px/1480px/82vh vergrößert.
-- Hover-Glow der 4 Sidebar-Karten (Education/Experience/Services/Currently Based): war an die Mausposition gekoppelt und driftete durchs Farbspektrum (`js/main.js`, `glowColorMap`). Für diese markeneigenen Karten jetzt auf exakte CD-Farben fixiert (`CI_COLOR_MAP` in `js/main.js`, gescoped auf `.sidebar-block`). Portfolio-Kacheln (eigene CI-Farbe pro fremdem Projekt) bewusst unverändert gelassen.
-
-### 6. Portfolio-Übersicht
-- Homepage-Grid „Selected Work": 4. Kachel (Seestern) ergänzt, füllt das vorher unvollständige 2×2-Layout
-- Art Gerecht Modular: ungestyltes `<div class="portfolio-item__info">` (permanent sichtbarer Text-Overlay ohne jedes CSS) entfernt — die Animation selbst hat bereits einen eigenen `tile-mode`, der ihr Logo ausblendet
-
-### 7. Seestern-Animation — mehrere Detail-Fixes
-- **Hero-Strip-„Blitzer" behoben:** Nur die Panel-**Höhe** wurde animiert (Breite blieb fix), wodurch `object-fit:cover` bei jedem Frame den Bildausschnitt neu berechnete — das ließ helle Bildstellen (v.a. Wasserreflexionen) kurz an den linken/rechten Rändern aufblitzen. Fix: Bildhöhe wird einmalig per JS auf die Panel-Peak-Höhe (100%) fixiert, animiert wird nur noch `translateY(-50%) scale()` — der horizontale Bildausschnitt bleibt dadurch für die gesamte Animation stabil. **Lektion:** Bei `object-fit:cover` in einem Container, dessen Größe sich animiert ändert, wird der Crop **jeden Frame neu berechnet** — für stabile Bildausschnitte die Bildgröße von der animierten Dimension entkoppeln (fixe Pixelgröße + Transform statt Prozent-Vererbung).
-- Hero-Strip-Reihe vertikal gestreckt (54vh/560px max statt 44vh/480px) und mit mehr Top-Padding versehen, damit Panels nicht ans transparente Hauptmenü stoßen
-- Endscreen: kompletten Markentext entfernt, Bildmarke inkl. aller zugehöriger Effekte (Strahlen, Halo, Energie-Ringe, Glint, Sparkles) von y=430 auf y=540 verschoben — jetzt exakt horizontal **und** vertikal zentriert im 1920×1080-Frame (0px Abweichung per `getBoundingClientRect()` verifiziert)
+<!-- Opt-in: randlos auf JEDEM Breakpoint (bisher nur art-gerecht-modular) -->
+<section class="proj-hero proj-hero--video proj-hero--video-fill" ...>
+```
 
 ---
 
 ## Verifikations-Setup für neue Agenten (Sandbox ohne echten Internet-Zugriff)
 
-- Lokaler Server: `python3 -m http.server 8199 --bind 127.0.0.1 --directory /home/user/kidashi-design-website` **immer mit `nohup ... &` + `disown`** starten, sonst stirbt er beim nächsten Bash-Tool-Call (kein echtes Hintergrund-Prozess-Handling in einfachen `&`-Backgrounds dieser Sandbox)
-- Playwright: `npm install --no-save playwright-core`, Chromium liegt vorinstalliert unter `/opt/pw-browsers/chromium-1194/chrome-linux/chrome` — **nicht** `playwright install` ausführen
-- `fonts.googleapis.com` und `unpkg.com` sind in dieser Sandbox **netzwerk-blockiert** — das ist normal und kein Bug in eigenem Code. Format-A-Animationen (DC-Runtime, siehe oben) können deshalb hier nicht vollständig gerendert/gescreenshottet werden.
-- Nach jeder Playwright-Session: `pkill -f http.server`, `rm -rf node_modules package.json package-lock.json` vor dem Commit (sonst landen Test-Artefakte im Git-Diff)
+Bei jeder Fehleranalyse: 1) kritische Fehler zuerst, 2) Zeile·Erklärung·Fix pro Fehler,
+3) Optimierungen mit Aufwand/Nutzen, 4) Gesamtbewertung 1–10 + Top 3, 5) Vorher/Nachher-Beispiele.
+(Gilt für Reviews/Fehleranalysen — nicht für reine Implementierungsaufgaben wie diese Session.)
 
 ---
 
-## Offene Aufgaben
+## Portfolio-Seiten auf diesem Branch
 
-| # | Task | Status |
-|---|------|--------|
-| 1 | **Hostinger Deploy schlägt fehl** (FTP-Secrets fehlen) | 🔴 Blockiert Live-Deploy — Nicole muss Secrets eintragen, siehe oben |
-| 2 | Testimonials: echte Kundenstimmen + Fotos (aktuell nur auf Services-Seite, Platzhalter-Daten) | ⏳ Warten auf Nicole |
-| 3 | Google Analytics GA4 | ⏳ Warten auf Measurement-ID |
-| 4 | Seestern: Bilder für Portfolio-Detailseite (Merch/Print-Fotos) fehlen noch, nur Hero-Animation vorhanden | ⏳ Warten auf Nicole |
-| 5 | 8 Portfolio-Projekte ohne Bilder (artista-magazin, galerie-kronsbein, mystic-drops, piano-post, seestern-detail, selvoma, westgrowth-capital, wh4) | ⏳ Warten auf Nicole |
+`xp-days` · `wh4` · `rohyma-jet` · `tm-studio` · `galerie-kronsbein` · `art-gerecht-modular` (NEU) ·
+`seestern` · `westgrowth-capital` · `hideout-georgia` · `selvoma` · `studio995`
+
+Fehlen (auf diesem Branch bewusst gelöscht, main hat sie evtl. noch): `mystic-drops`, `artista-magazin`,
+`piano-post` — `portfolio/index.html` hat für diese noch tote Links.
 
 ---
 
 ## Schnellstart für neuen Chat
 
 ```
-Ich arbeite am Repo KidashiDesign/kidashi-design-website auf Branch
-main. Statisches HTML/CSS/JS, Hostinger-Deploy aktuell rot (FTP-Secrets
-fehlen, siehe SESSION.md → Deploy-Pflicht-Sektion, NICHT blind rerunnen).
-Lies SESSION.md im Root für alle Infos, insbesondere die Abschnitte zu
-CSS-Variablen-Namen (kontraintuitiv!) und den zwei Animations-Formaten
-im Portfolio-Ordner.
+Ich arbeite am Repo kidashidesign/kidashi-design-website auf Branch
+claude/fullscreen-animation-responsive-lxc04m. Statisches HTML/CSS/JS.
+Lies SESSION.md im Root — dort steht der offene Rest-Bug zur
+Art-Gerecht-Modular-Animation (Kachel-Ansicht letterboxt noch wegen
+transform:scale()-Contain-Verhalten im DC-Renderer-Bundle).
 ```
