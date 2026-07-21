@@ -15,3 +15,7 @@ Code-Review-Standard: siehe `CODEREVIEW.md`
 ## Deploy
 
 FTP → Hostinger via GitHub Actions (`.github/workflows/deploy.yml`). Push auf `main` = Live-Deploy.
+
+## Git-Workflow
+
+Alle Änderungen werden direkt auf `main` committet und gepusht — es wird **nicht** auf separaten Feature-Branches gearbeitet, außer Nikki fragt explizit danach. Grund: Arbeit auf mehreren Branches gleichzeitig hat bereits dazu geführt, dass Änderungen verloren gingen bzw. nicht auf `main` landeten. Vor dem Push: lokalen Stand mit `origin/main` synchronisieren (fetch/pull), um Konflikte oder das versehentliche Mitziehen alter/unerwünschter Commits zu vermeiden.
