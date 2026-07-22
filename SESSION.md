@@ -1,5 +1,5 @@
 # Session Handoff — Kidashi Design Website
-Aktualisiert: 2026-07-21
+Aktualisiert: 2026-07-22
 
 ---
 
@@ -8,55 +8,42 @@ Aktualisiert: 2026-07-21
 | Key | Value |
 |-----|-------|
 | Repo | `kidashidesign/kidashi-design-website` |
-| Branch (aktiv) | `claude/session-uvyxdk` |
-| Deploy | FTP → Hostinger (**aktuell defekt**, siehe unten) + GitHub Pages (Preview) + **Cloudflare Pages** (neu, `https://kidashi-design-website.pages.dev/`) |
+| Branch (aktiv) | `main` — **ab sofort wird IMMER direkt auf `main` gearbeitet**, siehe `CLAUDE.md` → „Git-Workflow". Keine Feature-Branches mehr außer auf explizite Nachfrage. |
+| Deploy | FTP → Hostinger via `.github/workflows/deploy.yml`, Push auf `main` = Live-Deploy. (Status der letzten Sessions: FTP-Secrets teils leer/defekt — bei Sessionstart Workflow-Run prüfen, siehe unten.) |
 | Stack | Statisches HTML/CSS/JS, kein Build-Tool, kein Framework |
-| Live-URL | `https://www.kidashidesign.com` (Hostinger, Deploy aktuell rot) |
-| Neue Live-URL (Nicole, seit 21.07.) | `https://kidashi-design-website.pages.dev/` — Cloudflare Pages. **Nicht erreichbar aus der Sandbox** (Proxy/Netzwerkrichtlinie blockt `pages.dev`, 403 sowohl via curl als auch WebFetch). Keine Cloudflare-Config im Repo gefunden (kein `wrangler.toml`, kein `.github/workflows` dafür) → vermutlich über Cloudflare-eigene GitHub-App direkt an einen Branch gekoppelt (wahrscheinlich `main`), nicht über ein Repo-File steuerbar. **Noch ungeklärt: welchen Branch Cloudflare Pages genau beobachtet** — mit Nicole klären. |
-| Referenz/Staging-URL (Nicole) | `https://workspace.kidashidesign.com` — **nicht erreichbar aus der Sandbox** (Proxy blockt, 403, auch via Chromium direkt: `ERR_TUNNEL_CONNECTION_FAILED`) |
+| Live-URL | `https://www.kidashidesign.com` (Hostinger) |
 | Inhaberin | Nicole Szatkowski — Kidashi Design, Tbilisi (GMT+4) |
 
 ---
 
-## 🚨 KRITISCH: Hostinger FTP-Deploy ist seit mind. 16.07. defekt (Stand 21.07.)
+## ⚠️ WICHTIGSTE REGEL: Git-Workflow
 
-**Root Cause bestätigt (Job-Logs geprüft):** `Deploy via FTP`-Step scheitert mit `mirror: Not connected`.
-Im Log erscheinen `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` als **leer** — die GitHub-Secrets fehlen
-oder sind falsch benannt/leer. Mind. 3 aufeinanderfolgende Runs auf `main` fehlgeschlagen (16.07., 17.07., 19.07.).
+**Alle Änderungen werden direkt auf `main` committet und gepusht.** Kein Arbeiten auf separaten
+Feature-Branches mehr (führte wiederholt dazu, dass Änderungen verloren gingen bzw. nicht auf `main`
+landeten). Vor jedem Push: `git fetch origin main` / `git pull origin main`, um Konflikte oder das
+versehentliche Mitziehen alter/unerwünschter Commits zu vermeiden. Diese Regel steht dauerhaft in
+`CLAUDE.md` und gilt für jede neue Session.
 
-**Konsequenz:** `www.kidashidesign.com` (Hostinger) liefert seit dem möglicherweise veralteten Code aus —
-z. B. noch die alte Google-Fonts-CDN-Einbindung, obwohl der Code in `main` bereits gefixt ist (siehe unten).
-Für Nicoles DSGVO-Ziel (deutsche Kunden) ist das der eigentliche Blocker, nicht der Code.
-
-**Ich kann das nicht selbst fixen** (kein Zugriff auf GitHub-Repo-Secrets). Nicole muss:
-1. GitHub → Repo Settings → Secrets and variables → Actions
-2. Prüfen/neu setzen: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` (aktuelle Hostinger-FTP-Zugangsdaten)
-3. Danach Workflow-Re-Run auslösen lassen (`mcp__github__actions_get` / rerun) und Live-Seite verifizieren
-
-**Offen seit 21.07., noch nicht behoben — bei jedem Sessionstart erneut prüfen, ob das erledigt wurde.**
+**Falls doch mal auf einem Feature-Branch gearbeitet wurde** (z. B. weil eine Session so gestartet ist):
+beim Zusammenführen auf `main` bevorzugt **cherry-pick des relevanten Commits** statt vollem `git merge`,
+falls der Branch von einem alten `main`-Stand abzweigte — sonst können versehentlich bereits gelöschte
+Dateien (alte Fonts, doppelte Bilder etc.) zurückkommen. Danach `git diff --stat origin/main HEAD` prüfen,
+dass nur die erwarteten Dateien geändert wurden, bevor gepusht wird.
 
 ---
 
 ## 🚨 DEPLOY-PFLICHT — bei jeder neuen Session als ERSTES prüfen
 
-Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.yml` per FTP bei jedem Push auf `main`.
-
-**Status per 2026-07-02: 🔴 Deploy schlägt fehl.**
-Geprüft für mehrere aufeinanderfolgende Commits (`98f5340`, `37fe1c93`) — Workflow läuft nur ~20 Sekunden und bricht ab mit:
-```
-env: FTP_SERVER: (leer)  FTP_USERNAME: (leer)  FTP_PASSWORD: (leer)
-mirror: Not connected
-##[error]Process completed with exit code 1.
-```
-**Root Cause:** Die drei GitHub Secrets sind nicht gesetzt. Das ist kein Code-Problem — ein `rerun_failed_jobs` würde identisch fehlschlagen. **Nicht sinnlos rerunnen.**
+Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.yml` per FTP bei jedem
+Push auf `main`. In früheren Sessions (Stand Juli 2026) schlug der Workflow wiederholt fehl, weil die
+GitHub Secrets `FTP_SERVER` / `FTP_USERNAME` / `FTP_PASSWORD` leer waren (`mirror: Not connected`).
 
 **Beim Sessionstart immer prüfen:**
-1. Letzten Workflow-Run auf `main` checken → `mcp__github__actions_list` (list_workflow_runs)
-2. Wenn "Deploy to Hostinger" = `failure` → sofort melden (siehe Abschnitt oben — bekannter, noch offener Bug)
-3. Secrets: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` (GitHub Repo Settings → Secrets)
-4. Zusätzlich: Cloudflare Pages (`kidashi-design-website.pages.dev`) prüfen/im Blick behalten — Details oben.
-
-**Merke:** GitHub Pages Deploy kann grün sein, aber Hostinger trotzdem rot.
+1. Letzten Workflow-Run auf `main` checken (GitHub Actions).
+2. Wenn „Deploy to Hostinger" = `failure` → Nicole Bescheid geben, Ursache i. d. R. fehlende/falsche
+   FTP-Secrets in Repo Settings → Secrets and variables → Actions. **Ich kann das nicht selbst fixen**
+   (kein Zugriff auf Repo-Secrets).
+3. Nicht sinnlos rerunnen, wenn die Secrets bekanntermaßen leer sind — identischer Fehler garantiert.
 
 ---
 
@@ -67,111 +54,57 @@ mirror: Not connected
 - **Projekt Wiedmann & Winz** → komplett aus Portfolio ausgeschlossen
 - Keine privaten Kontaktdaten von Kunden sichtbar
 - Kontakt-E-Mail nur als HTML-Kommentar, nie direkt auf der Seite
-- PR-Beschreibungen und Commit-Messages: **keine** AI-Zuschreibungen im sichtbaren Seiten-Content (Commit-Trailer mit Co-Authored-By sind ok, das ist Git-Metadata, keine Seite)
+- PR-Beschreibungen und Commit-Messages: **keine** AI-Zuschreibungen im sichtbaren Seiten-Content
+- Branch-Namen (falls doch mal nötig): kein `claude/`-Prefix, stattdessen `feature/`, `fix/`, `update/`
+- Keine persönlichen Daten der Inhaberin/Kunden in Commit-Messages, PR-Titeln oder Branches
 
 ---
 
-## ⚠️ WICHTIG: Dieser Branch war 135 Commits hinter `main`
+## Letzte Session (2026-07-22): Logo & Zeitzone in die Navbar-Pille integriert
 
-`claude/fullscreen-animation-responsive-lxc04m` zweigte von einem alten Stand ab und hat eigene Commits
-(u.a. Löschung von `portfolio/piano-post`, `portfolio/mystic-drops`, `portfolio/artista-magazin`).
-`main` hat seitdem u.a. `portfolio/art-gerecht-modular` neu bekommen — das fehlte auf diesem Branch
-komplett (deshalb "unsichtbar" für Nicole). **Nicht blind `main` mergen** (würde die bewusst gelöschten
-Ordner zurückbringen) — bei Bedarf gezielt einzelne Ordner via `git checkout origin/main -- <pfad>` holen,
-wie in dieser Session für `art-gerecht-modular` gemacht.
+**Auftrag:** Logo, Hauptmenü (Home/Services/…) und die Zeitzonen-Anzeige (Uhrzeit/Tbilisi/GMT+4) sollten
+zu EINER zusammenhängenden Glass-Dock-Navbar-Pille verschmolzen werden (vorher: Logo links + Menü-Pille
+mittig + Zeitzone rechts als getrennte Elemente).
 
-`portfolio/index.html` auf diesem Branch verlinkt noch tote Pfade zu `mystic-drops/`, `artista-magazin/`,
-`piano-post/` (Ordner existieren nicht mehr) — nicht in dieser Session angefasst, aber bekannt.
+**Umsetzung:**
+- Neuer Wrapper `.nav__dock` um `.nav__logo`, `.nav__links` und `.nav__location` auf **allen 17 Seiten**
+  (Startseite, alle Unterseiten, alle Portfolio-Detailseiten).
+- `css/style.css`: Die Desktop-Glass-Pille (`border-radius:999px`, `backdrop-filter`, Schatten) sitzt jetzt
+  auf `.nav__dock` statt nur auf `.nav__links`. Logo leicht verkleinert (`.nav__dock .nav__logo-k/-d`),
+  Zeitzone bekommt einen dezenten linken Trenner (`border-left`) statt eigenem `margin-right`.
+- Mobile (≤768px) unverändert: `.nav__links`/`.nav__location` bleiben per Media Query ausgeblendet, Burger-Menü
+  funktioniert wie zuvor (kein struktureller Eingriff nötig, JS greift nur über Klassenselektoren zu).
+- Verifiziert mit Playwright (headless Chromium, `/opt/pw-browsers/`) auf Desktop (dunkle Hero-Nav +
+  helle `nav--light` Unterseiten-Nav) und Mobile (390×844) — Screenshots geprüft, sieht korrekt aus.
+
+**Git-Historie dieser Änderung:** Ursprünglich auf einem vom Aufgaben-Setup vorgegebenen Branch
+(`claude/logo-timezone-navbar-yzm7pk`) entwickelt und commited. Danach auf Nicoles Wunsch **nachträglich
+per Cherry-Pick sauber auf `main` gebracht** (Commit `0e696f6`), weil ein normaler `git merge` alte,
+längst gelöschte Dateien (Jost/OpenSans-Fontdateien, doppelte Galerie-Bilder) aus der alten
+Branch-Historie wieder eingeführt hätte — bewusst vermieden.
+
+**Status:** ✅ Auf `main` gepusht (`0e696f6`), sollte beim nächsten erfolgreichen FTP-Deploy live sein
+(Deploy-Status separat prüfen, siehe „DEPLOY-PFLICHT" oben).
 
 ---
 
-## Diese Session: Art Gerecht Modular — Vollbild-Animation
+## Frühere Session: Art Gerecht Modular — Vollbild-Animation (auf Alt-Branch, NICHT in main)
 
-**Auftrag:** Hero-Animation auf `portfolio/art-gerecht-modular/` soll auf Desktop/Tablet/Mobile randlos
-(oben/unten/links/rechts) füllen, vorladen, und alle 6 Slides sollen als EINE flüssige Animation wirken.
-Später erweitert: auch die Grid-Kachel in `portfolio/index.html` soll bildschirmfüllend sein.
+Diese Arbeit lief auf einem stark veralteten Branch (`claude/fullscreen-animation-responsive-lxc04m`,
+war 135 Commits hinter `main`) und wurde **nicht** nach `main` gemerged. Falls das Thema erneut aufkommt:
 
-### Bereits committed & gepusht (Commit `50814f4`)
-1. `portfolio/art-gerecht-modular/` komplett von `origin/main` übernommen (existierte auf diesem Branch nicht).
-2. **CSS-Bug gefunden & gefixt** (`css/project.css`): Mobile-Breakpoint (≤600px) zwang alle
-   `.proj-hero--video` Hero-Animationen in eine 16:9-Box statt Vollbild. Neue Opt-in-Klasse
-   `.proj-hero--video-fill` hinzugefügt (nur für dieses Projekt, andere Projekte unangetastet).
-3. **Markup-Bug gefunden & gefixt** (`portfolio/art-gerecht-modular/index.html`): Loser
-   `.proj-hero__back--top` Link (keine CSS-Regel existierte dafür!) stand im normalen Dokumentfluss
-   vor dem Video-Wrapper und schob die Animation ~27px vom oberen Rand weg. Ersetzt durch das
-   Standard-Muster `.proj-hero__eyebrow` (wie bei wh4, tm-studio, …) — jetzt `y:0` auf allen Breakpoints
-   verifiziert (390×844 mobil, 820×1180 tablet, 1440×900 desktop, per Playwright computed-style-Check).
-4. **Sequencer verbessert** (`artgerecht-animation.html`): Nächste Szene wird jetzt während der
-   Haltezeit der aktuellen Szene bereits unsichtbar vorgeladen (statt nur `<link rel=prefetch>` +
-   Reload im exakten Wechselmoment) → kein Blank-Flash mehr beim Crossfade. `.stage` von `100vh` auf
-   `100%` (robuster in verschachtelten iframes). Crossfade-Dauer 0.7s → 0.9s.
-5. Fehlende Grid-Kachel in `portfolio/index.html` ergänzt (Position zwischen Galerie Kronsbein und
-   Seestern, gleiches Muster wie TM Studio: `<iframe ... ?tile=1>`).
-
-Alles verifiziert per lokalem `python3 -m http.server` + Playwright-Core (headless Chromium aus
-`/opt/pw-browsers/`) — Screenshots + `getBoundingClientRect()`/computed-style-Checks für 3 Viewports.
-
-### 🔴 NICHT committed — laufende Untersuchung (Kachel-Ansicht füllt intern noch nicht randlos)
-
-Nutzer meldete danach: Kachel-Ansicht UND Detailseite sollen "bildschirmfüllend" sein. Detailseite ist
-strukturell bestätigt korrekt (Iframe-Box füllt exakt 100% × 100%). Kachel-Iframe-Box füllt ebenfalls
-exakt die 4:3-Kachel (`.portfolio-item__anim` mit `width:133.4%; left:-16.7%`-Crop-Trick, bereits
-vorhandenes CSS-Muster, unverändert korrekt).
-
-**Der eigentliche Rest-Bug liegt in den 6 Szenen-Dateien selbst** (`artgerecht-01…06`), die aus einem
-proprietären "Omelette/DC-Bundler"-Export stammen (`<script type="__bundler/manifest">`, riesige
-JSON-Blobs, `<x-import>`/`<x-dc>`-Custom-Elements, `#__bundler_thumbnail`-Fallback-SVG). Wichtiger
-Fund in dieser Session: **Es wird NICHT extern von unpkg.com geladen** (frühere Annahme war falsch) —
-der Renderer ist selbst-enthalten. Live-DOM-Inspektion (`artgerecht-02-modular-reveal.html`, lokal
-über `http.server` + Playwright) zeigt:
-
-```html
-<svg width="1920" height="1080" style="transform: scale(0.237037); transform-origin: center center; ...">
-  <foreignObject x="0" y="0" width="100%" height="100%">
-    <div style="width:1920px; height:1080px; ...">…die eigentliche Szene…</div>
-  </foreignObject>
-</svg>
-```
-
-D.h. der interne Renderer zeichnet die Szene IMMER auf eine feste 1920×1080-Leinwand und skaliert sie
-per CSS `transform: scale(x)` gleichmäßig (ein einzelner Skalierungsfaktor) so, dass sie in den
-Container **passt** (contain/letterbox-Verhalten) — nicht **crop-fill/cover**. Das erzeugt genau die
-schwarzen Balken oben/unten, die im Kachel-Screenshot sichtbar waren (Kachel-Seitenverhältnis ≠ 16:9
-bei manchen Kachelgrößen/Slides). Das ist der wahrscheinliche Kern des User-Feedbacks.
-
-**Bereits (unkommitiert!) geänderte, sichere Fixes an den 6 Szenen-Dateien** (nur die statischen
-Fallback-`<svg>`-Elemente, NICHT der interne DC-Renderer/Manifest-Blob):
-- `preserveAspectRatio="xMidYMid slice"` auf jedes Fallback-`<svg viewBox="0 0 100 100|1200 800">`
-  ergänzt (betrifft `#__bundler_thumbnail`, den Platzhalter vor/bei Render-Fehler).
-- `object-fit: contain` → `cover` in der `#__bundler_thumbnail svg` CSS-Regel (alle 6 Dateien).
-- `artgerecht-05-brochure-mockup.html`: Template-HTML für das Mockup-Bild von
-  `padding:24px; max-width:1500px; height:auto` (gerahmt/eingerückt) auf `position:absolute; inset:0;
-  object-fit:cover` (randlos, croppt das Bild) umgestellt — **Achtung: das ist eine Design-Änderung**,
-  das Broschüren-Mockup wird jetzt beschnitten statt komplett sichtbar mit Rand gezeigt. Mit Nicole
-  ggf. gegenprüfen, ob das gewünscht ist.
-
-**Diese Fallback-SVG-Fixes lösen NICHT das eigentliche `transform:scale()`-Letterboxing im echten
-DC-Renderer** — das sitzt im großen `__bundler/manifest`-JSON-Blob (>1 MB pro Datei) und in einer
-kompilierten JSX-Komponente, die nicht sicher von Hand editierbar ist, ohne das Bundle zu riskieren.
-
-### Nächste Schritte (offen)
-1. Entscheiden: Soll der `transform:scale()`-Letterbox-Mechanismus im DC-Renderer angegangen werden?
-   Dafür müsste der genaue Skalierungscode im Manifest-Blob lokalisiert werden (z. B. Suche nach
-   `"scale("`, `getBoundingClientRect`, `Math.min(` im dekodierten Manifest — noch nicht gemacht).
-   Hohes Risiko, da die Datei nicht komplett lesbar/prüfbar ist (>1 MB, Base64/JSON-verschachtelt).
-   Alternative: Nicole fragen, ob die Szenen im Ursprungstool (Omelette/DC) neu mit "Cover"-Skalierung
-   statt "Contain" exportiert werden können — sauberer als Hex-Chirurgie am Bundle.
-2. Die uncommitted Fallback-SVG-Fixes (siehe oben) noch reviewen/committen oder verwerfen.
-3. Live-Referenz (`workspace.kidashidesign.com`) bleibt aus der Sandbox nicht erreichbar — jede
-   visuelle Prüfung lief nur lokal via `http.server` + headless Chromium (kein Zugriff auf evtl.
-   Deploy-spezifische Unterschiede).
-
-### Test-Setup (für Fortsetzung)
-```bash
-cd /home/user/kidashi-design-website && python3 -m http.server 8123 &
-# Playwright-Core Testskripte liegen im Scratchpad: .../scratchpad/pwtest/*.js
-# Chromium-Binary: /opt/pw-browsers/chromium-1194/chrome-linux/chrome
-```
+- Auftrag war: Hero-Animation auf `portfolio/art-gerecht-modular/` randlos auf allen Breakpoints,
+  6 Slides als eine flüssige Animation.
+- Gefundener Rest-Bug: Die 6 Szenen-Dateien (`artgerecht-01…06.html`, aus einem proprietären
+  „Omelette/DC-Bundler"-Export) rendern intern immer auf eine feste 1920×1080-Leinwand und skalieren per
+  `transform:scale()` im **contain/letterbox**-Verhalten (nicht cover) → schwarze Balken in der
+  Kachel-Ansicht bei Nicht-16:9-Kacheln. Der Skalierungscode sitzt in einem >1 MB Manifest-JSON-Blob,
+  nicht sicher von Hand editierbar.
+- Empfehlung damals: Nicole fragen, ob die Szenen im Ursprungstool mit „Cover" statt „Contain" neu
+  exportiert werden können — sauberer als Bundle-Chirurgie.
+- Falls das erneut angegangen wird: **auf `main` neu aufsetzen**, nicht den alten Branch fortführen
+  (der weicht inzwischen stark von `main` ab und hat u. a. andere Portfolio-Ordner bewusst gelöscht,
+  die auf `main` noch existieren).
 
 ---
 
@@ -192,21 +125,45 @@ cd /home/user/kidashi-design-website && python3 -m http.server 8123 &
 --gutter:  clamp(1.5rem, 5vw, 5rem)
 ```
 
-⚠️ **Variablen-Namen sind kontraintuitiv:** `--primary` ist Pfirsich/Orange, `--secondary` ist das Blau. Frühere SESSION.md-Versionen hatten das vertauscht — beim Zitieren von Hex-Werten immer den tatsächlichen CSS-Wert in `css/style.css` prüfen, nicht aus dem Variablennamen raten.
+⚠️ **Variablen-Namen sind kontraintuitiv:** `--primary` ist Pfirsich/Orange, `--secondary` ist das Blau.
+Beim Zitieren von Hex-Werten immer den tatsächlichen CSS-Wert in `css/style.css` prüfen, nicht aus dem
+Variablennamen raten.
 
-**Nicole möchte das CI-Blau (`--secondary` #2E54FE) nicht mehr sichtbar in Buttons/Hover-States** — sie empfindet es als irritierend. Wo Blau als Akzent gebraucht wird, `--pastel-blue` (#8BE2E9) verwenden, nicht `--secondary`.
+**Nicole möchte das CI-Blau (`--secondary` #2E54FE) nicht mehr sichtbar in Buttons/Hover-States** — wirkt
+irritierend auf sie. Für Blau-Akzente stattdessen `--pastel-blue` (#8BE2E9) verwenden.
 
 ---
 
-## Button-System — Liquid-Glass-Pills (2026-07-02 komplett neu gebaut)
+## Button-System — Liquid-Glass-Pills
 
-`.btn` + Modifier (`.btn--primary`, `.btn--outline`, `.btn--outline-dark`) sind jetzt Glasmorphismus-Pills:
+`.btn` + Modifier (`.btn--primary`, `.btn--outline`, `.btn--outline-dark`) sind Glasmorphismus-Pills:
 - `border-radius:999px`, `backdrop-filter:blur(26px) saturate(2)`, sehr transparenter Hintergrund
-- `::before` = diagonaler Reflexions-Sweep, `::after` = Spiegel-Sheen am unteren Rand + sehr leichter Zweifarben-Wash (Pfirsich→Pastellblau), beide `z-index:-1` (painten hinter dem Text, vor dem Hintergrund — funktioniert nur wegen `isolation:isolate` + `position:relative` auf `.btn`)
-- `.btn--outline` (dunkle Sections, z.B. Hero) hat eine eigene, reichhaltigere Reflexions-Gradient-Überschreibung — Glaseffekt liest auf Dunkel am stärksten
-- Hover-Übergang bewusst langsam: `0.55s` (nicht 0.3s) für ruhigeres Wirken
-- Textfarbe in dunklen Bereichen bleibt **immer hell** (nie zu dunkel wechseln, auch nicht bei hellerem Hover-Hintergrund) — explizite Nicole-Vorgabe
-- `.btn--ghost`/`.btn--ghost-light` sind aktuell **ungenutzt** (kein HTML referenziert sie), aber Teil des Systems — CI-Blau dort ebenfalls durch `--pastel-blue` ersetzt
+- `::before` = diagonaler Reflexions-Sweep, `::after` = Spiegel-Sheen + leichter Zweifarben-Wash
+  (Pfirsich→Pastellblau), beide `z-index:-1` (funktioniert nur wegen `isolation:isolate` +
+  `position:relative` auf `.btn`)
+- `.btn--outline` (dunkle Sections, z. B. Hero) hat eigene, reichhaltigere Reflexions-Gradient
+- Hover-Übergang bewusst langsam: `0.55s`
+- Textfarbe in dunklen Bereichen bleibt **immer hell**, auch bei hellerem Hover-Hintergrund — explizite Vorgabe
+- `.btn--ghost`/`.btn--ghost-light` aktuell ungenutzt, aber Teil des Systems
+
+---
+
+## Navbar — aktuelles Muster (Stand 2026-07-22)
+
+```html
+<nav class="nav [nav--light|nav--dark]">
+  <div class="nav__inner">
+    <div class="nav__dock">                 <!-- NEU: gemeinsame Glass-Pille -->
+      <a href="…" class="nav__logo">…</a>
+      <ul class="nav__links">…</ul>
+      <div class="nav__location">…</div>
+    </div>
+    <button class="nav__burger">…</button>
+  </div>
+</nav>
+```
+Desktop (≥769px): `.nav__dock` trägt die Glass-Dock-Optik (Pille, Blur, Schatten). Mobile (≤768px):
+`.nav__links`/`.nav__location` per Media Query ausgeblendet, nur Logo + Burger sichtbar.
 
 ---
 
@@ -231,30 +188,18 @@ cd /home/user/kidashi-design-website && python3 -m http.server 8123 &
 
 ---
 
-## Verifikations-Setup für neue Agenten (Sandbox ohne echten Internet-Zugriff)
+## Portfolio-Seiten auf `main`
 
-Bei jeder Fehleranalyse: 1) kritische Fehler zuerst, 2) Zeile·Erklärung·Fix pro Fehler,
-3) Optimierungen mit Aufwand/Nutzen, 4) Gesamtbewertung 1–10 + Top 3, 5) Vorher/Nachher-Beispiele.
-(Gilt für Reviews/Fehleranalysen — nicht für reine Implementierungsaufgaben wie diese Session.)
-
----
-
-## Portfolio-Seiten auf diesem Branch
-
-`xp-days` · `wh4` · `rohyma-jet` · `tm-studio` · `galerie-kronsbein` · `art-gerecht-modular` (NEU) ·
-`seestern` · `westgrowth-capital` · `hideout-georgia` · `selvoma` · `studio995`
-
-Fehlen (auf diesem Branch bewusst gelöscht, main hat sie evtl. noch): `mystic-drops`, `artista-magazin`,
-`piano-post` — `portfolio/index.html` hat für diese noch tote Links.
+`index` · `services` · `about` · `portfolio` (Übersicht) · `gallery` · `contact` · `datenschutz` ·
+`impressum` sowie Portfolio-Detailseiten: `art-gerecht-modular` · `galerie-kronsbein` ·
+`hideout-georgia` · `rohyma-jet` · `seestern` · `selvoma` · `studio995` · `tm-studio` · `xp-days`.
 
 ---
 
 ## Schnellstart für neuen Chat
 
 ```
-Ich arbeite am Repo kidashidesign/kidashi-design-website auf Branch
-claude/fullscreen-animation-responsive-lxc04m. Statisches HTML/CSS/JS.
-Lies SESSION.md im Root — dort steht der offene Rest-Bug zur
-Art-Gerecht-Modular-Animation (Kachel-Ansicht letterboxt noch wegen
-transform:scale()-Contain-Verhalten im DC-Renderer-Bundle).
+Ich arbeite am Repo kidashidesign/kidashi-design-website, immer direkt auf main
+(siehe CLAUDE.md → Git-Workflow, kein Feature-Branch-Modell mehr). Statisches
+HTML/CSS/JS. Lies SESSION.md im Root für den letzten Stand.
 ```
