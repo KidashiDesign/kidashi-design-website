@@ -198,7 +198,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .nav--light .nav__logo-k { color: var(--dark); }
 .nav--light .nav__logo-d { color: var(--dark); }
 .nav--light .nav__link { color: rgba(10,10,11,0.6); }
-.nav--light .nav__link:hover, .nav--light .nav__link.active { color: var(--dark); }
+.nav--light .nav__link:hover, .nav--light .nav__link.active { color: var(--dark); background: var(--primary);}
 .nav--light .nav__link::after { background: var(--dark); }
 .nav--light .nav__burger span { background: var(--dark); }
 .nav--light .nav__location { color: rgba(10,10,11,0.4); }
@@ -216,14 +216,14 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   height: 1px; background: #FFBC95;
   transform: scaleX(0); transition: transform 0.3s var(--ease); transform-origin: left;
 }
-.nav__link:hover, .nav__link.active { color: #FFBC95; }
+.nav__link:hover, .nav__link.active { color: #FFBC95; background: var(--primary);}
 .nav__link:hover::after, .nav__link.active::after { transform: scaleX(1); }
 
 /* Over-light: nav switches to dark text when scrolling over light sections */
 .nav.over-light .nav__logo-k { color: var(--dark); }
 .nav.over-light .nav__logo-d { color: var(--dark); }
 .nav.over-light .nav__link { color: rgba(10,10,11,0.6); }
-.nav.over-light .nav__link:hover, .nav.over-light .nav__link.active { color: var(--dark); }
+.nav.over-light .nav__link:hover, .nav.over-light .nav__link.active { color: var(--dark);  background: var(--primary);}
 .nav.over-light .nav__link::after { background: var(--dark); }
 .nav.over-light .nav__burger span { background: var(--dark); }
 .nav.over-light .nav__location { color: rgba(10,10,11,0.4); }
@@ -239,7 +239,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .nav.scrolled .nav__logo-d, .nav--dark.scrolled .nav__logo-d { color: #FFBC95; }
 .nav.scrolled .nav__link, .nav--dark.scrolled .nav__link { color: rgba(247,243,238,0.6); }
 .nav.scrolled .nav__link:hover, .nav.scrolled .nav__link.active,
-.nav--dark.scrolled .nav__link:hover, .nav--dark.scrolled .nav__link.active { color: #FFBC95; }
+.nav--dark.scrolled .nav__link:hover, .nav--dark.scrolled .nav__link.active { color: #FFBC95; background: var(--primary);}
 .nav.scrolled .nav__burger span, .nav--dark.scrolled .nav__burger span { background: var(--cream); }
 .nav.scrolled .nav__location, .nav--dark.scrolled .nav__location { color: rgba(247,243,238,0.4); }
 
@@ -311,7 +311,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   transition: color 0.2s;
 }
 .nav__mobile .nav__link:hover,
-.nav__mobile .nav__link.active { color: var(--dark); }
+.nav__mobile .nav__link.active { color: var(--dark); background: var(--primary);}
 
 .nav__mobile-close {
   font-family: var(--font-b);
@@ -415,7 +415,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   }
   .nav__links .nav__link.active {
     color: var(--secondary);
-    background: rgba(46, 84, 254, 0.12);
+    background: var(--primary);
   }
 
   /* Glass is always light, so keep dock text dark in every nav state
@@ -434,7 +434,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .nav.over-light .nav__links .nav__link.active,
   .nav--light .nav__links .nav__link.active {
     color: var(--secondary);
-    background: rgba(46, 84, 254, 0.12);
+    background: var(--primary);
   }
 
   /* Without the old full-width dark bar, the scrolled state no longer
