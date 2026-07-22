@@ -627,8 +627,9 @@ p {
 	}
 	/* Timezone widget sits inside the pill after the links, with a divider */
 	.nav__dock .nav__location {
-		padding-left: 1.2rem;
+		
 		border-left: 1px solid rgba(10, 10, 11, 0.14);
+    left: var(--gutter);
 	}
 	/* Each menu point is a pill item — dark corporate text on glass */
 	.nav__links .nav__link {
