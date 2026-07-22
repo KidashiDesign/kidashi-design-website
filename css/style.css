@@ -83,7 +83,7 @@
   --section-pad: clamp(80px, 10vw, 140px);
   --container:   1280px;
   --gutter:      clamp(24px, 5vw, 80px);
-  --nav-h:       72px;
+  --nav-h:       83px;
 }
 
 /* ============================================================
@@ -148,7 +148,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 
 .nav__inner {
   display: flex; align-items: center; justify-content: space-between;
-  width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter);
+  width: 100%; max-width: 1472px; margin-inline: auto; padding-inline: var(--gutter);
 }
 .nav__dock { display: flex; align-items: center; }
 .nav__logo { display: flex; align-items: baseline; gap: 8px; text-decoration: none; }
