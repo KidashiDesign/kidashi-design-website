@@ -147,8 +147,13 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 }
 
 .nav__inner {
-  display: flex; align-items: center; justify-content: space-between;
-  width: 100%; max-width: 1472px; margin-inline: auto; padding-inline: var(--gutter);
+  display: flex; 
+  align-items: center; 
+  justify-content: center; /* <--- Changed from space-between */
+  width: 100%; 
+  max-width: 1472px; 
+  margin-inline: auto; 
+  padding-inline: var(--gutter);
 }
 .nav__dock { display: flex; align-items: center; }
 .nav__logo { display: flex; align-items: baseline; gap: 8px; text-decoration: none; }
@@ -370,6 +375,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 
   /* Dock becomes the floating glass pill: logo + links + timezone together */
   .nav__dock {
+    margin-inline: auto;
     gap: 1.4rem;
     padding: 0.4rem 0.4rem 0.4rem 1.1rem;
     border-radius: 999px;
