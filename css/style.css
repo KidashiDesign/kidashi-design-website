@@ -487,6 +487,7 @@ p {
 	text-transform: uppercase;
 	color: rgba(247,243,238,0.4);
 	white-space: nowrap;
+    padding-right: 1rem;
 }
 .nav__location {
 	color: rgba(247,243,238,0.4);
@@ -628,8 +629,9 @@ p {
 	/* Timezone widget sits inside the pill after the links, with a divider */
 	.nav__dock .nav__location {
 		
-		border-left: 1px solid rgba(10, 10, 11, 0.14);
-    left: var(--gutter);
+    border-left: 1px solid rgba(10, 10, 11, 0.14);
+    padding-left: 1rem;
+	
 	}
 	/* Each menu point is a pill item — dark corporate text on glass */
 	.nav__links .nav__link {
