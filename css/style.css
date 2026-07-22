@@ -69,10 +69,10 @@
   --bg:        #F7F3EE;
   --bg2:       #EDE9E2;
   --dark:      #0A0A0B;
-  --primary:   Elise #D4D3B3;
-  --secondary:  Brie #E5DCB1;
-  --accent:   Sage #8D926F;
-  --accent2:  Tea Leaves #4E5138;
+  --primary:   #D4D3B3;
+  --secondary: #E5DCB1;
+  --accent:    #8D926F;
+  --accent2:   #4E5138;
   --text:      #0A0A0B;
   --muted:     rgba(10,10,11,0.45);
   --sand:      rgba(10,10,11,0.22);
@@ -203,7 +203,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .nav--light .nav__logo-k { color: var(--dark); }
 .nav--light .nav__logo-d { color: var(--dark); }
 .nav--light .nav__link { color: rgba(10,10,11,0.6); }
-.nav--light .nav__link:hover, .nav--light .nav__link.active { color: var(--dark); background: var(--primary);}
+.nav--light .nav__link:hover, .nav--light .nav__link.active { color: var(--dark); background: var(--accent);}
 .nav--light .nav__link::after { background: var(--dark); }
 .nav--light .nav__burger span { background: var(--dark); }
 .nav--light .nav__location { color: rgba(10,10,11,0.4); }
@@ -221,14 +221,14 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   height: 1px; background: #FFBC95;
   transform: scaleX(0); transition: transform 0.3s var(--ease); transform-origin: left;
 }
-.nav__link:hover, .nav__link.active { color: #FFBC95; background: var(--primary);}
+.nav__link:hover, .nav__link.active { color: #FFBC95; background: var(--accent);}
 .nav__link:hover::after, .nav__link.active::after { transform: scaleX(1); }
 
 /* Over-light: nav switches to dark text when scrolling over light sections */
 .nav.over-light .nav__logo-k { color: var(--dark); }
 .nav.over-light .nav__logo-d { color: var(--dark); }
 .nav.over-light .nav__link { color: rgba(10,10,11,0.6); }
-.nav.over-light .nav__link:hover, .nav.over-light .nav__link.active { color: var(--dark);  background: var(--primary);}
+.nav.over-light .nav__link:hover, .nav.over-light .nav__link.active { color: var(--dark);  background: var(--accent);}
 .nav.over-light .nav__link::after { background: var(--dark); }
 .nav.over-light .nav__burger span { background: var(--dark); }
 .nav.over-light .nav__location { color: rgba(10,10,11,0.4); }
@@ -244,7 +244,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .nav.scrolled .nav__logo-d, .nav--dark.scrolled .nav__logo-d { color: #FFBC95; }
 .nav.scrolled .nav__link, .nav--dark.scrolled .nav__link { color: rgba(247,243,238,0.6); }
 .nav.scrolled .nav__link:hover, .nav.scrolled .nav__link.active,
-.nav--dark.scrolled .nav__link:hover, .nav--dark.scrolled .nav__link.active { color: #FFBC95; background: var(--primary);}
+.nav--dark.scrolled .nav__link:hover, .nav--dark.scrolled .nav__link.active { color: #FFBC95; background: var(--accent);}
 .nav.scrolled .nav__burger span, .nav--dark.scrolled .nav__burger span { background: var(--cream); }
 .nav.scrolled .nav__location, .nav--dark.scrolled .nav__location { color: rgba(247,243,238,0.4); }
 
@@ -316,7 +316,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   transition: color 0.2s;
 }
 .nav__mobile .nav__link:hover,
-.nav__mobile .nav__link.active { color: var(--dark); background: var(--primary);}
+.nav__mobile .nav__link.active { color: var(--dark); background: var(--accent);}
 
 .nav__mobile-close {
   font-family: var(--font-b);
@@ -421,7 +421,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   }
   .nav__links .nav__link.active {
     color: var(--secondary);
-    background: var(--primary);
+    background: var(--accent);
   }
 
   /* Glass is always light, so keep dock text dark in every nav state
@@ -440,7 +440,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .nav.over-light .nav__links .nav__link.active,
   .nav--light .nav__links .nav__link.active {
     color: var(--secondary);
-    background: var(--primary);
+    background: var(--accent);
   }
 
   /* Without the old full-width dark bar, the scrolled state no longer
@@ -811,9 +811,9 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 
 .btn--ghost { font-size: 0.9rem; font-weight: 400; letter-spacing: 0.04em; text-transform: none; color: var(--muted); padding: 0; border: none; border-radius: 0; background: none; backdrop-filter: none; box-shadow: none; border-bottom: 1px solid transparent; transition: border-color 0.25s var(--ease), color 0.25s var(--ease); }
 .btn--ghost::before, .btn--ghost::after { content: none; }
-.btn--ghost:hover { border-color: var(--accent2); transform: none; }
-.btn--ghost-light { color: var(--accent2); }
-.btn--ghost-light:hover { border-color: var(--accent2); color: var(--cream); }
+.btn--ghost:hover { border-color: var(--accent); transform: none; }
+.btn--ghost-light { color: var(--accent); }
+.btn--ghost-light:hover { border-color: var(--accent); color: var(--cream); }
 
 /* ============================================================
    ABOUT TEASER
@@ -1566,7 +1566,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .service-full-card--core.reveal {
   transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), background 0.6s var(--ease);
 }
-.service-full-card--core:hover { background: var(--accent2); }
+.service-full-card--core:hover { background: var(--accent); }
 .service-full-card__tag { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--primary); display: block; margin-bottom: 0.75rem; }
 .service-full-card--core .service-full-card__tag { color: var(--primary); }
 .service-full-card h3 { font-family: var(--font-h); font-size: 2rem; font-weight: 300; margin-bottom: 1.75rem; color: var(--text); }
@@ -1720,7 +1720,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
    ============================================================ */
 .gallery-page { background: var(--dark); min-height: 100vh; }
 .gallery-page .nav__link { color: var(--primary); }
-.gallery-page .nav__link:hover, .gallery-page .nav__link.active { color: var(--primary); }
+.gallery-page .nav__link:hover, .gallery-page .nav__link.active { color: var(--primary); background: var(--accent); }
 .gallery-page .nav__location { color: var(--primary); }
 .gallery-page .nav__location-tz { color: var(--primary); }
 .gallery-page .page-hero { background: var(--dark); padding-bottom: clamp(3rem, 5vw, 5rem); }
