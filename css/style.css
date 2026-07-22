@@ -369,7 +369,7 @@ p {
 .nav__links {
 	display: flex;
 	align-items: center;
-	gap: 2.2rem;
+	gap: 0.8rem;
 }
 .nav__link {
 	font-family: var(--font-b);
