@@ -376,7 +376,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   /* Dock becomes the floating glass pill: logo + links + timezone together */
   .nav__dock {
     margin-inline: auto;
-    gap: 1.4rem;
+    gap: 4rem;
     padding: 0.4rem 0.4rem 0.4rem 1.1rem;
     border-radius: 999px;
     background: rgba(247, 243, 238, 0.55);
