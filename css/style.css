@@ -158,7 +158,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .nav__dock { display: flex; align-items: center; }
 .nav__logo { display: flex; align-items: baseline; gap: 8px; text-decoration: none; }
 .nav__logo-k { font-family: var(--font-h); font-size: 2rem; font-weight: 400; letter-spacing: 0.06em; color: var(--cream); line-height: 1; position: relative; display: inline-block; }
-.nav__logo-d { font-family: var(--font-b); font-size: 0.75rem; font-weight: 300; letter-spacing: 0.28em; text-transform: uppercase; color: #FFBC95; line-height: 1; }
+.nav__logo-d { font-family: var(--font-b); font-size: 0.75rem; font-weight: 300; letter-spacing: 0.28em; text-transform: uppercase; color:var(--primary); line-height: 1; }
 
 /* Logo glitch on hover */
 .nav__logo-k::before,
@@ -201,7 +201,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 
 /* nav--light: dark text for subpages with light backgrounds */
 .nav--light .nav__logo-k { color: var(--dark); }
-.nav--light .nav__logo-d { color: var(--dark); }
+.nav--light .nav__logo-d { color: var(--secondary); }
 .nav--light .nav__link { color: rgba(10,10,11,0.6); }
 .nav--light .nav__link:hover, .nav--light .nav__link.active { color: var(--dark); background: var(--accent);}
 .nav--light .nav__link::after { background: var(--dark); }
@@ -226,7 +226,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 
 /* Over-light: nav switches to dark text when scrolling over light sections */
 .nav.over-light .nav__logo-k { color: var(--dark); }
-.nav.over-light .nav__logo-d { color: var(--dark); }
+.nav.over-light .nav__logo-d { color: var(--secondary); }
 .nav.over-light .nav__link { color: rgba(10,10,11,0.6); }
 .nav.over-light .nav__link:hover, .nav.over-light .nav__link.active { color: var(--dark);  background: var(--accent);}
 .nav.over-light .nav__link::after { background: var(--dark); }
@@ -241,7 +241,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   box-shadow: 0 1px 0 rgba(0,0,0,0.25);
 }
 .nav.scrolled .nav__logo-k, .nav--dark.scrolled .nav__logo-k { color: var(--cream); }
-.nav.scrolled .nav__logo-d, .nav--dark.scrolled .nav__logo-d { color: #FFBC95; }
+.nav.scrolled .nav__logo-d, .nav--dark.scrolled .nav__logo-d { color: var(--secondary); }
 .nav.scrolled .nav__link, .nav--dark.scrolled .nav__link { color: rgba(247,243,238,0.6); }
 .nav.scrolled .nav__link:hover, .nav.scrolled .nav__link.active,
 .nav--dark.scrolled .nav__link:hover, .nav--dark.scrolled .nav__link.active { color: #FFBC95; background: var(--accent);}
