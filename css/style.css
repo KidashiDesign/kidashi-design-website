@@ -212,7 +212,7 @@ p {
 	justify-content: space-between;
 	/* <--- Restore to space-between for mobile layout balance */
 	width: 100%;
-	max-width: 1472px;
+	max-width: 1272px;
 	margin-inline: auto;
 	padding-inline: var(--gutter);
 }
