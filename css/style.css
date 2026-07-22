@@ -69,10 +69,10 @@
   --bg:        #F7F3EE;
   --bg2:       #EDE9E2;
   --dark:      #0A0A0B;
-  --primary:   #FFBC95;
-  --secondary: #2E54FE;
-  --accent:    #FFF083;
-  --pastel-blue: #8BE2E9;
+  --primary:   Elise #D4D3B3;
+  --secondary:  Brie #E5DCB1;
+  --accent:   Sage #8D926F;
+  --accent2:  Tea Leaves #4E5138;
   --text:      #0A0A0B;
   --muted:     rgba(10,10,11,0.45);
   --sand:      rgba(10,10,11,0.22);
@@ -83,7 +83,7 @@
   --section-pad: clamp(80px, 10vw, 140px);
   --container:   1280px;
   --gutter:      clamp(24px, 5vw, 80px);
-  --nav-h:       83px;
+  --nav-h:       72px;
 }
 
 /* ============================================================
@@ -811,9 +811,9 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 
 .btn--ghost { font-size: 0.9rem; font-weight: 400; letter-spacing: 0.04em; text-transform: none; color: var(--muted); padding: 0; border: none; border-radius: 0; background: none; backdrop-filter: none; box-shadow: none; border-bottom: 1px solid transparent; transition: border-color 0.25s var(--ease), color 0.25s var(--ease); }
 .btn--ghost::before, .btn--ghost::after { content: none; }
-.btn--ghost:hover { border-color: var(--pastel-blue); transform: none; }
-.btn--ghost-light { color: var(--pastel-blue); }
-.btn--ghost-light:hover { border-color: var(--pastel-blue); color: var(--cream); }
+.btn--ghost:hover { border-color: var(--accent2); transform: none; }
+.btn--ghost-light { color: var(--accent2); }
+.btn--ghost-light:hover { border-color: var(--accent2); color: var(--cream); }
 
 /* ============================================================
    ABOUT TEASER
@@ -1566,7 +1566,7 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .service-full-card--core.reveal {
   transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), background 0.6s var(--ease);
 }
-.service-full-card--core:hover { background: var(--pastel-blue); }
+.service-full-card--core:hover { background: var(--accent2); }
 .service-full-card__tag { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--primary); display: block; margin-bottom: 0.75rem; }
 .service-full-card--core .service-full-card__tag { color: var(--primary); }
 .service-full-card h3 { font-family: var(--font-h); font-size: 2rem; font-weight: 300; margin-bottom: 1.75rem; color: var(--text); }
