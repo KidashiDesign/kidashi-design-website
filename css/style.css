@@ -1123,7 +1123,12 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .service-card__num { font-family: var(--font-h); font-size: 3rem; font-weight: 300; color: rgba(196,173,148,0.2); line-height: 1; display: block; margin-bottom: 1.5rem; }
 .service-card__title { font-family: var(--font-h); font-size: 1.6rem; font-weight: 400; color: var(--cream); margin-bottom: 0.75rem; line-height: 1.2; }
 .service-card__desc { font-size: 0.875rem; color: rgba(196,173,148,0.65); line-height: 1.65; }
-.services-dark__cta { margin-top: clamp(3rem, 5vw, 4rem); }
+.services-dark__cta {
+  margin-top: clamp(3rem, 5vw, 4rem);
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;    /* Centers vertically if needed */
+}
 
 /* ============================================================
    PORTFOLIO TEASER
