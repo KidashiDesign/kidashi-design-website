@@ -345,7 +345,7 @@ p {
 	color: var(--dark);
 }
 .nav--light .nav__logo-d {
-	color: var(--secondary);
+	color: var(--dark);
 }
 .nav--light .nav__link {
 	color: rgba(10,10,11,0.6);
