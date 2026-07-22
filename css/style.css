@@ -2731,18 +2731,21 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	background: var(--dark);
 	min-height: 100vh;
 }
+.gallery-page .nav__logo-d, .nav__logo-k {
+	color: var(--dark);
+}
 .gallery-page .nav__link {
-	color: var(--primary);
+	color: var(--dark);
 }
 .gallery-page .nav__link:hover, .gallery-page .nav__link.active {
-	color: var(--primary);
+	color: var(--dark);
 	background: var(--accent);
 }
 .gallery-page .nav__location {
-	color: var(--primary);
+	color: var(--dark);
 }
 .gallery-page .nav__location-tz {
-	color: var(--primary);
+	color: var(--dark);
 }
 .gallery-page .page-hero {
 	background: var(--dark);
