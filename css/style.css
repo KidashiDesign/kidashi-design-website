@@ -3330,10 +3330,6 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 		color: #FFFFFF; 
 		mix-blend-mode: difference;
 	}
-	/* Light-bg pages: dark cursor */
-	body:not(.gallery-page) .cursor {
-		color: var(--dark);
-	}
 	/* Circle — shown by default */
 	.cursor__circle {
 		position: absolute;
