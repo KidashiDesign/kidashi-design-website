@@ -11,10 +11,10 @@ class FluidParticles {
     if (!this.canvas) return
 
     this.opts = {
-      particleDensity:     options.particleDensity     ?? 50,
+particleDensity:     options.particleDensity     ?? 50,
       particleSize:        options.particleSize        ?? 1,
-      particleColor:       options.particleColor       ?? '#555555',
-      activeColor:         options.activeColor         ?? '#ffffff',
+      particleColor:       options.particleColor       ?? '#D4D3B3', // Primary (Sandy base)
+      activeColor:         options.activeColor         ?? '#8D926F', // Accent (Mossy highlight)
       maxBlastRadius:      options.maxBlastRadius      ?? 300,
       hoverDelay:          options.hoverDelay          ?? 100,
       interactionDistance: options.interactionDistance ?? 10,
@@ -33,8 +33,14 @@ class FluidParticles {
     this._rect       = { left: 0, top: 0 } // Cache bounding rect
 
     // Pre-compute 256 blast color strings to avoid GC pauses
-    this._blastColors = Array.from({ length: 256 }, (_, i) => `rgba(${i},100,255,0.8)`);
-
+    // Interpolating from Accent2 (78, 81, 56) to Secondary (229, 220, 177)
+    this._blastColors = Array.from({ length: 256 }, (_, i) => {
+        const p = i / 255; // Progress from 0 to 1
+        const r = Math.round(78 + (151 * p)); // 229 - 78 = 151
+        const g = Math.round(81 + (139 * p)); // 220 - 81 = 139
+        const b = Math.round(56 + (121 * p)); // 177 - 56 = 121
+        return `rgba(${r},${g},${b},0.8)`;
+    });
     this._init()
   }
 
