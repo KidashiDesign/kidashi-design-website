@@ -219,6 +219,34 @@ p {
 .nav__dock {
 	display: flex;
 	align-items: center;
+    
+
+}
+/* 1. Make sure parent elements don't clip the overflowing logo */
+.nav,
+.nav__inner,
+.nav__dock {
+  overflow: visible !important; /* Ensures the logo isn't cut off by rounded corners */
+  
+}
+
+/* 2. Bring the logo container to the front layer */
+.nav__logo {
+  position: relative;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 3. Make the image larger and pull it outside the navbar borders */
+.nav__logo img {
+  height: 60px; /* Adjust height larger than the navbar line-height */
+  width: auto;
+  margin-top: -10px;    /* Pulls top of logo above the navbar */
+  margin-bottom: -10px; /* Pulls bottom of logo below the navbar */
+}
+.logo {
+    padding-bottom: 1.4rem;
 }
 .nav__logo {
 	display: flex;
