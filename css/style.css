@@ -76,6 +76,14 @@
 	--gutter: clamp(24px, 5vw, 80px);
 	--nav-h: 72px;
 }
+.icon-user {
+  width: 24px;
+  height: 24px;
+  background-image: url('/images/favicon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
 /* ============================================================RESET============================================================ */
 *, *::before, *::after {
 	box-sizing: border-box;
