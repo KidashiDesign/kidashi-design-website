@@ -247,6 +247,12 @@ p {
 }
 .logo {
     padding-bottom: 1.4rem;
+	width:"220"; 
+	height:"40";
+}
+.logo-footer{
+	width:"135";
+	height:"24.55";
 }
 .nav__logo {
 	display: flex;
