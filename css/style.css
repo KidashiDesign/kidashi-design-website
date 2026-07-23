@@ -3312,70 +3312,74 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 }
 /* ============================================================CUSTOM CURSOR — site-wide (desktop only)Ported from Custom Cursor.dc.html============================================================ */
 @media (hover: hover) and (pointer: fine) {
-	*, *::before, *::after {
-		cursor: none !important;
-	}
-	.cursor {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 30px;
-		height: 30px;
-		pointer-events: none;
-		z-index: 99999;
-		opacity: 0;
-		will-change: transform;
-		
-		/* ADD THESE TWO LINES */
-		color: #FFFFFF; 
+    *:not(iframe), *:not(iframe)::before, *:not(iframe)::after {
+        cursor: none !important;
+    }
+    
+    .cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 30px;
+        height: 30px;
+        pointer-events: none;
+        z-index: 99999;
+        opacity: 0;
+        will-change: transform;
+        
+        /* 1. Pick your preferred fixed color */
+        color: #111111; 
 		mix-blend-mode: difference;
-	}
-	/* Circle — shown by default */
-	.cursor__circle {
-		position: absolute;
-		inset: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.2,0.8,0.2,1);
-		will-change: opacity, transform;
-	}
-	.cursor__circle svg {
-		display: block;
-		width: 100%;
-		height: 100%;
-		overflow: visible;
-	}
-	/* Glyph container — hidden by default */
-	.cursor__glyphs {
-		position: absolute;
-		inset: 0;
-		opacity: 0;
-		transition: opacity 0.3s ease;
-		will-change: opacity;
-	}
-	.cursor__glyph {
-		position: absolute;
-		inset: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 40px;
-		line-height: 1;
-		color: currentColor;
-		opacity: 0;
-		transform: scale(0.5) rotate(-45deg);
-		transition: opacity 0.45s ease, transform 0.5s cubic-bezier(0.2,0.85,0.2,1);
-		will-change: opacity, transform;
-	}
-	.cursor__glyph.active {
-		opacity: 1;
-		transform: scale(1) rotate(0deg);
-	}
-	.cursor__glyph.exit {
-		opacity: 0;
-		transform: scale(0.5) rotate(45deg);
-	}
+        /* 2. Optional: Subtle shadow so a dark cursor remains visible on dark sections */
+        filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.6));
+    }
+    
+    /* Circle — shown by default */
+    .cursor__circle {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.2,0.8,0.2,1);
+        will-change: opacity, transform;
+    }
+    .cursor__circle svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+    }
+    /* Glyph container — hidden by default */
+    .cursor__glyphs {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        will-change: opacity;
+    }
+    .cursor__glyph {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        line-height: 1;
+        color: currentColor;
+        opacity: 0;
+        transform: scale(0.5) rotate(-45deg);
+        transition: opacity 0.45s ease, transform 0.5s cubic-bezier(0.2,0.85,0.2,1);
+        will-change: opacity, transform;
+    }
+    .cursor__glyph.active {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+    .cursor__glyph.exit {
+        opacity: 0;
+        transform: scale(0.5) rotate(45deg);
+    }
 }
 @media (max-width: 768px) {
 	h1 {

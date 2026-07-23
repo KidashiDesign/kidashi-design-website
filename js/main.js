@@ -73,8 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
       cursor.style.transform = `translate3d(${pos.x.toFixed(2)}px,${pos.y.toFixed(2)}px,0) translate(-50%,-50%)`;
 
       if (checkEl) {
-        const lum = getBgLuminance(checkEl);
-        cursor.style.color = lum < 0.35 ? '#F7F3EE' : '#0A0A0B';
+        const lum = getBgLuminance(checkEl); // You can delete this line if you want
+        cursor.style.color = '#FFFFFF'; // Sets the cursor to solid red permanently
         const hovered = !!(checkEl.closest && checkEl.closest('a, button, .gallery-item, .portfolio-item, .portfolio-card, .service-card, .filter-btn, [role="button"], [data-cursor="hover"]'));
         setHover(hovered);
       }
