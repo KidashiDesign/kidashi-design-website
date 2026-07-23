@@ -3325,8 +3325,10 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 		z-index: 99999;
 		opacity: 0;
 		will-change: transform;
-		color: #F7F3EE;
-		/* default: light on dark bg */
+		
+		/* ADD THESE TWO LINES */
+		color: #FFFFFF; 
+		mix-blend-mode: difference;
 	}
 	/* Light-bg pages: dark cursor */
 	body:not(.gallery-page) .cursor {
