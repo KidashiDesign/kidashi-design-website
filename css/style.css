@@ -3597,6 +3597,7 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 .about-float-scene__inner {
 	position: absolute;
 	inset: 0;
+	background: var(--dark);
 }
 .about-float-el {
 	position: absolute;
