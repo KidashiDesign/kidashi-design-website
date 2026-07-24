@@ -77,6 +77,7 @@
 	--nav-h: 72px;
 }
 .icon-user {
+  display: inline-block; /* Forces it to respect width and height */
   width: 24px;
   height: 24px;
   background-image: url('/images/favicon.svg');
