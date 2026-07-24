@@ -431,7 +431,7 @@ p {
 	left: 0;
 	right: 0;
 	height: 1px;
-	background: #FFBC95;
+	background: var(--accent);
 	transform: scaleX(0);
 	transition: transform 0.3s var(--ease);
 	transform-origin: left;
@@ -456,7 +456,7 @@ p {
 	display: block;
 	width: 24px;
 	height: 1.5px;
-	background: var(--cream);
+	background: var(--dark);
 	transition: all 0.3s var(--ease);
 }
 .nav__burger.open span:nth-child(1) {
@@ -542,7 +542,7 @@ p {
 }
 .nav__mobile .nav__link:hover,.nav__mobile .nav__link.active {
 	color: var(--dark);
-	background: var(--accent);
+	background: var(--bg);
 }
 .nav__mobile-close {
 	font-family: var(--font-b);
@@ -2800,8 +2800,8 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	color: var(--dark);
 }
 .gallery-page .nav__link:hover, .gallery-page .nav__link.active {
-	color: var(--dark);
-	background: var(--accent);
+		color: var(--dark);
+		background: var(--bg);
 }
 .gallery-page .nav__location {
 	color: var(--dark);
