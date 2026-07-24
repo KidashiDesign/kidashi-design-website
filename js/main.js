@@ -3,7 +3,10 @@
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
-
+const favicon = document.createElement('link');
+favicon.rel = 'icon';
+favicon.href = '/images/favicon.svg';
+document.head.appendChild(favicon);
   /* ── Custom cursor — ported from Custom Cursor.dc.html ── */
   const cursor = document.querySelector('.cursor');
   if (cursor && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
