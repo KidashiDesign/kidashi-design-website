@@ -263,11 +263,11 @@ p {
 	width: 8.5rem;
 	height: 1.5rem;
 }
-.nav__logo {
-	display: flex;
-	align-items: baseline;
-	gap: 8px;
-	text-decoration: none;
+.logo {
+    width: 100%;
+    max-width: 14rem;
+    height: auto;
+    padding-bottom: 1.4rem;
 }
 .nav__logo-k {
 	font-family: var(--font-h);
@@ -410,9 +410,14 @@ p {
 	color: var(--dark);
 }
 .nav__links {
-	display: flex;
-	align-items: center;
-	gap: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1rem;
+}
+.nav__links a {
+    font-size: clamp(0.85rem, 0.679rem + 0.357vw, 1rem);
+    text-decoration: none;
 }
 .nav__link {
 	font-family: var(--font-b);
