@@ -497,7 +497,7 @@ p {
 	font-variant-numeric: tabular-nums;
 }
 .nav__location-tz {
-	color: var(--primary);
+	color: var(--accent);
 	font-size: 0.58rem;
 }
 /* ── Mobile menu ── */
@@ -636,7 +636,7 @@ p {
 		padding: 0.5rem 1.05rem;
 		border-radius: 999px;
 		font-size: 0.72rem;
-		color: rgba(10, 10, 11, 0.6);
+		color: var(--dark);
 		transition:color 0.25s var(--ease),background-color 0.25s var(--ease),transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.4);
 	}
 	/* Pill highlight replaces the underline in the dock */
@@ -645,11 +645,11 @@ p {
 	}
 	.nav__links .nav__link:hover {
 		color: var(--dark);
-		background: rgba(255, 255, 255, 0.55);
+		background: var(--accent);
 		transform: translateY(-1px);
 	}
 	.nav__links .nav__link.active {
-		color: var(--secondary);
+		color: var(--dark);
 		background: var(--accent);
 	}
 	/* Glass is always light, so keep dock text dark in every nav state(scrolled / over-light / light subpages) — higher specificity wins */
