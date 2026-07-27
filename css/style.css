@@ -374,16 +374,18 @@ p {
     padding-right: 1rem;
 }
 .nav__location {
-	color: rgba(247,243,238,0.4);
+	color: var(--dark);
 }
 .nav__location-sep {
 	opacity: 0.4;
+	color: var(--dark);
 }
 .nav__location-time {
 	font-variant-numeric: tabular-nums;
+	color: var(--dark);
 }
 .nav__location-tz {
-	color: var(--accent);
+	color: var(--dark);
 	font-size: 0.58rem;
 }
 /* ── Mobile menu ── */
@@ -2702,21 +2704,6 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 .gallery-page {
 	background: var(--dark);
 	min-height: 100vh;
-}
-.gallery-page .nav__logo-d, .nav__logo-k {
-	color: var(--dark);
-}
-.gallery-page .nav__link {
-	color: var(--dark);
-}
-.gallery-page .nav__link:hover, .gallery-page .nav__link.active {
-		color: var(--dark);
-		background: var(--bg);
-}
-.gallery-page .nav__location {
-	color: var(--dark);
-}
-.gallery-page .nav__location-tz {
 	color: var(--dark);
 }
 .gallery-page .page-hero {
