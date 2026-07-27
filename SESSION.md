@@ -9,7 +9,7 @@ Aktualisiert: 2026-07-18
 |-----|-------|
 | Repo | `kidashidesign/kidashi-design-website` |
 | Branch (aktiv) | `claude/fullscreen-animation-responsive-lxc04m` |
-| Deploy | FTP → Hostinger (echte Live-Seite) + GitHub Pages (Preview) |
+| Deploy | GitHub Pages (Preview) — automatischer FTP-Deploy zu Hostinger wurde entfernt |
 | Stack | Statisches HTML/CSS/JS, kein Build-Tool, kein Framework |
 | Live-URL | `https://www.kidashidesign.com` |
 | Referenz/Staging-URL (Nicole) | `https://workspace.kidashidesign.com` — **nicht erreichbar aus der Sandbox** (Proxy blockt, 403, auch via Chromium direkt: `ERR_TUNNEL_CONNECTION_FAILED`) |
@@ -17,17 +17,12 @@ Aktualisiert: 2026-07-18
 
 ---
 
-## 🚨 DEPLOY-PFLICHT — bei jeder neuen Session als ERSTES prüfen
+## Deploy-Hinweis
 
-Die echte Live-Seite liegt auf **Hostinger** (nicht GitHub Pages).
-Deploy läuft automatisch via GitHub Actions Workflow `.github/workflows/deploy.yml` per FTP bei jedem Push auf `main`.
-
-**Beim Sessionstart immer prüfen:**
-1. Letzten Workflow-Run auf `main` checken → `mcp__github__actions_list` (list_workflow_runs)
-2. Wenn "Deploy to Hostinger" = `failure` → sofort melden und `rerun_failed_jobs` auslösen
-3. Secrets: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` (GitHub Repo Settings → Secrets)
-
-**Merke:** GitHub Pages Deploy kann grün sein, aber Hostinger trotzdem rot.
+Der automatische FTP-Deploy zu Hostinger (`.github/workflows/deploy.yml`, `SamKirkland/FTP-Deploy-Action`)
+wurde entfernt. Es gibt keinen automatisch im Hintergrund laufenden Deploy-Befehl mehr — Sessions
+müssen dies beim Start nicht mehr prüfen oder auslösen. Falls ein neuer Deploy-Mechanismus gewünscht
+ist, muss er explizit neu eingerichtet werden.
 
 ---
 
