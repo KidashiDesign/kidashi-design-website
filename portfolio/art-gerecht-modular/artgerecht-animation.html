@@ -2,114 +2,390 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Art Gerecht — Animation Sequence</title>
-<link rel="prefetch" href="artgerecht-01-intro.html">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Art Gerecht Modular — Hero Animation</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: 100%; height: 100%; background: #0A0A0A; overflow: hidden; }
-  .stage { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0A0A0A; }
-  .slide {
+  .stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0A0A0A;
+  }
+  .scene {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #000;
+    display: none;
+  }
+  .scene.is-active { display: block; }
+  .scene__img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    border: 0;
+    object-fit: cover;
     display: block;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: opacity;
   }
-  .slide.is-active { opacity: 1; }
+  .scene__overlay {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    pointer-events: none;
+    z-index: 50;
+  }
+  .scene__center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .scene__grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+  }
+  .scene__cell {
+    box-sizing: border-box;
+  }
 </style>
 </head>
 <body>
   <div class="stage" id="stage">
-    <iframe class="slide" data-src="artgerecht-01-intro.html" data-hold="3200" title="Art Gerecht — Intro" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
-    <iframe class="slide" data-src="artgerecht-02-modular-reveal.html" data-hold="3200" title="Art Gerecht — Modular Reveal" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
-    <iframe class="slide" data-src="artgerecht-03-agm-reveal.html" data-hold="3200" title="Art Gerecht — Vehicle Reveal" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
-    <iframe class="slide" data-src="artgerecht-04-zoom-blur.html" data-hold="3200" title="Art Gerecht — Interior Zoom" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
-    <iframe class="slide" data-src="artgerecht-05-brochure-mockup.html" data-hold="3200" title="Art Gerecht — Brochure Mockup" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
-    <iframe class="slide" data-src="artgerecht-06-bumper.html" data-hold="5200" title="Art Gerecht — Closing Bumper" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+
+    <!-- 1. Intro logo -->
+    <div class="scene" id="scene-intro">
+      <div style="position:absolute;inset:0;background:#0b0a08;">
+        <img class="scene__img" id="intro-bg" src="media/AGM_1.webp" style="opacity:0;">
+        <div id="intro-vig" style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.55) 100%);opacity:0;"></div>
+        <div class="scene__center">
+          <img id="intro-logo" src="media/AGM_1.2.webp" alt="Art Gerecht Modular" style="height:60%;width:auto;">
+        </div>
+      </div>
+      <div class="scene__overlay" id="intro-overlay"></div>
+    </div>
+
+    <!-- 2. Tech graphic grid -->
+    <div class="scene" id="scene-techgrid">
+      <div style="position:absolute;inset:0;background:#f8f6ee;">
+        <img class="scene__img" src="media/AGM_2.webp">
+        <div id="techgrid-lines" style="position:absolute;inset:0;"></div>
+        <div class="scene__center">
+          <img id="techgrid-logo" src="media/AGM_2.2.webp" alt="Modular logo" style="height:80vh;width:auto;max-width:144vw;opacity:0;">
+        </div>
+      </div>
+      <div class="scene__overlay" id="techgrid-overlay"></div>
+    </div>
+
+    <!-- 3. Truck outside view -->
+    <div class="scene" id="scene-truck">
+      <div style="position:absolute;inset:0;background:#0b0b0a;">
+        <svg width="0" height="0" style="position:absolute;">
+          <defs>
+            <filter id="truckMorphFilter" x="-20%" y="-20%" width="140%" height="140%">
+              <feTurbulence id="truck-turb" type="fractalNoise" baseFrequency="0.008 0.011" numOctaves="2" seed="7" result="noise"></feTurbulence>
+              <feDisplacementMap id="truck-disp" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+            </filter>
+          </defs>
+        </svg>
+        <img class="scene__img" id="truck-img" src="media/AGM_3.webp" alt="Overlanding expedition truck collage" style="filter:url(#truckMorphFilter);transform-origin:50% 58%;">
+      </div>
+      <div class="scene__overlay" id="truck-overlay"></div>
+    </div>
+
+    <!-- 4. Grid logo build -->
+    <div class="scene" id="scene-gridlogo">
+      <div style="position:absolute;inset:0;background:#E39A00;font-family:Helvetica,Arial,sans-serif;">
+        <div class="scene__grid" id="gridlogo-grid" style="grid-template-columns:repeat(9,1fr);grid-template-rows:repeat(5,1fr);">
+          <div style="grid-row:2 / 5;grid-column:4 / 7;display:flex;align-items:center;justify-content:center;padding:4%;box-sizing:border-box;opacity:0;" id="gridlogo-logo-wrap">
+            <img src="media/AGM_4.3.webp" alt="Art Gerecht Modular logo" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 6px 20px rgba(0,0,0,0.18));">
+          </div>
+        </div>
+      </div>
+      <div class="scene__overlay" id="gridlogo-overlay"></div>
+    </div>
+
+    <!-- 5. Boat interior zoom -->
+    <div class="scene" id="scene-boat">
+      <div style="position:absolute;inset:0;overflow:hidden;background:#000;">
+        <img id="boat-img" src="media/AGM_5.webp" alt="" style="position:absolute;top:50%;left:50%;width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="scene__overlay" id="boat-overlay"></div>
+    </div>
+
+    <!-- 6. Flyer reveal -->
+    <div class="scene" id="scene-flyer">
+      <div style="position:absolute;inset:0;overflow:hidden;background:#dcdcdc;perspective:2200px;">
+        <img id="flyer-img" src="media/AGM_6.webp" alt="" style="position:absolute;inset:-8%;width:116%;height:116%;object-fit:cover;">
+        <div style="position:absolute;inset:0;box-shadow:inset 0 -180px 220px -160px rgba(0,0,0,0.3);"></div>
+      </div>
+      <div class="scene__overlay" id="flyer-overlay"></div>
+    </div>
+
+    <!-- 7. Logo outro -->
+    <div class="scene" id="scene-outro">
+      <div style="position:absolute;inset:0;background:#000;">
+        <img id="outro-bg" src="media/AGM_8.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <div id="outro-scrim" style="position:absolute;inset:0;background:#000;opacity:0.1;"></div>
+        <img id="outro-logo" src="media/AGM_8.2.webp" alt="" style="position:absolute;left:50%;top:50%;width:min(66vw,60vh);height:auto;opacity:0;">
+      </div>
+      <div class="scene__overlay" id="outro-overlay"></div>
+    </div>
+
   </div>
 
   <script>
   (function () {
-    var DEFAULT_HOLD_MS = 3200; // fallback when a slide has no data-hold
-    var PRELOAD_LEAD_MS = 1400; // how far ahead of its cue the next clip gets fully loaded (hidden)
-    var UNLOAD_DELAY_MS = 950;  // wait for the crossfade-out to finish before resetting the old clip
-
-    var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
-    var n = slides.length;
-    var idx = 0;
-    var timers = [];
-    var loaded = [];
-
-    // Loads the clip's real document into its iframe ahead of time, while it's
-    // still hidden (opacity 0), so the crossfade never reveals a blank/loading frame.
-    function loadSlide(i) {
-      if (loaded[i]) return;
-      loaded[i] = true;
-      slides[i].src = slides[i].getAttribute('data-src');
+    // Keyframe interpolation, ported 1:1 from the source full-sequence.jsx timeline.
+    function kf(t, stops) {
+      if (t <= stops[0][0]) return stops[0][1];
+      for (var i = 0; i < stops.length - 1; i++) {
+        var t0 = stops[i][0], v0 = stops[i][1];
+        var t1 = stops[i + 1][0], v1 = stops[i + 1][1];
+        if (t <= t1) {
+          var f = (t1 === t0) ? 0 : (t - t0) / (t1 - t0);
+          return v0 + (v1 - v0) * f;
+        }
+      }
+      return stops[stops.length - 1][1];
     }
 
-    // Resets a clip back to blank once it's fully faded out, so its one-shot
-    // timeline restarts cleanly at frame 0 the next time it's preloaded.
-    function unloadSlide(i) {
-      if (!loaded[i]) return;
-      loaded[i] = false;
-      slides[i].src = 'about:blank';
+    function fadeOverlay(t, fadeIn, fadeOut) {
+      return kf(t, [[0, 1], [fadeIn, 0], [1 - fadeOut, 0], [1, 1]]);
     }
 
-    function activate(i) {
-      loadSlide(i);
-      slides.forEach(function (s, j) {
-        s.classList.toggle('is-active', j === i);
+    // ---- Scene 1: Intro logo ----
+    var introBg = document.getElementById('intro-bg');
+    var introVig = document.getElementById('intro-vig');
+    var introLogo = document.getElementById('intro-logo');
+    var introOverlay = document.getElementById('intro-overlay');
+    function updateIntro(t) {
+      var bgOpacity = kf(t, [[0, 0], [0.15, 1], [0.85, 1], [0.95, 0], [1, 0]]);
+      var bgScale = kf(t, [[0, 1.12], [0.15, 1.02], [0.5, 1.07], [0.85, 1.1], [1, 1.13]]);
+      var bgTx = kf(t, [[0, 0], [0.15, -0.6], [0.5, 0.5], [0.85, 0], [1, 0]]);
+      var bgTy = kf(t, [[0, 0], [0.15, 0.2], [0.5, -0.4], [0.85, 0], [1, 0]]);
+      var vig = kf(t, [[0, 0.35], [0.15, 0.55], [0.5, 0.6], [0.85, 0.55], [1, 0.35]]);
+      var logoOpacity = kf(t, [[0, 0], [0.14, 0], [0.34, 1], [0.8, 1], [0.92, 0], [1, 0]]);
+      var logoScale = kf(t, [[0, 1.65], [0.14, 1.65], [0.34, 1], [0.8, 1], [0.92, 1.55], [1, 1.65]]);
+      var logoBlur = kf(t, [[0, 30], [0.14, 30], [0.34, 0], [0.8, 0], [0.92, 24], [1, 30]]);
+      var logoClip = kf(t, [[0, 0], [0.14, 0], [0.34, 85], [0.8, 85], [0.92, 0], [1, 0]]);
+
+      introBg.style.opacity = bgOpacity;
+      introBg.style.transform = 'scale(' + bgScale + ') translate(' + bgTx + '%,' + bgTy + '%)';
+      introVig.style.opacity = vig;
+      introLogo.style.opacity = logoOpacity;
+      introLogo.style.transform = 'scale(' + logoScale + ')';
+      introLogo.style.filter = 'blur(' + logoBlur + 'px) drop-shadow(0 18px 50px rgba(0,0,0,0.55))';
+      introLogo.style.clipPath = 'circle(' + logoClip + '% at 50% 50%)';
+      introOverlay.style.opacity = fadeOverlay(t, 0.08, 0.08);
+    }
+
+    // ---- Scene 2: Tech graphic grid ----
+    var techgridLinesWrap = document.getElementById('techgrid-lines');
+    var techgridLogo = document.getElementById('techgrid-logo');
+    var techgridOverlay = document.getElementById('techgrid-overlay');
+    var vPositions = [12.5, 25, 37.5, 50, 62.5, 75, 87.5];
+    var hPositions = [16.66, 33.33, 50, 66.66, 83.33];
+    var lineColor = 'rgba(20,18,14,0.16)';
+    var vLineEls = vPositions.map(function (pos) {
+      var el = document.createElement('div');
+      el.style.cssText = 'position:absolute;top:0;left:' + pos + '%;width:1px;height:100%;background:' + lineColor + ';transform-origin:top;';
+      techgridLinesWrap.appendChild(el);
+      return el;
+    });
+    var hLineEls = hPositions.map(function (pos) {
+      var el = document.createElement('div');
+      el.style.cssText = 'position:absolute;left:0;top:' + pos + '%;height:1px;width:100%;background:' + lineColor + ';transform-origin:left;';
+      techgridLinesWrap.appendChild(el);
+      return el;
+    });
+    function updateTechGrid(t) {
+      vLineEls.forEach(function (el, i) {
+        var start = 0.16 + i * 0.02, end = start + 0.12;
+        var op = kf(t, [[0, 0], [start, 0], [end, 1], [0.8, 1], [0.9, 0], [1, 0]]);
+        el.style.opacity = op;
+        el.style.transform = 'scaleY(' + op + ')';
       });
+      hLineEls.forEach(function (el, i) {
+        var start = 0.30 + i * 0.02, end = start + 0.12;
+        var op = kf(t, [[0, 0], [start, 0], [end, 1], [0.8, 1], [0.9, 0], [1, 0]]);
+        el.style.opacity = op;
+        el.style.transform = 'scaleX(' + op + ')';
+      });
+      var logoOpacity = kf(t, [[0, 0], [0.42, 0], [0.56, 1], [0.8, 1], [0.94, 0], [1, 0]]);
+      var logoScale = kf(t, [[0, 0.82], [0.42, 0.82], [0.56, 1], [0.8, 1], [0.94, 1.05], [1, 1.05]]);
+      techgridLogo.style.opacity = logoOpacity;
+      techgridLogo.style.transform = 'scale(' + logoScale + ')';
+      techgridOverlay.style.opacity = fadeOverlay(t, 0.08, 0.08);
     }
 
-    function clearTimers() {
-      timers.forEach(clearTimeout);
-      timers = [];
+    // ---- Scene 3: Truck outside view ----
+    var truckImg = document.getElementById('truck-img');
+    var truckTurb = document.getElementById('truck-turb');
+    var truckDisp = document.getElementById('truck-disp');
+    var truckOverlay = document.getElementById('truck-overlay');
+    function updateTruck(t) {
+      var wave = (1 - Math.cos(2 * Math.PI * t)) / 2;
+      var zoomAmount = 1.15, morphIntensity = 22;
+      var scale = 1 + (zoomAmount - 1) * wave;
+      var freq = 0.006 + 0.01 * wave;
+      var dispScale = morphIntensity * wave;
+      truckImg.style.transform = 'scale(' + scale.toFixed(4) + ')';
+      truckTurb.setAttribute('baseFrequency', freq.toFixed(4) + ' ' + (freq * 1.4).toFixed(4));
+      truckDisp.setAttribute('scale', dispScale.toFixed(2));
+      truckOverlay.style.opacity = fadeOverlay(t, 0.08, 0.08);
     }
 
-    function holdFor(i) {
-      var v = parseInt(slides[i].getAttribute('data-hold'), 10);
-      return isNaN(v) ? DEFAULT_HOLD_MS : v;
+    // ---- Scene 4: Grid logo build ----
+    var gridlogoGrid = document.getElementById('gridlogo-grid');
+    var gridlogoLogoWrap = document.getElementById('gridlogo-logo-wrap');
+    var gridlogoOverlay = document.getElementById('gridlogo-overlay');
+    var cols = 9, rows = 5;
+    var centerR = Math.ceil(rows / 2), centerC = Math.ceil(cols / 2);
+    var colStart = centerC - 1, colEnd = colStart + 3;
+    var rowStart = 2, rowEnd = 5;
+    var lineRgba = 'rgba(255,255,255,0.5)';
+    var gridCells = [];
+    for (var r = 1; r <= rows; r++) {
+      for (var c = 1; c <= cols; c++) {
+        var inLogo = r >= rowStart && r < rowEnd && c >= colStart && c < colEnd;
+        if (inLogo) continue;
+        var dist = Math.max(Math.abs(r - centerR), Math.abs(c - centerC));
+        var el = document.createElement('div');
+        el.className = 'scene__cell';
+        el.style.gridRow = r;
+        el.style.gridColumn = c;
+        el.style.border = '1px solid ' + lineRgba;
+        gridlogoGrid.appendChild(el);
+        gridCells.push({ el: el, dist: dist });
+      }
+    }
+    function updateGridLogo(t) {
+      gridCells.forEach(function (cell) {
+        var delay = cell.dist * 0.025;
+        var start = 0.02 + delay, end = start + 0.12;
+        var op = kf(t, [[0, 0], [start, 0], [end, 1], [0.8, 1], [0.94, 0], [1, 0]]);
+        var sc = 0.4 + 0.6 * op;
+        cell.el.style.opacity = op;
+        cell.el.style.transform = 'scale(' + sc + ')';
+      });
+      var logoOpacity = kf(t, [[0, 0], [0.22, 0], [0.38, 1], [0.78, 1], [0.92, 0], [1, 0]]);
+      var logoScale = kf(t, [[0, 0.8], [0.22, 0.8], [0.38, 1], [0.78, 1], [0.92, 0.8], [1, 0.8]]);
+      gridlogoLogoWrap.style.opacity = logoOpacity;
+      gridlogoLogoWrap.style.transform = 'scale(' + logoScale + ')';
+      gridlogoOverlay.style.opacity = fadeOverlay(t, 0.08, 0.08);
     }
 
-    function cycle() {
-      var prevIdx = (idx - 1 + n) % n;
-      activate(idx);
+    // ---- Scene 5: Boat interior zoom ----
+    var boatImg = document.getElementById('boat-img');
+    var boatOverlay = document.getElementById('boat-overlay');
+    function updateBoat(t) {
+      var eased = 0.5 - 0.5 * Math.cos(Math.PI * t);
+      var scale = 1 + 0.14 * eased;
+      var tx = -3 * eased, ty = 2 * eased;
+      boatImg.style.transform = 'translate(-50%,-50%) translate(' + tx + '%,' + ty + '%) scale(' + scale + ')';
+      boatOverlay.style.opacity = fadeOverlay(t, 0.08, 0.08);
+    }
 
-      timers.push(setTimeout(function () {
-        unloadSlide(prevIdx);
-      }, UNLOAD_DELAY_MS));
+    // ---- Scene 6: Flyer reveal ----
+    var flyerImg = document.getElementById('flyer-img');
+    var flyerOverlay = document.getElementById('flyer-overlay');
+    function updateFlyer(t) {
+      var zf = 0.09, df = 0.28;
+      var wave = Math.sin(t * Math.PI);
+      var wave2 = Math.sin(t * Math.PI * 2);
+      var scale = 1.12 + wave * zf * 0.22;
+      var panX = wave2 * zf * 26;
+      var panY = wave * zf * -16;
+      var rotY = wave2 * df * 7;
+      var rotX = -wave * df * 5;
+      flyerImg.style.transform = 'scale(' + scale + ') translate3d(' + panX + 'px,' + panY + 'px,0) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)';
+      flyerOverlay.style.opacity = fadeOverlay(t, 0.08, 0.08);
+    }
 
-      var holdMs = holdFor(idx);
-      var nextIdx = (idx + 1) % n;
+    // ---- Scene 7: Logo outro ----
+    var outroBg = document.getElementById('outro-bg');
+    var outroScrim = document.getElementById('outro-scrim');
+    var outroLogo = document.getElementById('outro-logo');
+    var outroOverlay = document.getElementById('outro-overlay');
+    function updateOutro(t) {
+      var bgScale = 1 + 0.14 * t;
+      var scrimOp = kf(t, [[0, 0.10], [0.14, 0.10], [0.30, 0.62], [0.5, 0.62], [0.66, 0.10], [1, 0.10]]);
+      var logoOp = kf(t, [[0, 0], [0.14, 0], [0.3, 1], [0.5, 1], [0.66, 0], [1, 0]]);
+      var logoBlur = kf(t, [[0, 18], [0.14, 18], [0.3, 0], [0.5, 0], [0.66, 14], [1, 18]]);
+      var logoScale = kf(t, [[0, 0.82], [0.14, 0.82], [0.3, 1], [0.5, 1], [0.66, 1.1], [1, 0.82]]);
+      outroBg.style.transform = 'scale(' + bgScale + ')';
+      outroScrim.style.opacity = scrimOp;
+      outroLogo.style.opacity = logoOp;
+      outroLogo.style.filter = 'blur(' + logoBlur + 'px)';
+      outroLogo.style.transform = 'translate(-50%,-50%) scale(' + logoScale + ')';
+      outroOverlay.style.opacity = fadeOverlay(t, 0.08, 0.08);
+    }
 
-      timers.push(setTimeout(function () {
-        loadSlide(nextIdx);
-      }, Math.max(holdMs - PRELOAD_LEAD_MS, 300)));
+    // ---- Sequencer ----
+    var scenes = [
+      { id: 'scene-intro', dur: 5, update: updateIntro },
+      { id: 'scene-techgrid', dur: 5, update: updateTechGrid },
+      { id: 'scene-truck', dur: 5, update: updateTruck },
+      { id: 'scene-gridlogo', dur: 5, update: updateGridLogo },
+      { id: 'scene-boat', dur: 5, update: updateBoat },
+      { id: 'scene-flyer', dur: 5, update: updateFlyer },
+      { id: 'scene-outro', dur: 6, update: updateOutro }
+    ];
+    scenes.forEach(function (s) { s.el = document.getElementById(s.id); });
+    var totalDur = scenes.reduce(function (sum, s) { return sum + s.dur; }, 0);
+    var starts = [];
+    (function () {
+      var acc = 0;
+      scenes.forEach(function (s) { starts.push(acc); acc += s.dur; });
+    })();
 
-      timers.push(setTimeout(function () {
-        idx = nextIdx;
-        cycle();
-      }, holdMs));
+    var activeIdx = -1;
+    var running = true;
+    var rafId = null;
+    var startTime = null;
+
+    function frame(now) {
+      if (!running) return;
+      if (startTime === null) startTime = now;
+      var elapsed = ((now - startTime) / 1000) % totalDur;
+
+      var idx = scenes.length - 1;
+      for (var i = 0; i < scenes.length; i++) {
+        if (elapsed < starts[i] + scenes[i].dur) { idx = i; break; }
+      }
+      var localT = Math.min(Math.max((elapsed - starts[idx]) / scenes[idx].dur, 0), 1);
+
+      if (idx !== activeIdx) {
+        scenes.forEach(function (s, j) { s.el.classList.toggle('is-active', j === idx); });
+        activeIdx = idx;
+      }
+      scenes[idx].update(localT);
+
+      rafId = requestAnimationFrame(frame);
     }
 
     function start() {
-      clearTimers();
-      cycle();
+      if (rafId !== null) return;
+      startTime = null;
+      rafId = requestAnimationFrame(frame);
     }
-
     function stop() {
-      clearTimers();
+      running = false;
+      if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
     }
 
     document.addEventListener('visibilitychange', function () {
-      if (document.hidden) { stop(); } else { start(); }
+      if (document.hidden) {
+        stop();
+      } else {
+        running = true;
+        start();
+      }
     });
 
     start();
