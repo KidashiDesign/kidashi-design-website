@@ -49,8 +49,8 @@
   display: block;
   pointer-events: none;
 }
-.proj-hero--video .proj-hero__content {
-  padding: clamp(4rem, 8vh, 7rem) var(--gutter) clamp(2.5rem, 5vh, 4rem);
+  .proj-hero--video .proj-hero__content {
+  padding: clamp(1rem, 3vh, 2.5rem) var(--gutter) clamp(2.5rem, 5vh, 4rem);
 }
 .proj-hero--phone .proj-hero__content {
   padding-top: clamp(8rem, 18vh, 14rem);
@@ -65,14 +65,19 @@
     rgba(10,10,11,0.88) 100%);
 }
 .proj-hero__eyebrow {
-  position: absolute;
-  top: calc(var(--nav-h) + 2.5rem);
-  left: var(--gutter);
-  right: var(--gutter);
+  position: relative;
   z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  /* 1. Reset the massive padding so the box itself isn't huge */
+  padding-top: 0; 
+  /* 2. Add a generous bottom margin to push the title down and clear its tight line-height */
+  margin-bottom: clamp(1.5rem, 4vh, 3rem); 
+}
+/* 3. Neutralize the video variant override so it doesn't force a top position */
+.proj-hero--video .proj-hero__eyebrow {
+  top: auto; 
 }
 .proj-hero__back {
   font-family: var(--font-b);
@@ -106,9 +111,7 @@
   display: block;
 }
 
-@media (min-width: 601px) {
-  .proj-hero__content .proj-hero__back { display: none; }
-}
+
 @media (max-width: 600px) {
   .proj-hero__back--top { display: none; }
 }
@@ -553,7 +556,7 @@
   }
 
   /* Galerie Kronsbein: hide content sections below hero on mobile */
-  .proj-hero--phone .proj-hero__content { display: none; }
+  .proj-hero--phone 
   .proj-hero--phone ~ .proj-services,
   .proj-hero--phone ~ .proj-statement,
   .proj-hero--phone ~ .proj-quote,
