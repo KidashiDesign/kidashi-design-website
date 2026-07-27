@@ -50,7 +50,7 @@
   pointer-events: none;
 }
   .proj-hero--video .proj-hero__content {
-  padding: clamp(1rem, 3vh, 2.5rem) var(--gutter) clamp(2.5rem, 5vh, 4rem);
+  padding: clamp(3rem, 3vh, 5rem) var(--gutter) clamp(4rem, 5vh, 6rem);
 }
 .proj-hero--phone .proj-hero__content {
   padding-top: clamp(8rem, 18vh, 14rem);
