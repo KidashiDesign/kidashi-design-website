@@ -40,6 +40,7 @@
   height: 100svh;
   overflow: hidden;
   display: block;
+  position: relative;
 }
 .proj-hero--video .proj-hero__video-frame {
   width: 100%;
@@ -49,7 +50,10 @@
   pointer-events: none;
 }
 .proj-hero--video .proj-hero__content {
-  padding: clamp(2rem, 4vh, 3.5rem) var(--gutter) clamp(2.5rem, 5vh, 4rem);
+  padding: clamp(4rem, 8vh, 7rem) var(--gutter) clamp(2.5rem, 5vh, 4rem);
+}
+.proj-hero--phone .proj-hero__content {
+  padding-top: clamp(8rem, 18vh, 14rem);
 }
 
 .proj-hero__bg::after {
@@ -87,6 +91,26 @@
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--primary);
+}
+
+.proj-hero__content .proj-hero__back {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.proj-hero__back--top {
+  position: absolute;
+  top: calc(var(--nav-h) + 2.5rem);
+  left: var(--gutter);
+  z-index: 3;
+  display: block;
+}
+
+@media (min-width: 601px) {
+  .proj-hero__content .proj-hero__back { display: none; }
+}
+@media (max-width: 600px) {
+  .proj-hero__back--top { display: none; }
 }
 
 .proj-hero__content {
@@ -290,6 +314,7 @@
   grid-template-columns: repeat(4, 1fr);
   padding: clamp(2rem, 4vh, 3rem) var(--gutter);
   gap: 2rem;
+  grid-template-columns: 1fr 1fr;
 }
 .proj-details__item {
   display: flex;
@@ -366,11 +391,12 @@
 }
 .proj-process__step {
   display: grid;
-  grid-template-columns: 3rem 1fr 2fr;
+  grid-template-columns: 1fr; gap: 0.5rem;
   gap: 2rem;
   align-items: start;
   padding: clamp(1.5rem, 3vh, 2.5rem) 0;
   border-bottom: 1px solid rgba(247,243,238,0.08);
+  
 }
 .proj-process__num {
   font-family: var(--font-b);
@@ -480,7 +506,15 @@
   .proj-process__step { grid-template-columns: 2.5rem 1fr; }
   .proj-process__step-body { grid-column: 2; }
 }
+/* ── PHONE MOCKUP (Galerie Kronsbein mobile hero) ── */
+.proj-hero__phone-mockup { display: none; }
+
 @media (max-width: 600px) {
+  .proj-hero__title { font-size: clamp(3rem, 13vw, 6rem); }
+  .proj-statement__text { font-size: clamp(2.2rem, 7.5vw, 3.5rem); }
+  .proj-split__title { font-size: clamp(2rem, 6.5vw, 2.8rem); }
+  .proj-quote__text { font-size: clamp(2rem, 6.5vw, 2.8rem); }
+  .proj-next__title { font-size: clamp(2.8rem, 10vw, 5rem); }
   .proj-hero__strip { flex-direction: column; gap: 1.25rem; }
   .proj-hero__meta { border-right: none; margin-right: 0; padding-right: 0; border-bottom: 1px solid rgba(247,243,238,0.1); padding-bottom: 1.25rem; }
   .proj-hero__meta:last-child { border-bottom: none; }
@@ -489,8 +523,74 @@
   .proj-details__inner { grid-template-columns: 1fr 1fr; }
   .proj-process__step { grid-template-columns: 1fr; gap: 0.5rem; }
   .proj-process__num { display: none; }
-  /* Mobile: 16:9 ratio instead of full-screen height */
-  .proj-hero--video .proj-hero__video-wrap { height: auto; aspect-ratio: 16 / 9; }
+
+@media (max-width: 900px) {
+   .proj-hero--video .proj-hero__video-wrap { height: auto; aspect-ratio: 16 / 9; }
+ }
+  /* Mobile: square animation for all video pages except phone mockup */
+  .proj-hero--video:not(.proj-hero--phone) .proj-hero__video-wrap {
+    height: auto;
+    aspect-ratio: 1 / 1;
+    display: block;
+  }
   /* Opt-out: some hero animations are designed to fill the full screen on every device */
-  .proj-hero--video-fill .proj-hero__video-wrap { height: 100svh; aspect-ratio: unset; }
+  .proj-hero--video.proj-hero--video-fill .proj-hero__video-wrap { height: 100svh; aspect-ratio: unset; display: block; }
+
+  /* Galerie Kronsbein: full-screen phone hero */
+  .proj-hero--phone .proj-hero__video-wrap {
+    height: 100svh;
+    display: block;
+  }
+
+  /* Galerie Kronsbein: show phone mockup, hide desktop animation */
+  .proj-hero__video-frame--desktop { display: none !important; }
+  .proj-hero__phone-mockup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Galerie Kronsbein: hide content sections below hero on mobile */
+  .proj-hero--phone .proj-hero__content { display: none; }
+  .proj-hero--phone ~ .proj-services,
+  .proj-hero--phone ~ .proj-statement,
+  .proj-hero--phone ~ .proj-quote,
+  .proj-hero--phone ~ .proj-process { display: none; }
+
+  /* Phone frame */
+  .proj-hero__phone {
+    position: relative;
+    width: min(72vw, 290px);
+    aspect-ratio: 9 / 19.5;
+    background: #101010;
+    border-radius: 13% / 6%;
+    box-shadow:
+      inset 0 0 0 2px #2c2c2c,
+      0 0 0 1px #080808,
+      0 50px 120px rgba(0,0,0,0.95),
+      0 10px 40px rgba(0,0,0,0.7);
+    overflow: hidden;
+    padding: 3.5% 1.5%;
+  }
+  .proj-hero__phone::before {
+    content: '';
+    position: absolute;
+    top: 1.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28%;
+    height: 1.2%;
+    background: #1c1c1e;
+    border-radius: 3px;
+    z-index: 2;
+  }
+  .proj-hero__phone-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10% / 4.5%;
+    display: block;
+  }
 }
