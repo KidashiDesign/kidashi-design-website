@@ -290,7 +290,7 @@ p {
 	background: var(--dark);
 }
 .nav--light .nav__location {
-	color: rgba(10,10,11,0.4);
+	color: var(--dark);
 }
 .nav--light .nav__location-tz {
 	color: var(--dark);
