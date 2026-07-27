@@ -746,6 +746,20 @@ p {
 	position: relative;
 	z-index: 1;
 }
+.subt {
+    display: block;
+    width: 100%;
+    max-width: 60ch;                      /* Keeps line lengths comfortable for reading */
+    margin-inline: auto;                  /* Keeps it centered under the headline */
+    margin-top: clamp(1.25rem, 3vh, 3rem);/* Scales spacing proportionally to headline height */
+    text-align: center;
+    font-family: var(--font-b, inherit);
+    font-weight: 400;                     /* Regular weight creates strong contrast against 700 */
+    font-size: clamp(1.125rem, 3vh, 2.25rem); /* ~1/4 scale of headline (4.5rem → 15rem) */
+    line-height: 1.45;                    /* Open line height for easy reading */
+    letter-spacing: -0.01em;              /* Neutral letter spacing for body text */
+    color: #5a5a5a;                       /* Softened secondary color */
+}
 /* Static label — same size/weight as cycling word */
 .hero2__static,.hero2__cycle {
 	display: block;
