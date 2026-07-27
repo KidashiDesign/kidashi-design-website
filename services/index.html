@@ -225,29 +225,47 @@
   var stack = document.getElementById('testimonialStack');
   if (!stack) return;
 
+  function makeCard(t, pos) {
+    var safeId = String(t.id).replace(/[^0-9]/g, '') || '1';
+    var card = document.createElement('div');
+    card.className = 'tcard';
+    card.dataset.pos = pos;
+    card.innerHTML =
+      '<img src="https://i.pravatar.cc/128?img=' + safeId + '" alt="Client photo" class="tcard__avatar" loading="lazy" decoding="async">' +
+      '<blockquote class="tcard__text">"' + t.text + '"</blockquote>' +
+      '<span class="tcard__author">' + t.author + '</span>';
+    return card;
+  }
+
   function buildCards() {
     stack.innerHTML = '';
     cards = [];
     for (var i = 0; i < 3; i++) {
-      var t = TESTIMONIALS[order[i]];
       var pos = i === 0 ? 'front' : i === 1 ? 'middle' : 'back';
-      var safeId = String(t.id).replace(/[^0-9]/g, '') || '1';
-      var card = document.createElement('div');
-      card.className = 'tcard';
-      card.dataset.pos = pos;
-      card.innerHTML =
-        '<img src="https://i.pravatar.cc/128?img=' + safeId + '" alt="Client photo" class="tcard__avatar" loading="lazy" decoding="async">' +
-        '<blockquote class="tcard__text">"' + t.text + '"</blockquote>' +
-        '<span class="tcard__author">' + t.author + '</span>';
+      var card = makeCard(TESTIMONIALS[order[i]], pos);
       stack.appendChild(card);
       cards.push(card);
     }
     bindDrag(cards[0]);
   }
 
-  function shuffle() {
+  function advance(oldFront) {
     order.push(order.shift());
-    buildCards();
+
+    var newFront = cards[1];
+    var newMiddle = cards[2];
+    newFront.dataset.pos = 'front';
+    newMiddle.dataset.pos = 'middle';
+
+    var newBack = makeCard(TESTIMONIALS[order[2]], 'back');
+    stack.appendChild(newBack);
+
+    if (oldFront.parentNode === stack) {
+      stack.removeChild(oldFront);
+    }
+
+    cards = [newFront, newMiddle, newBack];
+    bindDrag(cards[0]);
   }
 
   function bindDrag(front) {
@@ -279,10 +297,24 @@
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       if (currentDx < -150) {
+        var advanced = false;
+        function finishAdvance() {
+          if (advanced) return;
+          advanced = true;
+          front.removeEventListener('transitionend', finishAdvance);
+          advance(front);
+        }
+
         front.style.transition = reduceMotion ? 'none' : 'transform 0.3s ease, opacity 0.3s ease';
         front.style.transform = 'rotate(-18deg) translateX(-130%)';
         front.style.opacity = '0';
-        setTimeout(shuffle, reduceMotion ? 0 : 300);
+
+        if (reduceMotion) {
+          finishAdvance();
+        } else {
+          front.addEventListener('transitionend', finishAdvance);
+          setTimeout(finishAdvance, 350);
+        }
       } else {
         front.style.transition = reduceMotion ? 'none' : 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         front.style.transform = 'rotate(-6deg) translateX(0)';
