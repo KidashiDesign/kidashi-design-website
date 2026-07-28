@@ -1001,14 +1001,14 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 
 .btn--outline-dark {
     border-color: rgba(10,10,11,0.12);
-    color: var(--text);
+    color: var(--dark);
     background: linear-gradient(135deg, rgba(212,211,179,0.12), rgba(255,255,255,0.14) 50%, rgba(141,146,111,0.13));
 }
 
 .btn--outline-dark:hover {
     border-color: rgba(78,81,56,0.75);
     background: linear-gradient(135deg, rgba(141,146,111,0.18), rgba(78,81,56,0.3));
-    color: var(--cream); 
+    color: var(--dark); 
 }
 
 .btn--ghost {
@@ -1042,7 +1042,7 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 
 .btn--ghost-light:hover {
     border-color: var(--accent);
-    color: var(--cream);
+    color: var(--dark);
 }
 /* ============================================================ABOUT TEASER============================================================ */
 .about-teaser {
