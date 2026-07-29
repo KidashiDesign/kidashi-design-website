@@ -472,10 +472,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Featured project tile — update this one object to change the project shown ── */
   const FEATURED_PROJECT = {
-    title:  'XP-Days Esports Platform',
+    title:  'Rohyma Jet — Luxury Private Aviation',
     tag:    'Web Design',
-    img:    'images/portfolio/xp-days/kidashi-design-xp-days-website-mockup.jpg',
-    link:   'portfolio/xp-days/'
+    img:    'images/portfolio/rohyma-jet/kidashi-design-rohyma-jet-product-visual.jpg',
+    link:   'portfolio/rohyma-jet/'
   };
 
   (function injectFeaturedProject() {
