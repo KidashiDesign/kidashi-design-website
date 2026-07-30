@@ -4,57 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Art Gerecht Modular — Hero Animation</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 100%; height: 100%; background: #0A0A0A; overflow: hidden; }
-  .stage {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #0A0A0A;
-  }
-  .scene {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    background: #000;
-    display: none;
-  }
-  .scene.is-active { display: block; }
-  .scene__img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    background: #0A0A0A;
-    opacity: 0;
-  }
-  .scene__overlay {
-    position: absolute;
-    inset: 0;
-    background: #000;
-    pointer-events: none;
-    z-index: 50;
-  }
-  .scene__center {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .scene__grid {
-    position: absolute;
-    inset: 0;
-    display: grid;
-  }
-  .scene__cell {
-    box-sizing: border-box;
-  }
-</style>
+<link rel="stylesheet" href="artgerecht.css">
 </head>
 <body>
   <div class="stage" id="stage">
