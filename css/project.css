@@ -26,22 +26,6 @@
   display: block;
 }
 
-/* Cycling hero background — crossfade with blur/zoom, inspired by
-   the Artista carousel animation */
-.proj-hero__bg--cycle img {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  filter: blur(24px);
-  transform: scale(1.08);
-  transition: opacity 1400ms ease, filter 1400ms ease, transform 4200ms ease;
-}
-.proj-hero__bg--cycle img.is-active {
-  opacity: 0.38;
-  filter: blur(0);
-  transform: scale(1);
-}
-
 /* Video / animation hero variant — full-screen */
 .proj-hero--video {
   min-height: unset;
