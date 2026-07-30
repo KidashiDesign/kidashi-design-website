@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hideout Georgia — Farbanimation</title>
+<style>
+  html, body { margin:0; padding:0; width:100%; height:100%; background:#467B11; overflow:hidden; }
+  #stage { position:fixed; inset:0; background:#467B11; }
+  .col { position:absolute; top:0; height:100%; overflow:hidden; background:#467B11; }
+  .col img { position:absolute; left:0; width:100%; display:block; object-fit:cover; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="col" id="col-0" style="left:0%; width:25%;"><img src="../../images/portfolio/hideout-georgia/anim/loop-col-0.webp" alt=""></div>
+  <div class="col" id="col-1" style="left:25%; width:25%;"><img src="../../images/portfolio/hideout-georgia/anim/loop-col-1.webp" alt=""></div>
+  <div class="col" id="col-2" style="left:50%; width:25%;"><img src="../../images/portfolio/hideout-georgia/anim/loop-col-2.webp" alt=""></div>
+  <div class="col" id="col-3" style="left:75%; width:25%;"><img src="../../images/portfolio/hideout-georgia/anim/loop-col-3.webp" alt=""></div>
+</div>
+<script>
+  var OVERSIZE = 1.18;
+  var COLS = [
+    { amp: 34, period: 7.0, phase: 0.0 },
+    { amp: 48, period: 5.4, phase: 1.6 },
+    { amp: 40, period: 8.2, phase: 3.1 },
+    { amp: 52, period: 6.1, phase: 4.5 },
+  ];
+
+  var stage = document.getElementById('stage');
+  var els = COLS.map(function (cfg, i) {
+    return { cfg: cfg, col: document.getElementById('col-' + i), img: document.getElementById('col-' + i).querySelector('img') };
+  });
+
+  function layout() {
+    var h = stage.clientHeight;
+    els.forEach(function (e) {
+      e.img.style.height = (h * OVERSIZE) + 'px';
+      e.baseTop = -(h * OVERSIZE - h) / 2;
+    });
+  }
+
+  var running = true;
+  function tick(ts) {
+    if (!running) return;
+    var t = ts / 1000;
+    els.forEach(function (e) {
+      var offset = e.cfg.amp * Math.sin((t * 2 * Math.PI) / e.cfg.period + e.cfg.phase);
+      e.img.style.top = (e.baseTop + offset) + 'px';
+    });
+    requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('resize', layout);
+  document.addEventListener('visibilitychange', function () {
+    running = !document.hidden;
+    if (running) requestAnimationFrame(tick);
+  });
+
+  layout();
+  requestAnimationFrame(tick);
+</script>
+</body>
+</html>
