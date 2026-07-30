@@ -47,6 +47,7 @@
   height: 100%;
   border: none;
   display: block;
+  background: #0A0A0A;
   pointer-events: none;
 }
   .proj-hero--video .proj-hero__content {
