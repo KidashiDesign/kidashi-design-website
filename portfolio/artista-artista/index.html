@@ -52,17 +52,13 @@
 </div>
 
 <!-- HERO -->
-<section class="proj-hero">
-  <div class="proj-hero__bg proj-hero__bg--cycle">
-    <img src="../../images/portfolio/artista-artista/preview.webp" alt="Artista Artista" class="is-active">
-    <img src="../../images/portfolio/artista-artista/gallery-1.webp" alt="">
-    <img src="../../images/portfolio/artista-artista/gallery-2.webp" alt="">
-    <img src="../../images/portfolio/artista-artista/gallery-3.webp" alt="">
-    <img src="../../images/portfolio/artista-artista/gallery-4.webp" alt="">
-  </div>
+<section class="proj-hero proj-hero--video proj-hero--video-fill" style="background:#0e0c0a;">
   <div class="proj-hero__eyebrow">
     <a href="../../portfolio/" class="proj-hero__back">← Portfolio</a>
     <span class="proj-hero__category">Founder & Creative Direction</span>
+  </div>
+  <div class="proj-hero__video-wrap">
+    <iframe src="artista-artista-animation.html" title="Artista Artista Animation" class="proj-hero__video-frame" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
   </div>
   <div class="proj-hero__content">
     <h1 class="proj-hero__title">Artista Artista</h1>
@@ -188,17 +184,5 @@
       </div>
 </footer>
 <script src="../../js/main.js"></script>
-<script>
-(function () {
-  var imgs = document.querySelectorAll('.proj-hero__bg--cycle img');
-  if (imgs.length < 2) return;
-  var i = 0;
-  setInterval(function () {
-    imgs[i].classList.remove('is-active');
-    i = (i + 1) % imgs.length;
-    imgs[i].classList.add('is-active');
-  }, 4200);
-})();
-</script>
 </body>
 </html>
