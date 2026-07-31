@@ -245,11 +245,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function openMenu() {
       burger.classList.add('open');
       mobileNav.classList.add('open');
+      if (nav) nav.classList.add('menu-open');
       document.body.style.overflow = 'hidden';
     }
     function closeMenu() {
       burger.classList.remove('open');
       mobileNav.classList.remove('open');
+      if (nav) nav.classList.remove('menu-open');
       document.body.style.overflow = '';
     }
     burger.addEventListener('click', () => {
