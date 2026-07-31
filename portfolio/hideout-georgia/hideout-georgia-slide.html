@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hideout Georgia — Slide</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#efe9df; }
+  .stage { position:fixed; inset:0; overflow:hidden; background:#efe9df; display:flex; flex-direction:column; }
+
+  .panel { position:relative; width:100%; overflow:hidden; opacity:0; animation:panelFadeIn 0.9s cubic-bezier(0.33,1,0.68,1) forwards, panelFadeOut 0.6s cubic-bezier(0.32,0,0.67,0) 6.9s forwards; }
+  .panel--top { height:52.6%; }
+  .panel--bottom { height:47.4%; }
+  @keyframes panelFadeIn { from{opacity:0;} to{opacity:1;} }
+  @keyframes panelFadeOut { from{opacity:1;} to{opacity:0;} }
+
+  .panel__img {
+    position:absolute; inset:-5%; width:110%; height:110%; object-fit:cover;
+    animation:kenBurns 7.5s ease-out forwards;
+  }
+  .panel--top .panel__img { object-position:70% center; animation-name:kenBurnsWave; }
+  .panel--bottom .panel__img { inset:0; width:100%; height:100%; object-position:52% 40%; }
+
+  @keyframes kenBurns { from{transform:scale(1);} to{transform:scale(1.05);} }
+  @keyframes kenBurnsWave {
+    0%   { transform:scale(1) translate(0,0); }
+    50%  { transform:scale(1.026) translate(-5px,3px); }
+    100% { transform:scale(1.05) translate(3px,-2px); }
+  }
+
+  .panel--bottom::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(8,16,8,0.55) 0%, rgba(8,16,8,0.2) 40%, rgba(8,16,8,0) 65%);
+  }
+
+  .panel__logo {
+    position:absolute; left:50%; width:32%; max-width:620px; opacity:0;
+  }
+  .panel--top .panel__logo    { top:50%; transform:translate(-50%,calc(-50% + 16px)); animation:logoIn 0.7s cubic-bezier(0.33,1,0.68,1) 0.7s forwards, logoOut 0.6s cubic-bezier(0.32,0,0.67,0) 6.9s forwards; }
+  .panel--bottom .panel__logo { bottom:8%; transform:translate(-50%,16px);            animation:logoInB 0.7s cubic-bezier(0.33,1,0.68,1) 1.15s forwards, logoOut 0.6s cubic-bezier(0.32,0,0.67,0) 6.9s forwards; }
+  .panel__logo img { display:block; width:100%; height:auto; }
+  @keyframes logoIn  { to { opacity:1; transform:translate(-50%,-50%); } }
+  @keyframes logoInB { to { opacity:1; transform:translate(-50%,0); } }
+  @keyframes logoOut { to { opacity:0; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .panel, .panel__img, .panel__logo { animation-duration:0.01s !important; animation-delay:0s !important; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="panel panel--top">
+    <img class="panel__img" src="../../images/portfolio/hideout-georgia/anim/slide-bg-top.webp" alt="">
+    <div class="panel__logo"><img src="../../images/portfolio/hideout-georgia/anim/slide-logo-top.webp" alt="Hideout Georgia"></div>
+  </div>
+  <div class="panel panel--bottom">
+    <img class="panel__img" src="../../images/portfolio/hideout-georgia/anim/slide-bg-bottom.webp" alt="">
+    <div class="panel__logo"><img src="../../images/portfolio/hideout-georgia/anim/slide-logo-bottom.webp" alt="Hideout Georgia"></div>
+  </div>
+</div>
+</body>
+</html>
