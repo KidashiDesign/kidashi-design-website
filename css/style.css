@@ -203,18 +203,7 @@ p {
 	align-items: center;
 	transition: background 0.4s var(--ease), backdrop-filter 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
-.nav.scrolled {
-	background: rgba(247, 243, 238, 0.72);
-	backdrop-filter: blur(24px) saturate(1.4);
-	-webkit-backdrop-filter: blur(24px) saturate(1.4);
-	box-shadow: 0 1px 0 rgba(10,10,11,0.08);
-}
-.nav--dark.scrolled {
-	background: rgba(16, 12, 8, 0.62);
-	backdrop-filter: blur(24px) saturate(1.6);
-	-webkit-backdrop-filter: blur(24px) saturate(1.6);
-	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
-}
+
 .nav__inner {
 	display: flex;
 	align-items: center;
@@ -359,14 +348,6 @@ p {
 .nav__burger.open span:nth-child(3) {
 	transform: translateY(-6.5px) rotate(-45deg);
 }
-.nav.scrolled .nav__logo-k, .nav--dark.scrolled .nav__logo-k { color: var(--cream); }
-.nav.scrolled .nav__logo-d, .nav--dark.scrolled .nav__logo-d { color: #FFBC95; }
-.nav.scrolled .nav__link, .nav--dark.scrolled .nav__link { color: rgba(247,243,238,0.6); }
-.nav.scrolled .nav__link:hover, .nav.scrolled .nav__link.active,
-.nav--dark.scrolled .nav__link:hover, .nav--dark.scrolled .nav__link.active { color: #FFBC95; }
-.nav.scrolled .nav__burger span, .nav--dark.scrolled .nav__burger span { background: var(--cream); }
-.nav.scrolled .nav__location, .nav--dark.scrolled .nav__location { color: rgba(247,243,238,0.4); }
-
 /* Mobile menu open: the full-screen panel is always light (--bg), so on
    pages whose top bar isn't already dark-text (nav--light), give the
    still-transparent top bar the same dark backdrop as .scrolled — keeps
