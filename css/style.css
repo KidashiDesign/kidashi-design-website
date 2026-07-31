@@ -227,6 +227,16 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 .nav.scrolled .nav__burger span, .nav--dark.scrolled .nav__burger span { background: var(--cream); }
 .nav.scrolled .nav__location, .nav--dark.scrolled .nav__location { color: rgba(247,243,238,0.4); }
 
+/* Mobile menu open: the full-screen panel is always light (--bg), so on
+   pages whose top bar isn't already dark-text (nav--light), give the
+   still-transparent top bar the same dark backdrop as .scrolled — keeps
+   the cream logo/burger readable instead of blending into the panel. */
+.nav.menu-open:not(.nav--light) {
+  background: rgba(10,10,11,0.78);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  backdrop-filter: blur(24px) saturate(1.6);
+}
+
 .nav__burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
 .nav__burger span { display: block; width: 24px; height: 1.5px; background: var(--cream); transition: all 0.3s var(--ease); }
 .nav__burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
@@ -336,12 +346,14 @@ p { font-size: 1.0625rem; line-height: 1.75; }
 
 /* ============================================================
    GLASS DOCK — Desktop main navigation (liquid-glass, no icons)
-   Only affects screens >= 769px. Mobile keeps the hamburger menu.
+   Only affects screens >= 1000px. Below that (tablets included)
+   the hamburger menu takes over — the dock + clock widget together
+   need ~995px to fit without wrapping/clipping the last link.
    Uses GPU-accelerated backdrop-filter (no costly SVG filters) so
    scroll/paint stays fast. Corporate colours: blue = --secondary,
    peach = --primary, on a frosted cream (--cream) glass surface.
    ============================================================ */
-@media (min-width: 769px) {
+@media (min-width: 1000px) {
 
   /* The nav bar itself is just a positioning layer — the dock pill
      provides the visible surface, so drop the old full-width frosted
@@ -1223,11 +1235,16 @@ p { font-size: 1.0625rem; line-height: 1.75; }
   .contact-info { padding-top: 0; }
 }
 
-@media (max-width: 768px) {
-  :root { --nav-h: 60px; }
+/* Nav switches to the hamburger menu below 1000px — see the
+   matching "min-width: 1000px" glass-dock block above. */
+@media (max-width: 999px) {
   .nav__links { display: none; }
   .nav__burger { display: flex; }
   .nav__location { display: none; }
+}
+
+@media (max-width: 768px) {
+  :root { --nav-h: 60px; }
   .about-teaser__stats { grid-template-columns: 1fr; gap: 1.25rem; }
   .services-dark__grid { grid-template-columns: 1fr; }
   .service-card { border-left: none; border-top: 1px solid rgba(196,173,148,0.12); }
