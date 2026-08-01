@@ -75,11 +75,7 @@
   .blob-b { position: absolute; bottom: -14%; left: -6%; width: min(45vw,480px); height: min(45vw,480px); background: linear-gradient(135deg, var(--coffee-800), var(--terracotta-light)); animation: blobMorphB 21s ease-in-out infinite; }
 
   .content { position: relative; z-index: 3; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(24px,4vw,56px) clamp(20px,5vw,72px); }
-  .panel { display: flex; flex-direction: column; align-items: flex-end; margin-left: auto; gap: clamp(18px,2.4vw,26px); max-width: min(920px,92%); }
-
-  .eyebrow { display: flex; align-items: center; gap: 12px; animation: fadeIn .8s ease .3s both; }
-  .eyebrow__line { width: 28px; height: 1px; background: rgba(245,236,223,0.5); }
-  .eyebrow__label { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: rgba(245,236,223,0.75); }
+  .panel { display: flex; flex-direction: column; align-items: flex-end; margin: 0 auto; gap: clamp(18px,2.4vw,26px); max-width: min(920px,92%); }
 
   .tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; animation: fadeInUp .8s ease .4s both; }
   .tag { padding: 9px 18px; border-radius: 999px; border: 1px solid rgba(245,236,223,0.22); background: rgba(245,236,223,0.07); backdrop-filter: blur(6px); font-size: 12.5px; color: rgba(245,236,223,0.88); white-space: nowrap; }
@@ -109,15 +105,6 @@
 
   .tagline { margin: 0; max-width: 46ch; text-align: right; text-wrap: pretty; font-size: clamp(1rem,1.6vw,1.25rem); line-height: 1.55; color: rgba(245,236,223,0.85); animation: fadeInUp .8s ease .85s both; }
 
-  .cta-row { display: flex; align-items: center; justify-content: flex-end; gap: clamp(14px,2vw,22px); flex-wrap: wrap; animation: fadeInUp .8s ease 1.05s both; }
-  .cta {
-    display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; border-radius: 999px;
-    background: var(--terracotta); color: var(--coffee-950); font-weight: 600; font-size: 15px;
-    box-shadow: 0 10px 30px rgba(26,18,13,0.45);
-    transition: transform .3s ease, box-shadow .3s ease;
-  }
-  .cta:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(26,18,13,0.55); }
-
   .scroll-cue { display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: .85; animation: fadeIn .9s ease 1.3s both; }
   .scroll-cue__label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(245,236,223,0.8); }
   .scroll-cue__track { width: 1px; height: 36px; position: relative; overflow: hidden; background: rgba(245,236,223,0.25); }
@@ -128,11 +115,10 @@
   }
 
   @media (max-width: 700px) {
-    .panel { align-items: center; margin-left: 0; max-width: 100%; }
+    .panel { align-items: center; max-width: 100%; }
     .tags { justify-content: center; }
     .hero-title { text-align: center; }
     .tagline { text-align: center; max-width: 34ch; margin-inline: auto; }
-    .cta-row { justify-content: center; }
   }
 </style>
 </head>
@@ -157,11 +143,6 @@
   <div class="content">
     <div class="panel hide-in-tile">
 
-      <div class="eyebrow">
-        <span class="eyebrow__line"></span>
-        <span class="eyebrow__label">Case Study</span>
-      </div>
-
       <div class="tags">
         <span class="tag">Client — Café Mira</span>
         <span class="tag">Year — 2026</span>
@@ -172,10 +153,6 @@
       <h1 class="hero-title"><span class="word">Café&nbsp;</span><span class="accent">Mira</span></h1>
 
       <p class="tagline">A warm brand identity and website for a specialty coffee house in Berlin-Mitte — designed and published to feel as inviting as the place itself.</p>
-
-      <div class="cta-row">
-        <a href="https://cafemira.kidashidesign.com/#top" target="_blank" rel="noopener noreferrer" class="cta">Visit Live Site <span>↗</span></a>
-      </div>
 
     </div>
 
