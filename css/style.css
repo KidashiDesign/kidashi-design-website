@@ -483,14 +483,14 @@ p {
 
 /* ============================================================
    GLASS DOCK — Desktop main navigation (liquid-glass, no icons)
-   Only affects screens >= 1000px. Below that (tablets included)
+   Only affects screens >= 1170px. Below that (tablets included)
    the hamburger menu takes over — the dock + clock widget together
-   need ~995px to fit without wrapping/clipping the last link.
+   need ~1170px to fit without wrapping/clipping the location widget.
    Uses GPU-accelerated backdrop-filter (no costly SVG filters) so
    scroll/paint stays fast. Corporate colours: blue = --secondary,
    peach = --primary, on a frosted cream (--cream) glass surface.
    ============================================================ */
-@media (min-width: 1000px) {
+@media (min-width: 1170px) {
 
 	/* The nav bar itself is just a positioning layer — the dock pill
 	   provides the visible surface, so drop the old full-width frosted
@@ -3144,9 +3144,9 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	}
 }
 
-/* Nav switches to the hamburger menu below 1000px — see the
-   matching "min-width: 1000px" glass-dock block above. */
-@media (max-width: 999px) {
+/* Nav switches to the hamburger menu below 1170px — see the
+   matching "min-width: 1170px" glass-dock block above. */
+@media (max-width: 1169px) {
   .nav__links { display: none; }
   .nav__burger { display: flex; }
   .nav__location { display: none; }
@@ -3417,9 +3417,6 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	}
 	.gallery-teaser__card:not(:first-child) {
 		margin-left: -100px;
-	}
-	.nav__inner {
-		justify-content: center;
 	}
 }
 /* ============================================================FLOATING SCENE — About page, mouse-parallax portrait + badgesReplaces old ZoomParallax travel-photo scroll section.============================================================ */
