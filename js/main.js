@@ -582,12 +582,29 @@ document.head.appendChild(themeMeta);
     const prefix = depth <= 0 ? '' : depth === 1 ? '../' : '../../';
     document.querySelectorAll('.cta-footer__project').forEach(el => {
       el.href = prefix + FEATURED_PROJECT.link;
-      el.innerHTML =
-        `<img src="${prefix + FEATURED_PROJECT.img}" alt="${FEATURED_PROJECT.title}" loading="lazy" decoding="async">` +
-        `<div class="cta-footer__project-info">` +
-          `<span class="cta-footer__project-tag">${FEATURED_PROJECT.tag}</span>` +
-          `<span class="cta-footer__project-title">${FEATURED_PROJECT.title}</span>` +
-        `</div>`;
+      el.textContent = '';
+
+      const img = document.createElement('img');
+      img.src = prefix + FEATURED_PROJECT.img;
+      img.alt = FEATURED_PROJECT.title;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+
+      const info = document.createElement('div');
+      info.className = 'cta-footer__project-info';
+
+      const tag = document.createElement('span');
+      tag.className = 'cta-footer__project-tag';
+      tag.textContent = FEATURED_PROJECT.tag;
+
+      const title = document.createElement('span');
+      title.className = 'cta-footer__project-title';
+      title.textContent = FEATURED_PROJECT.title;
+
+      info.appendChild(tag);
+      info.appendChild(title);
+      el.appendChild(img);
+      el.appendChild(info);
     });
   })();
 
@@ -867,7 +884,11 @@ document.head.appendChild(themeMeta);
     const privacyHref = privacyLink ? privacyLink.href : '/datenschutz/';
     const gdprNote = document.createElement('p');
     gdprNote.className = 'footer__gdpr';
-    gdprNote.innerHTML = `No tracking. Your email is used for project updates only. <a href="${privacyHref}">Privacy Policy</a>`;
+    gdprNote.appendChild(document.createTextNode('No tracking. Your email is used for project updates only. '));
+    const gdprLink = document.createElement('a');
+    gdprLink.href = privacyHref;
+    gdprLink.textContent = 'Privacy Policy';
+    gdprNote.appendChild(gdprLink);
     footerForm.appendChild(gdprNote);
   }
 
@@ -882,9 +903,25 @@ document.head.appendChild(themeMeta);
     banner.className = 'cookie-banner';
     banner.setAttribute('role', 'dialog');
     banner.setAttribute('aria-label', 'Privacy notice');
-    banner.innerHTML =
-      `<p class="cookie-banner__text">This site sets no tracking cookies. Our hosting provider stores standard server logs (IP address, timestamp) for security purposes. <a href="${privacyHref}">Privacy Policy</a></p>` +
-      `<div class="cookie-banner__actions"><button class="cookie-banner__btn" id="cookieAccept">Got it</button></div>`;
+
+    const bannerText = document.createElement('p');
+    bannerText.className = 'cookie-banner__text';
+    bannerText.appendChild(document.createTextNode('This site sets no tracking cookies. Our hosting provider stores standard server logs (IP address, timestamp) for security purposes. '));
+    const bannerLink = document.createElement('a');
+    bannerLink.href = privacyHref;
+    bannerLink.textContent = 'Privacy Policy';
+    bannerText.appendChild(bannerLink);
+
+    const bannerActions = document.createElement('div');
+    bannerActions.className = 'cookie-banner__actions';
+    const acceptBtn = document.createElement('button');
+    acceptBtn.className = 'cookie-banner__btn';
+    acceptBtn.id = 'cookieAccept';
+    acceptBtn.textContent = 'Got it';
+    bannerActions.appendChild(acceptBtn);
+
+    banner.appendChild(bannerText);
+    banner.appendChild(bannerActions);
 
     document.body.appendChild(banner);
     requestAnimationFrame(() => requestAnimationFrame(() => banner.classList.add('cookie-banner--visible')));
