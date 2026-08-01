@@ -3,36 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio — Kidashi Design</title>
-  <meta name="description" content="Selected work by Nicole Szatkowski — web design, brand identity, print and social media projects.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.kidashidesign.com/portfolio/">
-  <meta property="og:title" content="Portfolio — Kidashi Design">
-  <meta property="og:description" content="Selected work by Nicole Szatkowski — web design, brand identity, print and social media projects.">
-  <meta property="og:image" content="https://www.kidashidesign.com/images/portfolio/rohyma-jet/kidashi-design-rohyma-jet-product-visual.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="preload" href="../fonts/MangoGrotesque-Light.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../fonts/MangoGrotesque-Bold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  <title>Café Mira — Coffee House Brand & Web Design in Berlin | Kidashi Design</title>
+  <meta name="description" content="Full brand identity and website design for Café Mira, a specialty coffee house in Berlin-Mitte — designed and published end-to-end by Kidashi Design.">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/project.css">
 </head>
 <body>
-
 <div class="cursor" aria-hidden="true"></div>
 
 <nav class="nav">
   <div class="nav__inner">
     <div class="nav__dock">
-      <a href="../" class="nav__logo">
-    <img src="/images/logo.svg" class="logo" alt="Kidashi Design Logo" width="220" height="40" />
+    <a href="../../" class="nav__logo">
+    <img src="../../images/logo.svg" class="logo" alt="Kidashi Design Logo" />
     </a>
     <ul class="nav__links">
-      <li><a href="../" class="nav__link">Home</a></li>
-      <li><a href="../services/" class="nav__link">Services</a></li>
-      <li><a href="../about/" class="nav__link">About</a></li>
-      <li><a href="../portfolio/" class="nav__link active">Portfolio</a></li>
-      <li><a href="../gallery/" class="nav__link">Gallery</a></li>
-      <li><a href="../contact/" class="nav__link">Contact</a></li>
+      <li><a href="../../" class="nav__link">Home</a></li>
+      <li><a href="../../services/" class="nav__link">Services</a></li>
+      <li><a href="../../about/" class="nav__link">About</a></li>
+      <li><a href="../../portfolio/" class="nav__link active">Portfolio</a></li>
+      <li><a href="../../gallery/" class="nav__link">Gallery</a></li>
+      <li><a href="../../contact/" class="nav__link">Contact</a></li>
     </ul>
     <div class="nav__location"><span class="nav__location-time" id="navTime"></span><span class="nav__location-sep">·</span><span class="nav__location-city">Tbilisi</span><span class="nav__location-tz">GMT+4</span></div>
     </div>
@@ -43,142 +34,127 @@
   <div class="nav__mobile-inner">
     <div class="nav__mobile-top">
       <nav class="nav__mobile-links">
-      <a href="../" class="nav__link">Home</a>
-      <a href="../services/" class="nav__link">Services</a>
-      <a href="../about/" class="nav__link">About</a>
-      <a href="../portfolio/" class="nav__link">Portfolio</a>
-      <a href="../gallery/" class="nav__link">Gallery</a>
-      <a href="../contact/" class="nav__link">Contact</a>
+      <a href="../../" class="nav__link">Home</a>
+      <a href="../../services/" class="nav__link">Services</a>
+      <a href="../../about/" class="nav__link">About</a>
+      <a href="../../portfolio/" class="nav__link">Portfolio</a>
+      <a href="../../gallery/" class="nav__link">Gallery</a>
+      <a href="../../contact/" class="nav__link">Contact</a>
       </nav>
       <button class="nav__mobile-close" aria-label="Close menu">Close</button>
     </div>
     <div class="nav__mobile-meta">
       <span class="nav__mobile-meta-date" id="mobileDate"></span>
-      
+
       <span class="nav__mobile-meta-time" id="mobileTime"></span>
       <span class="nav__mobile-meta-tz">GMT +4</span>
     </div>
   </div>
 </div>
 
-<div class="portfolio-full">
-  <div class="container">
-    <span class="page-hero__eyebrow reveal">Selected Work</span>
-    <h1 class="reveal" data-delay="100" style="font-style:italic; margin-bottom:1rem;">Projects Built With Purpose.</h1>
-    <p class="reveal" data-delay="200" style="max-width:580px; color:var(--muted); margin-bottom:2.5rem;">Web design, brand identity, print and social media — hands-on projects, handled personally from first sketch to final delivery.</p>
+<!-- HERO -->
+<section class="proj-hero proj-hero--video proj-hero--video-fill" style="background:#16100c;">
+  <div class="proj-hero__video-wrap">
+    <iframe
+      class="proj-hero__video-frame"
+      src="cafe-mira-animation.html"
+      scrolling="no"
+      tabindex="-1"
+      aria-hidden="true"
+      loading="eager"
+      title="Café Mira Hero Animation">
+    </iframe>
+  </div>
+  <div class="proj-hero__content">
+        <div class="proj-hero__eyebrow">
+    <span><a href="../../portfolio/" class="proj-hero__back">← Portfolio</a></span>
 
-    <div class="filter-bar reveal" data-delay="250">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="web-design">Web / UI / UX</button>
-      <button class="filter-btn" data-filter="branding">Branding</button>
-      <button class="filter-btn" data-filter="print-design">Print Design</button>
-      <button class="filter-btn" data-filter="packaging">Packaging</button>
-      <button class="filter-btn" data-filter="social-media">Social Media</button>
-      <button class="filter-btn" data-filter="illustration">Illustration</button>
-    </div>
-
-    <div class="portfolio-items">
-      <!-- Café Mira -->
-      <a href="cafe-mira/" class="portfolio-item reveal" data-glow="orange" data-delay="100" data-categories="web-design,branding">
-        <div class="portfolio-item__bg" style="background:#16100c;overflow:hidden;">
-          <iframe src="cafe-mira/cafe-mira-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
-        </div>
-      </a>
-
-      <!-- Seestern -->
-      <a href="seestern/" class="portfolio-item reveal" data-glow="orange" data-delay="200" data-categories="branding,print-design,appereal">
-        <div class="portfolio-item__bg" style="background:#0a0906;">
-          <iframe src="seestern/seestern-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
-        </div>
-      </a>
-
-
-      <!-- wh4 — archiviert -->
-
-      <!-- Rohyma Jet -->
-      <a href="rohyma-jet/" class="portfolio-item reveal" data-glow="orange" data-delay="100" data-categories="branding">
-        <div class="portfolio-item__bg" style="background:#0a0a0a;overflow:hidden;">
-          <iframe src="rohyma-jet/rohyma-jet-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
-        </div>
-      </a>
-
-      <!-- TM Studio -->
-      <a href="tm-studio/" class="portfolio-item reveal" data-glow="blue" data-delay="200" data-categories="branding,print-design">
-        <div class="portfolio-item__bg" style="background:#efe2c9;">
-          <iframe src="tm-studio/tm-studio-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
-        </div>
-      </a>
-
-      <!-- Galerie Kronsbein -->
-      <a href="galerie-kronsbein/" class="portfolio-item reveal" data-glow="blue" data-categories="web-design">
-        <div class="portfolio-item__bg" style="background:#141110;">
-          <iframe src="galerie-kronsbein/galerie-kronsbein-animation.html?tile=1" class="portfolio-item__anim portfolio-gk-desktop" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
-          <div class="portfolio-gk-phone" aria-hidden="true">
-            <div class="portfolio-gk-phone__frame">
-              <iframe
-                id="gkTilePhone"
-                class="portfolio-gk-phone__iframe"
-                data-src="galerie-kronsbein/galerie-kronsbein-animation.html?tile=1"
-                scrolling="no"
-                tabindex="-1">
-              </iframe>
-            </div>
-          </div>
-        </div>
-      </a>
-
-      <!-- Art Gerecht Modular -->
-      <a href="art-gerecht-modular/" class="portfolio-item reveal" data-glow="blue" data-categories="print-design,branding">
-        <div class="portfolio-item__bg" style="background:#0A0A0A;">
-          <iframe src="art-gerecht-modular/artgerecht-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
-        </div>
-      </a>
-
-      <!-- Artista Artista -->
-      <a href="artista-artista/" class="portfolio-item reveal" data-delay="200" data-categories="branding,social-media">
-        <div class="portfolio-item__bg" style="background:linear-gradient(135deg,#8A6A1E,#241A04);">
-          <iframe src="artista-artista/artista-artista-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
-        </div>
-      </a>
-
-      <!-- Hideout Georgia -->
-      <a href="hideout-georgia/" class="portfolio-item reveal" data-glow="blue" data-delay="100" data-categories="branding,social-media">
-        <div class="portfolio-item__bg" style="background:#0d1207;overflow:hidden;">
-          <iframe src="hideout-georgia/hideout-georgia-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
-        </div>
-      </a>
-
-      <!-- Selvoma -->
-      <a href="selvoma/" class="portfolio-item reveal" data-glow="green" data-delay="200" data-categories="branding">
-        <div class="portfolio-item__bg" style="background:#26340f;">
-          <iframe src="selvoma/selvoma-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
-        </div>
-      </a>
-
-      <!-- Social Media Designs -->
-      <a href="social-media-content/" class="portfolio-item reveal" data-glow="red" data-categories="social-media,print-design">
-        <div class="portfolio-item__bg" style="background:linear-gradient(135deg,#3A1A2E,#0A0408);">
-          <iframe src="social-media-content/social-media-content-animation.html?tile=1" class="portfolio-item__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
-        </div>
-      </a>
-
-    </div>
-
-    <div style="text-align:center; margin-top:4rem;" class="reveal">
-      <a href="../contact/" class="btn btn--primary">Start a Project</a>
+  </div>
+    <h1 class="proj-hero__title">Café Mira</h1>
+    <div class="proj-hero__strip">
+      <div class="proj-hero__meta">
+        <span class="proj-meta__label">Category</span>
+        <span class="proj-meta__value">Web Design · Brand Identity</span>
+      </div>
+      <div class="proj-hero__meta">
+        <span class="proj-meta__label">Year</span>
+        <span class="proj-meta__value">2026</span>
+      </div>
+      <div class="proj-hero__meta">
+        <span class="proj-meta__label">Client</span>
+        <span class="proj-meta__value">Café Mira — Berlin</span>
+      </div>
+      <div class="proj-hero__meta">
+        <span class="proj-meta__label">Services</span>
+        <span class="proj-meta__value">Web Design, Brand Identity, Publishing</span>
+      </div>
     </div>
   </div>
+</section>
+<div class="proj-services">
+  <span class="proj-services__pill">Web Design</span>
+  <span class="proj-services__pill">Brand Identity</span>
+  <span class="proj-services__pill">Publishing</span>
 </div>
+
+<!-- STATEMENT -->
+<section class="proj-statement">
+  <p class="proj-statement__text reveal">A digital home as warm and inviting as the coffee house itself.</p>
+  <p class="proj-statement__desc reveal" data-delay="100">Full brand identity and website design for Café Mira, a specialty coffee house in Berlin-Mitte. Designed and published from first sketch to live launch — a warm, editorial visual language built around the coffee-house atmosphere, translated into a fast, responsive website that carries the same feeling online.</p>
+</section>
+
+<!-- QUOTE -->
+<section class="proj-quote">
+  <blockquote>
+    <p class="proj-quote__text reveal">&#8220;The website should feel as warm as walking through the door.&#8221;</p>
+    <footer class="proj-quote__attr reveal" data-delay="100">— Nicole Szatkowski, Kidashi Design</footer>
+  </blockquote>
+  <div style="text-align:center; margin-top:2rem;" class="reveal">
+    <a href="https://cafemira.kidashidesign.com/" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Visit cafemira.kidashidesign.com</a>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="proj-process">
+  <div class="proj-process__header">
+    <h2 class="proj-process__heading reveal">Process &amp; Approach</h2>
+    <span class="proj-process__count">3 Steps</span>
+  </div>
+      <div class="proj-process__step reveal" data-delay="0">
+        <span class="proj-process__num">01</span>
+        <h3 class="proj-process__step-title">Brand Foundation</h3>
+        <p class="proj-process__step-body">A warm, coffee-toned palette, editorial serif typography and a soft visual language established as the base for the entire brand — inviting without losing precision.</p>
+      </div>
+      <div class="proj-process__step reveal" data-delay="100">
+        <span class="proj-process__num">02</span>
+        <h3 class="proj-process__step-title">Website Design</h3>
+        <p class="proj-process__step-body">Full responsive website designed end-to-end — menu, story, location and contact — built to feel like an extension of the physical café.</p>
+      </div>
+      <div class="proj-process__step reveal" data-delay="200">
+        <span class="proj-process__num">03</span>
+        <h3 class="proj-process__step-title">Publishing &amp; Launch</h3>
+        <p class="proj-process__step-body">Handled the full publishing process personally — from final builds to going live at cafemira.kidashidesign.com.</p>
+      </div>
+</section>
+
+<!-- NEXT PROJECT -->
+<a href="../../portfolio/seestern/" class="proj-next" aria-label="Next project: Seestern Britzer Garten">
+  <div class="proj-next__content">
+    <span class="proj-next__label">Next Project</span>
+    <p class="proj-next__title">Seestern Britzer Garten</p>
+    <span class="proj-next__link">View Project</span>
+  </div>
+</a>
 <footer class="footer">
   <div class="container">
     <div class="footer__grid">
 
       <div class="footer__col footer__col--wide">
-      <a href="../" class="nav__logo footer__logo">
+        <a href="../" class="nav__logo footer__logo">
         <img src="/images/logo.svg" alt="Kidashi Design Logo" width="220" height="40" />
         </a>
         <p class="footer__tagline">Certified Graphic Designer — Working Worldwide</p>
-        <h3 class="footer__col-h">Stay in the Loop</h3>
+        <h3 class="footer__col-h">Send a Message</h3>
         <p class="footer__col-desc">New projects, design updates — no noise, no spam.</p>
         <form class="footer__form" onsubmit="footerFormSubmit(event,this)">
           <div class="footer__form-wrap">
@@ -194,19 +170,19 @@
       <div class="footer__col">
         <h3 class="footer__col-h">Quick Links</h3>
         <nav class="footer__links">
-          <a href="../">Home</a>
-          <a href="../services/">Services</a>
-          <a href="../about/">About</a>
-          <a href="../portfolio/">Portfolio</a>
-          <a href="../gallery/">Gallery</a>
-          <a href="../contact/">Contact</a>
+          <a href="">Home</a>
+          <a href="services/">Services</a>
+          <a href="about/">About</a>
+          <a href="portfolio/">Portfolio</a>
+          <a href="gallery/">Gallery</a>
+          <a href="contact/">Contact</a>
         </nav>
       </div>
 
       <div class="footer__col">
         <h3 class="footer__col-h">Contact</h3>
         <div class="footer__contact">
-          <a href="../contact/">Send a Message &rarr;</a>
+          <a href="contact/">Send a Message &rarr;</a>
           <a href="https://linktr.ee/kidashi.design" target="_blank" rel="noopener noreferrer">linktr.ee/kidashi.design</a>
         </div>
       </div>
@@ -214,7 +190,7 @@
       <div class="footer__col">
         <h3 class="footer__col-h">Follow Me</h3>
         <div class="footer__socials">
-          <a href="https://www.instagram.com/hey.kidashi/" class="footer__social-btn" aria-label="Instagram" target="_blank" rel="noopener">
+          <a href="https://www.instagram.com/kidashi.design/" class="footer__social-btn" aria-label="Instagram" target="_blank" rel="noopener">
             <svg width="17" height="17" viewBox="0 0 48 48" fill="none"><path d="M15.6 4H32.4C38.8 4 44 9.2 44 15.6V32.4C44 35.4765 42.7779 38.427 40.6024 40.6024C38.427 42.7779 35.4765 44 32.4 44H15.6C9.2 44 4 38.8 4 32.4V15.6C4 12.5235 5.22214 9.57298 7.39756 7.39756C9.57298 5.22214 12.5235 4 15.6 4ZM15.2 8C13.2904 8 11.4591 8.75857 10.1088 10.1088C8.75857 11.4591 8 13.2904 8 15.2V32.8C8 36.78 11.22 40 15.2 40H32.8C34.7096 40 36.5409 39.2414 37.8912 37.8912C39.2414 36.5409 40 34.7096 40 32.8V15.2C40 11.22 36.78 8 32.8 8H15.2ZM34.5 11C35.163 11 35.7989 11.2634 36.2678 11.7322C36.7366 12.2011 37 12.837 37 13.5C37 14.163 36.7366 14.7989 36.2678 15.2678C35.7989 15.7366 35.163 16 34.5 16C33.837 16 33.2011 15.7366 32.7322 15.2678C32.2634 14.7989 32 14.163 32 13.5C32 12.837 32.2634 12.2011 32.7322 11.7322C33.2011 11.2634 33.837 11 34.5 11ZM24 14C26.6522 14 29.1957 15.0536 31.0711 16.9289C32.9464 18.8043 34 21.3478 34 24C34 26.6522 32.9464 29.1957 31.0711 31.0711C29.1957 32.9464 26.6522 34 24 34C21.3478 34 18.8043 32.9464 16.9289 31.0711C15.0536 29.1957 14 26.6522 14 24C14 21.3478 15.0536 18.8043 16.9289 16.9289C18.8043 15.0536 21.3478 14 24 14ZM24 18C22.4087 18 20.8826 18.6321 19.7574 19.7574C18.6321 20.8826 18 22.4087 18 24C18 25.5913 18.6321 27.1174 19.7574 28.2426C20.8826 29.3679 22.4087 30 24 30C25.5913 30 27.1174 29.3679 28.2426 28.2426C29.3679 27.1174 30 25.5913 30 24C30 22.4087 29.3679 20.8826 28.2426 19.7574C27.1174 18.6321 25.5913 18 24 18Z" fill="currentColor"/></svg>
           </a>
           <a href="https://www.linkedin.com/in/nicole-szatkowski" class="footer__social-btn" aria-label="LinkedIn" target="_blank" rel="noopener">
@@ -233,44 +209,12 @@
     <div class="footer__bottom">
       <span class="footer__copy">&copy; 2026 Kidashi Design &mdash; Nicole Szatkowski</span>
       <nav class="footer__legal">
-        <a href="../impressum/">Imprint</a>
-        <a href="../datenschutz/">Privacy Policy</a>
+        <a href="../../impressum/">Impressum</a>
+        <a href="../../datenschutz/">Datenschutz</a>
       </nav>
     </div>
   </div>
 </footer>
-
-<script src="../js/main.js" defer></script>
-<script>
-(function () {
-  var btns = document.querySelectorAll('.filter-btn');
-  var items = document.querySelectorAll('.portfolio-item');
-
-  btns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      btns.forEach(function (b) { b.classList.remove('active'); });
-      btn.classList.add('active');
-
-      var filter = btn.dataset.filter;
-      items.forEach(function (item) {
-        var cats = (item.dataset.categories || '').split(',').map(function (c) { return c.trim(); });
-        if (filter === 'all' || cats.indexOf(filter) !== -1) {
-          item.classList.remove('is-hidden');
-        } else {
-          item.classList.add('is-hidden');
-        }
-      });
-    });
-  });
-})();
-</script>
-<script>
-(function(){
-  if(window.matchMedia('(max-width:600px)').matches){
-    var el=document.getElementById('gkTilePhone');
-    if(el) el.src=el.dataset.src;
-  }
-})();
-</script>
+<script src="../../js/main.js" defer></script>
 </body>
 </html>
