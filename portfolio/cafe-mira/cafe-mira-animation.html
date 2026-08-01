@@ -21,6 +21,26 @@
   .tile-mode .blobs { display: none !important; }
   .tile-mode .fade-bottom { opacity: 0.7; }
 
+  .kd-logo-watermark { display: none; }
+  .tile-mode .kd-logo-watermark {
+    display: block;
+    position: absolute;
+    z-index: 4;
+    left: 50%;
+    top: 50%;
+    width: min(30%, 190px);
+    pointer-events: none;
+    opacity: 0;
+    filter: brightness(0) invert(1) blur(14px);
+    transform: translate(-50%,-50%) scale(1.18);
+    transition: opacity 1.4s cubic-bezier(.16,.8,.3,1), filter 1.4s cubic-bezier(.16,.8,.3,1), transform 1.4s cubic-bezier(.16,.8,.3,1);
+  }
+  .tile-mode .kd-logo-watermark.is-visible {
+    opacity: .8;
+    filter: brightness(0) invert(1) blur(0);
+    transform: translate(-50%,-50%) scale(1);
+  }
+
   .stage {
     --coffee-950: #1a120d;
     --coffee-900: #2b1d15;
@@ -139,6 +159,8 @@
     </div>
   </div>
 
+  <img class="kd-logo-watermark" src="/images/logo.svg" alt="" aria-hidden="true">
+
   <div class="fade-bottom"></div>
   <div class="glow-top"></div>
   <div class="blobs">
@@ -178,6 +200,29 @@
     var tryPlay = function () { video.play().catch(function(){}); };
     tryPlay();
     document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+  }
+
+  var logo = document.querySelector('.kd-logo-watermark');
+  if (video && logo && document.documentElement.classList.contains('tile-mode')) {
+    var FADE_OUT_LEAD = 1.3;
+    var FADE_IN_DELAY = 700;
+    var nearEnd = false;
+    var fadeInTimer = null;
+    var showLogo = function () { logo.classList.add('is-visible'); };
+    var hideLogo = function () { logo.classList.remove('is-visible'); };
+    fadeInTimer = setTimeout(showLogo, 1100);
+    video.addEventListener('timeupdate', function () {
+      var d = video.duration;
+      if (!d || isNaN(d)) return;
+      var t = video.currentTime;
+      if (t >= d - FADE_OUT_LEAD) {
+        if (!nearEnd) { nearEnd = true; hideLogo(); }
+      } else if (nearEnd && t < FADE_OUT_LEAD) {
+        nearEnd = false;
+        clearTimeout(fadeInTimer);
+        fadeInTimer = setTimeout(showLogo, FADE_IN_DELAY);
+      }
+    });
   }
   document.addEventListener('visibilitychange', function () {
     stage.classList.toggle('paused', document.hidden);
