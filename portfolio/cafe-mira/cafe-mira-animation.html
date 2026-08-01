@@ -74,7 +74,7 @@
   .blob-a { position: absolute; top: -12%; right: -8%; width: min(60vw,640px); height: min(60vw,640px); background: linear-gradient(135deg, var(--terracotta), var(--gold)); animation: blobMorphA 17s ease-in-out infinite; }
   .blob-b { position: absolute; bottom: -14%; left: -6%; width: min(45vw,480px); height: min(45vw,480px); background: linear-gradient(135deg, var(--coffee-800), var(--terracotta-light)); animation: blobMorphB 21s ease-in-out infinite; }
 
-  .content { position: relative; z-index: 3; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(24px,4vw,56px) clamp(20px,5vw,72px); }
+  .content { position: relative; z-index: 3; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: clamp(24px,4vw,56px) clamp(20px,5vw,72px); }
   .panel { display: flex; flex-direction: column; align-items: flex-end; margin: 0 auto; gap: clamp(18px,2.4vw,26px); max-width: min(920px,92%); }
 
   .tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; animation: fadeInUp .8s ease .4s both; }
@@ -105,7 +105,7 @@
 
   .tagline { margin: 0; max-width: 46ch; text-align: right; text-wrap: pretty; font-size: clamp(1rem,1.6vw,1.25rem); line-height: 1.55; color: rgba(245,236,223,0.85); animation: fadeInUp .8s ease .85s both; }
 
-  .scroll-cue { display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: .85; animation: fadeIn .9s ease 1.3s both; }
+  .scroll-cue { position: absolute; left: 50%; bottom: clamp(24px,4vw,56px); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: .85; animation: fadeIn .9s ease 1.3s both; }
   .scroll-cue__label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(245,236,223,0.8); }
   .scroll-cue__track { width: 1px; height: 36px; position: relative; overflow: hidden; background: rgba(245,236,223,0.25); }
   .scroll-cue__dot { position: absolute; left: -1.5px; top: -10px; width: 4px; height: 10px; border-radius: 2px; background: var(--cream); animation: scrollDot 2.1s ease-in-out infinite; }
