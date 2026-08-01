@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Café Mira — Hero Animation</title>
+<script>
+  if (location.search.indexOf('tile') !== -1) {
+    document.documentElement.classList.add('tile-mode');
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #1a120d; }
+  a { color: #f5ecdf; text-decoration: none; }
+  .tile-mode .hide-in-tile { visibility: hidden !important; }
+  .tile-mode .blobs { display: none !important; }
+  .tile-mode .fade-bottom { opacity: 0.7; }
+
+  .stage {
+    --coffee-950: #1a120d;
+    --coffee-900: #2b1d15;
+    --coffee-800: #3d2a1e;
+    --cream: #f5ecdf;
+    --terracotta: #c1613f;
+    --terracotta-light: #d98a5f;
+    --gold: #d9b168;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--coffee-950);
+    font-family: 'Manrope', sans-serif;
+    color: var(--cream);
+  }
+  .paused .drift, .paused .blob { animation-play-state: paused !important; }
+
+  @keyframes zoomOut { from { transform: scale(1.32); } to { transform: scale(1); } }
+  @keyframes ambientDrift { 0% { transform: translate(0,0); } 100% { transform: translate(-2.5%,-2%); } }
+  @keyframes blobMorphA { 0%,100% { border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%; transform: translate(0,0) rotate(0deg) scale(1); } 50% { border-radius: 60% 40% 30% 70% / 55% 60% 40% 45%; transform: translate(3%,-4%) rotate(10deg) scale(1.06); } }
+  @keyframes blobMorphB { 0%,100% { border-radius: 55% 45% 40% 60% / 40% 55% 45% 60%; transform: translate(0,0) rotate(0deg) scale(1); } 50% { border-radius: 38% 62% 60% 40% / 60% 45% 55% 40%; transform: translate(-4%,3%) rotate(-8deg) scale(1.08); } }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes underlineDraw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes scrollDot { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(28px); opacity: 0; } }
+  @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @keyframes floatSlow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+
+  .bg-wrap { position: absolute; inset: -6%; z-index: 0; animation: ambientDrift 15s ease-in-out infinite alternate; }
+  .bg-inner {
+    position: absolute; inset: 0;
+    animation: zoomOut 3.2s cubic-bezier(.16,.8,.3,1) both;
+    background:
+      radial-gradient(ellipse 70% 60% at 78% 15%, rgba(193,97,63,0.55), rgba(193,97,63,0) 70%),
+      radial-gradient(ellipse at 30% 25%, var(--coffee-800), var(--coffee-950) 75%);
+  }
+  .bg-inner video { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.4); }
+
+  .fade-bottom {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(26,18,13,0.52) 0%, rgba(26,18,13,0.32) 34%, rgba(26,18,13,0.64) 64%, rgba(26,18,13,0.95) 100%),
+      radial-gradient(ellipse 80% 65% at 50% 45%, rgba(26,18,13,0) 40%, rgba(26,18,13,0.62) 100%);
+  }
+  .glow-top {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: screen; opacity: .55;
+    background: radial-gradient(ellipse 55% 45% at 78% 12%, rgba(193,97,63,0.40), rgba(193,97,63,0) 70%);
+  }
+  .blobs { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: soft-light; opacity: .68; filter: blur(48px); }
+  .blob-a { position: absolute; top: -12%; right: -8%; width: min(60vw,640px); height: min(60vw,640px); background: linear-gradient(135deg, var(--terracotta), var(--gold)); animation: blobMorphA 17s ease-in-out infinite; }
+  .blob-b { position: absolute; bottom: -14%; left: -6%; width: min(45vw,480px); height: min(45vw,480px); background: linear-gradient(135deg, var(--coffee-800), var(--terracotta-light)); animation: blobMorphB 21s ease-in-out infinite; }
+
+  .content { position: relative; z-index: 3; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(24px,4vw,56px) clamp(20px,5vw,72px); }
+  .panel { display: flex; flex-direction: column; align-items: flex-end; margin-left: auto; gap: clamp(18px,2.4vw,26px); max-width: min(920px,92%); }
+
+  .eyebrow { display: flex; align-items: center; gap: 12px; animation: fadeIn .8s ease .3s both; }
+  .eyebrow__line { width: 28px; height: 1px; background: rgba(245,236,223,0.5); }
+  .eyebrow__label { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: rgba(245,236,223,0.75); }
+
+  .tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; animation: fadeInUp .8s ease .4s both; }
+  .tag { padding: 9px 18px; border-radius: 999px; border: 1px solid rgba(245,236,223,0.22); background: rgba(245,236,223,0.07); backdrop-filter: blur(6px); font-size: 12.5px; color: rgba(245,236,223,0.88); white-space: nowrap; }
+  .tag--rating { border-color: rgba(217,177,104,0.45); background: rgba(217,177,104,0.10); color: rgba(245,236,223,0.92); display: inline-flex; align-items: center; gap: 7px; animation: fadeInUp .8s ease .4s both, floatY 5s ease-in-out 1.2s infinite; }
+  .tag--rating .stars { color: var(--gold); letter-spacing: 1px; }
+
+  h1.hero-title {
+    margin: clamp(14px,2.2vw,24px) 0 0 0;
+    font-family: 'Newsreader', serif;
+    font-weight: 500;
+    font-size: clamp(3.2rem,9vw,8rem);
+    line-height: .95;
+    letter-spacing: -0.01em;
+    text-align: right;
+    text-wrap: balance;
+    text-shadow: 0 4px 40px rgba(26,18,13,0.45);
+    animation: floatSlow 6s ease-in-out 1.8s infinite;
+  }
+  .hero-title span.word { display: inline-block; animation: fadeInUp .8s ease .55s both; }
+  .hero-title span.accent { display: inline-block; position: relative; font-style: italic; font-weight: 500; color: var(--terracotta-light); animation: fadeInUp .8s ease .7s both; }
+  .hero-title span.accent::after {
+    content: ''; position: absolute; left: 2px; right: 2px; bottom: -4px; height: 4px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--terracotta), var(--gold));
+    transform-origin: left center;
+    animation: underlineDraw .9s cubic-bezier(.4,0,.2,1) .95s both;
+  }
+
+  .tagline { margin: 0; max-width: 46ch; text-align: right; text-wrap: pretty; font-size: clamp(1rem,1.6vw,1.25rem); line-height: 1.55; color: rgba(245,236,223,0.85); animation: fadeInUp .8s ease .85s both; }
+
+  .cta-row { display: flex; align-items: center; justify-content: flex-end; gap: clamp(14px,2vw,22px); flex-wrap: wrap; animation: fadeInUp .8s ease 1.05s both; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; border-radius: 999px;
+    background: var(--terracotta); color: var(--coffee-950); font-weight: 600; font-size: 15px;
+    box-shadow: 0 10px 30px rgba(26,18,13,0.45);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .cta:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(26,18,13,0.55); }
+
+  .scroll-cue { display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: .85; animation: fadeIn .9s ease 1.3s both; }
+  .scroll-cue__label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(245,236,223,0.8); }
+  .scroll-cue__track { width: 1px; height: 36px; position: relative; overflow: hidden; background: rgba(245,236,223,0.25); }
+  .scroll-cue__dot { position: absolute; left: -1.5px; top: -10px; width: 4px; height: 10px; border-radius: 2px; background: var(--cream); animation: scrollDot 2.1s ease-in-out infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-wrap, .blob-a, .blob-b, .hero-title, .tag--rating { animation: none !important; }
+  }
+
+  @media (max-width: 700px) {
+    .panel { align-items: center; margin-left: 0; max-width: 100%; }
+    .tags { justify-content: center; }
+    .hero-title { text-align: center; }
+    .tagline { text-align: center; max-width: 34ch; margin-inline: auto; }
+    .cta-row { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <div class="bg-wrap">
+    <div class="bg-inner">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="https://cafemira.kidashidesign.com/images/2649816_Barista_Preparing_1920x1080.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+
+  <div class="fade-bottom"></div>
+  <div class="glow-top"></div>
+  <div class="blobs">
+    <div class="blob-a drift blob"></div>
+    <div class="blob-b drift blob"></div>
+  </div>
+
+  <div class="content">
+    <div class="panel hide-in-tile">
+
+      <div class="eyebrow">
+        <span class="eyebrow__line"></span>
+        <span class="eyebrow__label">Case Study</span>
+      </div>
+
+      <div class="tags">
+        <span class="tag">Client — Café Mira</span>
+        <span class="tag">Year — 2026</span>
+        <span class="tag">Role — Brand &amp; Web Design</span>
+        <span class="tag tag--rating"><span class="stars">★★★★★</span><span>4.8 · 312 Reviews</span></span>
+      </div>
+
+      <h1 class="hero-title"><span class="word">Café&nbsp;</span><span class="accent">Mira</span></h1>
+
+      <p class="tagline">A warm brand identity and website for a specialty coffee house in Berlin-Mitte — designed and published to feel as inviting as the place itself.</p>
+
+      <div class="cta-row">
+        <a href="https://cafemira.kidashidesign.com/#top" target="_blank" rel="noopener noreferrer" class="cta">Visit Live Site <span>↗</span></a>
+      </div>
+
+    </div>
+
+    <div class="scroll-cue hide-in-tile">
+      <span class="scroll-cue__label">Scroll</span>
+      <div class="scroll-cue__track"><div class="scroll-cue__dot"></div></div>
+    </div>
+  </div>
+
+</div>
+<script>
+(function () {
+  "use strict";
+  var stage = document.getElementById('stage');
+  var video = document.querySelector('video');
+  document.addEventListener('visibilitychange', function () {
+    stage.classList.toggle('paused', document.hidden);
+    if (!video) return;
+    if (document.hidden) { video.pause(); } else { video.play().catch(function(){}); }
+  });
+})();
+</script>
+</body>
+</html>
