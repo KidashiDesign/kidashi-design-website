@@ -1982,7 +1982,7 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	left: 0;
 	top: 0;
 	width: 320px;
-	height: 420px;
+	height: 500px;
 	background: rgba(255, 255, 255, 0.15); /* 15% opacity white */
 	backdrop-filter: blur(18px) saturate(140%);
 	-webkit-backdrop-filter: blur(18px) saturate(140%);
@@ -2057,7 +2057,7 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	.tcard {
 		width: calc(100vw - 6rem);
 		max-width: 300px;
-		height: 400px;
+		height: 480px;
 	}
 	.tcard[data-pos="middle"] {
 		transform: rotate(0deg) translateX(14vw);
