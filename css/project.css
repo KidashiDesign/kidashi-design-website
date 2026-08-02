@@ -49,6 +49,10 @@
   display: block;
   background: #0A0A0A;
   pointer-events: none;
+  will-change: contents;
+  image-rendering: high-quality;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
   .proj-hero--video .proj-hero__content {
   padding: clamp(3rem, 3vh, 5rem) var(--gutter) clamp(4rem, 5vh, 6rem);
