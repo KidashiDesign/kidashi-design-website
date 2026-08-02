@@ -181,8 +181,8 @@
       <h2 class="reveal" data-delay="100">What Clients Say</h2>
     </div>
     <div class="testimonials__stage">
-      <div class="testimonials__stack" id="testimonialStack"></div>
-      <p class="testimonials__hint reveal" data-delay="200">← Drag to shuffle</p>
+      <div class="testimonials__card-wrap" id="testimonialCardWrap"></div>
+      <div class="testimonials__dots" id="testimonialDots"></div>
     </div>
   </div>
 </section>
@@ -202,92 +202,67 @@
     }
   ];
 
-  var order = [0, 1];
-  var cards = [];
-  var isDragging = false;
-  var startX = 0;
-  var currentDx = 0;
-  var stack = document.getElementById('testimonialStack');
-  if (!stack) return;
+  var current = 0;
+  var wrap = document.getElementById('testimonialCardWrap');
+  var dotsWrap = document.getElementById('testimonialDots');
+  if (!wrap || !dotsWrap) return;
 
-  function buildCards() {
-    stack.innerHTML = '';
-    cards = [];
-    for (var i = 0; i < 3; i++) {
-      var t = TESTIMONIALS[order[i]];
-      var pos = i === 0 ? 'front' : i === 1 ? 'middle' : 'back';
-      var safeId = String(t.id).replace(/[^0-9]/g, '') || '1';
-      var card = document.createElement('div');
-      card.className = 'tcard';
-      card.dataset.pos = pos;
-      card.innerHTML =
-        '<img src="/images/testimonials/client-' + safeId + '.jpg" alt="Client photo" class="tcard__avatar" loading="lazy" decoding="async">' +
-        '<blockquote class="tcard__text">"' + t.text + '"</blockquote>' +
-        '<span class="tcard__author">' + t.author + '</span>';
-      stack.appendChild(card);
-      cards.push(card);
-    }
-    bindDrag(cards[0]);
+  function cardHTML(t) {
+    var safeId = String(t.id).replace(/[^0-9]/g, '') || '1';
+    return (
+      '<img src="/images/testimonials/client-' + safeId + '.jpg" alt="Client photo" class="tcard__avatar" loading="lazy" decoding="async">' +
+      '<blockquote class="tcard__text">"' + t.text + '"</blockquote>' +
+      '<span class="tcard__author">' + t.author + '</span>'
+    );
   }
 
-  function shuffle() {
-    order.push(order.shift());
-    buildCards();
-  }
-
-  function bindDrag(front) {
-    if (!front) return;
-
-    function onStart(e) {
-      isDragging = true;
-      startX = e.touches ? e.touches[0].clientX : e.clientX;
-      currentDx = 0;
-      front.style.transition = 'none';
-    }
-
-    function onMove(e) {
-      if (!isDragging) return;
-      var x = e.touches ? e.touches[0].clientX : e.clientX;
-      currentDx = x - startX;
-      var rot = -6 + currentDx * 0.04;
-      front.style.transform = 'rotate(' + rot + 'deg) translateX(' + currentDx + 'px)';
-    }
-
-    function onEnd() {
-      if (!isDragging) return;
-      isDragging = false;
-      window.removeEventListener('mousemove', onMove);
-      window.removeEventListener('touchmove', onMove);
-      window.removeEventListener('mouseup', onEnd);
-      window.removeEventListener('touchend', onEnd);
-
-      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      if (currentDx < -150) {
-        front.style.transition = reduceMotion ? 'none' : 'transform 0.3s ease, opacity 0.3s ease';
-        front.style.transform = 'rotate(-18deg) translateX(-130%)';
-        front.style.opacity = '0';
-        setTimeout(shuffle, reduceMotion ? 0 : 300);
-      } else {
-        front.style.transition = reduceMotion ? 'none' : 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        front.style.transform = 'rotate(-6deg) translateX(0)';
-      }
-      currentDx = 0;
-    }
-
-    front.addEventListener('mousedown', function (e) {
-      onStart(e);
-      window.addEventListener('mousemove', onMove);
-      window.addEventListener('mouseup', onEnd);
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    TESTIMONIALS.forEach(function (t, i) {
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'tdot' + (i === current ? ' is-active' : '');
+      dot.setAttribute('aria-label', 'Show testimonial ' + (i + 1));
+      dot.addEventListener('click', function () { goTo(i); });
+      dotsWrap.appendChild(dot);
     });
-    front.addEventListener('touchstart', function (e) {
-      onStart(e);
-      window.addEventListener('touchmove', onMove, { passive: true });
-      window.addEventListener('touchend', onEnd);
-    }, { passive: true });
   }
 
-  buildCards();
+  function render() {
+    var card = document.createElement('div');
+    card.className = 'tcard';
+    card.innerHTML = cardHTML(TESTIMONIALS[current]);
+    wrap.innerHTML = '';
+    wrap.appendChild(card);
+    buildDots();
+  }
+
+  function goTo(index) {
+    if (index === current || !TESTIMONIALS[index]) return;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var activeCard = wrap.querySelector('.tcard');
+
+    current = index;
+
+    if (!activeCard || reduceMotion) {
+      render();
+      return;
+    }
+
+    activeCard.classList.add('tcard--exit');
+    setTimeout(function () {
+      render();
+      var newCard = wrap.querySelector('.tcard');
+      newCard.classList.add('tcard--enter');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          newCard.classList.remove('tcard--enter');
+        });
+      });
+    }, 260);
+  }
+
+  render();
 })();
 </script>
 
