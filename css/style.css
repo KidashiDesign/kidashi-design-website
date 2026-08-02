@@ -3177,6 +3177,14 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
     backdrop-filter: none;
   }
 
+  /* Float the bar down from the very top edge of the viewport, matching
+     the inset gutter used on the sides. */
+  .nav {
+    height: auto;
+    align-items: flex-start;
+    padding-top: 0.9rem;
+  }
+
   /* Glass bubble behind logo + burger, matching the desktop dock — always
      on, on every page, independent of scroll/menu state. .nav__inner already
      spreads nav__dock (logo) and nav__burger apart via space-between, so the
