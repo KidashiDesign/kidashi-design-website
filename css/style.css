@@ -203,18 +203,7 @@ p {
 	align-items: center;
 	transition: background 0.4s var(--ease), backdrop-filter 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
-.nav.scrolled {
-	background: rgba(247, 243, 238, 0.72);
-	backdrop-filter: blur(24px) saturate(1.4);
-	-webkit-backdrop-filter: blur(24px) saturate(1.4);
-	box-shadow: 0 1px 0 rgba(10,10,11,0.08);
-}
-.nav--dark.scrolled {
-	background: rgba(16, 12, 8, 0.62);
-	backdrop-filter: blur(24px) saturate(1.6);
-	-webkit-backdrop-filter: blur(24px) saturate(1.6);
-	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
-}
+
 .nav__inner {
 	display: flex;
 	align-items: center;
@@ -359,14 +348,8 @@ p {
 .nav__burger.open span:nth-child(3) {
 	transform: translateY(-6.5px) rotate(-45deg);
 }
-.nav.scrolled .nav__logo-k, .nav--dark.scrolled .nav__logo-k { color: var(--cream); }
-.nav.scrolled .nav__logo-d, .nav--dark.scrolled .nav__logo-d { color: #FFBC95; }
-.nav.scrolled .nav__link, .nav--dark.scrolled .nav__link { color: rgba(247,243,238,0.6); }
-.nav.scrolled .nav__link:hover, .nav.scrolled .nav__link.active,
-.nav--dark.scrolled .nav__link:hover, .nav--dark.scrolled .nav__link.active { color: #FFBC95; }
-/* Burger stays the dark CI colour on every page/state — it always sits on
-   the light glass bubble now, so it never needs to switch to cream. */
-.nav.scrolled .nav__location, .nav--dark.scrolled .nav__location { color: rgba(247,243,238,0.4); }
+/* Burger and logo stay the dark CI colour on every page/state — they
+   always sit on the light glass bubble now, so they never switch to cream. */
 
 /* Mobile menu open: the full-screen panel is always light (--bg), so on
    pages whose top bar isn't already dark-text (nav--light), give the
@@ -497,14 +480,14 @@ p {
 
 /* ============================================================
    GLASS DOCK — Desktop main navigation (liquid-glass, no icons)
-   Only affects screens >= 1000px. Below that (tablets included)
+   Only affects screens >= 1170px. Below that (tablets included)
    the hamburger menu takes over — the dock + clock widget together
-   need ~995px to fit without wrapping/clipping the last link.
+   need ~1170px to fit without wrapping/clipping the location widget.
    Uses GPU-accelerated backdrop-filter (no costly SVG filters) so
    scroll/paint stays fast. Corporate colours: blue = --secondary,
    peach = --primary, on a frosted cream (--cream) glass surface.
    ============================================================ */
-@media (min-width: 1000px) {
+@media (min-width: 1170px) {
 
 	/* The nav bar itself is just a positioning layer — the dock pill
 	   provides the visible surface, so drop the old full-width frosted
@@ -1965,47 +1948,67 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	flex-direction: column;
 	align-items: center;
 	gap: 2.5rem;
-}
-.testimonials__stack {
 	position: relative;
-	width: 580px;
-	height: 440px;
+}
+.testimonials__card-wrap {
+	position: relative;
+	width: 480px;
 	max-width: 100%;
+	display: flex;
+	justify-content: center;
 }
 .tcard {
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 320px;
-	height: 420px;
+	width: 100%;
+	max-width: 480px;
+	min-height: 340px;
 	background: rgba(255, 255, 255, 0.15); /* 15% opacity white */
 	backdrop-filter: blur(18px) saturate(140%);
 	-webkit-backdrop-filter: blur(18px) saturate(140%);
 	border: 1px solid rgba(255, 255, 255, 0.18);
 	border-radius: 1.25rem;
-	padding: 2.25rem 2rem;
+	padding: 2.25rem 2.5rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	gap: 1.5rem;
-	transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transition: opacity 0.3s ease, transform 0.3s ease;
 	user-select: none;
-	will-change: transform;
+	will-change: transform, opacity;
 	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+	opacity: 1;
+	transform: translateX(0) scale(1);
 }
-.tcard[data-pos="front"] {
-	z-index: 3;
-	transform: rotate(-6deg) translateX(0);
-	cursor: grab;
+.tcard--exit {
+	opacity: 0;
+	transform: translateX(-32px) scale(0.96);
+	transition: opacity 0.25s ease, transform 0.25s ease;
 }
-.tcard[data-pos="middle"] {
-	z-index: 2;
-	transform: rotate(0deg) translateX(106px);
+.tcard--enter {
+	opacity: 0;
+	transform: translateX(32px) scale(0.96);
 }
-.tcard[data-pos="back"] {
-	z-index: 1;
-	transform: rotate(6deg) translateX(212px);
+.testimonials__dots {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+}
+.tdot {
+	width: 0.55rem;
+	height: 0.55rem;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.3);
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	transition: background-color 0.3s ease, width 0.3s ease;
+}
+.tdot:hover {
+	background: rgba(255, 255, 255, 0.5);
+}
+.tdot.is-active {
+	width: 1.6rem;
+	background: var(--accent);
 }
 .tcard__avatar {
 	width: 7rem;
@@ -2045,20 +2048,20 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	text-align: center;
 }
 @media (max-width: 640px) {
-	.testimonials__stack {
+	.testimonials__card-wrap {
 		width: 100%;
-		height: 400px;
 	}
 	.tcard {
-		width: calc(100vw - 6rem);
-		max-width: 300px;
-		height: 400px;
+		width: 100%;
+		min-height: 320px;
+		padding: 2rem 1.5rem;
 	}
-	.tcard[data-pos="middle"] {
-		transform: rotate(0deg) translateX(14vw);
+	.tcard__avatar {
+		width: 5.5rem;
+		height: 5.5rem;
 	}
-	.tcard[data-pos="back"] {
-		transform: rotate(6deg) translateX(28vw);
+	.tcard__text {
+		font-size: 0.88rem;
 	}
 }
 /* ============================================================FOOTER============================================================ */
@@ -3158,9 +3161,9 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	}
 }
 
-/* Nav switches to the hamburger menu below 1000px — see the
-   matching "min-width: 1000px" glass-dock block above. */
-@media (max-width: 999px) {
+/* Nav switches to the hamburger menu below 1170px — see the
+   matching "min-width: 1170px" glass-dock block above. */
+@media (max-width: 1169px) {
   .nav__links { display: none; }
   .nav__burger { display: flex; }
   .nav__location { display: none; }
@@ -3461,9 +3464,6 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	}
 	.gallery-teaser__card:not(:first-child) {
 		margin-left: -100px;
-	}
-	.nav__inner {
-		justify-content: center;
 	}
 }
 /* ============================================================FLOATING SCENE — About page, mouse-parallax portrait + badgesReplaces old ZoomParallax travel-photo scroll section.============================================================ */

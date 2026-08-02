@@ -19,101 +19,86 @@
     width: 100vw;
     height: 100dvh;
     overflow: hidden;
-    background: #000;
-    --d88: 88s;
+    background: #08070a;
+    --d: 42s;
   }
-  .scene { position: absolute; inset: 0; overflow: hidden; animation-duration: var(--d88); animation-timing-function: linear; animation-iteration-count: infinite; }
+  .scene { position: absolute; inset: 0; overflow: hidden; animation-duration: var(--d); animation-timing-function: linear; animation-iteration-count: infinite; }
 
-  /* ---- Scene visibility windows (7 scenes stitched into one 88s master loop) ---- */
-  /* Crossfades: each boundary overlaps 0.8s so the outgoing and incoming scene blend directly — no black hold between scenes. */
-  @keyframes s1Window { 0% { opacity: 0.5; } 0.4545% { opacity: 1; } 12.0455% { opacity: 1; } 12.9545% { opacity: 0; } 99.5455% { opacity: 0; } 100% { opacity: 0.5; } }
-  @keyframes s2Window { 0% { opacity: 0; } 12.0455% { opacity: 0; } 12.9545% { opacity: 1; } 25.6818% { opacity: 1; } 26.5909%, 100% { opacity: 0; } }
-  @keyframes s3Window { 0% { opacity: 0; } 25.6818% { opacity: 0; } 26.5909% { opacity: 1; } 37.0455% { opacity: 1; } 37.9545%, 100% { opacity: 0; } }
-  @keyframes s4Window { 0% { opacity: 0; } 37.0455% { opacity: 0; } 37.9545% { opacity: 1; } 48.4091% { opacity: 1; } 49.3182%, 100% { opacity: 0; } }
-  @keyframes s5Window { 0% { opacity: 0; } 48.4091% { opacity: 0; } 49.3182% { opacity: 1; } 65.4545% { opacity: 1; } 66.3636%, 100% { opacity: 0; } }
-  @keyframes s6Window { 0% { opacity: 0; } 65.4545% { opacity: 0; } 66.3636% { opacity: 1; } 82.5% { opacity: 1; } 83.4091%, 100% { opacity: 0; } }
-  @keyframes s7Window { 0% { opacity: 0.5; } 0.4545% { opacity: 0; } 82.5% { opacity: 0; } 83.4091% { opacity: 1; } 99.5455% { opacity: 1; } 100% { opacity: 0.5; } }
+  /* ---- Scene visibility windows (6 scenes stitched into one 42s master loop) ---- */
+  /* Crossfades: each boundary overlaps ~1s so the outgoing and incoming scene blend directly — no black hold between scenes. */
+  @keyframes s1Window { 0% { opacity: 0.5; } 1.19% { opacity: 1; } 15.48% { opacity: 1; } 17.86% { opacity: 0; } 98.81% { opacity: 0; } 100% { opacity: 0.5; } }
+  @keyframes s2Window { 0% { opacity: 0; } 15.48% { opacity: 0; } 17.86% { opacity: 1; } 32.14% { opacity: 1; } 34.52%, 100% { opacity: 0; } }
+  @keyframes s3Window { 0% { opacity: 0; } 32.14% { opacity: 0; } 34.52% { opacity: 1; } 48.81% { opacity: 1; } 51.19%, 100% { opacity: 0; } }
+  @keyframes s4Window { 0% { opacity: 0; } 48.81% { opacity: 0; } 51.19% { opacity: 1; } 65.48% { opacity: 1; } 67.86%, 100% { opacity: 0; } }
+  @keyframes s5Window { 0% { opacity: 0; } 65.48% { opacity: 0; } 67.86% { opacity: 1; } 82.14% { opacity: 1; } 84.52%, 100% { opacity: 0; } }
+  @keyframes s6Window { 0% { opacity: 0.5; } 1.19% { opacity: 0; } 82.14% { opacity: 0; } 84.52% { opacity: 1; } 98.81% { opacity: 1; } 100% { opacity: 0.5; } }
 
-  /* All inner animations below are pre-computed onto the SAME 88s master clock as the
+  /* All inner animations below are pre-computed onto the SAME 42s master clock as the
      windows above, so every scene's entrance lands exactly at its window's fade-in —
      no drift, ever, on repeat loops. */
 
   @keyframes s1BgReveal {
-    0% { opacity: 0; transform: scale(1.14); filter: blur(6px); }
-    1.25% { opacity: 1; transform: scale(1.07); filter: blur(0px); }
-    5.25% { opacity: 1; transform: scale(1.02); filter: blur(0px); }
-    10% { opacity: 1; transform: scale(1.0); filter: blur(0px); }
-    11.5% { opacity: 0.35; transform: scale(1.0); filter: blur(0px); }
-    12.5%, 100% { opacity: 0; transform: scale(1.14); filter: blur(6px); }
+    0% { transform: scale(1.03); filter: blur(3px); }
+    1.19% { transform: scale(1); filter: blur(0px); }
+    15.48% { transform: scale(1.015); filter: blur(0px); }
+    17.86% { transform: scale(1.06); filter: blur(5px); }
+    98.81% { transform: scale(1.1); filter: blur(6px); }
+    100% { transform: scale(1.03); filter: blur(3px); }
   }
   @keyframes s1LogoMorph {
-    0% { opacity: 0; transform: scale(0.62) translateY(18px); filter: blur(22px); }
-    4.75% { opacity: 0; transform: scale(0.62) translateY(18px); filter: blur(22px); }
-    6% { opacity: 0.5; transform: scale(0.88) translateY(4px); filter: blur(9px); }
-    7.25% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0px); }
-    10.5% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0px); }
-    11.75% { opacity: 0; transform: scale(1.16) translateY(-6px); filter: blur(14px); }
-    12.5%, 100% { opacity: 0; transform: scale(0.62) translateY(18px); filter: blur(22px); }
-  }
-  @keyframes s1Vignette {
-    0%, 5% { opacity: 0.35; }
-    7.25%, 10.5% { opacity: 0.65; }
-    12.5%, 100% { opacity: 0.35; }
+    0% { transform: scale(0.85); filter: blur(8px); }
+    1.19% { transform: scale(1); filter: blur(0px); }
+    15.48% { transform: scale(1); filter: blur(0px); }
+    17.86% { transform: scale(1.08); filter: blur(6px); }
+    98.81% { transform: scale(0.85); filter: blur(10px); }
+    100% { transform: scale(0.85); filter: blur(8px); }
   }
 
-  @keyframes s2PhotoIn1 { 0% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 12.5% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 20% { opacity: 1; filter: blur(0px); transform: scale(1.03) rotate(calc(var(--rot-to) * 0.6)); } 22.0455%, 24.5% { opacity: 1; filter: blur(0px); transform: scale(1) rotate(var(--rot-to)); } 26.1364%, 100% { opacity: 0; filter: blur(6px); transform: scale(0.94) rotate(var(--rot-to)); } }
-  @keyframes s2PhotoIn2 { 0% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 13.0682% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 20.5682% { opacity: 1; filter: blur(0px); transform: scale(1.03) rotate(calc(var(--rot-to) * 0.6)); } 22.6136%, 25.0682% { opacity: 1; filter: blur(0px); transform: scale(1) rotate(var(--rot-to)); } 26.7045%, 100% { opacity: 0; filter: blur(6px); transform: scale(0.94) rotate(var(--rot-to)); } }
-  @keyframes s2PhotoIn3 { 0% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 13.6364% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 21.1364% { opacity: 1; filter: blur(0px); transform: scale(1.03) rotate(calc(var(--rot-to) * 0.6)); } 23.1818%, 25.6364% { opacity: 1; filter: blur(0px); transform: scale(1) rotate(var(--rot-to)); } 27.2727%, 100% { opacity: 0; filter: blur(6px); transform: scale(0.94) rotate(var(--rot-to)); } }
-  @keyframes s2PhotoIn4 { 0% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 14.2045% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 21.7045% { opacity: 1; filter: blur(0px); transform: scale(1.03) rotate(calc(var(--rot-to) * 0.6)); } 23.75%, 26.2045% { opacity: 1; filter: blur(0px); transform: scale(1) rotate(var(--rot-to)); } 27.8409%, 100% { opacity: 0; filter: blur(6px); transform: scale(0.94) rotate(var(--rot-to)); } }
-  @keyframes s2PhotoIn5 { 0% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 14.7727% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 22.2727% { opacity: 1; filter: blur(0px); transform: scale(1.03) rotate(calc(var(--rot-to) * 0.6)); } 24.3182%, 26.7727% { opacity: 1; filter: blur(0px); transform: scale(1) rotate(var(--rot-to)); } 28.4091%, 100% { opacity: 0; filter: blur(6px); transform: scale(0.94) rotate(var(--rot-to)); } }
-  @keyframes s2PhotoIn6 { 0% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 15.3409% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 22.8409% { opacity: 1; filter: blur(0px); transform: scale(1.03) rotate(calc(var(--rot-to) * 0.6)); } 24.8864%, 27.3409% { opacity: 1; filter: blur(0px); transform: scale(1) rotate(var(--rot-to)); } 28.9773%, 100% { opacity: 0; filter: blur(6px); transform: scale(0.94) rotate(var(--rot-to)); } }
-  @keyframes s2PhotoIn7 { 0% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 15.9091% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 23.4091% { opacity: 1; filter: blur(0px); transform: scale(1.03) rotate(calc(var(--rot-to) * 0.6)); } 25.4545%, 27.9091% { opacity: 1; filter: blur(0px); transform: scale(1) rotate(var(--rot-to)); } 29.5455%, 100% { opacity: 0; filter: blur(6px); transform: scale(0.94) rotate(var(--rot-to)); } }
-  @keyframes s2PhotoIn8 { 0% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 16.4773% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 23.9773% { opacity: 1; filter: blur(0px); transform: scale(1.03) rotate(calc(var(--rot-to) * 0.6)); } 26.0227%, 28.4773% { opacity: 1; filter: blur(0px); transform: scale(1) rotate(var(--rot-to)); } 30.1136%, 100% { opacity: 0; filter: blur(6px); transform: scale(0.94) rotate(var(--rot-to)); } }
-  @keyframes s2PhotoIn9 { 0% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 17.0455% { opacity: 0; filter: blur(18px); transform: scale(0.7) rotate(var(--rot-from)); } 24.5455% { opacity: 1; filter: blur(0px); transform: scale(1.03) rotate(calc(var(--rot-to) * 0.6)); } 26.5909%, 29.0455% { opacity: 1; filter: blur(0px); transform: scale(1) rotate(var(--rot-to)); } 30.6818%, 100% { opacity: 0; filter: blur(6px); transform: scale(0.94) rotate(var(--rot-to)); } }
+  @keyframes s2PhotoMorph {
+    0%, 15.48% { transform: scale(0.92); filter: blur(10px); }
+    17.86%, 32.14% { transform: scale(1); filter: blur(0px); }
+    34.52%, 100% { transform: scale(0.92); filter: blur(10px); }
+  }
+  @keyframes s2BgBreathe { 0%, 100% { filter: blur(0px) brightness(1); } 50% { filter: blur(12px) brightness(0.93); } }
 
-  @keyframes s3OverlayFade { 0%, 26.1364% { opacity: 1; } 28.9773%, 36.5909% { opacity: 0; } 37.5%, 100% { opacity: 1; } }
   @keyframes s3LogoReveal {
-    0%, 26.1364%, 28.9773% { opacity: 0; transform: scale(0.35) rotate(-35deg); filter: blur(14px); }
-    32.3864%, 36.3636% { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0px); }
-    37.5%, 100% { opacity: 0; transform: scale(0.9) rotate(8deg); filter: blur(6px); }
+    0%, 34.52% { transform: scale(0.4) rotate(-30deg); filter: blur(10px); }
+    40% { transform: scale(1) rotate(0deg); filter: blur(0px); }
+    48.81% { transform: scale(1) rotate(0deg); filter: blur(0px); }
+    51.19% { transform: scale(0.92) rotate(6deg); filter: blur(6px); }
+    100% { transform: scale(0.4) rotate(-30deg); filter: blur(10px); }
   }
-  @keyframes s3Spin { 0%, 26.1364% { transform: rotate(0deg); } 37.5%, 100% { transform: rotate(220deg); } }
+  @keyframes s3Spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-  @keyframes s4BgFadeIn { 0%, 37.5% { opacity: 0; } 40.9091%, 100% { opacity: 1; } }
-  @keyframes s4TextFadeIn { 0%, 37.5% { opacity: 0; transform: translateY(12px); } 38.8636%, 100% { opacity: 1; transform: translateY(0); } }
-  @keyframes s4CollageMorph1 { 0%, 37.5% { opacity: 0; filter: blur(20px); transform: scale(1.04); } 40.9091%, 46.5909% { opacity: 1; filter: blur(0px); transform: scale(1); } 48.2955%, 100% { opacity: 0; filter: blur(10px); transform: scale(0.98); } }
-  @keyframes s4CollageMorph2 { 0%, 38.6364% { opacity: 0; filter: blur(20px); transform: scale(1.04); } 42.0455%, 47.7273% { opacity: 1; filter: blur(0px); transform: scale(1); } 49.4318%, 100% { opacity: 0; filter: blur(10px); transform: scale(0.98); } }
-  @keyframes s4CollageMorph3 { 0%, 39.7727% { opacity: 0; filter: blur(20px); transform: scale(1.04); } 43.1818%, 48.8636% { opacity: 1; filter: blur(0px); transform: scale(1); } 50.5682%, 100% { opacity: 0; filter: blur(10px); transform: scale(0.98); } }
-  @keyframes s4CollageMorph4 { 0%, 40.9091% { opacity: 0; filter: blur(20px); transform: scale(1.04); } 44.3182%, 50% { opacity: 1; filter: blur(0px); transform: scale(1); } 51.7045%, 100% { opacity: 0; filter: blur(10px); transform: scale(0.98); } }
+  @keyframes s4Photo1 { 0%, 51.19% { opacity: 0; transform: scale(0.9); } 53% { opacity: 1; transform: scale(1); } 65.48% { opacity: 1; transform: scale(1); } 67.86%, 100% { opacity: 0; transform: scale(0.9); } }
+  @keyframes s4Photo2 { 0%, 51.79% { opacity: 0; transform: scale(0.9); } 53.6% { opacity: 1; transform: scale(1); } 65.48% { opacity: 1; transform: scale(1); } 67.86%, 100% { opacity: 0; transform: scale(0.9); } }
+  @keyframes s4Photo3 { 0%, 52.39% { opacity: 0; transform: scale(0.9); } 54.2% { opacity: 1; transform: scale(1); } 65.48% { opacity: 1; transform: scale(1); } 67.86%, 100% { opacity: 0; transform: scale(0.9); } }
+  @keyframes s4Photo4 { 0%, 52.99% { opacity: 0; transform: scale(0.9); } 54.8% { opacity: 1; transform: scale(1); } 65.48% { opacity: 1; transform: scale(1); } 67.86%, 100% { opacity: 0; transform: scale(0.9); } }
 
-  @keyframes s5BgFadeIn { 0%, 48.8636% { opacity: 0; transform: scale(1.04); } 51.1358%, 65.9091% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+  @keyframes s5BgFadeIn { 0%, 65.48% { transform: scale(1.04); } 70%, 82.14% { transform: scale(1); } 100% { transform: scale(1.04); } }
   @keyframes s5TextMorph {
-    0%, 48.8636%, 54.3182% { opacity: 0; filter: blur(18px); transform: translateY(14px) scale(0.97); }
-    55%, 63.3523% { opacity: 1; filter: blur(0px); transform: translateY(0) scale(1); }
-    64.0341%, 65.9091%, 100% { opacity: 0; filter: blur(14px); transform: translateY(-14px) scale(1.02); }
+    0%, 67.86% { opacity: 0; filter: blur(14px); transform: translateY(10px) scale(0.98); }
+    70% { opacity: 1; filter: blur(0px); transform: translateY(0) scale(1); }
+    82.14% { opacity: 1; filter: blur(0px); transform: translateY(0) scale(1); }
+    84.52%, 100% { opacity: 0; filter: blur(10px); transform: translateY(-10px) scale(1.02); }
   }
 
-  @keyframes s6Rustle {
-    0%, 65.9091% { transform: translate(0,0) scale(1.02); opacity: 0.05; }
-    69.3182% { transform: translate(-1%, 0.5%) scale(1.03); opacity: 0.07; }
-    72.7273% { transform: translate(0.5%, -1%) scale(1.02); opacity: 0.045; }
-    76.1364% { transform: translate(-0.5%, -0.5%) scale(1.03); opacity: 0.065; }
-    79.5455%, 82.9545%, 100% { transform: translate(1%, 0.5%) scale(1.02); opacity: 0.05; }
+  @keyframes s6BgLayer {
+    0% { transform: scale(1.05); filter: blur(3px); }
+    1.19% { transform: scale(1.1); filter: blur(6px); }
+    84.52% { transform: scale(1.1); filter: blur(6px); }
+    90% { transform: scale(1); filter: blur(0px); }
+    98.81% { transform: scale(1); filter: blur(0px); }
+    100% { transform: scale(1.05); filter: blur(3px); }
   }
-  @keyframes s6BuildIn { 0%, 65.9091% { opacity: 0; transform: translateY(28px); } 67.6136%, 80.9091% { opacity: 1; transform: translateY(0); } 82.9545%, 100% { opacity: 0; transform: translateY(28px); } }
-
-  @keyframes s7BgLayer {
-    0%, 82.9545%, 84.0966% { opacity: 0; transform: scale(1.1); filter: blur(6px); }
-    87.5057%, 97.733% { opacity: 1; transform: scale(1); filter: blur(0px); }
-    98.858% { opacity: 0; transform: scale(1.03); filter: blur(4px); }
-    100% { opacity: 0; transform: scale(1.1); filter: blur(6px); }
-  }
-  @keyframes s7LogoLayer {
-    0%, 82.9545%, 88.0682% { opacity: 0; transform: scale(0.82) translateY(14px); filter: blur(14px); }
-    90.9148% { opacity: 1; transform: scale(1.03) translateY(0); filter: blur(0px); }
-    92.0398%, 97.733% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0px); }
-    98.858% { opacity: 0; transform: scale(1.05) translateY(-6px); filter: blur(10px); }
-    100% { opacity: 0; transform: scale(0.82) translateY(14px); filter: blur(14px); }
+  @keyframes s6LogoLayer {
+    0% { transform: scale(1.03) translateY(0); filter: blur(4px); }
+    1.19% { transform: scale(0.9) translateY(10px); filter: blur(10px); }
+    84.52% { transform: scale(0.82) translateY(10px); filter: blur(10px); }
+    90% { transform: scale(1.02) translateY(0); filter: blur(0px); }
+    95% { transform: scale(1) translateY(0); filter: blur(0px); }
+    98.81% { transform: scale(1) translateY(0); filter: blur(0px); }
+    100% { transform: scale(1.03) translateY(0); filter: blur(4px); }
   }
 </style>
 </head>
@@ -121,73 +106,54 @@
 
 <div class="stage">
 
-  <div class="scene" style="background:#0b0906;animation-name:s1Window;" data-screen-label="Scene 1 — Gallery intro">
-    <img src="../../images/portfolio/artista-artista/reel/s1-gallery-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:s1BgReveal var(--d88) linear infinite;transform-origin:center;" />
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 52%, transparent 30%, rgba(6,4,3,0.85) 100%);animation:s1Vignette var(--d88) linear infinite;"></div>
+  <div class="scene" style="background:#08070a;animation-name:s1Window;" data-screen-label="Scene 1 — Logo intro">
+    <img src="../../images/portfolio/artista-artista/reel/s1-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:s1BgReveal var(--d) linear infinite;transform-origin:center;" />
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 52%, transparent 30%, rgba(6,4,3,0.85) 100%);"></div>
     <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
-      <img src="../../images/portfolio/artista-artista/reel/s1-logo.webp" alt="Artista Artista" style="height:min(30vh,26vw);width:auto;max-width:60vw;object-fit:contain;animation:s1LogoMorph var(--d88) linear infinite;filter:drop-shadow(0 1.4vw 3.6vw rgba(0,0,0,0.55));" />
+      <img src="../../images/portfolio/artista-artista/reel/s1-logo.webp" alt="Artista Artista" style="height:min(30vh,26vw);width:auto;max-width:60vw;object-fit:contain;animation:s1LogoMorph var(--d) linear infinite;filter:drop-shadow(0 1.4vw 3.6vw rgba(0,0,0,0.55));" />
     </div>
   </div>
 
-  <div class="scene" style="background:#0a0a0a;animation-name:s2Window;" data-screen-label="Scene 2 — Collage build">
-    <img src="../../images/portfolio/artista-artista/reel/s2-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:calc(50% - 6vw) center;" />
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.55) 100%);"></div>
-    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
-      <div style="position:relative;width:min(88vw,124vh);height:min(70vh,98vw);">
-        <img src="../../images/portfolio/artista-artista/reel/s2-gallery-1.webp" alt="Gallery photo" style="position:absolute;top:4%;left:6%;width:30%;height:auto;border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,0.5);object-fit:cover;--rot-from:-14deg;--rot-to:-6deg;animation:s2PhotoIn1 var(--d88) linear infinite;" />
-        <img src="../../images/portfolio/artista-artista/reel/s2-gallery-2.webp" alt="Gallery photo" style="position:absolute;top:2%;left:38%;width:26%;height:auto;border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,0.5);object-fit:cover;--rot-from:10deg;--rot-to:4deg;animation:s2PhotoIn2 var(--d88) linear infinite;" />
-        <img src="../../images/portfolio/artista-artista/reel/s2-gallery-3.webp" alt="Gallery photo" style="position:absolute;top:10%;left:66%;width:30%;height:auto;border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,0.5);object-fit:cover;--rot-from:-8deg;--rot-to:5deg;animation:s2PhotoIn3 var(--d88) linear infinite;" />
-        <img src="../../images/portfolio/artista-artista/reel/s2-gallery-4.webp" alt="Gallery photo" style="position:absolute;top:34%;left:2%;width:24%;height:auto;border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,0.5);object-fit:cover;--rot-from:12deg;--rot-to:-4deg;animation:s2PhotoIn4 var(--d88) linear infinite;" />
-        <img src="../../images/portfolio/artista-artista/reel/s2-gallery-5.webp" alt="Gallery photo" style="position:absolute;top:30%;left:78%;width:18%;height:auto;border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,0.5);object-fit:cover;--rot-from:-16deg;--rot-to:8deg;animation:s2PhotoIn5 var(--d88) linear infinite;" />
-        <img src="../../images/portfolio/artista-artista/reel/s2-gallery-6.webp" alt="Gallery photo" style="position:absolute;top:52%;left:20%;width:28%;height:auto;border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,0.5);object-fit:cover;--rot-from:-10deg;--rot-to:3deg;animation:s2PhotoIn6 var(--d88) linear infinite;" />
-        <img src="../../images/portfolio/artista-artista/reel/s2-gallery-7.webp" alt="Gallery photo" style="position:absolute;top:50%;left:52%;width:26%;height:auto;border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,0.5);object-fit:cover;--rot-from:8deg;--rot-to:-5deg;animation:s2PhotoIn7 var(--d88) linear infinite;" />
-        <img src="../../images/portfolio/artista-artista/reel/s2-gallery-8.webp" alt="Gallery photo" style="position:absolute;top:68%;left:68%;width:24%;height:auto;border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,0.5);object-fit:cover;--rot-from:-6deg;--rot-to:6deg;animation:s2PhotoIn8 var(--d88) linear infinite;" />
-        <img src="../../images/portfolio/artista-artista/reel/s2-gallery-9.webp" alt="Gallery photo" style="position:absolute;top:70%;left:4%;width:20%;height:auto;border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,0.5);object-fit:cover;--rot-from:14deg;--rot-to:-8deg;animation:s2PhotoIn9 var(--d88) linear infinite;" />
-      </div>
-    </div>
+  <div class="scene" style="background:#0a0a0a;animation-name:s2Window;" data-screen-label="Scene 2 — Gallery photo">
+    <img src="../../images/portfolio/artista-artista/reel/s2-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:s2BgBreathe 9s ease-in-out infinite;" />
+    <img src="../../images/portfolio/artista-artista/reel/s2-photo.webp" alt="Gallery photo" style="position:absolute;inset:0;width:88%;height:88%;margin:auto;object-fit:contain;animation:s2PhotoMorph var(--d) linear infinite;" />
   </div>
 
   <div class="scene" style="background:#000;animation-name:s3Window;" data-screen-label="Scene 3 — Spinning logo">
     <img src="../../images/portfolio/artista-artista/reel/s3-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(6px);transform:scale(1.05);" />
     <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
-      <div style="width:min(34vw,34vh);aspect-ratio:1;animation:s3LogoReveal var(--d88) linear infinite;">
-        <img src="../../images/portfolio/artista-artista/reel/s3-logo-round.webp" alt="Artista logo" style="width:100%;height:100%;display:block;border-radius:50%;animation:s3Spin var(--d88) linear infinite;filter:drop-shadow(0 1.2vw 3.6vw rgba(0,0,0,0.55));" />
+      <div style="width:min(34vw,34vh);aspect-ratio:1;animation:s3LogoReveal var(--d) linear infinite;">
+        <img src="../../images/portfolio/artista-artista/reel/s3-logo-round.webp" alt="Artista logo" style="width:140%;height:140%;display:block;border-radius:50%;animation:s3Spin 16s linear infinite;filter:drop-shadow(0 1.2vw 3.6vw rgba(0,0,0,0.55));" />
       </div>
     </div>
-    <div style="position:absolute;inset:0;background:#000;pointer-events:none;animation:s3OverlayFade var(--d88) linear infinite;"></div>
   </div>
 
-  <div class="scene" style="background:#0a0906;animation-name:s4Window;" data-screen-label="Scene 4 — Second gallery + about">
-    <img src="../../images/portfolio/artista-artista/reel/s4-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:s4BgFadeIn var(--d88) linear infinite;" />
-    <img src="../../images/portfolio/artista-artista/reel/s4-gallery-1-portrait.webp" alt="" style="position:absolute;left:48.2%;top:0%;width:28.2%;height:48.7%;object-fit:cover;animation:s4CollageMorph1 var(--d88) linear infinite;" />
-    <img src="../../images/portfolio/artista-artista/reel/s4-gallery-2-building.webp" alt="" style="position:absolute;left:77.8%;top:10.5%;width:22.1%;height:38.2%;object-fit:cover;animation:s4CollageMorph2 var(--d88) linear infinite;" />
-    <img src="../../images/portfolio/artista-artista/reel/s4-gallery-3-lines.webp" alt="" style="position:absolute;left:48.2%;top:51%;width:22.1%;height:38.6%;object-fit:cover;animation:s4CollageMorph3 var(--d88) linear infinite;" />
-    <img src="../../images/portfolio/artista-artista/reel/s4-gallery-4-bottle.webp" alt="" style="position:absolute;left:71.7%;top:51%;width:28.3%;height:49%;object-fit:cover;animation:s4CollageMorph4 var(--d88) linear infinite;" />
-    <div class="hide-in-tile" style="position:absolute;left:4vw;bottom:6vh;right:4vw;animation:s4TextFadeIn var(--d88) linear infinite;">
-      <div style="color:rgba(255,214,170,0.92);font-size:clamp(10px,1.3vw,15px);letter-spacing:0.28em;text-transform:uppercase;font-weight:500;white-space:nowrap;">About Artista Artista</div>
-      <div style="color:rgba(255,255,255,0.75);font-size:clamp(12px,1.5vw,16px);line-height:1.5;font-weight:400;max-width:32ch;margin-top:1.2vh;">We launched the movement with 12 international photographers, featuring a psychedelic art exhibition in Tbilisi, Georgia.</div>
+  <div class="scene" style="background:#0a0906;animation-name:s4Window;" data-screen-label="Scene 4 — Gallery grid">
+    <img src="../../images/portfolio/artista-artista/reel/s4-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
+    <div style="position:absolute;top:50%;right:6%;transform:translateY(-50%);width:clamp(240px,38vw,540px);aspect-ratio:1176/1544;display:grid;grid-template-columns:639fr 501fr;grid-template-rows:751fr 757fr;">
+      <img src="../../images/portfolio/artista-artista/reel/s4-gallery-1.webp" alt="" style="width:100%;height:100%;object-fit:cover;grid-column:1;grid-row:1;animation:s4Photo1 var(--d) linear infinite;" />
+      <img src="../../images/portfolio/artista-artista/reel/s4-gallery-2.webp" alt="" style="width:100%;height:100%;object-fit:cover;grid-column:2;grid-row:1;animation:s4Photo2 var(--d) linear infinite;" />
+      <img src="../../images/portfolio/artista-artista/reel/s4-gallery-3.webp" alt="" style="width:100%;height:100%;object-fit:cover;grid-column:1;grid-row:2;animation:s4Photo3 var(--d) linear infinite;" />
+      <img src="../../images/portfolio/artista-artista/reel/s4-gallery-4.webp" alt="" style="width:100%;height:100%;object-fit:cover;grid-column:2;grid-row:2;animation:s4Photo4 var(--d) linear infinite;" />
     </div>
   </div>
 
   <div class="scene" style="background:#0a0a0a;animation-name:s5Window;" data-screen-label="Scene 5 — Quote">
-    <img src="../../images/portfolio/artista-artista/reel/s5-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:s5BgFadeIn var(--d88) linear infinite;" />
+    <img src="../../images/portfolio/artista-artista/reel/s5-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:s5BgFadeIn var(--d) linear infinite;" />
     <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.55) 100%);"></div>
     <div class="hide-in-tile" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 8vw;">
-      <p style="position:absolute;margin:0;max-width:52ch;color:#f2f0ea;font-size:clamp(1rem,2vw,1.7rem);font-weight:300;line-height:1.5;text-align:center;letter-spacing:0.01em;animation:s5TextMorph var(--d88) linear infinite;text-shadow:0 2px 24px rgba(0,0,0,0.45);">Artista Artista brings together photographers, visual artists, and creatives worldwide— forging a global art movement with real purpose.</p>
+      <p style="margin:0;max-width:52ch;color:#f2f0ea;font-size:clamp(1rem,2vw,1.7rem);font-weight:300;line-height:1.5;text-align:center;letter-spacing:0.01em;animation:s5TextMorph var(--d) linear infinite;text-shadow:0 2px 24px rgba(0,0,0,0.45);">Artista Artista brings together photographers, visual artists, and creatives worldwide— forging a global art movement with real purpose.</p>
     </div>
   </div>
 
-  <div class="scene" style="background:#1D1D1B;animation-name:s6Window;" data-screen-label="Scene 6 — CTA">
-    <div style="position:absolute;inset:-10%;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>');background-repeat:repeat;mix-blend-mode:overlay;animation:s6Rustle var(--d88) linear infinite;"></div>
-    <img src="../../images/portfolio/artista-artista/reel/s6-cta-text.webp" alt="Check out the online gallery — artista.kidashidesign.com" style="position:absolute;left:6vw;bottom:8vh;width:min(56vw,72vh);height:auto;animation:s6BuildIn var(--d88) linear infinite;" />
-  </div>
-
-  <div class="scene" style="background:#000;animation-name:s7Window;" data-screen-label="Scene 7 — Outro">
-    <img src="../../images/portfolio/artista-artista/reel/s7-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:s7BgLayer var(--d88) linear infinite;" />
+  <div class="scene" style="background:#08070a;animation-name:s6Window;" data-screen-label="Scene 6 — Outro">
+    <img src="../../images/portfolio/artista-artista/reel/s6-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:s6BgLayer var(--d) linear infinite;" />
     <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
-      <img src="../../images/portfolio/artista-artista/reel/s7-logo-text.webp" alt="Artista" style="width:min(58vw,72vh);max-width:92%;height:auto;animation:s7LogoLayer var(--d88) linear infinite;" />
+      <img src="../../images/portfolio/artista-artista/reel/s6-logo-text.webp" alt="Artista" style="width:min(56vw,880px);max-width:90%;height:auto;animation:s6LogoLayer var(--d) linear infinite;" />
     </div>
   </div>
+
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.32) 100%);"></div>
 
 </div>
 
