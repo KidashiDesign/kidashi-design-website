@@ -181,8 +181,10 @@
       <h2 class="reveal" data-delay="100">What Clients Say</h2>
     </div>
     <div class="testimonials__stage">
+      <button class="testimonials__nav testimonials__nav--prev" id="testimonialPrev" aria-label="Previous testimonial">‹</button>
       <div class="testimonials__stack" id="testimonialStack"></div>
-      <p class="testimonials__hint reveal" data-delay="200">← Drag to shuffle</p>
+      <button class="testimonials__nav testimonials__nav--next" id="testimonialNext" aria-label="Next testimonial">›</button>
+      <p class="testimonials__hint reveal" data-delay="200">← Drag or click arrows</p>
     </div>
   </div>
 </section>
@@ -286,6 +288,18 @@
       window.addEventListener('touchend', onEnd);
     }, { passive: true });
   }
+
+  var prevBtn = document.getElementById('testimonialPrev');
+  var nextBtn = document.getElementById('testimonialNext');
+
+  if (prevBtn) prevBtn.addEventListener('click', function() {
+    order.unshift(order.pop());
+    buildCards();
+  });
+
+  if (nextBtn) nextBtn.addEventListener('click', function() {
+    shuffle();
+  });
 
   buildCards();
 })();
