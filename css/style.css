@@ -3218,7 +3218,16 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 		font-size: clamp(1.35rem, 6vw, 2rem);
 	}
 }
-/* ── GALERIE KRONSBEIN TILE — mobile phone mockup ── */
+/* ── GALERIE KRONSBEIN TILE — center animation ── */
+.portfolio-gk-desktop {
+	position: absolute !important;
+	top: 50% !important;
+	left: 50% !important;
+	width: 75% !important;
+	height: 100% !important;
+	transform: translate(-50%, -50%) !important;
+}
+
 .portfolio-gk-phone {
 	display: none;
 }
