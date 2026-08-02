@@ -364,7 +364,8 @@ p {
 .nav.scrolled .nav__link, .nav--dark.scrolled .nav__link { color: rgba(247,243,238,0.6); }
 .nav.scrolled .nav__link:hover, .nav.scrolled .nav__link.active,
 .nav--dark.scrolled .nav__link:hover, .nav--dark.scrolled .nav__link.active { color: #FFBC95; }
-.nav.scrolled .nav__burger span, .nav--dark.scrolled .nav__burger span { background: var(--cream); }
+/* Burger stays the dark CI colour on every page/state — it always sits on
+   the light glass bubble now, so it never needs to switch to cream. */
 .nav.scrolled .nav__location, .nav--dark.scrolled .nav__location { color: rgba(247,243,238,0.4); }
 
 /* Mobile menu open: the full-screen panel is always light (--bg), so on
@@ -376,12 +377,6 @@ p {
   -webkit-backdrop-filter: blur(24px) saturate(1.6);
   backdrop-filter: blur(24px) saturate(1.6);
 }
-
-.nav__burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-.nav__burger span { display: block; width: 24px; height: 1.5px; background: var(--cream); transition: all 0.3s var(--ease); }
-.nav__burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.nav__burger.open span:nth-child(2) { opacity: 0; }
-.nav__burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
 /* ── Desktop location widget ── */
 .nav__location {
@@ -3169,6 +3164,36 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
   .nav__links { display: none; }
   .nav__burger { display: flex; }
   .nav__location { display: none; }
+
+  /* The bubble is the only visible surface now — drop the old full-width
+     frosted bar on scroll, same as the desktop dock does. */
+  .nav.scrolled, .nav--dark.scrolled {
+    background: transparent;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  /* Glass bubble behind logo + burger, matching the desktop dock — always
+     on, on every page, independent of scroll/menu state. .nav__inner already
+     spreads nav__dock (logo) and nav__burger apart via space-between, so the
+     bubble goes on it directly rather than only around the logo. */
+  .nav__inner {
+    width: calc(100% - 2 * var(--gutter));
+    margin-inline: var(--gutter);
+    padding: 0.5rem 0.9rem 0.5rem 1.1rem;
+    border-radius: 999px;
+    background: rgba(247, 243, 238, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.7);
+    backdrop-filter: blur(18px) saturate(1.7);
+    box-shadow: 0 8px 24px rgba(10, 10, 11, 0.16), 0 1px 2px rgba(10, 10, 11, 0.10),
+      inset 1px 1px 1px rgba(255, 255, 255, 0.65), inset -1px -1px 1px rgba(255, 255, 255, 0.35);
+  }
+
+  .nav__burger span {
+    background: var(--dark);
+  }
 }
 
 @media (max-width: 768px) {
