@@ -351,6 +351,16 @@ p {
 /* Burger and logo stay the dark CI colour on every page/state — they
    always sit on the light glass bubble now, so they never switch to cream. */
 
+/* Mobile menu open: the full-screen panel is always light (--bg), so on
+   pages whose top bar isn't already dark-text (nav--light), give the
+   still-transparent top bar the same dark backdrop as .scrolled — keeps
+   the cream logo/burger readable instead of blending into the panel. */
+.nav.menu-open:not(.nav--light) {
+  background: rgba(10,10,11,0.78);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  backdrop-filter: blur(24px) saturate(1.6);
+}
+
 /* ── Desktop location widget ── */
 .nav__location {
 	display: flex;
@@ -3195,14 +3205,6 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
   .nav__burger span {
     background: var(--dark);
   }
-
-  /* Slightly larger logo on mobile, kept centered on the navbar bubble's
-     vertical axis via matching top/bottom overflow margins. */
-  .nav__logo img {
-    height: 72px;
-    margin-top: -16px;
-    margin-bottom: -16px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -3228,14 +3230,6 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
   .portfolio-items, .portfolio-items--2col, .portfolio-items--4col { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .gallery-item--span2 { grid-column: span 2; }
-  /* Logo on mobile: grows to the right/bottom from a fixed top-left anchor,
-     so the burger's middle line runs through the logo's vertical center. */
-  .nav__logo img {
-    height: 64px;
-    padding-bottom: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
 }
 @media (max-width: 768px) {
 	.hero__h1 {
