@@ -14,6 +14,7 @@
   <link rel="preload" href="../fonts/MangoGrotesque-Light.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/MangoGrotesque-Bold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/contact-calendar.js" defer></script>
 </head>
 <body>
 
@@ -94,6 +95,18 @@
             </select>
           </div>
           <div class="form-group">
+            <label for="schedule-trigger">Preferred Appointment (optional)</label>
+            <button type="button" class="schedule-trigger" id="schedule-trigger" aria-haspopup="dialog" aria-controls="schedule-modal">
+              <span class="schedule-trigger__icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18"/><path d="M8 2.5v4"/><path d="M16 2.5v4"/></svg>
+              </span>
+              <span id="schedule-trigger-text">Pick a date &amp; time</span>
+              <span class="schedule-trigger__hint">Optional</span>
+            </button>
+            <input type="hidden" id="appointment_date" name="appointment_date">
+            <input type="hidden" id="appointment_time" name="appointment_time">
+          </div>
+          <div class="form-group">
             <label for="message">Message</label>
             <textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea>
           </div>
@@ -102,6 +115,60 @@
           </div>
           <p class="form__privacy">Your name, email and message are used solely to respond to your enquiry and deleted once no longer needed. No third parties receive this data. <a href="../datenschutz/">Privacy Policy</a></p>
         </form>
+
+        <div class="schedule-modal" id="schedule-modal" role="dialog" aria-modal="true" aria-labelledby="schedule-month-label" hidden>
+          <div class="schedule-modal__backdrop"></div>
+          <div class="schedule-modal__card">
+            <div class="schedule-modal__header">
+              <button type="button" class="schedule-modal__month-btn" id="schedule-month-year" aria-expanded="false">
+                <span id="schedule-month-label"></span>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="schedule-modal__nav">
+                <button type="button" class="schedule-modal__nav-btn" id="schedule-prev" aria-label="Previous month">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <button type="button" class="schedule-modal__nav-btn" id="schedule-next" aria-label="Next month">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+              </div>
+              <button type="button" class="schedule-modal__close" id="schedule-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="schedule-modal__weekdays" id="schedule-weekdays"></div>
+            <div class="schedule-modal__body">
+              <div class="schedule-modal__days" id="schedule-days"></div>
+              <div class="schedule-modal__picker" id="schedule-picker" hidden>
+                <div class="schedule-modal__picker-header">
+                  <button type="button" id="schedule-year-prev" aria-label="Previous year">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                  </button>
+                  <span id="schedule-year-label"></span>
+                  <button type="button" id="schedule-year-next" aria-label="Next year">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                  </button>
+                </div>
+                <div class="schedule-modal__months" id="schedule-months"></div>
+              </div>
+            </div>
+            <div class="schedule-modal__time">
+              <span class="schedule-modal__time-label">Time</span>
+              <div class="schedule-modal__time-controls">
+                <div class="schedule-modal__time-inputs">
+                  <input type="text" id="schedule-hour" inputmode="numeric" aria-label="Hour" value="10">
+                  <span>:</span>
+                  <input type="text" id="schedule-minute" inputmode="numeric" aria-label="Minute" value="00">
+                </div>
+                <div class="schedule-modal__ampm">
+                  <button type="button" data-ampm="AM" class="is-active">AM</button>
+                  <button type="button" data-ampm="PM">PM</button>
+                </div>
+              </div>
+            </div>
+            <div class="schedule-modal__footer">
+              <button type="button" class="btn btn--primary schedule-modal__confirm" id="schedule-confirm" disabled>Confirm Date</button>
+            </div>
+          </div>
+        </div>
       </div>
       <aside class="contact-info">
         <div class="contact-info__block reveal" data-delay="200">
@@ -202,12 +269,20 @@
 <script>
   const form = document.getElementById('contact-form');
   const btn = document.getElementById('submit-btn');
+  const scheduleTrigger = document.getElementById('schedule-trigger');
+  const scheduleTriggerText = document.getElementById('schedule-trigger-text');
   if (form) {
     form.addEventListener('submit', e => {
       e.preventDefault();
       btn.textContent = 'Message Sent!';
       btn.disabled = true;
-      setTimeout(() => { btn.textContent = 'Send Message'; btn.disabled = false; form.reset(); }, 3000);
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.disabled = false;
+        form.reset();
+        if (scheduleTrigger) scheduleTrigger.classList.remove('has-value');
+        if (scheduleTriggerText) scheduleTriggerText.textContent = 'Pick a date & time';
+      }, 3000);
     });
   }
 </script>
