@@ -978,6 +978,16 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
     color: var(--dark);
 }
 
+/* On dark sections the primary button keeps CI-cream text instead of the default dark text */
+.about-values .btn--primary,
+.about-values .btn--primary:hover,
+.gallery-cta .btn--primary,
+.gallery-cta .btn--primary:hover,
+.proj-quote .btn--primary,
+.proj-quote .btn--primary:hover {
+    color: var(--cream);
+}
+
 /* Outline and glass states */
 .btn--outline {
     border-color: rgba(247,243,238,0.4);
