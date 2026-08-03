@@ -866,32 +866,6 @@ document.head.appendChild(themeMeta);
     runNext();
   })();
 
-  /* ── Footer newsletter form ── */
-  window.footerFormSubmit = function(e, form) {
-    e.preventDefault();
-    var input  = form.querySelector('.footer__input');
-    var thanks = form.querySelector('.footer__form-thanks');
-    if (!input || !input.value) return;
-    thanks.textContent = 'Thanks — you\'re in!';
-    input.value = '';
-    setTimeout(function() { thanks.textContent = ''; }, 4000);
-  };
-
-  /* ── Footer newsletter GDPR micro-notice (injected, applies to all pages) ── */
-  const footerForm = document.querySelector('.footer__form');
-  if (footerForm) {
-    const privacyLink = document.querySelector('a[href*="datenschutz"]');
-    const privacyHref = privacyLink ? privacyLink.href : '/datenschutz/';
-    const gdprNote = document.createElement('p');
-    gdprNote.className = 'footer__gdpr';
-    gdprNote.appendChild(document.createTextNode('No tracking. Your email is used for project updates only. '));
-    const gdprLink = document.createElement('a');
-    gdprLink.href = privacyHref;
-    gdprLink.textContent = 'Privacy Policy';
-    gdprNote.appendChild(gdprLink);
-    footerForm.appendChild(gdprNote);
-  }
-
   /* ── Cookie / Privacy Notice Banner ── */
   (function () {
     if (localStorage.getItem('kidashi_consent')) return;
