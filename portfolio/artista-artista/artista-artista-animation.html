@@ -100,6 +100,16 @@
     98.81% { transform: scale(1) translateY(0); filter: blur(0px); }
     100% { transform: scale(1.03) translateY(0); filter: blur(4px); }
   }
+
+  /* ---- Mobile-only adjustments (portrait phones) ---- */
+  @media (max-width: 600px) {
+    /* Scene 2: widen the photo collage so it fills the portrait frame instead of sitting small and letterboxed */
+    .s2-photo { width: 96% !important; height: auto !important; }
+    /* Scene 3: enlarge the rotating logo +10%, kept centered */
+    .s3-logo-wrap { width: min(37.4vw,37.4vh) !important; }
+    /* Scene 4: enlarge the gallery grid images +20% */
+    .s4-grid { width: clamp(288px,45.6vw,648px) !important; }
+  }
 </style>
 </head>
 <body>
@@ -116,13 +126,13 @@
 
   <div class="scene" style="background:#0a0a0a;animation-name:s2Window;" data-screen-label="Scene 2 — Gallery photo">
     <img src="../../images/portfolio/artista-artista/reel/s2-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:s2BgBreathe 9s ease-in-out infinite;" />
-    <img src="../../images/portfolio/artista-artista/reel/s2-photo.webp" alt="Gallery photo" style="position:absolute;inset:0;width:88%;height:88%;margin:auto;object-fit:contain;animation:s2PhotoMorph var(--d) linear infinite;" />
+    <img src="../../images/portfolio/artista-artista/reel/s2-photo.webp" alt="Gallery photo" class="s2-photo" style="position:absolute;inset:0;width:88%;height:88%;margin:auto;object-fit:contain;animation:s2PhotoMorph var(--d) linear infinite;" />
   </div>
 
   <div class="scene" style="background:#000;animation-name:s3Window;" data-screen-label="Scene 3 — Spinning logo">
     <img src="../../images/portfolio/artista-artista/reel/s3-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(6px);transform:scale(1.05);" />
     <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
-      <div style="width:min(34vw,34vh);aspect-ratio:1;animation:s3LogoReveal var(--d) linear infinite;">
+      <div class="s3-logo-wrap" style="width:min(34vw,34vh);aspect-ratio:1;animation:s3LogoReveal var(--d) linear infinite;">
         <img src="../../images/portfolio/artista-artista/reel/s3-logo-round.webp" alt="Artista logo" style="width:140%;height:140%;display:block;border-radius:50%;animation:s3Spin 16s linear infinite;filter:drop-shadow(0 1.2vw 3.6vw rgba(0,0,0,0.55));" />
       </div>
     </div>
@@ -130,7 +140,7 @@
 
   <div class="scene" style="background:#0a0906;animation-name:s4Window;" data-screen-label="Scene 4 — Gallery grid">
     <img src="../../images/portfolio/artista-artista/reel/s4-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
-    <div style="position:absolute;top:50%;right:6%;transform:translateY(-50%);width:clamp(240px,38vw,540px);aspect-ratio:1176/1544;display:grid;grid-template-columns:639fr 501fr;grid-template-rows:751fr 757fr;">
+    <div class="s4-grid" style="position:absolute;top:50%;right:6%;transform:translateY(-50%);width:clamp(240px,38vw,540px);aspect-ratio:1176/1544;display:grid;grid-template-columns:639fr 501fr;grid-template-rows:751fr 757fr;">
       <img src="../../images/portfolio/artista-artista/reel/s4-gallery-1.webp" alt="" style="width:100%;height:100%;object-fit:cover;grid-column:1;grid-row:1;animation:s4Photo1 var(--d) linear infinite;" />
       <img src="../../images/portfolio/artista-artista/reel/s4-gallery-2.webp" alt="" style="width:100%;height:100%;object-fit:cover;grid-column:2;grid-row:1;animation:s4Photo2 var(--d) linear infinite;" />
       <img src="../../images/portfolio/artista-artista/reel/s4-gallery-3.webp" alt="" style="width:100%;height:100%;object-fit:cover;grid-column:1;grid-row:2;animation:s4Photo3 var(--d) linear infinite;" />
