@@ -3258,6 +3258,7 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 		justify-content: center;
 		position: absolute;
 		inset: 0;
+		pointer-events: none;
 	}
 	.portfolio-gk-phone__frame {
 		position: relative;
