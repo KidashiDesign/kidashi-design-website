@@ -2637,11 +2637,12 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	width: 177.8%;
 	left: -38.9%;
 }
-/* Galerie Kronsbein: show the full scrolling animation uncropped, with 5px of tile
-   background visible left/right, on both desktop and mobile. */
+/* Galerie Kronsbein: show the full scrolling animation uncropped, background fills
+   the tile edge-to-edge; the 5px margin is applied inside the animation itself,
+   only to the white website slide frame (see galerie-kronsbein-animation.html). */
 .portfolio-item__anim--gk {
-	width: calc(100% - 10px);
-	left: 5px;
+	width: 100%;
+	left: 0;
 }
 /* ── Mouse-tracking glow effect (portfolio tiles, sidebar cards, etc.) ── */
 @supports (selector(:has(*))) {

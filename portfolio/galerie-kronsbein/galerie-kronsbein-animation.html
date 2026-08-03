@@ -96,6 +96,10 @@ html,body{width:100%;height:100%;background:#14160f;overflow:hidden}
   .frame{width:min(calc(100vw - 40px),1200px)}
 }
 
+/* Tile view (desktop + mobile): only the white website slide frame gets a 5px margin,
+   the background itself stays edge-to-edge. Overrides the detail-view mobile rule above. */
+.tile-mode .frame{width:min(calc(100vw - 10px),1200px)}
+
 /* Frame position stays static in tile view (desktop + mobile) and on mobile detail view;
    the slide content inside the frame keeps scrolling as before. */
 .tile-mode .frame-wrap__bob{animation:none}
