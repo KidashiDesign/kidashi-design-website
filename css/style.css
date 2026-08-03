@@ -3169,6 +3169,13 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
   .nav__links { display: none; }
   .nav__burger { display: flex; }
   .nav__location { display: none; }
+  /* Slightly larger logo on mobile, kept centered on the navbar pill's
+     vertical axis via matching top/bottom overflow margins. */
+  .nav__logo img {
+    height: 72px;
+    margin-top: -16px;
+    margin-bottom: -16px;
+  }
 }
 
 @media (max-width: 768px) {
