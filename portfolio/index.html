@@ -258,11 +258,34 @@
 })();
 </script>
 <script>
-(function(){
-  if(window.matchMedia('(max-width:600px)').matches){
-    var el=document.getElementById('gkTilePhone');
-    if(el) el.src=el.dataset.src;
-  }
+(function () {
+  // Mobile/tablet devices choke when all portfolio tile animations (each its
+  // own iframe running CSS keyframes or a rAF loop) render at once. Fully
+  // unload offscreen iframes (drop src) and only reload them as they scroll
+  // near the viewport, so at most a couple are ever active simultaneously.
+  // Desktop keeps the original always-on behaviour (plenty of headroom there).
+  if (!window.matchMedia('(max-width: 900px), (pointer: coarse)').matches) return;
+
+  var frames = document.querySelectorAll('.portfolio-item__anim, .portfolio-gk-phone__iframe');
+  frames.forEach(function (f) {
+    if (!f.dataset.src) f.dataset.src = f.getAttribute('src') || '';
+    f.removeAttribute('src');
+  });
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      var f = entry.target;
+      if (entry.isIntersecting) {
+        if (f.dataset.src && f.getAttribute('src') !== f.dataset.src) {
+          f.setAttribute('src', f.dataset.src);
+        }
+      } else if (f.getAttribute('src')) {
+        f.removeAttribute('src');
+      }
+    });
+  }, { rootMargin: '200px 0px', threshold: 0.01 });
+
+  frames.forEach(function (f) { io.observe(f); });
 })();
 </script>
 </body>
