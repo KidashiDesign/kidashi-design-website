@@ -3228,13 +3228,14 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
   .portfolio-items, .portfolio-items--2col, .portfolio-items--4col { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .gallery-item--span2 { grid-column: span 2; }
-  /* Logo on mobile: grows to the right/bottom from a fixed top-left anchor,
-     so the burger's middle line runs through the logo's vertical center. */
+  /* Logo slightly smaller on mobile: wordmark baseline flush with the
+     burger's middle line, logomark just peeking above the navbar top. */
   .nav__logo img {
-    height: 64px;
+    height: 32px;
     padding-bottom: 0;
     margin-top: 0;
     margin-bottom: 0;
+    transform: translateY(-16px);
   }
 }
 @media (max-width: 768px) {
