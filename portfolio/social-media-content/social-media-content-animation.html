@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Social Media Designs Animation</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #050505; }
+
+  @keyframes sm-bg-zoom-blur {
+    0%   { transform: scale(1);    filter: blur(0px) brightness(0.65) saturate(1.05); }
+    50%  { transform: scale(1.16); filter: blur(7px) brightness(0.5)  saturate(1.15); }
+    100% { transform: scale(1);    filter: blur(0px) brightness(0.65) saturate(1.05); }
+  }
+
+  .sm-bg {
+    position: absolute; top: -5%; left: -5%; width: 110%; height: 110%;
+    object-fit: cover;
+    animation: sm-bg-zoom-blur 26s ease-in-out infinite;
+    will-change: transform, filter;
+  }
+
+  .sm-slide {
+    position: absolute; top: 50%; left: 50%;
+    max-width: 82vw; max-height: 78vh; width: auto; height: auto;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+    transition: transform 1.1s cubic-bezier(.65,0,.35,1), opacity 1.1s ease;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sm-bg { animation: none !important; }
+    .sm-slide { transition: opacity .3s ease !important; }
+  }
+
+  @media (max-width: 700px) {
+    .sm-slide { max-width: 92vw; max-height: 60vh; }
+  }
+</style>
+</head>
+<body>
+
+<div style="position: fixed; inset: 0; overflow: hidden; background: #050505;">
+  <img src="../../images/portfolio/social-media-content/animation/background.webp" alt="" class="sm-bg" />
+  <div id="sm-stage" style="position: absolute; inset: 0;"></div>
+</div>
+
+<script>
+(function () {
+  var IMAGES = [
+    'dotta-eis-02.webp',
+    'dotta-eis-01.webp',
+    'open-call-995-03.webp',
+    'revolution-ciganski-delight.webp',
+    'rohyma-jet.webp',
+    'uzu-house.webp'
+  ];
+  var BASE = '../../images/portfolio/social-media-content/animation/';
+  var INTERVAL_MS = 4200;
+
+  var stage = document.getElementById('sm-stage');
+  var n = IMAGES.length;
+  var current = 0;
+
+  var slides = IMAGES.map(function (name) {
+    var img = document.createElement('img');
+    img.className = 'sm-slide';
+    img.alt = '';
+    img.src = BASE + name;
+    stage.appendChild(img);
+    return img;
+  });
+
+  function render() {
+    slides.forEach(function (img, i) {
+      var diff = i - current;
+      if (diff > n / 2) diff -= n;
+      if (diff < -n / 2) diff += n;
+      var isCurrent = diff === 0;
+      img.style.transform = 'translate(-50%,-50%) translateX(' + (diff * 115) + '%)';
+      img.style.opacity = isCurrent ? '1' : '0';
+      img.style.zIndex = isCurrent ? '2' : '1';
+    });
+  }
+
+  render();
+  setInterval(function () {
+    current = (current + 1) % n;
+    render();
+  }, INTERVAL_MS);
+})();
+</script>
+
+</body>
+</html>
