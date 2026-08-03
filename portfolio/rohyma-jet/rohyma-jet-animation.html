@@ -193,6 +193,15 @@
     .scene--s1 { opacity: 1; }
     .scene--s1 img[data-role="logo"] { opacity: 1; transform: none; filter: none; }
   }
+
+  /* ── Mobile: enlarge logos (s1/s3/s7), colour palette (s2) and plane (s4) ── */
+  @media (max-width: 600px) {
+    .anim-mobile-s1-logo { width: clamp(280px, 54vw, 420px) !important; }
+    .anim-mobile-s2-colors { width: clamp(340px, 88vw, 920px) !important; }
+    .anim-mobile-s3-logo { width: clamp(300px, 100vw, 1200px) !important; }
+    .anim-mobile-s4-plane { width: clamp(300px, 85vw, 900px) !important; }
+    .anim-mobile-s7-logo { width: clamp(260px, 60vw, 420px) !important; }
+  }
 </style>
 </head>
 <body>
@@ -204,7 +213,7 @@
       <img src="../../images/portfolio/rohyma-jet/anim-01-cabin-bg.webp" alt="Rohyma Jet private cabin interior" style="position:absolute; top:-6%; left:-6%; width:112%; height:112%; object-fit:cover; animation: s1KenBurns 88s linear infinite;" />
       <div style="position:absolute; inset:0; background:radial-gradient(ellipse at center, rgba(10,7,5,0.15) 0%, rgba(10,7,5,0.55) 75%, rgba(10,7,5,0.75) 100%);"></div>
       <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:6vw;">
-        <img data-role="logo" src="../../images/portfolio/rohyma-jet/anim-01-cabin-logo.webp" alt="Rohyma Jet logo" style="width:clamp(240px, 42vw, 420px); max-width:90%; height:auto; animation: s1LogoBuild 88s linear infinite;" />
+        <img data-role="logo" class="anim-mobile-s1-logo" src="../../images/portfolio/rohyma-jet/anim-01-cabin-logo.webp" alt="Rohyma Jet logo" style="width:clamp(240px, 42vw, 420px); max-width:90%; height:auto; animation: s1LogoBuild 88s linear infinite;" />
       </div>
     </div>
   </div>
@@ -214,7 +223,7 @@
     <div class="scene__frame" style="background:#000;">
       <img src="../../images/portfolio/rohyma-jet/anim-02-palette-bg.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform-origin:center 60%; animation: s2BgZoom 88s linear infinite, s2BgDim 88s linear infinite;" />
       <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;">
-        <div style="position:relative; width:clamp(320px, 72vw, 920px); aspect-ratio:1019/566;">
+        <div class="anim-mobile-s2-colors" style="position:relative; width:clamp(320px, 72vw, 920px); aspect-ratio:1019/566;">
           <div style="position:absolute; inset:-10%; background:radial-gradient(closest-side, rgba(255,255,255,0.55), rgba(255,255,255,0)); filter:blur(clamp(20px,3vw,40px)); animation: s2GlowPulse 88s linear infinite;"></div>
           <img src="../../images/portfolio/rohyma-jet/anim-02-palette-swatch.webp" alt="Rohyma Jet brand colour palette" style="position:absolute; width:100%; height:100%; object-fit:contain; animation: s2PaletteMorph 88s linear infinite; filter:drop-shadow(0 20px 60px rgba(0,0,0,0.35));" />
         </div>
@@ -225,7 +234,7 @@
   <!-- s3 : logo invert -->
   <div class="scene" style="animation: visS3 88s linear infinite;">
     <div class="scene__frame" style="background:#000; display:flex; align-items:center; justify-content:center;">
-      <img src="../../images/portfolio/rohyma-jet/anim-03-logo-invert.webp" alt="Rohyma Jet — Enjoy exclusive travel and private jet experiences" style="width:clamp(280px, 92vw, 1200px); height:auto; animation: s3RjLoop 88s linear infinite;" />
+      <img class="anim-mobile-s3-logo" src="../../images/portfolio/rohyma-jet/anim-03-logo-invert.webp" alt="Rohyma Jet — Enjoy exclusive travel and private jet experiences" style="width:clamp(280px, 92vw, 1200px); height:auto; animation: s3RjLoop 88s linear infinite;" />
     </div>
   </div>
 
@@ -233,7 +242,7 @@
   <div class="scene" style="animation: visS4 88s linear infinite;">
     <div class="scene__frame" style="background:#0b1620;">
       <img src="../../images/portfolio/rohyma-jet/anim-04-sky-bg.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform-origin:50% 40%; animation: s4BgZoom 88s linear infinite;" />
-      <img src="../../images/portfolio/rohyma-jet/anim-04-plane.png" alt="" style="position:absolute; top:50%; left:50%; width:clamp(260px, 70vw, 900px); filter:drop-shadow(0 20px 40px rgba(0,0,0,0.35)); transform:translate(-50%,-50%); animation: s4PlaneFlyPos 88s linear infinite, s4PlaneFlyFx 88s linear infinite;" />
+      <img class="anim-mobile-s4-plane" src="../../images/portfolio/rohyma-jet/anim-04-plane.png" alt="" style="position:absolute; top:50%; left:50%; width:clamp(260px, 70vw, 900px); filter:drop-shadow(0 20px 40px rgba(0,0,0,0.35)); transform:translate(-50%,-50%); animation: s4PlaneFlyPos 88s linear infinite, s4PlaneFlyFx 88s linear infinite;" />
     </div>
   </div>
 
@@ -257,7 +266,7 @@
       <img src="../../images/portfolio/rohyma-jet/anim-07-outro-bg.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; animation: s7BgBuild 88s linear infinite;" />
       <div style="position:absolute; inset:0; background:radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 100%);"></div>
       <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
-        <img src="../../images/portfolio/rohyma-jet/anim-07-outro-logo.webp" alt="Rohyma Jet" style="width:clamp(220px, 48vw, 420px); height:auto; filter:drop-shadow(0 6px 24px rgba(0,0,0,0.35)); animation: s7LogoMorph 88s linear infinite;" />
+        <img class="anim-mobile-s7-logo" src="../../images/portfolio/rohyma-jet/anim-07-outro-logo.webp" alt="Rohyma Jet" style="width:clamp(220px, 48vw, 420px); height:auto; filter:drop-shadow(0 6px 24px rgba(0,0,0,0.35)); animation: s7LogoMorph 88s linear infinite;" />
       </div>
     </div>
   </div>
