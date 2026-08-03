@@ -351,6 +351,16 @@ p {
 /* Burger and logo stay the dark CI colour on every page/state — they
    always sit on the light glass bubble now, so they never switch to cream. */
 
+/* Mobile menu open: the full-screen panel is always light (--bg), so on
+   pages whose top bar isn't already dark-text (nav--light), give the
+   still-transparent top bar the same dark backdrop as .scrolled — keeps
+   the cream logo/burger readable instead of blending into the panel. */
+.nav.menu-open:not(.nav--light) {
+  background: rgba(10,10,11,0.78);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  backdrop-filter: blur(24px) saturate(1.6);
+}
+
 /* ── Desktop location widget ── */
 .nav__location {
 	display: flex;
