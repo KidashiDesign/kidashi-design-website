@@ -439,7 +439,7 @@ p {
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
-	padding-top: calc(var(--nav-h) - 0.5rem);
+	padding-top: calc(var(--nav-h) - 0.5rem + 20px);
 }
 .nav__mobile-links {
 	display: flex;
