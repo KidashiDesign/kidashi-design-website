@@ -13,6 +13,48 @@
 	font-style: italic;
 	font-display: swap;
 }
+@font-face {
+	font-family: 'Mango Grotesque';
+	src: url('../fonts/MangoGrotesque-Light.woff2') format('woff2');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Mango Grotesque';
+	src: url('../fonts/MangoGrotesque-LightItalic.woff2') format('woff2');
+	font-weight: 300;
+	font-style: italic;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Mango Grotesque';
+	src: url('../fonts/MangoGrotesque-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Mango Grotesque';
+	src: url('../fonts/MangoGrotesque-Italic.woff2') format('woff2');
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Mango Grotesque';
+	src: url('../fonts/MangoGrotesque-Medium.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Mango Grotesque';
+	src: url('../fonts/MangoGrotesque-Bold.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
 /* ============================================================CSS CUSTOM PROPERTIES============================================================ */
 :root {
   --bg:        #f0f1e9;
@@ -26,7 +68,7 @@
   --muted:     rgba(10,10,11,0.45);
   --sand:      rgba(10,10,11,0.22);
   --cream:     #F7F3EE;
-  --font-h:   'Jost', system-ui, sans-serif;
+  --font-h:   'Mango Grotesque', system-ui, sans-serif;
   --font-b:   'Jost', system-ui, sans-serif;
   --ease:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --section-pad: clamp(80px, 10vw, 140px);
