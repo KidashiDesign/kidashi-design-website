@@ -3963,6 +3963,7 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	margin: 0 auto;
 	max-width: 420px;
 	-webkit-font-smoothing: antialiased;
+	padding: 40px;
 }
 /* Mobile: scroll-driven animation — same as desktop, adjusted sizing */
 @media (max-width: 768px) {
