@@ -3932,7 +3932,7 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	justify-content: flex-start;
 	align-items: center;
 	text-align: center;
-	padding: clamp(2rem, 7vh, 4.5rem) clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.5rem);
+	padding: 40px;
 	will-change: opacity;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -3963,7 +3963,6 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	margin: 0 auto;
 	max-width: 420px;
 	-webkit-font-smoothing: antialiased;
-	padding: 40px;
 }
 /* Mobile: scroll-driven animation — same as desktop, adjusted sizing */
 @media (max-width: 768px) {
