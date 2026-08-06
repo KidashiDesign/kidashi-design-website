@@ -66,7 +66,6 @@
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes underlineDraw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  @keyframes scrollDot { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(28px); opacity: 0; } }
   @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
   @keyframes floatSlow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
 
@@ -105,7 +104,7 @@
 
   .tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; animation: fadeInUp .8s ease .4s both; }
   .tag { padding: 9px 18px; border-radius: 999px; border: 1px solid rgba(245,236,223,0.22); background: rgba(245,236,223,0.07); backdrop-filter: blur(6px); font-size: 12.5px; color: rgba(245,236,223,0.88); white-space: nowrap; }
-  .tag--rating { border-color: rgba(217,177,104,0.45); background: rgba(217,177,104,0.10); color: rgba(245,236,223,0.92); display: inline-flex; align-items: center; gap: 7px; animation: fadeInUp .8s ease .4s both, floatY 5s ease-in-out 1.2s infinite; }
+  .tag--rating { border-color: rgba(217,177,104,0.45); background: rgba(217,177,104,0.10); color: rgba(245,236,223,0.92); display: inline-flex; align-items: center; gap: 7px; animation: fadeInUp .8s ease .4s both; }
   .tag--rating .stars { color: var(--gold); letter-spacing: 1px; }
 
   h1.hero-title {
@@ -134,7 +133,7 @@
   .scroll-cue { position: absolute; left: 50%; bottom: clamp(24px,4vw,56px); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: .85; animation: fadeIn .9s ease 1.3s both; }
   .scroll-cue__label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(245,236,223,0.8); }
   .scroll-cue__track { width: 1px; height: 36px; position: relative; overflow: hidden; background: rgba(245,236,223,0.25); }
-  .scroll-cue__dot { position: absolute; left: -1.5px; top: -10px; width: 4px; height: 10px; border-radius: 2px; background: var(--cream); animation: scrollDot 2.1s ease-in-out infinite; }
+  .scroll-cue__dot { position: absolute; left: -1.5px; top: -10px; width: 4px; height: 10px; border-radius: 2px; background: var(--cream); opacity: 1; }
 
   @media (prefers-reduced-motion: reduce) {
     .bg-wrap, .blob-a, .blob-b, .hero-title, .tag--rating { animation: none !important; }
