@@ -141,7 +141,18 @@ html, body {
   opacity: 0;
 }
 
+/* Split from #intro-logo so the clip-path (reveal circle) lives on the
+   wrapper and the blur filter lives on the img. iOS Safari renders an
+   opaque white box when clip-path and a blur filter are applied to the
+   same element, so the two must stay on separate nodes. */
+#intro-logo-clip {
+  display: inline-block;
+  max-width: 75vw;
+  max-height: 40vh;
+}
+
 #intro-logo {
+  display: block;
   max-width: 75vw;
   max-height: 40vh;
   width: auto;
@@ -151,6 +162,7 @@ html, body {
 
 /* Landscape phones / short viewports: prioritize height, not width */
 @media (orientation: landscape) and (max-height: 500px) {
+  #intro-logo-clip,
   #intro-logo {
     max-width: 50vw;
     max-height: 70vh;
@@ -158,16 +170,23 @@ html, body {
 }
 
 @media (min-width: 768px) {
-  #intro-logo {
+  #intro-logo-clip {
     max-width: none;
     height: 60%;
+  }
+  #intro-logo {
+    max-width: none;
+    height: 100%;
     width: auto;
   }
 }
 
 @media (min-width: 1920px) {
-  #intro-logo {
+  #intro-logo-clip {
     height: min(60%, 55vh);
+  }
+  #intro-logo {
+    height: 100%;
   }
 }
 

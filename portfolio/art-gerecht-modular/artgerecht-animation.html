@@ -15,7 +15,9 @@
         <img class="scene__img" id="intro-bg" src="media/AGM_1.webp">
         <div id="intro-vig"></div>
         <div class="scene__center">
-          <img id="intro-logo" src="media/AGM_1.2.webp" alt="Art Gerecht Modular">
+          <div id="intro-logo-clip">
+            <img id="intro-logo" src="media/AGM_1.2.webp" alt="Art Gerecht Modular">
+          </div>
         </div>
       </div>
       <div class="scene__overlay" id="intro-overlay"></div>
@@ -114,6 +116,7 @@
     var introBg = document.getElementById('intro-bg');
     var introVig = document.getElementById('intro-vig');
     var introLogo = document.getElementById('intro-logo');
+    var introLogoClip = document.getElementById('intro-logo-clip');
     var introOverlay = document.getElementById('intro-overlay');
     function updateIntro(t) {
       var bgOpacity = kf(t, [[0, 0], [0.15, 1], [0.85, 1], [0.95, 0], [1, 0]]);
@@ -130,9 +133,9 @@
       introBg.style.transform = 'scale(' + bgScale + ') translate(' + bgTx + '%,' + bgTy + '%)';
       introVig.style.opacity = vig;
       introLogo.style.opacity = logoOpacity;
-      introLogo.style.transform = 'scale(' + logoScale + ')';
       introLogo.style.filter = 'blur(' + logoBlur + 'px) drop-shadow(0 18px 50px rgba(0,0,0,0.55))';
-      introLogo.style.clipPath = 'circle(' + logoClip + '% at 50% 50%)';
+      introLogoClip.style.transform = 'scale(' + logoScale + ')';
+      introLogoClip.style.clipPath = 'circle(' + logoClip + '% at 50% 50%)';
       introOverlay.style.opacity = fadeOverlay(t, 0.08, 0.08);
     }
 
