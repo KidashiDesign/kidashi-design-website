@@ -3989,6 +3989,15 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 		font-size: clamp(0.88rem, 3.2vw, 1rem);
 		max-width: none;
 	}
+	.cs-hd h2 {
+		margin-top: 0;
+	}
+	.cs-device__screen {
+		height: clamp(280px, 46vh, 420px);
+	}
+	.cs-step {
+		padding-bottom: clamp(2.5rem, 8vh, 4rem);
+	}
 }
 @media (max-width: 480px) {
 	.cs-hd h2 {
