@@ -284,7 +284,7 @@
   cursor: none;
   padding: 0.5rem;
 }
-.lightbox__close { top: 1.5rem; right: 1.5rem; font-size: 1.1rem; }
+.lightbox__close { top: 1.5rem; right: 1.5rem; font-size: 1.1rem; padding: 0.9rem; }
 .lightbox__prev  { left: 1.5rem; top: 50%; transform: translateY(-50%); font-size: 2.5rem; }
 .lightbox__next  { right: 1.5rem; top: 50%; transform: translateY(-50%); font-size: 2.5rem; }
 .lightbox__close:hover { color: var(--cream); transform: rotate(90deg); }
@@ -298,8 +298,8 @@
   .gallery-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* Tablet ≤760px — 2×2 grid, matches dc.html breakpoint exactly */
-@media (max-width: 760px) {
+/* Tablet ≤768px — 2×2 grid, aligned with style.css mobile breakpoint */
+@media (max-width: 768px) {
   .gallery-page,
   .gallery-page * { cursor: auto !important; }
   .cursor { display: none; }

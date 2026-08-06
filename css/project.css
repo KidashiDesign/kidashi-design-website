@@ -505,6 +505,7 @@
   .proj-split__img { min-height: 50vw; }
   .proj-process__step { grid-template-columns: 2.5rem 1fr; }
   .proj-process__step-body { grid-column: 2; }
+  .proj-hero--video .proj-hero__video-wrap { height: auto; aspect-ratio: 16 / 9; }
 }
 
 @media (max-width: 600px) {
@@ -521,10 +522,6 @@
   .proj-details__inner { grid-template-columns: 1fr 1fr; }
   .proj-process__step { grid-template-columns: 1fr; gap: 0.5rem; }
   .proj-process__num { display: none; }
-
-@media (max-width: 900px) {
-   .proj-hero--video .proj-hero__video-wrap { height: auto; aspect-ratio: 16 / 9; }
- }
   /* Mobile: square animation for all video pages */
   .proj-hero--video .proj-hero__video-wrap {
     height: auto;
