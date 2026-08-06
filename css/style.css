@@ -328,9 +328,13 @@ p {
 .nav__burger {
 	display: none;
 	flex-direction: column;
+	justify-content: center;
 	gap: 5px;
 	cursor: pointer;
-	padding: 4px;
+	padding: 12px;
+	width: 44px;
+	height: 44px;
+	box-sizing: border-box;
 }
 .nav__burger span {
 	display: block;
@@ -3447,6 +3451,7 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
   .services-dark__grid { grid-template-columns: 1fr; }
   .service-card { border-left: none; border-top: 1px solid rgba(196,173,148,0.12); }
   .service-card:first-child { border-top: none; }
+  .service-card__num { font-size: 2.2rem; }
   .portfolio-grid { grid-template-columns: 1fr; }
   .gallery-teaser__inner { grid-template-columns: 1fr; gap: 3rem; }
   .gallery-teaser__images { order: -1; }
