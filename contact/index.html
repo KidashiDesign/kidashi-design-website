@@ -74,7 +74,7 @@
         <span class="page-hero__eyebrow reveal">Get in Touch</span>
         <h1 class="reveal" data-delay="100">Let's Start Something Great Together.</h1>
         <p class="sub reveal" data-delay="200">Got a project in mind, a question about my services, or just want to say hi? Fill out the form below or reach out directly — I personally read and respond to every message, usually within 1–2 business days.</p>
-        <form class="form reveal" data-delay="300" id="contact-form">
+        <form class="form reveal" data-delay="300" id="contact-form" action="https://formspree.io/f/moeavywr" method="POST">
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" placeholder="Your name" required>
@@ -113,6 +113,7 @@
           <div class="form__submit">
             <button type="submit" class="btn btn--primary" id="submit-btn">Send Message</button>
           </div>
+          <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
           <p class="form__privacy">Your name, email and message are used solely to respond to your enquiry and deleted once no longer needed. No third parties receive this data. <a href="../datenschutz/">Privacy Policy</a></p>
         </form>
 
@@ -224,20 +225,43 @@
 <script>
   const form = document.getElementById('contact-form');
   const btn = document.getElementById('submit-btn');
+  const status = document.getElementById('form-status');
   const scheduleTrigger = document.getElementById('schedule-trigger');
   const scheduleTriggerText = document.getElementById('schedule-trigger-text');
   if (form) {
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
-      btn.textContent = 'Message Sent!';
+      btn.textContent = 'Sending...';
       btn.disabled = true;
-      setTimeout(() => {
+      if (status) { status.textContent = ''; status.classList.remove('is-error'); }
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+
+        if (response.ok) {
+          btn.textContent = 'Message Sent!';
+          form.reset();
+          if (scheduleTrigger) scheduleTrigger.classList.remove('has-value');
+          if (scheduleTriggerText) scheduleTriggerText.textContent = 'Pick a date & time';
+          setTimeout(() => {
+            btn.textContent = 'Send Message';
+            btn.disabled = false;
+          }, 3000);
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (err) {
         btn.textContent = 'Send Message';
         btn.disabled = false;
-        form.reset();
-        if (scheduleTrigger) scheduleTrigger.classList.remove('has-value');
-        if (scheduleTriggerText) scheduleTriggerText.textContent = 'Pick a date & time';
-      }, 3000);
+        if (status) {
+          status.textContent = 'Something went wrong. Please try again or email me directly at nicole@kidashidesign.com.';
+          status.classList.add('is-error');
+        }
+      }
     });
   }
 </script>

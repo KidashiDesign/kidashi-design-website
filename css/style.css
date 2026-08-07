@@ -4122,6 +4122,15 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 		padding-bottom: 1.25rem;
 	}
 }
+/* ── Contact form submit status ── */
+.form__status {
+	font-size: 0.85rem;
+	margin-top: 0.75rem;
+	line-height: 1.6;
+}
+.form__status.is-error {
+	color: #d64545;
+}
 /* ── Contact form GDPR notice ── */
 .form__privacy {
 	font-size: 0.78rem;
