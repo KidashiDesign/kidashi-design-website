@@ -3917,7 +3917,7 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	background: #0a0a0b;
 	height: clamp(280px, 42vh, 460px);
 	overflow: hidden;
-	padding: clamp(1rem, 2vw, 1.5rem);
+	padding: clamp(2rem, 4vw, 3.5rem);
 	display: flex;
 	position: relative;
 	align-items: stretch;
