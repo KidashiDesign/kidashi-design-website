@@ -4131,6 +4131,9 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 .form__status.is-error {
 	color: #d64545;
 }
+.form__status:not(.is-error):not(:empty) {
+	color: #2e7d4f;
+}
 /* ── Contact form GDPR notice ── */
 .form__privacy {
 	font-size: 0.78rem;
