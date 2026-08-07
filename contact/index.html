@@ -75,7 +75,7 @@
         <h1 class="reveal" data-delay="100">Let's Start Something Great Together.</h1>
         <p class="sub reveal" data-delay="200">Got a project in mind, a question about my services, or just want to say hi? Fill out the form below or reach out directly — I personally read and respond to every message, usually within 1–2 business days.</p>
         <form class="form reveal" data-delay="300" id="contact-form" action="https://formspree.io/f/moeavywr" method="POST">
-          <input type="hidden" name="_next" value="https://www.kidashidesign.com/contact/?sent=1#contact-form">
+          <input type="hidden" name="_next" id="form-next" value="/contact/?sent=1#contact-form">
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" placeholder="Your name" required>
@@ -229,6 +229,14 @@
   const status = document.getElementById('form-status');
   const scheduleTrigger = document.getElementById('schedule-trigger');
   const scheduleTriggerText = document.getElementById('schedule-trigger-text');
+  const nextField = document.getElementById('form-next');
+
+  // Resolve the redirect target against whatever domain is actually
+  // serving the page, so it matches regardless of custom domain / staging
+  // subdomain in use.
+  if (nextField) {
+    nextField.value = window.location.origin + '/contact/?sent=1#contact-form';
+  }
 
   // Native form submission (no fetch) — avoids ad-blockers/extensions
   // intercepting cross-origin fetch() calls to formspree.io. Formspree
