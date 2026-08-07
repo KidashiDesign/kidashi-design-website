@@ -3915,7 +3915,7 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 /* Screen */
 .cs-device__screen {
 	background: #0a0a0b;
-	height: clamp(280px, 42vh, 460px);
+	height: clamp(340px, 52vh, 560px);
 	overflow: hidden;
 	padding: clamp(2rem, 4vw, 3.5rem);
 	display: flex;
@@ -3937,7 +3937,7 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	justify-content: flex-start;
 	align-items: center;
 	text-align: center;
-	padding: clamp(2rem, 7vh, 4.5rem) clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.5rem);
+	padding: clamp(1.5rem, 5vh, 3rem) clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.5rem);
 	will-change: opacity;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
