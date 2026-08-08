@@ -39,6 +39,12 @@
   @media (max-width: 700px) {
     .sm-slide { max-width: 105.8vw; max-height: 69vh; }
   }
+
+  /* Larger slide cards when embedded as a portfolio overview tile (?tile=1) */
+  body.is-tile .sm-slide { max-width: 94vw; max-height: 90vh; }
+  @media (max-width: 700px) {
+    body.is-tile .sm-slide { max-width: 96vw; max-height: 76vh; }
+  }
 </style>
 </head>
 <body>
@@ -50,6 +56,10 @@
 
 <script>
 (function () {
+  if (new URLSearchParams(window.location.search).get('tile') === '1') {
+    document.body.classList.add('is-tile');
+  }
+
   var IMAGES = [
     'dotta-eis-02.webp',
     'dotta-eis-01.webp',
