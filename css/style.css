@@ -2538,6 +2538,11 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	width: 100%;
 	left: 0;
 }
+/* Selvoma: shrink animation 20% so the tile background peeks through around it. */
+.portfolio-item__anim--selvoma {
+	transform: scale(0.8);
+	transform-origin: center;
+}
 /* ── Mouse-tracking glow effect (portfolio tiles, sidebar cards, etc.) ── */
 @supports (selector(:has(*))) {
 	[data-glow] {
