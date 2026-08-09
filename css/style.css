@@ -2539,9 +2539,14 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	left: 0;
 }
 /* Selvoma: shrink animation 20% so the tile background peeks through around it. */
+/* Selvoma: shrink the iframe box itself by 20% (not a transform) so the tile background
+   shows through evenly on all sides without the animation's own internal background
+   image bleeding past the edges, and without distorting the slide content. */
 .portfolio-item__anim--selvoma {
-	transform: scale(0.8);
-	transform-origin: center;
+	width: 106.72%;
+	left: -3.36%;
+	height: 80%;
+	top: 10%;
 }
 /* ── Mouse-tracking glow effect (portfolio tiles, sidebar cards, etc.) ── */
 @supports (selector(:has(*))) {
