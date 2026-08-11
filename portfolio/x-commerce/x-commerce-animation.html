@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script>window.OM_SCENES = '[{"name":"FocusPull","dur":6,"desc":"Camera breathes into the laptop screen while the X mark blurs into focus at center, then blurs back out for a seamless loop"}]';</script>
+<script>window.OM_PLAYBACK = '{"mode":"loop"}';</script>
+</helmet>
+<x-import component-from-global-scope="CompositionStage" from="./animations-v3.jsx ./scene.jsx" width="1200" height="800" scenes="{{ omScenes }}" playback="{{ omPlayback }}" bg="#050505" hint-size="100%,100%">
+
+<x-import component-from-global-scope="Piece" from="./scene.jsx" hint-size="100%,100%"></x-import></x-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { omScenes: window.OM_SCENES, omPlayback: window.OM_PLAYBACK };
+  }
+}
+
+</script>
+</body>
+</html>
