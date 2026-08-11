@@ -140,37 +140,9 @@
     }
 
     // ---- Scene 2: Tech graphic grid ----
-    var techgridLinesWrap = document.getElementById('techgrid-lines');
     var techgridLogo = document.getElementById('techgrid-logo');
     var techgridOverlay = document.getElementById('techgrid-overlay');
-    var vPositions = [12.5, 25, 37.5, 50, 62.5, 75, 87.5];
-    var hPositions = [16.66, 33.33, 50, 66.66, 83.33];
-    var lineColor = 'rgba(20,18,14,0.16)';
-    var vLineEls = vPositions.map(function (pos) {
-      var el = document.createElement('div');
-      el.style.cssText = 'position:absolute;top:0;left:' + pos + '%;width:1px;height:100%;background:' + lineColor + ';transform-origin:top;';
-      techgridLinesWrap.appendChild(el);
-      return el;
-    });
-    var hLineEls = hPositions.map(function (pos) {
-      var el = document.createElement('div');
-      el.style.cssText = 'position:absolute;left:0;top:' + pos + '%;height:1px;width:100%;background:' + lineColor + ';transform-origin:left;';
-      techgridLinesWrap.appendChild(el);
-      return el;
-    });
     function updateTechGrid(t) {
-      vLineEls.forEach(function (el, i) {
-        var start = 0.16 + i * 0.02, end = start + 0.12;
-        var op = kf(t, [[0, 0], [start, 0], [end, 1], [0.8, 1], [0.9, 0], [1, 0]]);
-        el.style.opacity = op;
-        el.style.transform = 'scaleY(' + op + ')';
-      });
-      hLineEls.forEach(function (el, i) {
-        var start = 0.30 + i * 0.02, end = start + 0.12;
-        var op = kf(t, [[0, 0], [start, 0], [end, 1], [0.8, 1], [0.9, 0], [1, 0]]);
-        el.style.opacity = op;
-        el.style.transform = 'scaleX(' + op + ')';
-      });
       var logoOpacity = kf(t, [[0, 0], [0.42, 0], [0.56, 1], [0.8, 1], [0.94, 0], [1, 0]]);
       var logoScale = kf(t, [[0, 0.82], [0.42, 0.82], [0.56, 1], [0.8, 1], [0.94, 1.05], [1, 1.05]]);
       techgridLogo.style.opacity = logoOpacity;
