@@ -9,7 +9,7 @@
   <meta property="og:url" content="https://www.kidashidesign.com/contact/">
   <meta property="og:title" content="Contact — Kidashi Design">
   <meta property="og:description" content="Get in touch with Nicole Szatkowski — Kidashi Design. Web design, brand identity, print and social media projects.">
-  <meta property="og:image" content="https://www.kidashidesign.com/images/portfolio/rohyma-jet/kidashi-design-rohyma-jet-product-visual.jpg">
+  <meta property="og:image" content="https://www.kidashidesign.com/images/vorschaubild-link-kidashi-design.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preload" href="../fonts/MangoGrotesque-Light.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/MangoGrotesque-Bold.woff2" as="font" type="font/woff2" crossorigin>
@@ -74,7 +74,8 @@
         <span class="page-hero__eyebrow reveal">Get in Touch</span>
         <h1 class="reveal" data-delay="100">Let's Start Something Great Together.</h1>
         <p class="sub reveal" data-delay="200">Got a project in mind, a question about my services, or just want to say hi? Fill out the form below or reach out directly — I personally read and respond to every message, usually within 1–2 business days.</p>
-        <form class="form reveal" data-delay="300" id="contact-form">
+        <form class="form reveal" data-delay="300" id="contact-form" action="https://formspree.io/f/moeavywr" method="POST">
+          <input type="hidden" name="_next" id="form-next" value="/contact/?sent=1#contact-form">
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" placeholder="Your name" required>
@@ -113,6 +114,7 @@
           <div class="form__submit">
             <button type="submit" class="btn btn--primary" id="submit-btn">Send Message</button>
           </div>
+          <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
           <p class="form__privacy">Your name, email and message are used solely to respond to your enquiry and deleted once no longer needed. No third parties receive this data. <a href="../datenschutz/">Privacy Policy</a></p>
         </form>
 
@@ -224,21 +226,36 @@
 <script>
   const form = document.getElementById('contact-form');
   const btn = document.getElementById('submit-btn');
+  const status = document.getElementById('form-status');
   const scheduleTrigger = document.getElementById('schedule-trigger');
   const scheduleTriggerText = document.getElementById('schedule-trigger-text');
-  if (form) {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      btn.textContent = 'Message Sent!';
+  const nextField = document.getElementById('form-next');
+
+  // Resolve the redirect target against whatever domain is actually
+  // serving the page, so it matches regardless of custom domain / staging
+  // subdomain in use.
+  if (nextField) {
+    nextField.value = window.location.origin + '/contact/?sent=1#contact-form';
+  }
+
+  // Native form submission (no fetch) — avoids ad-blockers/extensions
+  // intercepting cross-origin fetch() calls to formspree.io. Formspree
+  // redirects back to `_next` after accepting the submission.
+  if (form && btn) {
+    form.addEventListener('submit', () => {
+      btn.textContent = 'Sending...';
       btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = 'Send Message';
-        btn.disabled = false;
-        form.reset();
-        if (scheduleTrigger) scheduleTrigger.classList.remove('has-value');
-        if (scheduleTriggerText) scheduleTriggerText.textContent = 'Pick a date & time';
-      }, 3000);
     });
+  }
+
+  if (status && new URLSearchParams(window.location.search).get('sent') === '1') {
+    status.textContent = 'Thanks — your message was sent successfully!';
+    status.classList.remove('is-error');
+    if (scheduleTrigger) scheduleTrigger.classList.remove('has-value');
+    if (scheduleTriggerText) scheduleTriggerText.textContent = 'Pick a date & time';
+    const url = new URL(window.location.href);
+    url.searchParams.delete('sent');
+    window.history.replaceState({}, '', url.pathname + url.hash);
   }
 </script>
 

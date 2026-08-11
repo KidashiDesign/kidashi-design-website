@@ -103,12 +103,14 @@
 
   /* ---- Mobile-only adjustments (portrait phones) ---- */
   @media (max-width: 600px) {
-    /* Scene 2: widen the photo collage so it fills the portrait frame instead of sitting small and letterboxed */
-    .s2-photo { width: 96% !important; height: auto !important; }
+    /* Scene 2: the collage image is a wide landscape strip (2732x986) — width-fitting it on a
+       portrait screen leaves it razor-thin with huge empty space above/below, so instead crop it
+       to fill most of the portrait frame with object-fit: cover. */
+    .s2-photo { width: 94% !important; height: 46vh !important; object-fit: cover !important; }
     /* Scene 3: enlarge the rotating logo +10%, kept centered */
     .s3-logo-wrap { width: min(37.4vw,37.4vh) !important; }
-    /* Scene 4: enlarge the gallery grid images +20% */
-    .s4-grid { width: clamp(288px,45.6vw,648px) !important; }
+    /* Scene 4: enlarge the gallery grid so it isn't dwarfed by empty space above/below on portrait screens */
+    .s4-grid { width: clamp(320px,82vw,648px) !important; top: 50% !important; right: auto !important; left: 50% !important; transform: translate(-50%,-50%) !important; }
   }
 </style>
 </head>
@@ -132,8 +134,8 @@
   <div class="scene" style="background:#000;animation-name:s3Window;" data-screen-label="Scene 3 — Spinning logo">
     <img src="../../images/portfolio/artista-artista/reel/s3-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(6px);transform:scale(1.05);" />
     <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
-      <div class="s3-logo-wrap" style="width:min(34vw,34vh);aspect-ratio:1;animation:s3LogoReveal var(--d) linear infinite;">
-        <img src="../../images/portfolio/artista-artista/reel/s3-logo-round.webp" alt="Artista logo" style="width:140%;height:140%;display:block;border-radius:50%;animation:s3Spin 16s linear infinite;filter:drop-shadow(0 1.2vw 3.6vw rgba(0,0,0,0.55));" />
+      <div class="s3-logo-wrap" style="width:min(34vw,34vh);aspect-ratio:1;display:flex;align-items:center;justify-content:center;animation:s3LogoReveal var(--d) linear infinite;">
+        <img src="../../images/portfolio/artista-artista/reel/s3-logo-round.webp" alt="Artista logo" style="width:140%;height:140%;flex-shrink:0;display:block;border-radius:50%;animation:s3Spin 16s linear infinite;filter:drop-shadow(0 1.2vw 3.6vw rgba(0,0,0,0.55));" />
       </div>
     </div>
   </div>

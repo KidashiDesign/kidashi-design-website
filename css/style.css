@@ -328,9 +328,13 @@ p {
 .nav__burger {
 	display: none;
 	flex-direction: column;
+	justify-content: center;
 	gap: 5px;
 	cursor: pointer;
-	padding: 4px;
+	padding: 12px;
+	width: 44px;
+	height: 44px;
+	box-sizing: border-box;
 }
 .nav__burger span {
 	display: block;
@@ -2534,6 +2538,16 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	width: 100%;
 	left: 0;
 }
+/* Selvoma: shrink animation 20% so the tile background peeks through around it. */
+/* Selvoma: shrink the iframe box itself by 20% (not a transform) so the tile background
+   shows through evenly on all sides without the animation's own internal background
+   image bleeding past the edges, and without distorting the slide content. */
+.portfolio-item__anim--selvoma {
+	width: 106.72%;
+	left: -3.36%;
+	height: 80%;
+	top: 10%;
+}
 /* ── Mouse-tracking glow effect (portfolio tiles, sidebar cards, etc.) ── */
 @supports (selector(:has(*))) {
 	[data-glow] {
@@ -3447,6 +3461,7 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
   .services-dark__grid { grid-template-columns: 1fr; }
   .service-card { border-left: none; border-top: 1px solid rgba(196,173,148,0.12); }
   .service-card:first-child { border-top: none; }
+  .service-card__num { font-size: 2.2rem; }
   .portfolio-grid { grid-template-columns: 1fr; }
   .gallery-teaser__inner { grid-template-columns: 1fr; gap: 3rem; }
   .gallery-teaser__images { order: -1; }
@@ -3563,16 +3578,16 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 }
 @media (max-width: 768px) {
 	h1 {
-		font-size: clamp(2.4rem, 7.5vw, 3.2rem);
+		font-size: clamp(2.57rem, 8.03vw, 3.42rem);
 	}
 	h2 {
-		font-size: clamp(2.4rem, 8vw, 3.4rem);
+		font-size: clamp(2.57rem, 8.56vw, 3.64rem);
 	}
 	h3 {
-		font-size: clamp(1.7rem, 6vw, 2.4rem);
+		font-size: clamp(1.82rem, 6.42vw, 2.57rem);
 	}
 	.about-content__main h2 {
-		font-size: clamp(2.4rem, 8vw, 3.2rem);
+		font-size: clamp(2.57rem, 8.56vw, 3.42rem);
 	}
 	/* ── Mobile spacing: reduce excess vertical whitespace ── */
 	:root {
@@ -3631,13 +3646,13 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 }
 @media (max-width: 480px) {
 	h1 {
-		font-size: clamp(2.2rem, 8vw, 2.8rem);
+		font-size: clamp(2.35rem, 8.56vw, 3rem);
 	}
 	h2 {
-		font-size: clamp(2.2rem, 8.5vw, 3rem);
+		font-size: clamp(2.35rem, 9.1vw, 3.21rem);
 	}
 	h3 {
-		font-size: clamp(1.5rem, 6.5vw, 2rem);
+		font-size: clamp(1.61rem, 6.96vw, 2.14rem);
 	}
 	:root {
 		--section-pad: clamp(36px, 10vw, 56px);
@@ -3910,9 +3925,9 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 /* Screen */
 .cs-device__screen {
 	background: #0a0a0b;
-	height: clamp(280px, 42vh, 460px);
+	height: clamp(340px, 52vh, 560px);
 	overflow: hidden;
-	padding: clamp(1rem, 2vw, 1.5rem);
+	padding: clamp(1.5rem, 3vw, 2.5rem);
 	display: flex;
 	position: relative;
 	align-items: stretch;
@@ -3929,10 +3944,10 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	opacity: 0;
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-start;
+	justify-content: center;
 	align-items: center;
 	text-align: center;
-	padding: clamp(2rem, 7vh, 4.5rem) clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.5rem);
+	padding: clamp(1rem, 3vh, 1.75rem) clamp(1.25rem, 3vw, 2rem);
 	will-change: opacity;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -3963,6 +3978,7 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	margin: 0 auto;
 	max-width: 420px;
 	-webkit-font-smoothing: antialiased;
+	padding: clamp(4px, 1vh, 10px) clamp(16px, 3vw, 40px) clamp(12px, 2vh, 20px);
 }
 /* Mobile: scroll-driven animation — same as desktop, adjusted sizing */
 @media (max-width: 768px) {
@@ -3982,6 +3998,12 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	.cs-step__p {
 		font-size: clamp(0.88rem, 3.2vw, 1rem);
 		max-width: none;
+	}
+	.cs-hd h2 {
+		margin-top: 0;
+	}
+	.cs-device__screen {
+		height: clamp(280px, 46vh, 420px);
 	}
 }
 @media (max-width: 480px) {
@@ -4109,6 +4131,18 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 		gap: 0.75rem;
 		padding-bottom: 1.25rem;
 	}
+}
+/* ── Contact form submit status ── */
+.form__status {
+	font-size: 0.85rem;
+	margin-top: 0.75rem;
+	line-height: 1.6;
+}
+.form__status.is-error {
+	color: #d64545;
+}
+.form__status:not(.is-error):not(:empty) {
+	color: #2e7d4f;
 }
 /* ── Contact form GDPR notice ── */
 .form__privacy {
