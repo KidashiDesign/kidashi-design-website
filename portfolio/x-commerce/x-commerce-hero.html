@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>X-Commerce — Hero</title>
+<script>
+  if (location.search.indexOf('tile') !== -1) {
+    document.documentElement.classList.add('tile-mode');
+  }
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -78,6 +83,23 @@
   @media (max-width: 700px) {
     .tagline { max-width: 30ch; }
   }
+
+  .tile-mode .content { display: none !important; }
+
+  .logo-mark { display: none; }
+  .tile-mode .logo-mark {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: min(28%, 180px);
+    opacity: 0;
+    filter: drop-shadow(0 4px 24px rgba(0,0,0,0.4));
+    animation: fadeIn .9s ease .3s both;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: .95; } }
 </style>
 </head>
 <body>
@@ -87,6 +109,7 @@
     <source src="../../images/portfolio/x-commerce/x-commerce-hero.mp4" type="video/mp4">
   </video>
   <div class="scrim"></div>
+  <img class="logo-mark" src="assets/logo.png" alt="" aria-hidden="true">
   <div class="content">
     <span class="eyebrow">Demo Project — Tech E-Commerce</span>
     <p class="tagline">A fully functional, fast and SEO-ready demo shop — designed and built end-to-end by Kidashi Design.</p>
