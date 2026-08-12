@@ -11,14 +11,18 @@
   <link rel="stylesheet" href="css/style.css">
   <style>
     .notfound {
-      min-height: 80vh;
+      min-height: calc(100vh - var(--nav-h) - 220px);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2.5rem;
+      gap: 1.75rem;
       text-align: center;
-      padding: clamp(80px, 12vw, 140px) 24px;
+      padding: clamp(32px, 6vw, 64px) 24px;
+    }
+
+    .notfound__actions .btn--outline {
+      color: var(--dark);
     }
 
     .notfound__code {
