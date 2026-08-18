@@ -2531,13 +2531,6 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	width: 177.8%;
 	left: -38.9%;
 }
-/* Galerie Kronsbein: show the full scrolling animation uncropped, background fills
-   the tile edge-to-edge; the 5px margin is applied inside the animation itself,
-   only to the white website slide frame (see galerie-kronsbein-animation.html). */
-.portfolio-item__anim--gk {
-	width: 100%;
-	left: 0;
-}
 /* Selvoma: shrink animation 20% so the tile background peeks through around it. */
 /* Selvoma: shrink the iframe box itself by 20% (not a transform) so the tile background
    shows through evenly on all sides without the animation's own internal background
@@ -3499,11 +3492,6 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	.hero__h1 {
 		font-size: clamp(1.35rem, 6vw, 2rem);
 	}
-}
-/* ── GALERIE KRONSBEIN TILE ── */
-/* Mobile now shows the same flat, full-tile animation as desktop instead of a phone mockup. */
-.portfolio-gk-phone {
-	display: none;
 }
 /* ============================================================CUSTOM CURSOR — site-wide (desktop only)Ported from Custom Cursor.dc.html============================================================ */
 @media (hover: hover) and (pointer: fine) {

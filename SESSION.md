@@ -191,7 +191,7 @@ Desktop (≥769px): `.nav__dock` trägt die Glass-Dock-Optik (Pille, Blur, Schat
 ## Portfolio-Seiten auf `main`
 
 `index` · `services` · `about` · `portfolio` (Übersicht) · `gallery` · `contact` · `datenschutz` ·
-`impressum` sowie Portfolio-Detailseiten: `art-gerecht-modular` · `galerie-kronsbein` ·
+`impressum` sowie Portfolio-Detailseiten: `art-gerecht-modular` ·
 `hideout-georgia` · `rohyma-jet` · `seestern` · `selvoma` · `social-media-content` · `tm-studio` · `xp-days`.
 
 ---
