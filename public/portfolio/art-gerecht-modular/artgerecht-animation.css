@@ -1,0 +1,440 @@
+/* ==========================================================================
+   Root Variables & Safe-Area Support
+   ========================================================================== */
+:root {
+  /* Safe-area insets (notches, home indicators, rounded corners) */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+
+  /* Fluid viewport height: dvh where supported, vh fallback below */
+  --vh-fallback: 100vh;
+  --vh-dynamic: 100dvh;
+
+  /* Motion durations — swapped to 0 under prefers-reduced-motion */
+  --motion-duration-base: 1;
+}
+
+/* ==========================================================================
+   Base & Layout (Mobile-First / Fluid Viewport)
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100vh;             /* fallback for browsers without dvh support */
+  height: var(--vh-dynamic);  /* real, resize-safe viewport height on mobile */
+  background: #0A0A0A;
+  overflow: hidden;
+  position: fixed; /* Prevents mobile browser rubber-banding/scrolling */
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0A0A0A;
+  /* Keep full-bleed backgrounds, but let content inset from notches/home bars */
+  padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #000;
+  display: none;
+}
+
+.scene.is-active {
+  display: block;
+}
+
+.scene__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focal-position, 50% 50%);
+  display: block;
+}
+
+.scene__overlay {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.scene__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(1rem, var(--safe-top)) max(1rem, var(--safe-right))
+           max(1rem, var(--safe-bottom)) max(1rem, var(--safe-left));
+}
+
+.scene__grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+}
+
+.scene__wrapper {
+  position: absolute;
+  inset: 0;
+}
+
+.hidden-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* ==========================================================================
+   Motion Preferences
+   Applies globally; individual scenes can still override with more specific
+   reduced-motion rules if a particular effect needs a bespoke static state.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Shared Responsive Breakpoint Scheme
+   - base:        < 480px   (small phones, portrait)
+   - phone-lg:     480–767px (large phones, portrait)
+   - phone-land:   landscape phones (short viewport height, any width < 900px)
+   - tablet:       768–1279px
+   - desktop:      1280–1919px
+   - desktop-xl:   ≥ 1920px (large / 4K / ultrawide)
+   These are applied consistently per-scene below instead of mixing
+   width-only and aspect-ratio-only queries.
+   ========================================================================== */
+
+/* ==========================================================================
+   Scene 1: Intro Logo
+   ========================================================================== */
+.bg-intro { background: #0b0a08; }
+
+#intro-bg { opacity: 0; }
+
+#intro-vig {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.55) 100%);
+  opacity: 0;
+}
+
+/* Split from #intro-logo so the clip-path (reveal circle) lives on the
+   wrapper and the blur filter lives on the img. iOS Safari renders an
+   opaque white box when clip-path and a blur filter are applied to the
+   same element, so the two must stay on separate nodes. */
+#intro-logo-clip {
+  display: inline-block;
+  max-width: 75vw;
+  max-height: 40vh;
+}
+
+#intro-logo {
+  display: block;
+  max-width: 75vw;
+  max-height: 40vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Landscape phones / short viewports: prioritize height, not width */
+@media (orientation: landscape) and (max-height: 500px) {
+  #intro-logo-clip,
+  #intro-logo {
+    max-width: 50vw;
+    max-height: 70vh;
+  }
+}
+
+@media (min-width: 768px) {
+  #intro-logo-clip {
+    max-width: none;
+    height: 60%;
+  }
+  #intro-logo {
+    max-width: none;
+    height: 100%;
+    width: auto;
+  }
+}
+
+@media (min-width: 1920px) {
+  #intro-logo-clip {
+    height: min(60%, 55vh);
+  }
+  #intro-logo {
+    height: 100%;
+  }
+}
+
+/* ==========================================================================
+   Scene 2: Tech Graphic Grid
+   ========================================================================== */
+.bg-techgrid { background: #f8f6ee; }
+
+#techgrid-lines {
+  position: absolute;
+  inset: 0;
+}
+
+#techgrid-logo {
+  max-width: 85vw;
+  max-height: 50vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0;
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  #techgrid-logo {
+    max-width: 55vw;
+    max-height: 80vh;
+  }
+}
+
+@media (min-width: 768px) {
+  #techgrid-logo {
+    height: 80vh;
+    width: auto;
+    max-width: 90vw; /* fixed: was 144vw, which exceeded the viewport and
+                         defeated the purpose of a max-width constraint */
+  }
+}
+
+@media (min-width: 1920px) {
+  #techgrid-logo {
+    height: min(80vh, 900px);
+    max-width: 70vw;
+  }
+}
+
+/* ==========================================================================
+   Scene 3: Truck Outside View
+   ========================================================================== */
+.bg-truck { background: #0b0b0a; }
+
+#truck-img {
+  filter: url(#truckMorphFilter);
+  transform-origin: 50% 58%;
+  --focal-position: 50% 58%;
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  #truck-img {
+    --focal-position: 50% 45%;
+  }
+}
+
+/* ==========================================================================
+   Scene 4: Grid Logo Build
+   ========================================================================== */
+.bg-gridlogo {
+  background: #E39A00;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* Mobile Grid Stack (portrait phones, default) */
+#gridlogo-grid {
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+}
+
+#gridlogo-logo-wrap {
+  grid-column: 2 / 5;
+  grid-row: 4 / 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10%;
+  box-sizing: border-box;
+  opacity: 0;
+}
+
+/* Landscape phones: switch to the wide grid even below the 768px
+   width breakpoint, so orientation and width rules agree with each other */
+@media (orientation: landscape) and (max-height: 500px) {
+  #gridlogo-grid {
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+  }
+
+  #gridlogo-logo-wrap {
+    grid-column: 4 / 7;
+    grid-row: 2 / 5;
+    padding: 4%;
+  }
+}
+
+/* Desktop / tablet-landscape Grid View */
+@media (min-width: 768px) {
+  #gridlogo-grid {
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+  }
+
+  #gridlogo-logo-wrap {
+    grid-column: 4 / 7;
+    grid-row: 2 / 5;
+    padding: 4%;
+  }
+}
+
+@media (min-width: 1920px) {
+  #gridlogo-logo-wrap {
+    padding: 3%;
+  }
+}
+
+#gridlogo-logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+}
+
+/* ==========================================================================
+   Scene 5: Boat Interior Zoom
+   ========================================================================== */
+.bg-boat {
+  overflow: hidden;
+  background: #000;
+}
+
+#boat-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  object-position: var(--focal-position, 50% 50%);
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  #boat-img {
+    --focal-position: 50% 40%;
+  }
+}
+
+/* ==========================================================================
+   Scene 6: Flyer Reveal
+   ========================================================================== */
+.bg-flyer {
+  overflow: hidden;
+  background: #dcdcdc;
+  perspective: 1000px;
+}
+
+@media (min-width: 768px) {
+  .bg-flyer {
+    perspective: 2200px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .bg-flyer {
+    perspective: 2800px;
+  }
+}
+
+#flyer-img {
+  position: absolute;
+  inset: -5%;
+  width: 110%;
+  height: 110%;
+  object-fit: cover;
+}
+
+.flyer-shadow {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 -100px 150px -100px rgba(0,0,0,0.4);
+}
+
+@media (min-width: 768px) {
+  .flyer-shadow {
+    box-shadow: inset 0 -180px 220px -160px rgba(0,0,0,0.3);
+  }
+}
+
+@media (min-width: 1920px) {
+  .flyer-shadow {
+    box-shadow: inset 0 -220px 280px -200px rgba(0,0,0,0.28);
+  }
+}
+
+/* ==========================================================================
+   Scene 7: Logo Outro
+   ========================================================================== */
+.bg-outro { background: #000; }
+
+#outro-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focal-position, 50% 50%);
+}
+
+#outro-scrim {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0.15;
+}
+
+#outro-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Fluid scaling between the old mobile and desktop caps, instead of a
+     hard jump at the 768px breakpoint */
+  width: clamp(220px, 75vw, min(45vh, 480px));
+  height: auto;
+  opacity: 0;
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  #outro-logo {
+    width: clamp(180px, 40vw, 60vh);
+  }
+}
+
+@media (min-width: 768px) {
+  #outro-logo {
+    width: clamp(320px, 66vw, 60vh);
+  }
+}
+
+@media (min-width: 1920px) {
+  #outro-logo {
+    width: min(50vw, 640px);
+  }
+}

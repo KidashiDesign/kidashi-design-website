@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TM Studio Animation</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #0d0a08; }
+
+  @keyframes bgZoom { 0% { transform: scale(1); } 100% { transform: scale(1.16); } }
+
+  @keyframes bannerBreathe {
+    0%   { transform: scale(1) rotate(0deg); border-radius: 14px; }
+    50%  { transform: scale(1.035) rotate(0.6deg); border-radius: 20px; }
+    100% { transform: scale(1) rotate(0deg); border-radius: 14px; }
+  }
+
+  @keyframes sceneFestivalFade {
+    0%      { opacity: 1; }
+    28.57%  { opacity: 1; }
+    35.71%  { opacity: 0; }
+    92.86%  { opacity: 0; }
+    100%    { opacity: 1; }
+  }
+  @keyframes sceneCardsFade {
+    0%      { opacity: 0; }
+    28.57%  { opacity: 0; }
+    35.71%  { opacity: 1; }
+    92.86%  { opacity: 1; }
+    100%    { opacity: 0; }
+  }
+
+  @keyframes card0 {
+    0%    { opacity: 0; transform: translate(-10px, 26px) scale(.86) rotate(-8deg); }
+    16.7% { opacity: 1; transform: translate(-10px, 0) scale(1) rotate(-3deg); }
+    83.3% { opacity: 1; transform: translate(-10px, 0) scale(1) rotate(-3deg); }
+    91.7% { opacity: 0; transform: translate(-10px, -16px) scale(1.05) rotate(-6deg); }
+    100%  { opacity: 0; transform: translate(-10px, 26px) scale(.86) rotate(-8deg); }
+  }
+  @keyframes card1 {
+    0%, 19.4% { opacity: 0; transform: translate(16px, 28px) scale(.86) rotate(6deg); }
+    36.1%     { opacity: 1; transform: translate(8px, 0) scale(1) rotate(4deg); }
+    83.3%     { opacity: 1; transform: translate(8px, 0) scale(1) rotate(4deg); }
+    91.7%     { opacity: 0; transform: translate(8px, -16px) scale(1.05) rotate(7deg); }
+    100%      { opacity: 0; transform: translate(16px, 28px) scale(.86) rotate(6deg); }
+  }
+  @keyframes card2 {
+    0%, 38.9% { opacity: 0; transform: translate(-14px, -24px) scale(.86) rotate(-6deg); }
+    55.6%     { opacity: 1; transform: translate(-6px, 4px) scale(1) rotate(-5deg); }
+    83.3%     { opacity: 1; transform: translate(-6px, 4px) scale(1) rotate(-5deg); }
+    91.7%     { opacity: 0; transform: translate(-6px, -16px) scale(1.05) rotate(-8deg); }
+    100%      { opacity: 0; transform: translate(-14px, -24px) scale(.86) rotate(-6deg); }
+  }
+  @keyframes card3 {
+    0%, 58.3% { opacity: 0; transform: translate(12px, -26px) scale(.86) rotate(5deg); }
+    75%       { opacity: 1; transform: translate(4px, 6px) scale(1) rotate(2deg); }
+    83.3%     { opacity: 1; transform: translate(4px, 6px) scale(1) rotate(2deg); }
+    91.7%     { opacity: 0; transform: translate(4px, -16px) scale(1.05) rotate(5deg); }
+    100%      { opacity: 0; transform: translate(12px, -26px) scale(.86) rotate(5deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tm-anim { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div style="position: fixed; inset: 0; overflow: hidden; background: #0d0a08;">
+
+  <img src="../../images/portfolio/tm-studio/animation/Hintergrund.webp" alt="" class="tm-anim" style="position: absolute; inset: -3%; width: 106%; height: 106%; object-fit: cover; animation: bgZoom 18s ease-in-out infinite alternate; transform-origin: center center;" />
+
+  <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(20,14,10,0.55) 100%); pointer-events: none;"></div>
+
+  <div class="tm-anim" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; animation: sceneFestivalFade 28s ease-in-out infinite;">
+    <img src="../../images/portfolio/tm-studio/animation/festivalmockup-banner.webp" alt="TM Studio festival banner" class="tm-anim" style="max-width: 88vw; max-height: 88vh; width: auto; height: auto; box-shadow: 0 30px 80px rgba(0,0,0,0.5); animation: bannerBreathe 7s ease-in-out infinite;" />
+  </div>
+
+  <div class="tm-anim" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; padding: 5vw; box-sizing: border-box; animation: sceneCardsFade 28s ease-in-out infinite;">
+    <div style="position: relative; width: min(64vw, 600px); aspect-ratio: 565/346;">
+      <img src="../../images/portfolio/tm-studio/animation/businesscard.01.webp" alt="TM Studio business card front" class="tm-anim" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 30px 70px -15px rgba(0,0,0,.6), 0 2px 0 rgba(255,255,255,.08) inset; animation: card0 18s ease infinite; z-index: 1; will-change: transform, opacity;" />
+      <img src="../../images/portfolio/tm-studio/animation/businesscard.01.2.webp" alt="TM Studio business card back, mountain artwork" class="tm-anim" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 30px 70px -15px rgba(0,0,0,.6), 0 2px 0 rgba(255,255,255,.08) inset; animation: card1 18s ease infinite; z-index: 2; will-change: transform, opacity;" />
+      <img src="../../images/portfolio/tm-studio/animation/businesscard.02.webp" alt="TM Studio business card, QR code" class="tm-anim" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 30px 70px -15px rgba(0,0,0,.6), 0 2px 0 rgba(255,255,255,.08) inset; animation: card2 18s ease infinite; z-index: 3; will-change: transform, opacity;" />
+      <img src="../../images/portfolio/tm-studio/animation/businesscard.02.2.webp" alt="TM Studio business card back, leather logo" class="tm-anim" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 30px 70px -15px rgba(0,0,0,.6), 0 2px 0 rgba(255,255,255,.08) inset; animation: card3 18s ease infinite; z-index: 4; will-change: transform, opacity;" />
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X-Commerce — Hero</title>
+<script>
+  if (location.search.indexOf('tile') !== -1) {
+    document.documentElement.classList.add('tile-mode');
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #050505; }
+  body { font-family: 'Manrope', sans-serif; }
+
+  .stage { position: relative; width: 100%; height: 100%; overflow: hidden; background: #050505; }
+
+  .bg-video {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .bg-video::-webkit-media-controls,
+  .bg-video::-webkit-media-controls-start-playback-button,
+  .bg-video::-webkit-media-controls-play-button,
+  .bg-video::-internal-media-controls-overlay-cast-button { display: none !important; -webkit-appearance: none; }
+
+  .scrim {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(180deg, rgba(5,5,5,0.15) 0%, rgba(5,5,5,0.25) 45%, rgba(5,5,5,0.88) 100%);
+  }
+
+  .content {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: clamp(24px,4vw,56px) clamp(20px,5vw,72px) clamp(48px,7vw,88px);
+  }
+  .eyebrow {
+    display: inline-block; align-self: flex-start;
+    padding: 8px 16px; border-radius: 999px;
+    border: 1px solid rgba(245,240,232,0.25);
+    background: rgba(245,240,232,0.06);
+    backdrop-filter: blur(6px);
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(245,240,232,0.85);
+    opacity: 0; animation: fadeInUp .8s ease .3s both;
+  }
+  .tagline {
+    margin: clamp(16px,2.2vw,22px) 0 clamp(22px,3vw,32px) 0;
+    max-width: 44ch;
+    font-size: clamp(1rem,1.7vw,1.3rem);
+    line-height: 1.5;
+    color: rgba(245,240,232,0.92);
+    text-wrap: pretty;
+    opacity: 0; animation: fadeInUp .8s ease .5s both;
+  }
+  .cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    width: fit-content;
+    padding: 15px 28px;
+    border-radius: 999px;
+    background: #f5f0e8;
+    color: #0a0a0a;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.25s ease, background 0.25s ease;
+    opacity: 0; animation: fadeInUp .8s ease .7s both;
+  }
+  .cta:hover { transform: translateY(-2px); background: #ffffff; }
+  .cta svg { width: 14px; height: 14px; transition: transform 0.25s ease; }
+  .cta:hover svg { transform: translate(2px,-2px); }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eyebrow, .tagline, .cta { animation: none !important; opacity: 1; }
+  }
+
+  @media (max-width: 700px) {
+    .tagline { max-width: 30ch; }
+  }
+
+  .tile-mode .content { display: none !important; }
+
+  .logo-mark { display: none; }
+  .tile-mode .logo-mark {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: min(28%, 180px);
+    opacity: 0;
+    filter: drop-shadow(0 4px 24px rgba(0,0,0,0.4));
+    animation: fadeIn .9s ease .3s both;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: .95; } }
+</style>
+</head>
+<body>
+<div class="stage">
+  <video class="bg-video" autoplay muted loop playsinline preload="auto" poster="../../images/portfolio/x-commerce/x-commerce-hero-poster.jpg">
+    <source src="../../images/portfolio/x-commerce/x-commerce-hero.webm" type="video/webm">
+    <source src="../../images/portfolio/x-commerce/x-commerce-hero.mp4" type="video/mp4">
+  </video>
+  <div class="scrim"></div>
+  <img class="logo-mark" src="assets/logo.png" alt="" aria-hidden="true">
+  <div class="content">
+    <span class="eyebrow">Demo Project — Tech E-Commerce</span>
+    <p class="tagline">A fully functional, fast and SEO-ready demo shop — designed and built end-to-end by Kidashi Design.</p>
+    <a href="https://commerce-x.kidashidesign.com/index.html" target="_blank" rel="noopener noreferrer" class="cta">
+      View Live Demo
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+    </a>
+  </div>
+</div>
+<script>
+(function () {
+  "use strict";
+  var video = document.querySelector('video');
+  if (video) {
+    var tryPlay = function () { video.play().catch(function(){}); };
+    tryPlay();
+    document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+  }
+  document.addEventListener('visibilitychange', function () {
+    if (!video) return;
+    if (document.hidden) { video.pause(); } else { video.play().catch(function(){}); }
+  });
+})();
+</script>
+</body>
+</html>

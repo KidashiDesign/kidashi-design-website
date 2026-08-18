@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Café Mira — Hero Animation</title>
+<script>
+  if (location.search.indexOf('tile') !== -1) {
+    document.documentElement.classList.add('tile-mode');
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #1a120d; }
+  a { color: #f5ecdf; text-decoration: none; }
+  .tile-mode .hide-in-tile { visibility: hidden !important; }
+  .tile-mode .blobs { display: none !important; }
+  .tile-mode .fade-bottom { opacity: 0.7; }
+
+  .kd-logo-watermark { display: none; }
+  .tile-mode .kd-logo-watermark {
+    display: block;
+    position: absolute;
+    z-index: 4;
+    left: 50%;
+    top: 50%;
+    width: min(30%, 190px);
+    pointer-events: none;
+    opacity: 0;
+    filter: brightness(0) invert(1) blur(14px);
+    transform: translate(-50%,-50%) scale(1.18);
+    transition: opacity 1.4s cubic-bezier(.16,.8,.3,1), filter 1.4s cubic-bezier(.16,.8,.3,1), transform 1.4s cubic-bezier(.16,.8,.3,1);
+  }
+  .tile-mode .kd-logo-watermark.is-visible {
+    opacity: .8;
+    filter: brightness(0) invert(1) blur(0);
+    transform: translate(-50%,-50%) scale(1);
+  }
+
+  .stage {
+    --coffee-950: #1a120d;
+    --coffee-900: #2b1d15;
+    --coffee-800: #3d2a1e;
+    --cream: #f5ecdf;
+    --terracotta: #c1613f;
+    --terracotta-light: #d98a5f;
+    --gold: #d9b168;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--coffee-950);
+    font-family: 'Manrope', sans-serif;
+    color: var(--cream);
+  }
+  .paused .drift, .paused .blob { animation-play-state: paused !important; }
+
+  @keyframes zoomOut { from { transform: scale(1.32); } to { transform: scale(1); } }
+  @keyframes ambientDrift { 0% { transform: translate(0,0); } 100% { transform: translate(-2.5%,-2%); } }
+  @keyframes blobMorphA { 0%,100% { border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%; transform: translate(0,0) rotate(0deg) scale(1); } 50% { border-radius: 60% 40% 30% 70% / 55% 60% 40% 45%; transform: translate(3%,-4%) rotate(10deg) scale(1.06); } }
+  @keyframes blobMorphB { 0%,100% { border-radius: 55% 45% 40% 60% / 40% 55% 45% 60%; transform: translate(0,0) rotate(0deg) scale(1); } 50% { border-radius: 38% 62% 60% 40% / 60% 45% 55% 40%; transform: translate(-4%,3%) rotate(-8deg) scale(1.08); } }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes underlineDraw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @keyframes floatSlow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+
+  .bg-wrap { position: absolute; inset: -6%; z-index: 0; animation: ambientDrift 15s ease-in-out infinite alternate; }
+  .bg-inner {
+    position: absolute; inset: 0;
+    animation: zoomOut 3.2s cubic-bezier(.16,.8,.3,1) both;
+    background:
+      radial-gradient(ellipse 70% 60% at 78% 15%, rgba(193,97,63,0.55), rgba(193,97,63,0) 70%),
+      radial-gradient(ellipse at 30% 25%, var(--coffee-800), var(--coffee-950) 75%);
+  }
+  .bg-inner video { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.4); }
+  .bg-inner video::-webkit-media-controls,
+  .bg-inner video::-webkit-media-controls-start-playback-button,
+  .bg-inner video::-webkit-media-controls-play-button,
+  .bg-inner video::-internal-media-controls-overlay-cast-button { display: none !important; -webkit-appearance: none; }
+  .bg-inner video::-webkit-media-controls-overlay-play-button,
+  .bg-inner video::-internal-media-controls-overlay-play-button { display: none !important; -webkit-appearance: none; }
+
+  .fade-bottom {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(26,18,13,0.52) 0%, rgba(26,18,13,0.32) 34%, rgba(26,18,13,0.64) 64%, rgba(26,18,13,0.95) 100%),
+      radial-gradient(ellipse 80% 65% at 50% 45%, rgba(26,18,13,0) 40%, rgba(26,18,13,0.62) 100%);
+  }
+  .glow-top {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: screen; opacity: .55;
+    background: radial-gradient(ellipse 55% 45% at 78% 12%, rgba(193,97,63,0.40), rgba(193,97,63,0) 70%);
+  }
+  .blobs { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: soft-light; opacity: .68; filter: blur(48px); }
+  .blob-a { position: absolute; top: -12%; right: -8%; width: min(60vw,640px); height: min(60vw,640px); background: linear-gradient(135deg, var(--terracotta), var(--gold)); animation: blobMorphA 17s ease-in-out infinite; }
+  .blob-b { position: absolute; bottom: -14%; left: -6%; width: min(45vw,480px); height: min(45vw,480px); background: linear-gradient(135deg, var(--coffee-800), var(--terracotta-light)); animation: blobMorphB 21s ease-in-out infinite; }
+
+  .content { position: relative; z-index: 3; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: clamp(24px,4vw,56px) clamp(20px,5vw,72px); }
+  .panel { display: flex; flex-direction: column; align-items: flex-end; margin: 0 auto; gap: clamp(18px,2.4vw,26px); max-width: min(920px,92%); }
+
+  .tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; animation: fadeInUp .8s ease .4s both; }
+  .tag { padding: 9px 18px; border-radius: 999px; border: 1px solid rgba(245,236,223,0.22); background: rgba(245,236,223,0.07); backdrop-filter: blur(6px); font-size: 12.5px; color: rgba(245,236,223,0.88); white-space: nowrap; }
+  .tag--rating { border-color: rgba(217,177,104,0.45); background: rgba(217,177,104,0.10); color: rgba(245,236,223,0.92); display: inline-flex; align-items: center; gap: 7px; animation: fadeInUp .8s ease .4s both; }
+  .tag--rating .stars { color: var(--gold); letter-spacing: 1px; }
+
+  h1.hero-title {
+    margin: clamp(14px,2.2vw,24px) 0 0 0;
+    font-family: 'Newsreader', serif;
+    font-weight: 500;
+    font-size: clamp(3.2rem,9vw,8rem);
+    line-height: .95;
+    letter-spacing: -0.01em;
+    text-align: right;
+    text-wrap: balance;
+    text-shadow: 0 4px 40px rgba(26,18,13,0.45);
+    animation: floatSlow 6s ease-in-out 1.8s infinite;
+  }
+  .hero-title span.word { display: inline-block; animation: fadeInUp .8s ease .55s both; }
+  .hero-title span.accent { display: inline-block; position: relative; font-style: italic; font-weight: 500; color: var(--terracotta-light); animation: fadeInUp .8s ease .7s both; }
+  .hero-title span.accent::after {
+    content: ''; position: absolute; left: 2px; right: 2px; bottom: -4px; height: 4px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--terracotta), var(--gold));
+    transform-origin: left center;
+    animation: underlineDraw .9s cubic-bezier(.4,0,.2,1) .95s both;
+  }
+
+  .tagline { margin: 0; max-width: 46ch; text-align: right; text-wrap: pretty; font-size: clamp(1rem,1.6vw,1.25rem); line-height: 1.55; color: rgba(245,236,223,0.85); animation: fadeInUp .8s ease .85s both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-wrap, .blob-a, .blob-b, .hero-title, .tag--rating { animation: none !important; }
+  }
+
+  @media (max-width: 700px) {
+    .panel { align-items: center; max-width: 100%; }
+    .tags { justify-content: center; }
+    .hero-title { text-align: center; }
+    .tagline { text-align: center; max-width: 34ch; margin-inline: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <div class="bg-wrap">
+    <div class="bg-inner">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="https://cafemira.kidashidesign.com/images/2649816_Barista_Preparing_1920x1080.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+
+  <img class="kd-logo-watermark" src="/images/portfolio/cafe-mira/logo_cafe-mira.png" alt="" aria-hidden="true">
+
+  <div class="fade-bottom"></div>
+  <div class="glow-top"></div>
+  <div class="blobs">
+    <div class="blob-a drift blob"></div>
+    <div class="blob-b drift blob"></div>
+  </div>
+
+  <div class="content">
+    <div class="panel hide-in-tile">
+
+      <div class="tags">
+        <span class="tag">Client — Café Mira</span>
+        <span class="tag">Year — 2026</span>
+        <span class="tag">Role — Brand &amp; Web Design</span>
+        <span class="tag tag--rating"><span class="stars">★★★★★</span><span>4.8 · 312 Reviews</span></span>
+      </div>
+
+      <h1 class="hero-title"><span class="word">Café&nbsp;</span><span class="accent">Mira</span></h1>
+
+      <p class="tagline">A warm brand identity and website for a specialty coffee house in Berlin-Mitte — designed and published to feel as inviting as the place itself.</p>
+
+    </div>
+  </div>
+
+</div>
+<script>
+(function () {
+  "use strict";
+  var stage = document.getElementById('stage');
+  var video = document.querySelector('video');
+  if (video) {
+    var tryPlay = function () { video.play().catch(function(){}); };
+    tryPlay();
+    document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+  }
+
+  var logo = document.querySelector('.kd-logo-watermark');
+  if (video && logo && document.documentElement.classList.contains('tile-mode')) {
+    var FADE_OUT_LEAD = 1.3;
+    var FADE_IN_DELAY = 700;
+    var nearEnd = false;
+    var fadeInTimer = null;
+    var showLogo = function () { logo.classList.add('is-visible'); };
+    var hideLogo = function () { logo.classList.remove('is-visible'); };
+    fadeInTimer = setTimeout(showLogo, 1100);
+    video.addEventListener('timeupdate', function () {
+      var d = video.duration;
+      if (!d || isNaN(d)) return;
+      var t = video.currentTime;
+      if (t >= d - FADE_OUT_LEAD) {
+        if (!nearEnd) { nearEnd = true; hideLogo(); }
+      } else if (nearEnd && t < FADE_OUT_LEAD) {
+        nearEnd = false;
+        clearTimeout(fadeInTimer);
+        fadeInTimer = setTimeout(showLogo, FADE_IN_DELAY);
+      }
+    });
+  }
+  document.addEventListener('visibilitychange', function () {
+    stage.classList.toggle('paused', document.hidden);
+    if (!video) return;
+    if (document.hidden) { video.pause(); } else { video.play().catch(function(){}); }
+  });
+})();
+</script>
+</body>
+</html>
