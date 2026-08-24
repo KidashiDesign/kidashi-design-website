@@ -1,34 +1,55 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
 
-const pageTitle = "Strategic Social Media Design & Canva/Figma Kits | Kidashi Design";
-const pageDescription = "Custom social media graphics, Instagram carousel templates, cover graphics, and modular Figma/Canva design kits tailored for brand consistency and engagement.";
+const pageTitle = 'Social Media Design — Kidashi Design';
+const pageDescription =
+  'Custom social media graphics, content templates, carousel designs, story assets, and editable Canva or Figma systems created to keep your brand consistent online.';
 
 const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
+  '@context': 'https://schema.org',
+  '@graph': [
     {
-      "@type": "Service",
-      "@id": "https://www.kidashidesign.com/services/social-media-design#service",
-      "name": "Social Media Design & Content Template Systems",
-      "provider": {
-        "@type": "ProfessionalService",
-        "name": "Kidashi Design",
-        "url": "https://www.kidashidesign.com/",
-        "founder": "Nicole Szatkowski"
+      '@type': 'Service',
+      '@id': 'https://www.kidashidesign.com/services/social-media-design/#service',
+      name: 'Social Media Design',
+      provider: {
+        '@type': 'ProfessionalService',
+        name: 'Kidashi Design',
+        url: 'https://www.kidashidesign.com/',
+        founder: {
+          '@type': 'Person',
+          name: 'Nicole Szatkowski'
+        }
       },
-      "description": "On-brand social media design including customizable Canva/Figma post templates, carousel layouts, channel banners, and story graphics for business growth.",
-      "areaServed": "Worldwide"
+      description:
+        'Custom social media design including branded post graphics, carousel templates, story assets, channel graphics, campaign visuals, and editable Canva or Figma template systems.',
+      areaServed: 'Worldwide'
     },
     {
-      "@type": "FAQPage",
-      "mainEntity": [
+      '@type': 'FAQPage',
+      mainEntity: [
         {
-          "@type": "Question",
-          "name": "Do I get editable templates for my social media content?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. We deliver custom editable social media design systems built directly in Canva or Figma, allowing your team to rapidly produce on-brand posts, stories, and carousels."
+          '@type': 'Question',
+          name: 'Do I get editable templates for my social media content?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. Depending on the project, editable social media templates can be created in Canva or Figma so you or your team can continue producing content while staying consistent with the established visual system.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Can non-designers use the social media templates?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. Templates can be designed with ease of use in mind, allowing non-designers to update text, images, and selected content areas while keeping the core visual identity consistent.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Can Kidashi Design provide ongoing social media design support?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. Depending on availability and project requirements, ongoing design support can be arranged for businesses that need regular social media graphics, campaign visuals, carousels, or other branded content.'
           }
         }
       ]
@@ -37,97 +58,445 @@ const jsonLd = {
 };
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  ogImage="https://www.kidashidesign.com/images/Nicole-Portrait.webp"
+  navVariant="nav--light"
+  navActive="services"
+>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
-  <main class="max-w-6xl mx-auto px-6 py-16 text-gray-100">
-    <nav class="text-sm mb-8 text-gray-400">
-      <a href="/" class="hover:text-white transition-colors">Home</a> &rarr; 
-      <a href="/services" class="hover:text-white transition-colors">Services</a> &rarr; 
-      <span class="text-white font-medium">Social Media Design</span>
-    </nav>
+  <!-- Hero Section -->
+  <section
+    class="about3d service-hero"
+    style="padding-top: calc(var(--nav-h) + clamp(3rem, 6vw, 6rem));"
+  >
+    <div class="container">
+      <div class="about3d__stage reveal">
+        <div class="about3d__card" data-tilt>
+          <div class="about3d__media service-hero__media" data-tilt-z="40">
+            <img
+              class="about3d__img"
+              src="/images/Nicole-Portrait.webp"
+              alt="Nicole Szatkowski, founder and designer at Kidashi Design"
+              decoding="async"
+              loading="eager"
+            />
+          </div>
 
-    <header class="mb-16 border-b border-gray-800 pb-12">
-      <span class="text-xs uppercase tracking-widest text-pink-400 font-semibold">Service 04 &bull; Digital Content & Engagement</span>
-      <h1 class="text-4xl md:text-6xl font-bold mt-4 mb-6 leading-tight text-white">
-        On-Brand Social Media Content & Modular Template Systems
-      </h1>
-      <p class="text-xl text-gray-300 max-w-3xl leading-relaxed">
-        Elevate your digital presence across Instagram, LinkedIn, YouTube, and X. Custom social graphic kits and editable Figma/Canva templates engineered by <strong class="text-white">Nicole Szatkowski</strong> (Kidashi Design).
+          <div class="about3d__content">
+            <span class="eyebrow" data-tilt-z="50">
+              Service 04 · Social Media Design
+            </span>
+
+            <h1 class="about3d__title" data-tilt-z="70">
+              Social Content That Looks Like Your Brand.
+            </h1>
+
+            <p class="about3d__text" data-tilt-z="30">
+              Social media moves fast, but your visual identity shouldn't get lost in the process. I create branded graphics, content systems, and flexible templates that help your business show up consistently across the platforms that matter to you.
+            </p>
+
+            <div class="about3d__foot">
+              <ul class="about3d__points" data-tilt-z="20">
+                <li>Custom posts, carousels &amp; story graphics</li>
+                <li>Profile, channel &amp; campaign visuals</li>
+                <li>Editable Canva &amp; Figma templates</li>
+                <li>Flexible systems for consistent content</li>
+              </ul>
+
+              <a
+                href="/contact/"
+                class="btn btn--outline-dark about3d__btn"
+                data-tilt-z="60"
+              >
+                Let's Build Your Social Kit
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Visual Scene -->
+  <div class="about-hero-float service-float" id="socialMediaFloat">
+    <div class="container">
+      <div class="about-hero-float__grid about-hero-float__grid--scene-only">
+        <div class="about-float-scene">
+          <div class="about-float-scene__inner" id="socialMediaFloatScene">
+            <div
+              class="about-float-el about-float-el--photo about-float-photo--1"
+              data-depth="1"
+            >
+              <img
+                src="/images/about/himalaya-mountains.webp"
+                alt="Creative inspiration and visual storytelling"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div
+              class="about-float-el about-float-el--photo about-float-photo--2"
+              data-depth="1.8"
+            >
+              <img
+                src="/images/about/himalaya-pointing.webp"
+                alt="Exploring new creative perspectives"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div
+              class="about-float-el about-float-el--photo about-float-photo--3"
+              data-depth="1.3"
+            >
+              <img
+                src="/images/about/jungle-rest.webp"
+                alt="Creative exploration and visual direction"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div
+              class="about-float-el about-float-el--photo about-float-photo--4"
+              data-depth="2.2"
+            >
+              <img
+                src="/images/about/prayer-flags-dharamshala.webp"
+                alt="Visual inspiration from international experiences"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div
+              class="about-float-el about-float-el--photo about-float-photo--5"
+              data-depth="1.6"
+            >
+              <img
+                src="/images/about/Nicole-Daramshala.webp"
+                alt="Nicole Szatkowski, founder of Kidashi Design"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+
+          <!-- Grain Texture Overlay -->
+          <svg
+            class="about-float-grain"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <filter id="socialGrain">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.82"
+                numOctaves="4"
+                stitchTiles="stitch"
+              />
+              <feColorMatrix type="saturate" values="0" />
+            </filter>
+
+            <rect width="100%" height="100%" filter="url(#socialGrain)" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <section class="about-content service-content">
+    <div class="container">
+      <div class="about-content__grid">
+        <div class="about-content__main">
+          <h2 class="reveal">
+            A Consistent Social Presence Starts With a System
+          </h2>
+
+          <p class="reveal" data-delay="100">
+            <strong>Kidashi Design</strong> creates social media visuals that make your brand recognizable beyond your website. Instead of treating every post as a completely new design, I help build a visual system that gives your content a consistent foundation.
+          </p>
+
+          <p class="reveal" data-delay="100">
+            The goal is to create content that feels connected while still leaving enough flexibility for different topics, campaigns, announcements, and formats.
+          </p>
+
+          <h2 class="reveal" style="margin-top: 3rem;">
+            Designed for the Platforms You Actually Use
+          </h2>
+
+          <p class="reveal" data-delay="100">
+            Different platforms create different spaces for your brand. A carousel, a story, a profile banner, and a video cover all have different purposes — but they should still feel like they belong to the same visual identity.
+          </p>
+
+          <p class="reveal" data-delay="100">
+            I design social media assets around the channels and content formats that are relevant to your business, whether that means Instagram, LinkedIn, YouTube, Facebook, or another platform where your audience spends time.
+          </p>
+
+          <div class="service-deliverables reveal" data-delay="200">
+            <div class="service-deliverables__item">
+              <h3>Posts &amp; Carousels</h3>
+              <p>
+                Branded post designs and multi-slide carousel systems for sharing ideas, educational content, announcements, campaigns, and stories.
+              </p>
+            </div>
+
+            <div class="service-deliverables__item">
+              <h3>Stories &amp; Vertical Content</h3>
+              <p>
+                Flexible layouts for stories and other vertical formats that can be adapted to different messages while staying visually consistent.
+              </p>
+            </div>
+
+            <div class="service-deliverables__item">
+              <h3>Channel Branding</h3>
+              <p>
+                Profile graphics, banners, cover images, highlight visuals, and other channel assets that help create a more complete and professional presence.
+              </p>
+            </div>
+
+            <div class="service-deliverables__item">
+              <h3>Campaign Graphics</h3>
+              <p>
+                A coordinated visual direction for launches, promotions, events, and campaigns that need multiple pieces of content working together.
+              </p>
+            </div>
+          </div>
+
+          <h2 class="reveal" style="margin-top: 3rem;">
+            Editable Templates for Your Team
+          </h2>
+
+          <p class="reveal" data-delay="100">
+            If you want to create content independently after the initial design phase, I can build editable templates in Canva or Figma. This gives you a practical starting point for creating new posts without rebuilding your visual identity every time.
+          </p>
+
+          <p class="reveal" data-delay="100">
+            Templates can be structured so that text, images, and selected content areas are easy to update while the key elements of the design remain consistent with your brand.
+          </p>
+
+          <h2 class="reveal" style="margin-top: 3rem;">
+            Built for Consistency, Not Repetition
+          </h2>
+
+          <p class="reveal" data-delay="100">
+            Consistency doesn't mean every post should look exactly the same. A useful social media system creates recognizable patterns while giving you room to adapt the content to different subjects and situations.
+          </p>
+
+          <p class="reveal" data-delay="100">
+            Typography, colors, spacing, image treatments, and recurring layout elements can work together to create a recognizable visual language without making your content feel repetitive.
+          </p>
+
+          <h2 class="reveal" style="margin-top: 3rem;">
+            Ongoing Design Support
+          </h2>
+
+          <p class="reveal" data-delay="100">
+            Some businesses need a one-time template system. Others need regular support for campaigns, launches, recurring content, or new formats. Depending on the scope and availability, ongoing design support can be arranged around what your business actually needs.
+          </p>
+
+          <h2 class="reveal" style="margin-top: 3rem;">
+            Social Media Design FAQs
+          </h2>
+
+          <div class="service-faq reveal" data-delay="100">
+            <details>
+              <summary>
+                Do I get editable templates for my social media content?
+              </summary>
+              <p>
+                Yes. Depending on your project, editable templates can be created in Canva or Figma so you or your team can continue producing content while following the established visual system.
+              </p>
+            </details>
+
+            <details>
+              <summary>
+                Can someone without design experience use the templates?
+              </summary>
+              <p>
+                Yes. Templates can be designed to be practical for everyday use, with editable areas for text and images while the core visual elements remain structured and consistent.
+              </p>
+            </details>
+
+            <details>
+              <summary>
+                Which social media platforms can you design for?
+              </summary>
+              <p>
+                I can design for the platforms that are relevant to your business and content strategy. The project can include individual formats or a wider system that works across multiple channels.
+              </p>
+            </details>
+
+            <details>
+              <summary>
+                Do you offer ongoing social media design?
+              </summary>
+              <p>
+                Depending on availability and the needs of the project, ongoing support can be arranged for regular content, campaign graphics, launches, carousels, and other branded social media materials.
+              </p>
+            </details>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside>
+          <div class="sidebar-block reveal" data-glow="blue">
+            <span class="sidebar-block__label">Content Design</span>
+            <ul>
+              <li>Posts &amp; carousel graphics</li>
+              <li>Stories &amp; vertical formats</li>
+              <li>Campaign visuals</li>
+              <li>Content series &amp; recurring formats</li>
+            </ul>
+          </div>
+
+          <div
+            class="sidebar-block reveal"
+            data-delay="100"
+            data-glow="orange"
+          >
+            <span class="sidebar-block__label">Channel Branding</span>
+            <ul>
+              <li>Profile &amp; cover graphics</li>
+              <li>Channel banners</li>
+              <li>Highlight &amp; icon systems</li>
+              <li>Video &amp; content covers</li>
+            </ul>
+          </div>
+
+          <div
+            class="sidebar-block reveal"
+            data-delay="200"
+            data-glow="blue"
+          >
+            <span class="sidebar-block__label">Editable Systems</span>
+            <ul>
+              <li>Canva templates</li>
+              <li>Figma templates</li>
+              <li>Reusable content layouts</li>
+              <li>Clear visual guidelines</li>
+            </ul>
+          </div>
+
+          <div
+            class="sidebar-block reveal"
+            data-delay="300"
+            data-glow="orange"
+          >
+            <span class="sidebar-block__label">Flexible Support</span>
+            <ul>
+              <li>One-time design systems</li>
+              <li>Campaign packages</li>
+              <li>Ongoing design support</li>
+              <li>Working with clients worldwide</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="about-values service-values">
+    <div class="container">
+      <h2 class="reveal">
+        Make Every Post Feel Like It Comes From the Same Brand.
+      </h2>
+
+      <p class="reveal" data-delay="100">
+        Whether you need a complete social media system, a collection of editable templates, or support for an upcoming campaign, you'll work directly with me to create visuals that fit your brand and the way you actually create content.
       </p>
-      <div class="mt-8 flex flex-wrap gap-4">
-        <a href="https://www.kidashidesign.com/#contact" class="bg-white text-black px-6 py-3 font-medium hover:bg-gray-200 transition-colors">Request a Social Design Kit</a>
-        <a href="https://www.kidashidesign.com/#portfolio" class="border border-gray-700 px-6 py-3 font-medium hover:border-gray-500 transition-colors">View Social Design Portfolio</a>
-      </div>
-    </header>
 
-    <!-- Social Media Specs Overview -->
-    <section class="mb-16 bg-gray-900/60 border border-gray-800 p-8 rounded-lg">
-      <h2 class="text-2xl font-semibold mb-6 text-white">Supported Platforms & Specifications</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
-        <div>
-          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">Target Platforms</span>
-          <p class="font-semibold text-white">Instagram, LinkedIn, YouTube, X, Facebook</p>
-        </div>
-        <div>
-          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">Editable Tools</span>
-          <p class="font-semibold text-pink-400">Figma Design Tokens & Canva Pro Kits</p>
-        </div>
-        <div>
-          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">Content Formats</span>
-          <p class="font-semibold text-white">Carousels, Reels Covers, Banners, Stories</p>
-        </div>
-        <div>
-          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">Asset Delivery</span>
-          <p class="font-semibold text-white">WebP/PNG Exports + Live Template Links</p>
-        </div>
+      <div class="about-values__cta reveal" data-delay="200">
+        <a href="/contact/" class="btn btn--primary">
+          Start Your Social Design Project
+        </a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Service Pillars -->
-    <section class="mb-20">
-      <h2 class="text-3xl font-bold mb-10 text-white">What We Build for Your Social Media Presence</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="p-6 border border-gray-800 bg-gray-950">
-          <h3 class="text-xl font-bold mb-3 text-white">1. Multi-Slide Educational Carousels</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">
-            Seamlessly connected multi-slide templates optimized for high save rates, dwell time, and viral reach on Instagram and LinkedIn.
-          </p>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <span class="footer__copy">
+          &copy; 2026 Kidashi Design &mdash; Nicole Szatkowski
+        </span>
+
+        <div class="footer__socials">
+          <a
+            href="https://www.instagram.com/kidashi.design/"
+            class="footer__social-btn"
+            aria-label="Instagram"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg width="17" height="17" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M15.6 4H32.4C38.8 4 44 9.2 44 15.6V32.4C44 35.4765 42.7779 38.427 40.6024 40.6024C38.427 42.7779 35.4765 44 32.4 44H15.6C9.2 44 4 38.8 4 32.4V15.6C4 12.5235 5.22214 9.57298 7.39756 7.39756C9.57298 5.22214 12.5235 4 15.6 4Z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/nicole-szatkowski"
+            class="footer__social-btn"
+            aria-label="LinkedIn"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg width="17" height="17" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M13.9989 16.96H5.99891V42H13.9989V16.96ZM26.6389 16.96H18.6789V42H26.5589V28.86C26.5589 21.54 36.0989 20.86 36.0989 28.86V42H43.9989V26.14C43.9989 13.8 29.8789 14.26 26.5589 20.32L26.6389 16.96Z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
+
+          <a
+            href="https://dribbble.com/fotofreakkkk"
+            class="footer__social-btn"
+            aria-label="Dribbble"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg width="17" height="17" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M23.9993 4.00001C28.7753 4.00001 33.1613 5.67401 36.5993 8.46801C33.6236 11.5919 30.0805 14.1209 26.1593 15.92C23.9521 11.9671 21.3667 8.23762 18.4393 4.78401C20.2465 4.26252 22.1183 3.99858 23.9993 4.00001Z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
+
+          <a
+            href="https://www.behance.net/nicoleszatkow1"
+            class="footer__social-btn"
+            aria-label="Behance"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg width="17" height="17" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M4 36.5802V11.4202H16.2C17.3133 11.4199 18.4221 11.561 19.5 11.8396C20.5208 12.1058 21.4883 12.5458 22.36 13.1402C23.2051 13.723 23.8924 14.5064 24.36 15.4202C24.8806 16.4402 25.1352 17.576 25.1 18.7202V36.5802H4Z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
         </div>
-        <div class="p-6 border border-gray-800 bg-gray-950">
-          <h3 class="text-xl font-bold mb-3 text-white">2. Profile & Channel Branding</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">
-            High-impact YouTube channel art, LinkedIn company banners, profile avatars, and highlight icons that establish authority in seconds.
-          </p>
-        </div>
-        <div class="p-6 border border-gray-800 bg-gray-950">
-          <h3 class="text-xl font-bold mb-3 text-white">3. Modular Template Libraries</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">
-            Plug-and-play Canva or Figma post kits featuring predefined typography scales, color styles, and image frames for fast in-house content creation.
-          </p>
-        </div>
+
+        <nav class="footer__legal">
+          <a href="/impressum/">Imprint</a>
+          <a href="/datenschutz/">Privacy Policy</a>
+        </nav>
       </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="mb-16">
-      <h2 class="text-3xl font-bold mb-8 text-white">Social Media Design FAQs</h2>
-      <div class="space-y-6">
-        <div class="p-6 border border-gray-800 rounded-lg">
-          <h3 class="text-lg font-semibold text-white mb-2">Can non-designers on our team use the Canva templates?</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">Yes. We build user-friendly Canva templates with locked brand elements (logos, layout grids) and editable text/photo frames so anyone on your team can create graphics without breaking brand guidelines.</p>
-        </div>
-        <div class="p-6 border border-gray-800 rounded-lg">
-          <h3 class="text-lg font-semibold text-white mb-2">Do you offer monthly social media retainer packages?</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">Yes. We provide ongoing monthly design retainers for brands needing regular carousel posts, campaign launch graphics, and video thumbnail designs.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="p-10 border border-gray-800 bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950 text-center rounded-lg">
-      <h2 class="text-3xl font-bold text-white mb-4">Transform Your Social Presence</h2>
-      <p class="text-gray-400 max-w-2xl mx-auto mb-8">Get custom, high-converting social media templates tailored to your brand.</p>
-      <a href="https://www.kidashidesign.com/#contact" class="inline-block bg-white text-black px-8 py-4 font-semibold hover:bg-gray-200 transition-colors">Get Your Social Kit</a>
-    </section>
-  </main>
+    </div>
+  </footer>
 </Layout>

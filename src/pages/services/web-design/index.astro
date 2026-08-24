@@ -1,56 +1,87 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
 
-const pageTitle = "Custom Web Design & Jamstack Development Services | Kidashi Design";
-const pageDescription = "High-performance, mobile-first, and GEO-optimized websites custom built with Astro and Tailwind CSS. Designed by Nicole Szatkowski, IHK-certified Media Designer.";
+const pageTitle = 'Custom Web Design & Astro Development | Kidashi Design';
+const pageDescription =
+  'Custom, mobile-first websites designed in Figma and developed with Astro and Tailwind CSS. Fast, accessible, SEO-ready web experiences by Kidashi Design.';
 
 const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
+  '@context': 'https://schema.org',
+  '@graph': [
     {
-      "@type": "Service",
-      "@id": "https://www.kidashidesign.com/services/web-design#service",
-      "name": "Custom Web Design & Astro Development",
-      "provider": {
-        "@type": "ProfessionalService",
-        "name": "Kidashi Design",
-        "url": "https://www.kidashidesign.com/",
-        "founder": "Nicole Szatkowski",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Tbilisi",
-          "addressCountry": "Georgia"
+      '@type': 'Service',
+      '@id': 'https://www.kidashidesign.com/services/web-design#service',
+      name: 'Custom Web Design & Astro Development',
+      provider: {
+        '@type': 'ProfessionalService',
+        name: 'Kidashi Design',
+        url: 'https://www.kidashidesign.com/',
+        founder: {
+          '@type': 'Person',
+          name: 'Nicole Szatkowski'
+        },
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Tbilisi',
+          addressCountry: 'GE'
         }
       },
-      "description": "Custom high-performance web design, UI/UX prototyping in Figma, and lightweight, SEO-friendly Astro.js development optimized for AI search engines.",
-      "areaServed": "Worldwide",
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Web Design Deliverables",
-        "itemListElement": [
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom UI/UX Design (Figma)" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Astro.js & Tailwind CSS Development" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "GEO & Core Web Vitals Optimization" } }
+      description:
+        'Custom web design, UI/UX prototyping, responsive frontend development, performance optimization, and structured SEO foundations for businesses worldwide.',
+      areaServed: 'Worldwide',
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Web Design Deliverables',
+        itemListElement: [
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Custom UI/UX Design in Figma'
+            }
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Astro & Tailwind CSS Development'
+            }
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Technical SEO & Structured Data Setup'
+            }
+          }
         ]
       }
     },
     {
-      "@type": "FAQPage",
-      "mainEntity": [
+      '@type': 'FAQPage',
+      mainEntity: [
         {
-          "@type": "Question",
-          "name": "Why build custom websites with Astro.js instead of WordPress?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Astro delivers near-zero JavaScript by default, resulting in sub-second load times, 100/100 Core Web Vitals scores, better Google rankings, and enhanced crawlability for AI engines like Perplexity and ChatGPT."
+          '@type': 'Question',
+          name: 'Why use Astro for a custom website?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Astro allows websites to ship minimal client-side JavaScript by default and supports a component-based development workflow. This can help create fast, lightweight websites while retaining flexibility for interactive features where they are needed.'
           }
         },
         {
-          "@type": "Question",
-          "name": "What is included in Kidashi Design's web design service?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Services include full UI/UX design in Figma, responsive frontend development using Astro and Tailwind CSS, mobile optimization, GEO/SEO metadata setup, JSON-LD schema integration, and pre-launch QA."
+          '@type': 'Question',
+          name: 'What is included in Kidashi Design\'s web design service?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'A typical project can include information architecture, UI/UX design in Figma, responsive frontend development with Astro and Tailwind CSS, metadata, structured data, accessibility considerations, performance optimization, and pre-launch quality assurance.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'How long does a custom website project take?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Project timelines depend on scope, content readiness, number of pages, and required functionality. Smaller websites may take a few weeks, while larger or more complex projects require additional planning and development time.'
           }
         }
       ]
@@ -59,139 +90,287 @@ const jsonLd = {
 };
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  ogImage="https://www.kidashidesign.com/images/Nicole-Portrait.webp"
+  navVariant="nav--light"
+  navActive="services"
+>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
-  <main class="max-w-6xl mx-auto px-6 py-16 text-gray-100">
-    <!-- Breadcrumb -->
-    <nav class="text-sm mb-8 text-gray-400">
-      <a href="/" class="hover:text-white transition-colors">Home</a> &rarr; 
-      <a href="/services" class="hover:text-white transition-colors">Services</a> &rarr; 
-      <span class="text-white font-medium">Web Design</span>
-    </nav>
+  <!-- Hero Section -->
+  <section
+    class="about3d"
+    style="padding-top: calc(var(--nav-h) + clamp(3rem, 6vw, 6rem));"
+  >
+    <div class="container">
+      <div class="about3d__stage reveal">
+        <div class="about3d__card" data-tilt>
+          <div class="about3d__content">
+            <span class="eyebrow" data-tilt-z="50">
+              Service 01 &bull; Digital &amp; Development
+            </span>
 
-    <!-- Hero Section -->
-    <header class="mb-16 border-b border-gray-800 pb-12">
-      <span class="text-xs uppercase tracking-widest text-emerald-400 font-semibold">Service 01 &bull; Digital & Code</span>
-      <h1 class="text-4xl md:text-6xl font-bold mt-4 mb-6 leading-tight text-white">
-        High-Performance Web Design Built to Convert & Rank in AI Search
-      </h1>
-      <p class="text-xl text-gray-300 max-w-3xl leading-relaxed">
-        Custom, mobile-first web design powered by modern Jamstack architecture (<strong class="text-white">Astro.js</strong> and <strong class="text-white">Tailwind CSS</strong>). Designed by <strong class="text-white">Nicole Szatkowski</strong>—IHK-Certified Media Designer based in Tbilisi, Georgia, crafting digital experiences for clients worldwide.
+            <h1 class="about3d__title" data-tilt-z="70">
+              High-Performance Websites Designed for People, Search &amp; Growth
+            </h1>
+
+            <p class="about3d__text" data-tilt-z="30">
+              Custom, mobile-first websites designed around your brand and
+              business goals. From <strong>Figma</strong> concepts to
+              production-ready <strong>Astro</strong> and
+              <strong>Tailwind CSS</strong> development, every experience is
+              built to be clear, responsive, lightweight, and scalable.
+            </p>
+
+            <div class="about3d__foot">
+              <ul class="about3d__points" data-tilt-z="20">
+                <li>Custom UI/UX Design &amp; Information Architecture</li>
+                <li>Astro &amp; Tailwind CSS Development</li>
+                <li>Responsive, Mobile-First Experiences</li>
+                <li>SEO, Structured Data &amp; Performance Foundations</li>
+              </ul>
+
+              <a
+                href="/contact/"
+                class="btn btn--outline-dark about3d__btn"
+                data-tilt-z="60"
+              >
+                Start a Web Project
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="about-content">
+    <div class="container">
+      <div class="about-content__grid">
+        <div class="about-content__main">
+          <h2 class="reveal">
+            Custom Web Design Without the Limitations of Generic Templates
+          </h2>
+
+          <p class="reveal" data-delay="100">
+            A website should do more than look polished. It should communicate
+            your value clearly, guide visitors toward meaningful actions, and
+            provide a solid technical foundation for long-term growth.
+          </p>
+
+          <h3 class="reveal" style="margin-top: 2rem;">
+            1. Strategic Design Before Development
+          </h3>
+
+          <p class="reveal" data-delay="100">
+            Every project begins with structure. We define your core pages,
+            content hierarchy, user journeys, and conversion priorities before
+            moving into visual design. The result is a website with a clear
+            purpose behind every section.
+          </p>
+
+          <h3 class="reveal" style="margin-top: 2rem;">
+            2. Modern Astro &amp; Jamstack Development
+          </h3>
+
+          <p class="reveal" data-delay="100">
+            Websites are developed with modern, component-based technologies
+            such as Astro and Tailwind CSS. This approach supports lightweight
+            pages, reusable design systems, and interactive functionality only
+            where it adds real value.
+          </p>
+
+          <h3 class="reveal" style="margin-top: 2rem;">
+            3. SEO &amp; AI-Readable Content Foundations
+          </h3>
+
+          <p class="reveal" data-delay="100">
+            Semantic HTML, descriptive page structure, metadata, internal
+            linking, and structured data help search engines better understand
+            your website and services. Clear information architecture also
+            creates stronger foundations for emerging AI-powered discovery
+            systems.
+          </p>
+
+          <h3 class="reveal" style="margin-top: 2rem;">
+            4. Responsive, Conversion-Focused UI/UX
+          </h3>
+
+          <p class="reveal" data-delay="100">
+            Every interface is designed for real-world use across desktop,
+            tablet, and mobile devices. Typography, spacing, visual hierarchy,
+            and calls to action work together to make your content easier to
+            understand and navigate.
+          </p>
+
+          <h2 class="reveal" style="margin-top: 4rem;">
+            Our Web Design Process
+          </h2>
+
+          <div class="service-process">
+            <article class="reveal" data-delay="50">
+              <h3>01. Discovery &amp; Strategy</h3>
+              <p>
+                We define project goals, audiences, required pages, content
+                priorities, and the overall structure of your website.
+              </p>
+            </article>
+
+            <article class="reveal" data-delay="100">
+              <h3>02. UI/UX Design in Figma</h3>
+              <p>
+                High-fidelity layouts are created for key screen sizes, with
+                typography, spacing, components, and visual direction aligned
+                with your brand.
+              </p>
+            </article>
+
+            <article class="reveal" data-delay="150">
+              <h3>03. Frontend Development</h3>
+              <p>
+                Approved designs are translated into responsive, semantic
+                frontend code using Astro, Tailwind CSS, and additional
+                technologies where the project requires them.
+              </p>
+            </article>
+
+            <article class="reveal" data-delay="200">
+              <h3>04. QA &amp; Launch</h3>
+              <p>
+                Before launch, the website is reviewed across devices and
+                browsers, with metadata, structured data, performance, links,
+                and key interactions checked before deployment.
+              </p>
+            </article>
+          </div>
+
+          <h2 class="reveal" style="margin-top: 4rem;">
+            Frequently Asked Questions
+          </h2>
+
+          <div class="service-faq reveal" data-delay="100">
+            <details>
+              <summary>
+                Why build a custom website instead of using a pre-made template?
+              </summary>
+              <p>
+                A custom website gives you more control over your brand,
+                content structure, user experience, and technical setup.
+                Instead of adapting your business to a generic template, the
+                website is designed around your actual goals and requirements.
+              </p>
+            </details>
+
+            <details>
+              <summary>How long does a website project take?</summary>
+              <p>
+                Timelines vary depending on scope, page count, content
+                readiness, revisions, and custom functionality. After an
+                initial consultation, you will receive a clearer project
+                timeline based on your specific requirements.
+              </p>
+            </details>
+
+            <details>
+              <summary>Can you help with hosting and deployment?</summary>
+              <p>
+                Yes. Hosting and deployment can be configured as part of the
+                project, with suitable platforms selected based on the
+                website's technical requirements and maintenance needs.
+              </p>
+            </details>
+
+            <details>
+              <summary>Can my website be optimized for search engines?</summary>
+              <p>
+                Yes. SEO foundations can include semantic page structure,
+                titles and descriptions, Open Graph metadata, XML sitemaps,
+                robots directives, internal linking, and relevant JSON-LD
+                structured data.
+              </p>
+            </details>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside>
+          <div class="sidebar-block reveal" data-glow="blue">
+            <span class="sidebar-block__label">Design &amp; Development</span>
+            <ul>
+              <li>UI/UX &amp; Figma</li>
+              <li>Astro</li>
+              <li>Tailwind CSS</li>
+              <li>TypeScript</li>
+            </ul>
+          </div>
+
+          <div
+            class="sidebar-block reveal"
+            data-delay="100"
+            data-glow="orange"
+          >
+            <span class="sidebar-block__label">Web Foundations</span>
+            <ul>
+              <li>Responsive Design</li>
+              <li>Semantic HTML</li>
+              <li>Performance Optimization</li>
+              <li>Accessibility Considerations</li>
+            </ul>
+          </div>
+
+          <div
+            class="sidebar-block reveal"
+            data-delay="200"
+            data-glow="blue"
+          >
+            <span class="sidebar-block__label">SEO &amp; Discovery</span>
+            <ul>
+              <li>JSON-LD Structured Data</li>
+              <li>Open Graph Metadata</li>
+              <li>XML Sitemaps</li>
+              <li>Clear Content Architecture</li>
+            </ul>
+          </div>
+
+          <div
+            class="sidebar-block reveal"
+            data-delay="300"
+            data-glow="orange"
+          >
+            <span class="sidebar-block__label">Project Delivery</span>
+            <ul>
+              <li>Custom Project Scope</li>
+              <li>Direct Collaboration</li>
+              <li>Testing &amp; QA</li>
+              <li>Launch Support</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="about-values">
+    <div class="container">
+      <h2 class="reveal">
+        Ready to Build a Website That Feels Like Your Brand?
+      </h2>
+
+      <p class="reveal" data-delay="100">
+        Work directly with Nicole Szatkowski and turn your website into a
+        clearer, faster, and more purposeful digital experience for your
+        audience.
       </p>
-      <div class="mt-8 flex flex-wrap gap-4">
-        <a href="https://www.kidashidesign.com/#contact" class="bg-white text-black px-6 py-3 font-medium hover:bg-gray-200 transition-colors">Start a Web Project</a>
-        <a href="https://www.kidashidesign.com/#portfolio" class="border border-gray-700 px-6 py-3 font-medium hover:border-gray-500 transition-colors">View Selected Work</a>
-      </div>
-    </header>
 
-    <!-- At a Glance Specifications (GEO / AI Context) -->
-    <section class="mb-16 bg-gray-900/60 border border-gray-800 p-8 rounded-lg">
-      <h2 class="text-2xl font-semibold mb-6 text-white">Web Design Specifications at a Glance</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
-        <div>
-          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">Core Tech Stack</span>
-          <p class="font-semibold text-white">Astro.js, Tailwind CSS, TypeScript, Figma</p>
-        </div>
-        <div>
-          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">Performance Standard</span>
-          <p class="font-semibold text-emerald-400">100/100 Core Web Vitals & Sub-1s Loading</p>
-        </div>
-        <div>
-          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">SEO & GEO Readiness</span>
-          <p class="font-semibold text-white">JSON-LD Schema, Open Graph, LLM-Crawlable</p>
-        </div>
-        <div>
-          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">Lead Time</span>
-          <p class="font-semibold text-white">2 to 5 Weeks (Depending on Scope)</p>
-        </div>
+      <div class="about-values__cta reveal" data-delay="200">
+        <a href="/contact/" class="btn btn--primary">
+          Discuss Your Web Project
+        </a>
       </div>
-    </section>
-
-    <!-- Key Service Features -->
-    <section class="mb-20">
-      <h2 class="text-3xl font-bold mb-10 text-white">Why Kidashi Design Web Development Outperforms Generic Templates</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="p-6 border border-gray-800 bg-gray-950">
-          <h3 class="text-xl font-bold mb-3 text-white">1. Modern Astro & Jamstack Engineering</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">
-            Unlike slow WordPress builds weighed down by plugins, we build websites using Astro.js. Pages ship zero unnecessary JavaScript, resulting in instantaneous page transitions and maximum security.
-          </p>
-        </div>
-        <div class="p-6 border border-gray-800 bg-gray-950">
-          <h3 class="text-xl font-bold mb-3 text-white">2. Generative Engine Optimization (GEO)</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">
-            We structure your page markup, headings, and JSON-LD schema so modern AI search engines (Perplexity, ChatGPT, Gemini) accurately index your core offerings and cite your business.
-          </p>
-        </div>
-        <div class="p-6 border border-gray-800 bg-gray-950">
-          <h3 class="text-xl font-bold mb-3 text-white">3. Conversion-Driven UI/UX</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">
-            Combining German visual design precision with psychological triggers, every layout guides visitors toward a single primary action: booking, buying, or contacting you.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Process Timeline -->
-    <section class="mb-20">
-      <h2 class="text-3xl font-bold mb-8 text-white">Our 4-Step Web Design Process</h2>
-      <div class="space-y-6">
-        <div class="flex flex-col md:flex-row md:items-start gap-4 p-6 border-l-2 border-emerald-400 bg-gray-900/30">
-          <span class="text-2xl font-mono text-emerald-400 font-bold">01</span>
-          <div>
-            <h3 class="text-lg font-bold text-white">Discovery & Information Architecture</h3>
-            <p class="text-gray-400 text-sm mt-1">We analyze your business goals, target audience, competitive landscape, and key search/GEO keywords to map out a strategic sitemap.</p>
-          </div>
-        </div>
-        <div class="flex flex-col md:flex-row md:items-start gap-4 p-6 border-l-2 border-emerald-400 bg-gray-900/30">
-          <span class="text-2xl font-mono text-emerald-400 font-bold">02</span>
-          <div>
-            <h3 class="text-lg font-bold text-white">Figma Prototyping & Visual Design</h3>
-            <p class="text-gray-400 text-sm mt-1">Design of high-fidelity desktop and mobile layouts in Figma, establishing responsive design tokens, grid systems, and custom typography.</p>
-          </div>
-        </div>
-        <div class="flex flex-col md:flex-row md:items-start gap-4 p-6 border-l-2 border-emerald-400 bg-gray-900/30">
-          <span class="text-2xl font-mono text-emerald-400 font-bold">03</span>
-          <div>
-            <h3 class="text-lg font-bold text-white">Astro.js & Tailwind CSS Development</h3>
-            <p class="text-gray-400 text-sm mt-1">Clean, semantic HTML5 code development in Astro.js with automated image optimization, responsive typography, and lightweight CSS.</p>
-          </div>
-        </div>
-        <div class="flex flex-col md:flex-row md:items-start gap-4 p-6 border-l-2 border-emerald-400 bg-gray-900/30">
-          <span class="text-2xl font-mono text-emerald-400 font-bold">04</span>
-          <div>
-            <h3 class="text-lg font-bold text-white">GEO/SEO Deployment & Analytics</h3>
-            <p class="text-gray-400 text-sm mt-1">Integration of JSON-LD schemas, sitemaps, robots.txt, performance validation on Google PageSpeed Insights, and global launch.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ Section (Optimized for AI LLM Extraction) -->
-    <section class="mb-16">
-      <h2 class="text-3xl font-bold mb-8 text-white">Frequently Asked Questions</h2>
-      <div class="space-y-6">
-        <div class="p-6 border border-gray-800 rounded-lg">
-          <h3 class="text-lg font-semibold text-white mb-2">How long does a custom web design project take?</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">Typical website design and development projects range between 2 to 5 weeks from initial kickoff to final launch, depending on page count and custom interactive features required.</p>
-        </div>
-        <div class="p-6 border border-gray-800 rounded-lg">
-          <h3 class="text-lg font-semibold text-white mb-2">Do you provide custom website maintenance and hosting setup?</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">Yes. We set up fast, serverless hosting on platforms like Netlify, Vercel, or Cloudflare Pages, which offer zero maintenance overhead, automated SSL certificates, and global edge distribution.</p>
-        </div>
-        <div class="p-6 border border-gray-800 rounded-lg">
-          <h3 class="text-lg font-semibold text-white mb-2">How does GEO (Generative Engine Optimization) benefit my business?</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">As more users rely on AI search platforms (SearchGPT, Perplexity, Gemini), GEO ensures your site is structured so these engines understand your exact capabilities, location, and credentials—driving high-intent direct referrals.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer CTA -->
-    <section class="p-10 border border-gray-800 bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950 text-center rounded-lg">
-      <h2 class="text-3xl font-bold text-white mb-4">Ready to Build a High-Performance Website?</h2>
-      <p class="text-gray-400 max-w-2xl mx-auto mb-8">Work directly with Nicole Szatkowski, IHK-Certified Media Designer based in Tbilisi and operating globally across GMT+4 and CET time zones.</p>
-      <a href="https://www.kidashidesign.com/#contact" class="inline-block bg-white text-black px-8 py-4 font-semibold hover:bg-gray-200 transition-colors">Get in Touch Today</a>
-    </section>
-  </main>
+    </div>
+  </section>
 </Layout>
