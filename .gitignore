@@ -4,5 +4,3 @@ Thumbs.db
 node_modules/
 .env
 .claude/
-dist/
-.astro/
