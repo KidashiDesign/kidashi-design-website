@@ -14,7 +14,7 @@ Code-Review-Standard: siehe `CODEREVIEW.md`
 
 ## Deploy
 
-FTP → Hostinger via GitHub Actions (`.github/workflows/deploy.yml`). Push auf `main` = Live-Deploy.
+GitHub → Cloudflare. Push auf `main` = Live-Deploy.
 
 ## Git-Workflow
 
