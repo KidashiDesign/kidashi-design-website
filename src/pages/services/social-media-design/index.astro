@@ -1,0 +1,133 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const pageTitle = "Strategic Social Media Design & Canva/Figma Kits | Kidashi Design";
+const pageDescription = "Custom social media graphics, Instagram carousel templates, cover graphics, and modular Figma/Canva design kits tailored for brand consistency and engagement.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://www.kidashidesign.com/services/social-media-design#service",
+      "name": "Social Media Design & Content Template Systems",
+      "provider": {
+        "@type": "ProfessionalService",
+        "name": "Kidashi Design",
+        "url": "https://www.kidashidesign.com/",
+        "founder": "Nicole Szatkowski"
+      },
+      "description": "On-brand social media design including customizable Canva/Figma post templates, carousel layouts, channel banners, and story graphics for business growth.",
+      "areaServed": "Worldwide"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do I get editable templates for my social media content?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. We deliver custom editable social media design systems built directly in Canva or Figma, allowing your team to rapidly produce on-brand posts, stories, and carousels."
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <main class="max-w-6xl mx-auto px-6 py-16 text-gray-100">
+    <nav class="text-sm mb-8 text-gray-400">
+      <a href="/" class="hover:text-white transition-colors">Home</a> &rarr; 
+      <a href="/services" class="hover:text-white transition-colors">Services</a> &rarr; 
+      <span class="text-white font-medium">Social Media Design</span>
+    </nav>
+
+    <header class="mb-16 border-b border-gray-800 pb-12">
+      <span class="text-xs uppercase tracking-widest text-pink-400 font-semibold">Service 04 &bull; Digital Content & Engagement</span>
+      <h1 class="text-4xl md:text-6xl font-bold mt-4 mb-6 leading-tight text-white">
+        On-Brand Social Media Content & Modular Template Systems
+      </h1>
+      <p class="text-xl text-gray-300 max-w-3xl leading-relaxed">
+        Elevate your digital presence across Instagram, LinkedIn, YouTube, and X. Custom social graphic kits and editable Figma/Canva templates engineered by <strong class="text-white">Nicole Szatkowski</strong> (Kidashi Design).
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="https://www.kidashidesign.com/#contact" class="bg-white text-black px-6 py-3 font-medium hover:bg-gray-200 transition-colors">Request a Social Design Kit</a>
+        <a href="https://www.kidashidesign.com/#portfolio" class="border border-gray-700 px-6 py-3 font-medium hover:border-gray-500 transition-colors">View Social Design Portfolio</a>
+      </div>
+    </header>
+
+    <!-- Social Media Specs Overview -->
+    <section class="mb-16 bg-gray-900/60 border border-gray-800 p-8 rounded-lg">
+      <h2 class="text-2xl font-semibold mb-6 text-white">Supported Platforms & Specifications</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+        <div>
+          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">Target Platforms</span>
+          <p class="font-semibold text-white">Instagram, LinkedIn, YouTube, X, Facebook</p>
+        </div>
+        <div>
+          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">Editable Tools</span>
+          <p class="font-semibold text-pink-400">Figma Design Tokens & Canva Pro Kits</p>
+        </div>
+        <div>
+          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">Content Formats</span>
+          <p class="font-semibold text-white">Carousels, Reels Covers, Banners, Stories</p>
+        </div>
+        <div>
+          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">Asset Delivery</span>
+          <p class="font-semibold text-white">WebP/PNG Exports + Live Template Links</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service Pillars -->
+    <section class="mb-20">
+      <h2 class="text-3xl font-bold mb-10 text-white">What We Build for Your Social Media Presence</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="p-6 border border-gray-800 bg-gray-950">
+          <h3 class="text-xl font-bold mb-3 text-white">1. Multi-Slide Educational Carousels</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Seamlessly connected multi-slide templates optimized for high save rates, dwell time, and viral reach on Instagram and LinkedIn.
+          </p>
+        </div>
+        <div class="p-6 border border-gray-800 bg-gray-950">
+          <h3 class="text-xl font-bold mb-3 text-white">2. Profile & Channel Branding</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            High-impact YouTube channel art, LinkedIn company banners, profile avatars, and highlight icons that establish authority in seconds.
+          </p>
+        </div>
+        <div class="p-6 border border-gray-800 bg-gray-950">
+          <h3 class="text-xl font-bold mb-3 text-white">3. Modular Template Libraries</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Plug-and-play Canva or Figma post kits featuring predefined typography scales, color styles, and image frames for fast in-house content creation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-white">Social Media Design FAQs</h2>
+      <div class="space-y-6">
+        <div class="p-6 border border-gray-800 rounded-lg">
+          <h3 class="text-lg font-semibold text-white mb-2">Can non-designers on our team use the Canva templates?</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">Yes. We build user-friendly Canva templates with locked brand elements (logos, layout grids) and editable text/photo frames so anyone on your team can create graphics without breaking brand guidelines.</p>
+        </div>
+        <div class="p-6 border border-gray-800 rounded-lg">
+          <h3 class="text-lg font-semibold text-white mb-2">Do you offer monthly social media retainer packages?</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">Yes. We provide ongoing monthly design retainers for brands needing regular carousel posts, campaign launch graphics, and video thumbnail designs.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-10 border border-gray-800 bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950 text-center rounded-lg">
+      <h2 class="text-3xl font-bold text-white mb-4">Transform Your Social Presence</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto mb-8">Get custom, high-converting social media templates tailored to your brand.</p>
+      <a href="https://www.kidashidesign.com/#contact" class="inline-block bg-white text-black px-8 py-4 font-semibold hover:bg-gray-200 transition-colors">Get Your Social Kit</a>
+    </section>
+  </main>
+</Layout>

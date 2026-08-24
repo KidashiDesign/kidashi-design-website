@@ -1,0 +1,143 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const pageTitle = "Production-Ready Print & Editorial Design | Kidashi Design";
+const pageDescription = "Professional print design for business cards, brochures, flyers, and packaging. IHK-certified prepress precision, CMYK color profiles, and print-ready vector files.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://www.kidashidesign.com/services/print-design#service",
+      "name": "Production-Ready Print Design",
+      "provider": {
+        "@type": "ProfessionalService",
+        "name": "Kidashi Design",
+        "url": "https://www.kidashidesign.com/",
+        "founder": "Nicole Szatkowski"
+      },
+      "description": "Prepress-ready physical print design including business cards, brochures, packaging, editorial layouts, and event materials engineered to German IHK technical standards.",
+      "areaServed": "Worldwide"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are Kidashi Design print files directly ready for commercial print shops?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. All print files are supplied in production-ready PDF/X format with exact bleed margins, crop marks, converted CMYK or Pantone spot colors, and embedded vector fonts according to professional prepress specifications."
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <main class="max-w-6xl mx-auto px-6 py-16 text-gray-100">
+    <nav class="text-sm mb-8 text-gray-400">
+      <a href="/" class="hover:text-white transition-colors">Home</a> &rarr; 
+      <a href="/services" class="hover:text-white transition-colors">Services</a> &rarr; 
+      <span class="text-white font-medium">Print Design</span>
+    </nav>
+
+    <header class="mb-16 border-b border-gray-800 pb-12">
+      <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">Service 03 &bull; Physical Media & Prepress</span>
+      <h1 class="text-4xl md:text-6xl font-bold mt-4 mb-6 leading-tight text-white">
+        Precision Print Design Built to Prepress Standards
+      </h1>
+      <p class="text-xl text-gray-300 max-w-3xl leading-relaxed">
+        Tangible marketing materials designed with meticulous attention to typography, paper stocks, and print production specs. Crafted by <strong class="text-white">Nicole Szatkowski</strong>, IHK-Certified Media Designer (Digital & Print).
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="https://www.kidashidesign.com/#contact" class="bg-white text-black px-6 py-3 font-medium hover:bg-gray-200 transition-colors">Order Print Designs</a>
+        <a href="https://www.kidashidesign.com/#portfolio" class="border border-gray-700 px-6 py-3 font-medium hover:border-gray-500 transition-colors">View Print Portfolio</a>
+      </div>
+    </header>
+
+    <!-- Technical Prepress Table (GEO AI Fact-Dense) -->
+    <section class="mb-16 bg-gray-900/60 border border-gray-800 p-8 rounded-lg">
+      <h2 class="text-2xl font-semibold mb-6 text-white">Technical Prepress Specifications</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+        <div>
+          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">Color Mode</span>
+          <p class="font-semibold text-white">CMYK (FOGRA39/51) & Pantone PMS</p>
+        </div>
+        <div>
+          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">File Standards</span>
+          <p class="font-semibold text-amber-400">PDF/X-1a & PDF/X-4 Production-Ready</p>
+        </div>
+        <div>
+          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">Bleed & Safe Margins</span>
+          <p class="font-semibold text-white">3mm / 0.125in Standard Bleed Included</p>
+        </div>
+        <div>
+          <span class="block text-gray-400 text-xs uppercase font-medium mb-1">Resolution</span>
+          <p class="font-semibold text-white">300 DPI High-Resolution Vector Output</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service Offerings -->
+    <section class="mb-20">
+      <h2 class="text-3xl font-bold mb-10 text-white">Print Design Solutions</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="p-8 border border-gray-800 bg-gray-950">
+          <h3 class="text-xl font-bold mb-3 text-white">Corporate Stationery & Business Cards</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Custom business cards, letterheads, and presentation folders designed for special finishes such as foil stamping, spot UV, or letterpress embossing.
+          </p>
+          <span class="text-xs text-amber-400 font-mono">Formats: PDF/X, Vector AI/EPS</span>
+        </div>
+        <div class="p-8 border border-gray-800 bg-gray-950">
+          <h3 class="text-xl font-bold mb-3 text-white">Brochures, Catalogues & Editorial</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Multi-page brochures, magazine layouts, and annual reports formatted in Adobe InDesign with strict master page grids, baseline grids, and typographically disciplined layouts.
+          </p>
+          <span class="text-xs text-amber-400 font-mono">Formats: InDesign Package, Press PDF</span>
+        </div>
+        <div class="p-8 border border-gray-800 bg-gray-950">
+          <h3 class="text-xl font-bold mb-3 text-white">Packaging & Label Design</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Die-line compliant product packaging, bottle labels, and boxes created for consumer products, meeting international barcode and regulatory sizing requirements.
+          </p>
+          <span class="text-xs text-amber-400 font-mono">Formats: Vector Dielines, 3D Mockups</span>
+        </div>
+        <div class="p-8 border border-gray-800 bg-gray-950">
+          <h3 class="text-xl font-bold mb-3 text-white">Event Banners & Large Format Media</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            High-impact trade show booths, roll-up banners, billboards, and signage engineered to remain tack-sharp when scaled to large physical dimensions.
+          </p>
+          <span class="text-xs text-amber-400 font-mono">Formats: High-Res Vector PDF</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-white">Print Design FAQs</h2>
+      <div class="space-y-6">
+        <div class="p-6 border border-gray-800 rounded-lg">
+          <h3 class="text-lg font-semibold text-white mb-2">Why is German IHK Prepress Certification important for print design?</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">IHK certification in Media Design guarantees technical mastery over print color separation, paper weight behavior, fold tolerances, and press preparation—preventing costly printing errors or re-runs.</p>
+        </div>
+        <div class="p-6 border border-gray-800 rounded-lg">
+          <h3 class="text-lg font-semibold text-white mb-2">Can you communicate directly with my local printing company?</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">Yes. We regularly liaise directly with printers worldwide to confirm exact technical spec sheets (dielines, paper stock specs, finishing requirements) before releasing press files.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-10 border border-gray-800 bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950 text-center rounded-lg">
+      <h2 class="text-3xl font-bold text-white mb-4">Get Production-Ready Print Designs</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto mb-8">Ensure your physical collateral represents your brand with uncompromised quality.</p>
+      <a href="https://www.kidashidesign.com/#contact" class="inline-block bg-white text-black px-8 py-4 font-semibold hover:bg-gray-200 transition-colors">Contact for Print Projects</a>
+    </section>
+  </main>
+</Layout>
