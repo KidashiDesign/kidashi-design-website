@@ -1,0 +1,431 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const pageTitle = "Brand Identity Design — Kidashi Design";
+const pageDescription = "Strategic brand identity design including logos, typography, color systems, visual assets, and brand guidelines. Created by Nicole Szatkowski at Kidashi Design.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://www.kidashidesign.com/services/brand-identity/#service",
+      "name": "Brand Identity Design",
+      "provider": {
+        "@type": "ProfessionalService",
+        "name": "Kidashi Design",
+        "url": "https://www.kidashidesign.com/",
+        "founder": {
+          "@type": "Person",
+          "name": "Nicole Szatkowski"
+        }
+      },
+      "description": "Strategic brand identity design including logo systems, typography, color palettes, visual assets, and brand guidelines for digital and print.",
+      "areaServed": "Worldwide"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is included in a brand identity package from Kidashi Design?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A complete brand identity can include a logo suite, color palette, typography system, visual direction, asset guidelines, and a digital brand guide. The exact scope is tailored to each project."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between a logo and a brand identity?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A logo is one visual identifier. A brand identity is the wider visual system that brings together logos, typography, colors, imagery, and design rules to create a consistent brand across different touchpoints."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can an existing brand identity be refreshed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. An existing brand can be evolved without completely starting over. A refresh can modernize the visual identity while preserving the elements that already have recognition and value."
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  ogImage="https://www.kidashidesign.com/images/Nicole-Portrait.webp"
+  navVariant="nav--light"
+  navActive="services"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <!-- Hero Section -->
+  <section class="about3d service-hero" style="padding-top: calc(var(--nav-h) + clamp(3rem, 6vw, 6rem));">
+    <div class="container">
+      <div class="about3d__stage reveal">
+        <div class="about3d__card" data-tilt>
+          <div class="about3d__media service-hero__media" data-tilt-z="40">
+            <img
+              class="about3d__img"
+              src="/images/Nicole-Portrait.webp"
+              alt="Nicole Szatkowski, founder and designer at Kidashi Design"
+              decoding="async"
+              loading="eager"
+            />
+          </div>
+
+          <div class="about3d__content">
+            <span class="eyebrow" data-tilt-z="50">Service 02 · Brand Identity</span>
+
+            <h1 class="about3d__title" data-tilt-z="70">
+              Cohesive Brand Identities Built for Recognition.
+            </h1>
+
+            <p class="about3d__text" data-tilt-z="30">
+              A strong brand is more than a logo. I create cohesive visual systems that bring together typography, color, imagery, and design direction — giving your business a recognizable identity across web, social media, print, and everything in between.
+            </p>
+
+            <div class="about3d__foot">
+              <ul class="about3d__points" data-tilt-z="20">
+                <li>Logo &amp; visual identity systems</li>
+                <li>Typography &amp; color architecture</li>
+                <li>Brand assets for digital &amp; print</li>
+                <li>Clear, practical brand guidelines</li>
+              </ul>
+
+              <a href="/contact/" class="btn btn--outline-dark about3d__btn" data-tilt-z="60">
+                Let's Talk About Your Brand
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Visual Scene -->
+  <div class="about-hero-float service-float" id="brandIdentityFloat">
+    <div class="container">
+      <div class="about-hero-float__grid about-hero-float__grid--scene-only">
+        <div class="about-float-scene">
+          <div class="about-float-scene__inner" id="brandIdentityFloatScene">
+            <div class="about-float-el about-float-el--photo about-float-photo--1" data-depth="1">
+              <img
+                src="/images/about/himalaya-mountains.webp"
+                alt="Creative inspiration and visual exploration"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div class="about-float-el about-float-el--photo about-float-photo--2" data-depth="1.8">
+              <img
+                src="/images/about/himalaya-pointing.webp"
+                alt="Exploring new creative perspectives"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div class="about-float-el about-float-el--photo about-float-photo--3" data-depth="1.3">
+              <img
+                src="/images/about/jungle-rest.webp"
+                alt="Finding inspiration through exploration"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div class="about-float-el about-float-el--photo about-float-photo--4" data-depth="2.2">
+              <img
+                src="/images/about/prayer-flags-dharamshala.webp"
+                alt="Creative work shaped by international experiences"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div class="about-float-el about-float-el--photo about-float-photo--5" data-depth="1.6">
+              <img
+                src="/images/about/Nicole-Daramshala.webp"
+                alt="Nicole Szatkowski in Dharamshala"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+
+          <svg
+            class="about-float-grain"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <filter id="brandGrain">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.82"
+                numOctaves="4"
+                stitchTiles="stitch"
+              />
+              <feColorMatrix type="saturate" values="0" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#brandGrain)" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <section class="about-content service-content">
+    <div class="container">
+      <div class="about-content__grid">
+        <div class="about-content__main">
+          <h2 class="reveal">Strategic Brand Identity Design</h2>
+
+          <p class="reveal" data-delay="100">
+            <strong>Kidashi Design</strong> creates brand identities for businesses that want to look consistent, recognizable, and ready to grow. Every project starts by understanding your business, your audience, and where your brand needs to work.
+          </p>
+
+          <p class="reveal" data-delay="100">
+            The result is not just a collection of attractive files. It is a visual system designed to make decisions easier and keep your brand consistent across different platforms and materials.
+          </p>
+
+          <h2 class="reveal" style="margin-top: 3rem;">What Can Be Included</h2>
+
+          <p class="reveal" data-delay="100">
+            Every brand identity project is tailored to the needs of the business. Depending on the scope, your visual identity can include a complete logo suite, typography system, color palette, visual direction, supporting assets, and practical brand guidelines.
+          </p>
+
+          <div class="service-deliverables reveal" data-delay="200">
+            <div class="service-deliverables__item">
+              <h3>Logo Suite</h3>
+              <p>
+                A flexible logo system with primary and secondary versions, alternative layouts, icons, and variations designed for different applications.
+              </p>
+            </div>
+
+            <div class="service-deliverables__item">
+              <h3>Color System</h3>
+              <p>
+                A considered color palette with clear rules for primary, secondary, and accent colors across digital and print applications.
+              </p>
+            </div>
+
+            <div class="service-deliverables__item">
+              <h3>Typography</h3>
+              <p>
+                Font pairings and hierarchy rules that give your brand a clear and consistent voice across headlines, body copy, and digital interfaces.
+              </p>
+            </div>
+
+            <div class="service-deliverables__item">
+              <h3>Brand Guidelines</h3>
+              <p>
+                A practical guide that documents how your visual identity works, helping you and future collaborators apply the brand consistently.
+              </p>
+            </div>
+          </div>
+
+          <h2 class="reveal" style="margin-top: 3rem;">Built to Work Across Every Medium</h2>
+
+          <p class="reveal" data-delay="100">
+            Your brand should feel like the same brand everywhere. Whether it appears on a website, social media post, business card, presentation, packaging, or large-format print, the visual system is designed to adapt without losing its identity.
+          </p>
+
+          <p class="reveal" data-delay="100">
+            As an IHK-certified Media Designer working across both digital and print, I consider the technical side as well as the creative side — from scalable files and typography to color spaces and real-world production.
+          </p>
+
+          <h2 class="reveal" style="margin-top: 3rem;">A System Designed to Grow With You</h2>
+
+          <p class="reveal" data-delay="100">
+            A good identity should not create unnecessary limitations. The goal is to give your business a clear visual foundation that can evolve as new products, campaigns, platforms, and opportunities appear.
+          </p>
+
+          <p class="reveal" data-delay="100">
+            You receive organized assets and a system that is easy to understand, making it simpler for you, your team, developers, or other creative partners to continue working with the brand.
+          </p>
+
+          <h2 class="reveal" style="margin-top: 3rem;">Brand Identity FAQs</h2>
+
+          <div class="service-faq reveal" data-delay="100">
+            <details>
+              <summary>
+                What is the difference between a logo and a complete brand identity?
+              </summary>
+              <p>
+                A logo is one part of your visual identity. A complete brand identity brings together your logo, typography, colors, imagery, visual assets, and design rules to create a consistent experience across different touchpoints.
+              </p>
+            </details>
+
+            <details>
+              <summary>
+                Can you refresh an existing brand without starting from scratch?
+              </summary>
+              <p>
+                Yes. A brand refresh can modernize your existing identity while keeping the elements that already have value and recognition. The right approach depends on how much of the current brand still works for your business.
+              </p>
+            </details>
+
+            <details>
+              <summary>
+                What will I receive at the end of the project?
+              </summary>
+              <p>
+                The final deliverables depend on the agreed project scope, but can include logo files, color specifications, typography recommendations, supporting visual assets, and a digital brand guide.
+              </p>
+            </details>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside>
+          <div class="sidebar-block reveal" data-glow="blue">
+            <span class="sidebar-block__label">Identity</span>
+            <ul>
+              <li>Primary &amp; secondary logos</li>
+              <li>Icons &amp; logo variations</li>
+              <li>Visual direction</li>
+              <li>Scalable brand assets</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-block reveal" data-delay="100" data-glow="orange">
+            <span class="sidebar-block__label">Visual System</span>
+            <ul>
+              <li>Color palette</li>
+              <li>Typography hierarchy</li>
+              <li>Digital &amp; print applications</li>
+              <li>Supporting visual elements</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-block reveal" data-delay="200" data-glow="blue">
+            <span class="sidebar-block__label">Guidelines</span>
+            <ul>
+              <li>Logo usage</li>
+              <li>Clear space &amp; sizing</li>
+              <li>Color specifications</li>
+              <li>Practical brand rules</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-block reveal" data-delay="300" data-glow="orange">
+            <span class="sidebar-block__label">Working Worldwide</span>
+            <ul>
+              <li>Remote-friendly process</li>
+              <li>Direct communication</li>
+              <li>Digital project delivery</li>
+              <li>International clients welcome</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="about-values service-values">
+    <div class="container">
+      <h2 class="reveal">
+        Your Brand Should Feel Consistent Everywhere It Appears.
+      </h2>
+
+      <p class="reveal" data-delay="100">
+        From the first concept to the final files, you work directly with me. No unnecessary layers, no handoffs between departments — just a focused process built around creating a brand identity that genuinely fits your business.
+      </p>
+
+      <div class="about-values__cta reveal" data-delay="200">
+        <a href="/contact/" class="btn btn--primary">
+          Start Your Branding Project
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <span class="footer__copy">
+          &copy; 2026 Kidashi Design &mdash; Nicole Szatkowski
+        </span>
+
+        <div class="footer__socials">
+          <a
+            href="https://www.instagram.com/kidashi.design/"
+            class="footer__social-btn"
+            aria-label="Instagram"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg width="17" height="17" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M15.6 4H32.4C38.8 4 44 9.2 44 15.6V32.4C44 35.4765 42.7779 38.427 40.6024 40.6024C38.427 42.7779 35.4765 44 32.4 44H15.6C9.2 44 4 38.8 4 32.4V15.6C4 12.5235 5.22214 9.57298 7.39756 7.39756C9.57298 5.22214 12.5235 4 15.6 4Z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/nicole-szatkowski"
+            class="footer__social-btn"
+            aria-label="LinkedIn"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg width="17" height="17" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M13.9989 16.96H5.99891V42H13.9989V16.96ZM26.6389 16.96H18.6789V42H26.5589V28.86C26.5589 21.54 36.0989 20.86 36.0989 28.86V42H43.9989V26.14C43.9989 13.8 29.8789 14.26 26.5589 20.32L26.6389 16.96Z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
+
+          <a
+            href="https://dribbble.com/fotofreakkkk"
+            class="footer__social-btn"
+            aria-label="Dribbble"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg width="17" height="17" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M23.9993 4.00001C28.7753 4.00001 33.1613 5.67401 36.5993 8.46801C33.6236 11.5919 30.0805 14.1209 26.1593 15.92C23.9521 11.9671 21.3667 8.23762 18.4393 4.78401C20.2465 4.26252 22.1183 3.99858 23.9993 4.00001Z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
+
+          <a
+            href="https://www.behance.net/nicoleszatkow1"
+            class="footer__social-btn"
+            aria-label="Behance"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg width="17" height="17" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M4 36.5802V11.4202H16.2C17.3133 11.4199 18.4221 11.561 19.5 11.8396C20.5208 12.1058 21.4883 12.5458 22.36 13.1402C23.2051 13.723 23.8924 14.5064 24.36 15.4202C24.8806 16.4402 25.1352 17.576 25.1 18.7202V36.5802H4Z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
+        </div>
+
+        <nav class="footer__legal">
+          <a href="/impressum/">Imprint</a>
+          <a href="/datenschutz/">Privacy Policy</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+</Layout>
