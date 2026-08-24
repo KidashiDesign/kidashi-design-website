@@ -82,17 +82,32 @@ import Layout from '../../layouts/Layout.astro';
 <section class="about-content">
   <div class="container">
     <div class="about-content__grid">
+      
       <div class="about-content__main">
-        <h2 class="reveal">My Path</h2>
-        <p class="reveal" data-delay="100">I completed my IHK-certified training as a Media Designer (Digital &amp; Print) at the <a href="https://www.mediadesign.de/en" target="_blank" rel="noopener" style="color:var(--terra);">Mediadesign University of Applied Sciences</a> (MD.H) in Munich, building on three years of hands-on content management experience.</p>
-        <p class="reveal" data-delay="100">That experience still shapes how I think about design today: it's not just about how something looks, it's about what it communicates and who it's for. After my training, I worked as a graphic designer for several agencies, gaining hands-on experience across web design, branding, print, and social media, before going freelance in 2025 under my own studio, Kidashi Design.</p>
+        <!-- NEW: Explicit Entity Definition for Schema Matching -->
+        <h2 class="reveal">About Kidashi Design</h2>
+        <p class="reveal" data-delay="100">
+          <strong>Kidashi Design</strong> is a media design studio founded by <strong>Nicole Szatkowski</strong>.
+        </p>
+        <p class="reveal" data-delay="100">
+          Nicole Szatkowski is an <strong>IHK-certified Media Designer</strong> specializing in digital and print design, brand identity, web design, and social media design.
+        </p>
+        <p class="reveal" data-delay="100">
+          Originally from <strong>Bavaria, Germany</strong>, Nicole currently works from <strong>Tbilisi, Georgia</strong> and partners with clients internationally.
+        </p>
 
-        <h2 class="reveal" style="margin-top:3rem;">Where I Work From</h2>
-        <p class="reveal" data-delay="100">I'm currently based in Tbilisi, Georgia, working as a digital nomad — which means I bring a flexible, remote-friendly way of working to every project, while staying easy to reach and personally involved from start to finish, no matter where you're based.</p>
+        <!-- REFINED: Existing narrative continues seamlessly without repeating the keywords above -->
+        <h2 class="reveal" style="margin-top:3rem;">My Path</h2>
+        <p class="reveal" data-delay="100">I completed my formal training at the <a href="https://www.mediadesign.de/en" target="_blank" rel="noopener" style="color:var(--terra);">Mediadesign University of Applied Sciences</a> (MD.H) in Munich, building on three years of hands-on content management experience.</p>
+        <p class="reveal" data-delay="100">That experience still shapes how I think about design today: it's not just about how something looks, it's about what it communicates and who it's for. After my training, I worked as a graphic designer for several agencies, gaining hands-on experience across multiple disciplines, before going freelance in 2025 to focus fully on the studio.</p>
+
+        <h2 class="reveal" style="margin-top:3rem;">A Flexible Approach</h2>
+        <p class="reveal" data-delay="100">Working as a digital nomad means I bring a flexible, remote-friendly way of working to every project. I stay easy to reach and personally involved from start to finish, no matter where your business is based.</p>
 
         <h2 class="reveal" style="margin-top:3rem;">How I Work</h2>
         <p class="reveal" data-delay="100">I work well independently, but the best ideas usually come from working closely with my clients, not around them. I bring structure and fast turnarounds, paired with genuine curiosity about your business — so the result doesn't just look good, it actually fits.</p>
       </div>
+
       <aside>
         <div class="sidebar-block reveal" data-glow="blue">
           <span class="sidebar-block__label">Education</span>
@@ -127,6 +142,7 @@ import Layout from '../../layouts/Layout.astro';
           </ul>
         </div>
       </aside>
+      
     </div>
   </div>
 </section>
