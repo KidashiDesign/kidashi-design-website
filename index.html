@@ -14,31 +14,220 @@
   <link rel="preload" href="fonts/MangoGrotesque-Bold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/MangoGrotesque-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Kidashi Design",
-    "description": "Certified freelance graphic designer specialising in web design, brand identity, print and social media.",
-    "url": "https://www.kidashidesign.com",
-    "founder": {
-      "@type": "Person",
-      "name": "Nicole Szatkowski",
-      "jobTitle": "Graphic Designer",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Tbilisi",
-        "addressCountry": "GE"
-      }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.kidashidesign.com/#organization",
+      "name": "Kidashi Design",
+      "url": "https://www.kidashidesign.com/",
+      "description": "Kidashi Design is a freelance design studio founded by Nicole Szatkowski, creating brand identities, websites, print design, and social media content for businesses, startups, and creative projects.",
+      "founder": { "@id": "https://www.kidashidesign.com/#nicole-szatkowski" },
+      "logo": { "@type": "ImageObject", "@id": "https://www.kidashidesign.com/#logo" },
+      "image": { "@id": "https://www.kidashidesign.com/#logo" },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "email": "nicole@kidashidesign.com",
+        "areaServed": ["DE", "GE", "PL"],
+        "availableLanguage": ["English", "German", "Polish"]
+      },
+      "areaServed": [
+        { "@type": "Place", "name": "Bavaria, Germany" },
+        { "@type": "Place", "name": "Tbilisi, Georgia" },
+        { "@type": "Country", "name": "Germany" },
+        { "@type": "Country", "name": "Georgia" }
+      ],
+      "knowsAbout": [
+        "Graphic Design",
+        "Web Design",
+        "Brand Identity Design",
+        "Logo Design",
+        "Print Design",
+        "Social Media Design",
+        "Content Creation",
+        "Visual Identity"
+      ],
+      "sameAs": [
+        "https://www.instagram.com/kidashi.design/",
+        "https://www.linkedin.com/company/kidashi-design/"
+      ],
+      "review": [
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Mihail T." },
+          "reviewBody": "Nicole's business cards and banner provided excellent visibility at the Burapha Bike Festival in Pattaya, Thailand. The client continues to use them for their work as a mural artist and describes working with Nicole as a great pleasure, looking forward to working with her again.",
+          "publisher": { "@type": "Organization", "name": "TM Studio" }
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Patrick H." },
+          "reviewBody": "During her year at WH4 Design, Nicole consistently impressed with her creativity, technical expertise, and keen eye for detail, approaching every project with enthusiasm, professionalism, and a genuine commitment to high-quality work.",
+          "publisher": { "@type": "Organization", "name": "WH4 Design" }
+        }
+      ]
     },
-    "areaServed": "Worldwide",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "customer service",
-      "url": "https://www.kidashidesign.com/contact/"
+    {
+      "@type": "ImageObject",
+      "@id": "https://www.kidashidesign.com/#logo",
+      "url": "https://www.kidashidesign.com/images/logo.svg",
+      "width": 600,
+      "height": 200
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.kidashidesign.com/#nicole-szatkowski",
+      "name": "Nicole Szatkowski",
+      "url": "https://www.kidashidesign.com/about/nicole-szatkowski/",
+      "jobTitle": "Graphic Designer and Web Designer",
+      "description": "Nicole Szatkowski is a freelance graphic designer and content creator from Bavaria, Germany. With around five years of experience, she develops visual identities, digital content, websites, and brand materials for businesses and creative projects internationally.",
+      "worksFor": { "@id": "https://www.kidashidesign.com/#organization" },
+      "knowsAbout": [
+        "Graphic Design",
+        "Brand Identity",
+        "Logo Design",
+        "Web Design",
+        "Print Design",
+        "Social Media Design",
+        "Content Creation",
+        "Visual Identity"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/nicole-szatkowski/",
+        "https://www.instagram.com/hey.kidashi/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.kidashidesign.com/#website",
+      "url": "https://www.kidashidesign.com/",
+      "name": "Kidashi Design",
+      "description": "Brand identity, web design, print design and social media design by Kidashi Design.",
+      "publisher": { "@id": "https://www.kidashidesign.com/#organization" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.kidashidesign.com/#webpage",
+      "url": "https://www.kidashidesign.com/",
+      "name": "Kidashi Design | Branding, Website & Logo Design",
+      "description": "Kidashi Design creates meaningful brand identities, websites, logos, print designs, and social media content for businesses and creative projects.",
+      "isPartOf": { "@id": "https://www.kidashidesign.com/#website" },
+      "about": { "@id": "https://www.kidashidesign.com/#organization" },
+      "mainEntity": { "@id": "https://www.kidashidesign.com/#organization" },
+      "datePublished": "2024-01-01",
+      "dateModified": "2026-08-26"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.kidashidesign.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What services does Kidashi Design offer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kidashi Design offers web design, brand identity and logo design, print design, and social media design for businesses, startups, and creative projects, serving clients in Germany and Georgia."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where is Kidashi Design based and who does it serve?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kidashi Design is a freelance design studio founded by Nicole Szatkowski, based in Bavaria, Germany, with clients across Germany and Georgia, including Tbilisi."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much experience does Nicole Szatkowski have?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nicole Szatkowski has around five years of experience as a freelance graphic designer and content creator, developing brand identities, websites, and print materials internationally."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Kidashi Design work with startups as well as established businesses?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Kidashi Design creates brand identities, websites, print design, and social media content for businesses, startups, and creative projects."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "OfferCatalog",
+      "@id": "https://www.kidashidesign.com/services",
+      "name": "Kidashi Design Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "@id": "https://www.kidashidesign.com/services/web-design",
+            "name": "Web Design",
+            "serviceType": "Web Design",
+            "description": "Website design focused on clear visual communication, usability, responsive presentation, and consistent brand expression across digital platforms.",
+            "provider": { "@id": "https://www.kidashidesign.com/#organization" },
+            "areaServed": [
+              { "@type": "Country", "name": "Germany" },
+              { "@type": "Country", "name": "Georgia" }
+            ]
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "@id": "https://www.kidashidesign.com/services/brand-identity",
+            "name": "Brand Identity",
+            "serviceType": "Brand Identity Design",
+            "description": "Logo design and visual identity systems that translate a brand's story and values into a distinctive, consistent visual language.",
+            "provider": { "@id": "https://www.kidashidesign.com/#organization" },
+            "areaServed": [
+              { "@type": "Country", "name": "Germany" },
+              { "@type": "Country", "name": "Georgia" }
+            ]
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "@id": "https://www.kidashidesign.com/services/print-design",
+            "name": "Print Design",
+            "serviceType": "Print Design",
+            "description": "Print materials designed with clear communication, thoughtful aesthetics, and visual consistency across brand touchpoints.",
+            "provider": { "@id": "https://www.kidashidesign.com/#organization" },
+            "areaServed": [
+              { "@type": "Country", "name": "Germany" },
+              { "@type": "Country", "name": "Georgia" }
+            ]
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "@id": "https://www.kidashidesign.com/services/social-media-design",
+            "name": "Social Media Design",
+            "serviceType": "Social Media Design",
+            "description": "Branded social media graphics and visual content designed to maintain a recognizable and consistent presence across digital platforms.",
+            "provider": { "@id": "https://www.kidashidesign.com/#organization" },
+            "areaServed": [
+              { "@type": "Country", "name": "Germany" },
+              { "@type": "Country", "name": "Georgia" }
+            ]
+          }
+        }
+      ]
     }
-  }
-  </script>
+  ]
+}
+</script>
 </head>
 <body>
 
