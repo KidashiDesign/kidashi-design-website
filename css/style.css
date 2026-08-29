@@ -391,6 +391,7 @@ p {
 	display: flex;
 	align-items: center;
 	gap: 0.85rem;
+	flex-shrink: 0;
 }
 .nav__lang {
 	display: flex;
@@ -563,7 +564,7 @@ p {
 		margin-inline: auto;
 		/* FIX: Changed static 4rem to a fluid clamp so it shrinks on tablets */
 		gap: clamp(1rem, 4vw, 4rem);
-		padding: 0.4rem 0.4rem 0.4rem 1.1rem;
+		padding: 0.4rem 1.1rem 0.4rem 1.1rem;
 		border-radius: 999px;
 		background: rgba(247, 243, 238, 0.55);
 		border: 1px solid rgba(255, 255, 255, 0.4);
