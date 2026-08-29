@@ -532,14 +532,14 @@ p {
 
 /* ============================================================
    GLASS DOCK — Desktop main navigation (liquid-glass, no icons)
-   Only affects screens >= 1170px. Below that (tablets included)
+   Only affects screens >= 1280px. Below that (tablets included)
    the hamburger menu takes over — the dock + clock widget together
-   need ~1170px to fit without wrapping/clipping the location widget.
+   need ~1280px to fit without the nav__meta block overflowing the pill.
    Uses GPU-accelerated backdrop-filter (no costly SVG filters) so
    scroll/paint stays fast. Corporate colours: blue = --secondary,
    peach = --primary, on a frosted cream (--cream) glass surface.
    ============================================================ */
-@media (min-width: 1170px) {
+@media (min-width: 1280px) {
 
 	/* The nav bar itself is just a positioning layer — the dock pill
 	   provides the visible surface, so drop the old full-width frosted
@@ -551,6 +551,13 @@ p {
 		-webkit-backdrop-filter: none;
 		backdrop-filter: none;
 	}
+	/* The 1272px content column is too narrow to fit logo + links + meta
+	   inside the pill once meta lives in the dock — give the nav row its
+	   own, wider ceiling so the pill can size to its real content instead
+	   of being clipped by the page's text-content max-width. */
+	.nav__inner {
+		max-width: 1600px;
+	}
 	/* Dock becomes the floating glass pill: logo + links + timezone together */
 	.nav__dock {
 		display: flex;
@@ -560,10 +567,12 @@ p {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		width: 100%;
+		width: max-content;
+		max-width: 100%;
+		flex-shrink: 0;
 		margin-inline: auto;
 		/* FIX: Changed static 4rem to a fluid clamp so it shrinks on tablets */
-		gap: clamp(1rem, 4vw, 4rem);
+		gap: clamp(1rem, 2.5vw, 3rem);
 		padding: 0.4rem 1.1rem 0.4rem 1.1rem;
 		border-radius: 999px;
 		background: rgba(247, 243, 238, 0.55);
@@ -3456,9 +3465,9 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	}
 }
 
-/* Nav switches to the hamburger menu below 1170px — see the
-   matching "min-width: 1170px" glass-dock block above. */
-@media (max-width: 1169px) {
+/* Nav switches to the hamburger menu below 1280px — see the
+   matching "min-width: 1280px" glass-dock block above. */
+@media (max-width: 1279px) {
   .nav__links { display: none; }
   .nav__burger { display: flex; }
   .nav__location { display: none; }
