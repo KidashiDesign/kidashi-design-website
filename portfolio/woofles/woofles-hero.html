@@ -9,10 +9,6 @@
     document.documentElement.classList.add('tile-mode');
   }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: 100%; height: 100%; overflow: hidden; background: #201206; }
@@ -32,7 +28,6 @@
     height: 100%;
     overflow: hidden;
     background: var(--cocoa-950);
-    font-family: 'Manrope', sans-serif;
     color: var(--cream);
   }
   .tile-mode .stage { background: #050403; }
@@ -41,9 +36,6 @@
 
   @keyframes zoomOut { from { transform: scale(1.28); } to { transform: scale(1); } }
   @keyframes ambientDrift { 0% { transform: translate(0,0); } 100% { transform: translate(-2.5%,-2%); } }
-  @keyframes fadeInUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes underlineDraw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  @keyframes floatSlow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
 
   /* Full-hero background: slow pan/zoom cooking footage */
   .bg-wrap { position: absolute; inset: -6%; z-index: 0; animation: ambientDrift 16s ease-in-out infinite alternate; }
@@ -73,43 +65,13 @@
     background: radial-gradient(ellipse 55% 45% at 78% 12%, rgba(217,151,63,0.35), rgba(217,151,63,0) 70%);
   }
 
-  .content { position: relative; z-index: 3; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: clamp(24px,4vw,56px) clamp(20px,5vw,72px); }
-  .panel { display: flex; flex-direction: column; align-items: flex-end; margin: 0 auto; gap: clamp(18px,2.4vw,26px); max-width: min(920px,92%); }
-
-  .tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; animation: fadeInUp .8s ease .4s both; }
-  .tag { padding: 9px 18px; border-radius: 999px; border: 1px solid rgba(251,243,230,0.22); background: rgba(251,243,230,0.07); backdrop-filter: blur(6px); font-size: 12.5px; color: rgba(251,243,230,0.88); white-space: nowrap; }
-  .tag--demo { border-color: rgba(230,163,174,0.5); background: rgba(230,163,174,0.12); color: rgba(251,243,230,0.94); }
-
-  h1.hero-title {
-    margin: clamp(14px,2.2vw,24px) 0 0 0;
-    font-family: 'Newsreader', serif;
-    font-weight: 500;
-    font-size: clamp(3.2rem,9vw,8rem);
-    line-height: .95;
-    letter-spacing: -0.01em;
-    text-align: right;
-    text-wrap: balance;
-    text-shadow: 0 4px 40px rgba(32,18,6,0.45);
-    animation: floatSlow 6s ease-in-out 1.8s infinite;
-  }
-  .hero-title span.word { display: inline-block; animation: fadeInUp .8s ease .55s both; }
-  .hero-title span.accent { display: inline-block; position: relative; font-style: italic; font-weight: 500; color: var(--caramel-light); animation: fadeInUp .8s ease .7s both; }
-  .hero-title span.accent::after {
-    content: ''; position: absolute; left: 2px; right: 2px; bottom: -4px; height: 4px; border-radius: 2px;
-    background: linear-gradient(90deg, var(--caramel), var(--blush));
-    transform-origin: left center;
-    animation: underlineDraw .9s cubic-bezier(.4,0,.2,1) .95s both;
-  }
-
-  .tagline { margin: 0; max-width: 46ch; text-align: right; text-wrap: pretty; font-size: clamp(1rem,1.6vw,1.25rem); line-height: 1.55; color: rgba(251,243,230,0.85); animation: fadeInUp .8s ease .85s both; }
-
-  /* Logo-mark loop — the portfolio tile's morph animation, reused as a hero accent */
+  /* Logo-mark loop — centered, textless hero */
   .logo-mark {
     position: absolute;
     z-index: 2;
-    left: clamp(80px, 12vw, 160px);
+    left: 50%;
     top: 50%;
-    width: min(15vw, 170px);
+    width: min(24vw, 320px);
     aspect-ratio: 1 / 1;
     transform-origin: center;
     animation: logoLoop 10s infinite;
@@ -128,26 +90,20 @@
     100% { opacity: 0;    transform: translate(-50%,-50%) scale(1.16); filter: blur(14px) drop-shadow(0 14px 46px rgba(0,0,0,0)); }
   }
 
-  /* Tile mode: only the video + morphing logo mark, centered — no hero text */
+  /* Tile mode: only the video + morphing logo mark, centered */
   .tile-mode .bg-wrap,
   .tile-mode .fade-bottom,
-  .tile-mode .glow-top,
-  .tile-mode .content { display: none !important; }
+  .tile-mode .glow-top { display: none !important; }
   .tile-mode .bg-video--tile { display: block; }
-  .tile-mode .logo-mark { left: 50%; width: min(38%, 280px); }
+  .tile-mode .logo-mark { width: min(38%, 280px); }
 
   @media (prefers-reduced-motion: reduce) {
-    .bg-wrap, .hero-title, .logo-mark { animation: none !important; }
+    .bg-wrap, .logo-mark { animation: none !important; }
     .logo-mark { opacity: 1; transform: translate(-50%,-50%); }
   }
 
   @media (max-width: 700px) {
-    .panel { align-items: center; max-width: 100%; }
-    .tags { justify-content: center; }
-    .hero-title { text-align: center; }
-    .tagline { text-align: center; max-width: 34ch; margin-inline: auto; }
-    .logo-mark { display: none; }
-    .tile-mode .logo-mark { display: block; }
+    .logo-mark { width: min(46vw, 220px); }
   }
 </style>
 </head>
@@ -172,23 +128,6 @@
 
   <div class="logo-mark">
     <img src="../../images/portfolio/woofles/woofles-tile-logo.png" alt="" aria-hidden="true">
-  </div>
-
-  <div class="content">
-    <div class="panel">
-
-      <div class="tags">
-        <span class="tag">Client — Woofles</span>
-        <span class="tag">Year — 2026</span>
-        <span class="tag">Role — Naming, Brand &amp; Web Design</span>
-        <span class="tag tag--demo">Demo Site — Client Presentation</span>
-      </div>
-
-      <h1 class="hero-title"><span class="word">Woof&nbsp;</span><span class="accent">les</span></h1>
-
-      <p class="tagline">A full brand built from a blank page — name, identity and website for a dog treat bakery, designed and developed end-to-end as a demo for client presentation.</p>
-
-    </div>
   </div>
 
 </div>
