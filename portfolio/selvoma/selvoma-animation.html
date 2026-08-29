@@ -8,10 +8,46 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: 100%; height: 100%; overflow: hidden; background: #050504; }
 
-  @keyframes sv-bg-zoom-blur {
-    0%   { transform: scale(1);    filter: blur(0px) brightness(0.82); }
-    50%  { transform: scale(1.16); filter: blur(7px) brightness(0.68); }
-    100% { transform: scale(1);    filter: blur(0px) brightness(0.82); }
+  @keyframes sv-orb-drift-a {
+    0%   { transform: translate(-6%, -4%) scale(1); }
+    50%  { transform: translate(10%, 8%) scale(1.15); }
+    100% { transform: translate(-6%, -4%) scale(1); }
+  }
+  @keyframes sv-orb-drift-b {
+    0%   { transform: translate(8%, 6%) scale(1.1); }
+    50%  { transform: translate(-10%, -10%) scale(0.95); }
+    100% { transform: translate(8%, 6%) scale(1.1); }
+  }
+  @keyframes sv-orb-drift-c {
+    0%   { transform: translate(-4%, 8%) scale(0.95); }
+    50%  { transform: translate(6%, -12%) scale(1.1); }
+    100% { transform: translate(-4%, 8%) scale(0.95); }
+  }
+
+  .sv-bg {
+    position: absolute; inset: -15%; width: 130%; height: 130%;
+    overflow: hidden;
+  }
+  .sv-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(50px);
+    will-change: transform;
+  }
+  .sv-orb--a {
+    top: -10%; left: -8%; width: 65%; height: 65%;
+    background: radial-gradient(circle, rgba(150,196,80,0.55) 0%, rgba(150,196,80,0) 70%);
+    animation: sv-orb-drift-a 22s ease-in-out infinite;
+  }
+  .sv-orb--b {
+    bottom: -15%; right: -10%; width: 70%; height: 70%;
+    background: radial-gradient(circle, rgba(233,196,106,0.4) 0%, rgba(233,196,106,0) 70%);
+    animation: sv-orb-drift-b 28s ease-in-out infinite;
+  }
+  .sv-orb--c {
+    top: 30%; left: 35%; width: 55%; height: 55%;
+    background: radial-gradient(circle, rgba(38,52,15,0.7) 0%, rgba(38,52,15,0) 70%);
+    animation: sv-orb-drift-c 34s ease-in-out infinite;
   }
 
   @keyframes sv-slide-cycle {
@@ -22,12 +58,6 @@
     100% { opacity: 0; transform: scale(0.96); filter: blur(10px); }
   }
 
-  .sv-bg {
-    position: absolute; top: -6%; left: -6%; width: 112%; height: 112%;
-    object-fit: cover;
-    animation: sv-bg-zoom-blur 26s ease-in-out infinite;
-  }
-
   .sv-slide {
     position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: contain;
@@ -36,7 +66,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .sv-bg, .sv-slide { animation: none !important; }
+    .sv-orb, .sv-slide { animation: none !important; }
     .sv-slide { opacity: 0; }
     .sv-slide:first-of-type { opacity: 1; }
   }
@@ -46,7 +76,11 @@
 
 <div style="position: fixed; inset: 0; overflow: hidden; background: #050504;">
 
-  <img src="../../images/portfolio/selvoma/animation/background.webp" alt="" class="sv-bg" />
+  <div class="sv-bg">
+    <div class="sv-orb sv-orb--a"></div>
+    <div class="sv-orb sv-orb--b"></div>
+    <div class="sv-orb sv-orb--c"></div>
+  </div>
 
   <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.62) 100%); pointer-events: none;"></div>
 
