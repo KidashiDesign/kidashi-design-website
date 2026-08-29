@@ -131,6 +131,15 @@
   letter-spacing: -0.03em;
   margin: 0 0 clamp(2rem, 4vh, 3.5rem);
 }
+.proj-hero__tagline {
+  font-family: var(--font-b);
+  font-weight: 300;
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  line-height: 1.6;
+  color: rgba(247,243,238,0.72);
+  max-width: 46ch;
+  margin: 0 0 clamp(2rem, 4vh, 3rem);
+}
 
 /* Horizontal meta strip below title */
 .proj-hero__strip {
