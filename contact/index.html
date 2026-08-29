@@ -242,8 +242,20 @@
     scheduleDefault: { en: 'Pick a date & time', de: 'Datum & Uhrzeit wählen' }
   };
 
+  // Mirrors js/i18n.js's own detectLang(), so this script can resolve the
+  // right language even when it runs before that (deferred) script has —
+  // this inline block executes at parse time, ahead of any deferred
+  // script's execution, so document.documentElement's data-lang attribute
+  // may not be set yet on first paint.
   function currentLang() {
-    return document.documentElement.getAttribute('data-lang') === 'de' ? 'de' : 'en';
+    var attr = document.documentElement.getAttribute('data-lang');
+    if (attr === 'de' || attr === 'en') return attr;
+    try {
+      var saved = localStorage.getItem('kd-lang');
+      if (saved === 'de' || saved === 'en') return saved;
+    } catch (e) { /* localStorage unavailable */ }
+    var nav = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    return nav.indexOf('de') === 0 ? 'de' : 'en';
   }
 
   // Resolve the redirect target against whatever domain is actually
@@ -263,6 +275,15 @@
     });
   }
 
+  // Initial paint of the scheduling trigger's placeholder text — kept out
+  // of the data-de attribute pass because contact-calendar.js overwrites
+  // this same span with the picked date/time once the user confirms one,
+  // and the attribute-based swap would otherwise stomp that back to the
+  // placeholder on a later language toggle.
+  if (scheduleTriggerText && scheduleTrigger && !scheduleTrigger.classList.contains('has-value')) {
+    scheduleTriggerText.textContent = I18N_STRINGS.scheduleDefault[currentLang()];
+  }
+
   if (status && new URLSearchParams(window.location.search).get('sent') === '1') {
     status.textContent = I18N_STRINGS.sent[currentLang()];
     status.classList.remove('is-error');
@@ -275,7 +296,7 @@
 
   // Keep script-set text in sync when the language is toggled after the
   // fact (e.g. user switches language while the success message is shown,
-  // or right after clicking submit).
+  // or right after clicking submit, or before picking a date/time).
   document.addEventListener('kd:langchange', function (e) {
     var lang = e.detail && e.detail.lang === 'de' ? 'de' : 'en';
 
@@ -289,8 +310,7 @@
     }
 
     if (scheduleTriggerText && scheduleTrigger && !scheduleTrigger.classList.contains('has-value')) {
-      var isDefaultText = scheduleTriggerText.textContent === I18N_STRINGS.scheduleDefault.en || scheduleTriggerText.textContent === I18N_STRINGS.scheduleDefault.de;
-      if (isDefaultText) scheduleTriggerText.textContent = I18N_STRINGS.scheduleDefault[lang];
+      scheduleTriggerText.textContent = I18N_STRINGS.scheduleDefault[lang];
     }
   });
 </script>
