@@ -265,6 +265,200 @@
 })();
 </script>
 
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="faq__header">
+      <span class="eyebrow reveal">FAQ</span>
+      <h2 class="reveal" data-delay="100">Questions, Answered.</h2>
+    </div>
+    <div class="faq__list">
+      <div class="faq-item reveal">
+        <button class="faq-item__q" aria-expanded="false">
+          <span>What services does Kidashi Design offer?</span>
+          <span class="faq-item__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-item__a">
+          <p>Kidashi Design offers web design, brand identity and logo design, print design, and social media design for businesses, startups, and creative projects, serving clients in Germany and Georgia.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-item__q" aria-expanded="false">
+          <span>Where is Kidashi Design based and who does it serve?</span>
+          <span class="faq-item__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-item__a">
+          <p>Kidashi Design is a freelance design studio founded by Nicole Szatkowski, based in Bavaria, Germany, with clients across Germany and Georgia, including Tbilisi.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-item__q" aria-expanded="false">
+          <span>How much experience does Nicole Szatkowski have?</span>
+          <span class="faq-item__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-item__a">
+          <p>Nicole Szatkowski has around five years of experience as a freelance graphic designer and content creator, developing brand identities, websites, and print materials internationally.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-item__q" aria-expanded="false">
+          <span>Does Kidashi Design work with startups as well as established businesses?</span>
+          <span class="faq-item__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-item__a">
+          <p>Yes. Kidashi Design creates brand identities, websites, print design, and social media content for businesses, startups, and creative projects.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://www.kidashidesign.com/#faq",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What services does Kidashi Design offer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kidashi Design offers web design, brand identity and logo design, print design, and social media design for businesses, startups, and creative projects, serving clients in Germany and Georgia."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where is Kidashi Design based and who does it serve?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kidashi Design is a freelance design studio founded by Nicole Szatkowski, based in Bavaria, Germany, with clients across Germany and Georgia, including Tbilisi."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much experience does Nicole Szatkowski have?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nicole Szatkowski has around five years of experience as a freelance graphic designer and content creator, developing brand identities, websites, and print materials internationally."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Kidashi Design work with startups as well as established businesses?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Kidashi Design creates brand identities, websites, print design, and social media content for businesses, startups, and creative projects."
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+.faq {
+  padding-block: var(--section-pad);
+}
+.faq__header {
+  text-align: center;
+  max-width: 640px;
+  margin-inline: auto;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+.faq__header .eyebrow {
+  text-align: center;
+}
+.faq__list {
+  max-width: 800px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.faq-item {
+  border: 1px solid var(--sand);
+  border-radius: 14px;
+  background: var(--cream);
+  overflow: hidden;
+}
+.faq-item__q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.4rem 1.6rem;
+  text-align: left;
+  font-family: var(--font-h);
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  color: var(--text);
+}
+.faq-item__icon {
+  position: relative;
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+.faq-item__icon::before,
+.faq-item__icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: var(--primary);
+  transform: translate(-50%, -50%);
+  transition: transform 0.35s var(--ease), opacity 0.35s var(--ease);
+}
+.faq-item__icon::before {
+  width: 14px;
+  height: 2px;
+}
+.faq-item__icon::after {
+  width: 2px;
+  height: 14px;
+}
+.faq-item.is-open .faq-item__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+  opacity: 0;
+}
+.faq-item__a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s var(--ease);
+}
+.faq-item__a > div {
+  overflow: hidden;
+}
+.faq-item__a p {
+  padding: 0 1.6rem 1.4rem;
+  color: var(--muted);
+  max-width: 640px;
+}
+.faq-item.is-open .faq-item__a {
+  grid-template-rows: 1fr;
+}
+</style>
+
+<script>
+(function () {
+  document.querySelectorAll('.faq-item').forEach(function (item) {
+    var btn = item.querySelector('.faq-item__q');
+    var answer = item.querySelector('.faq-item__a');
+    var wrapper = document.createElement('div');
+    while (answer.firstChild) wrapper.appendChild(answer.firstChild);
+    answer.appendChild(wrapper);
+
+    btn.addEventListener('click', function () {
+      var isOpen = item.classList.contains('is-open');
+      item.classList.toggle('is-open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+})();
+</script>
+
 <!-- FOOTER -->
 
 <footer class="footer">
