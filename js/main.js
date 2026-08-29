@@ -779,9 +779,16 @@ document.head.appendChild(themeMeta);
     const el = document.getElementById('heroCycle');
     if (!el || !el.dataset.scrambleWords) return;
 
-    let words;
-    try { words = JSON.parse(el.dataset.scrambleWords); } catch(e) { return; }
-    if (!words.length) return;
+    // Re-parsed on every cycle (not cached) so the EN/DE language switcher
+    // can swap the word list mid-loop by updating data-scramble-words.
+    function currentWords() {
+      try {
+        const w = JSON.parse(el.dataset.scrambleWords);
+        return w.length ? w : ['YOU'];
+      } catch (e) {
+        return ['YOU'];
+      }
+    }
 
     const CHAR_POOL    = '0123456789!@#$%^&*<>{}|\\/~+-=_';
     const SCRAMBLE_MS  = 700;
@@ -853,6 +860,7 @@ document.head.appendChild(themeMeta);
 
     function runNext() {
       if (cancelCurrent) { cancelCurrent(); cancelCurrent = null; }
+      const words = currentWords();
       const word = words[wordIdx % words.length];
       wordIdx++;
       cancelCurrent = scrambleWord(word, function() {
@@ -877,6 +885,7 @@ document.head.appendChild(themeMeta);
     banner.className = 'cookie-banner';
     banner.setAttribute('role', 'dialog');
     banner.setAttribute('aria-label', 'Privacy notice');
+    banner.setAttribute('data-de-aria-label', 'Datenschutzhinweis');
 
     const bannerText = document.createElement('p');
     bannerText.className = 'cookie-banner__text';
@@ -885,6 +894,10 @@ document.head.appendChild(themeMeta);
     bannerLink.href = privacyHref;
     bannerLink.textContent = 'Privacy Policy';
     bannerText.appendChild(bannerLink);
+    bannerText.setAttribute(
+      'data-de-html',
+      'Diese Website setzt keine Tracking-Cookies. Unser Hosting-Provider speichert aus Sicherheitsgründen Standard-Server-Logs (IP-Adresse, Zeitstempel). <a href="' + privacyHref + '">Datenschutzerklärung</a>'
+    );
 
     const bannerActions = document.createElement('div');
     bannerActions.className = 'cookie-banner__actions';
@@ -892,12 +905,14 @@ document.head.appendChild(themeMeta);
     acceptBtn.className = 'cookie-banner__btn';
     acceptBtn.id = 'cookieAccept';
     acceptBtn.textContent = 'Got it';
+    acceptBtn.setAttribute('data-de', 'Verstanden');
     bannerActions.appendChild(acceptBtn);
 
     banner.appendChild(bannerText);
     banner.appendChild(bannerActions);
 
     document.body.appendChild(banner);
+    if (window.KD_I18N) { window.KD_I18N.applyLang(window.KD_I18N.getLang()); }
     requestAnimationFrame(() => requestAnimationFrame(() => banner.classList.add('cookie-banner--visible')));
 
     document.getElementById('cookieAccept').addEventListener('click', function () {

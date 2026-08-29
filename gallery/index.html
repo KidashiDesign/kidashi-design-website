@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery — Kidashi Design</title>
+  <title data-de="Galerie — Kidashi Design">Gallery — Kidashi Design</title>
   <meta name="description" content="Mixed media art collages by Nicole Szatkowski — shaped by travel through Tbilisi, Bangkok, the Himalayas and beyond.">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/gallery.css">
@@ -25,32 +25,33 @@
     <img src="/images/logo.svg" class="logo" alt="Kidashi Design Logo" width="220" height="40" />
     </a>
     <ul class="nav__links">
-      <li><a href="../" class="nav__link">Home</a></li>
-      <li><a href="../services/" class="nav__link">Services</a></li>
-      <li><a href="../about/" class="nav__link">About</a></li>
-      <li><a href="../portfolio/" class="nav__link">Portfolio</a></li>
-      <li><a href="../gallery/" class="nav__link active">Gallery</a></li>
-      <li><a href="../contact/" class="nav__link">Contact</a></li>
+      <li><a href="../" class="nav__link" data-de="Startseite">Home</a></li>
+      <li><a href="../services/" class="nav__link" data-de="Leistungen">Services</a></li>
+      <li><a href="../about/" class="nav__link" data-de="Über mich">About</a></li>
+      <li><a href="../portfolio/" class="nav__link" data-de="Portfolio">Portfolio</a></li>
+      <li><a href="../gallery/" class="nav__link active" data-de="Galerie">Gallery</a></li>
+      <li><a href="../contact/" class="nav__link" data-de="Kontakt">Contact</a></li>
     </ul>
-    <div class="nav__location"><span class="nav__location-time" id="navTime"></span><span class="nav__location-sep">·</span><span class="nav__location-city">Tbilisi</span><span class="nav__location-tz">GMT+4</span></div>
+    <div class="nav__meta"><div class="nav__lang" role="group" aria-label="Language / Sprache"><button type="button" class="nav__lang-btn active" data-lang-btn="en" aria-pressed="true">EN</button><span class="nav__lang-sep">/</span><button type="button" class="nav__lang-btn" data-lang-btn="de" aria-pressed="false">DE</button></div><div class="nav__location"><span class="nav__location-time" id="navTime"></span><span class="nav__location-sep">·</span><span class="nav__location-city">Tbilisi</span><span class="nav__location-tz">GMT+4</span></div></div>
     </div>
-    <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="nav__burger" aria-label="Menu" data-de-aria-label="Menü"><span></span><span></span><span></span></button>
   </div>
 </nav>
 <div class="nav__mobile">
   <div class="nav__mobile-inner">
     <div class="nav__mobile-top">
       <nav class="nav__mobile-links">
-      <a href="../" class="nav__link">Home</a>
-      <a href="../services/" class="nav__link">Services</a>
-      <a href="../about/" class="nav__link">About</a>
-      <a href="../portfolio/" class="nav__link">Portfolio</a>
-      <a href="../gallery/" class="nav__link">Gallery</a>
-      <a href="../contact/" class="nav__link">Contact</a>
+      <a href="../" class="nav__link" data-de="Startseite">Home</a>
+      <a href="../services/" class="nav__link" data-de="Leistungen">Services</a>
+      <a href="../about/" class="nav__link" data-de="Über mich">About</a>
+      <a href="../portfolio/" class="nav__link" data-de="Portfolio">Portfolio</a>
+      <a href="../gallery/" class="nav__link" data-de="Galerie">Gallery</a>
+      <a href="../contact/" class="nav__link" data-de="Kontakt">Contact</a>
       </nav>
-      <button class="nav__mobile-close" aria-label="Close menu">Close</button>
+      <button class="nav__mobile-close" aria-label="Close menu" data-de-aria-label="Menü schließen"><span data-de="Schließen">Close</span></button>
     </div>
     <div class="nav__mobile-meta">
+      <div class="nav__mobile-lang" role="group" aria-label="Language / Sprache"><button type="button" class="nav__lang-btn active" data-lang-btn="en" aria-pressed="true">EN</button><span class="nav__lang-sep">/</span><button type="button" class="nav__lang-btn" data-lang-btn="de" aria-pressed="false">DE</button></div>
       <span class="nav__mobile-meta-date" id="mobileDate"></span>
       
       <span class="nav__mobile-meta-time" id="mobileTime"></span>
@@ -90,13 +91,13 @@
 
   <!-- Text — bottom-left anchored -->
   <div class="ghero__content">
-    <h1 class="ghero__title">Mixed Media<br><em>Art Collages</em></h1>
-    <p class="ghero__sub">Collages born from the places I've lived and traveld by— Germany, Georgia, Thailand, Vietnam, the Himalayas — blending photography, drawing, and found materials into something that captures a feeling more than a literal place.</p>
+    <h1 class="ghero__title" data-de-html="Mixed Media<br><em>Kunstcollagen</em>">Mixed Media<br><em>Art Collages</em></h1>
+    <p class="ghero__sub" data-de="Collagen, entstanden an den Orten, an denen ich gelebt und die ich bereist habe — Deutschland, Georgien, Thailand, Vietnam, der Himalaya — sie verbinden Fotografie, Zeichnung und gefundene Materialien zu etwas, das eher ein Gefühl einfängt als einen konkreten Ort.">Collages born from the places I've lived and traveld by— Germany, Georgia, Thailand, Vietnam, the Himalayas — blending photography, drawing, and found materials into something that captures a feeling more than a literal place.</p>
   </div>
 
   <!-- Scroll cue -->
   <div class="ghero__cue" aria-hidden="true">
-    <span class="ghero__cue-label">Scroll</span>
+    <span class="ghero__cue-label" data-de="Scrollen">Scroll</span>
     <span class="ghero__cue-line"></span>
   </div>
 
@@ -110,106 +111,106 @@
 
     <!-- TBILISI (11 → 10 after removing duplicate) -->
     <div class="gallery-group">
-      <p class="gallery-group__heading">Tbilisi, Georgia</p>
+      <p class="gallery-group__heading" data-de="Tiflis, Georgien">Tbilisi, Georgia</p>
       <div class="gallery-grid">
         <div class="gallery-item" data-delay="0" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-01.webp" data-label="Tbilisi, Georgia">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-01.webp" alt="Mixed media art collage, Tbilisi" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Tbilisi, Georgia</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-01.webp" alt="Mixed media art collage, Tbilisi" data-de-alt="Mixed-Media-Collage, Tiflis" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Tiflis, Georgien">Tbilisi, Georgia</div>
         </div>
         <div class="gallery-item" data-delay="100" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-02.webp" data-label="Tbilisi, Georgia">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-02.webp" alt="Mixed media art collage, Tbilisi" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Tbilisi, Georgia</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-02.webp" alt="Mixed media art collage, Tbilisi" data-de-alt="Mixed-Media-Collage, Tiflis" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Tiflis, Georgien">Tbilisi, Georgia</div>
         </div>
         <div class="gallery-item" data-delay="150" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-03-color-edition.webp" data-label="Tbilisi — Color Edition">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-03-color-edition.webp" alt="Mixed media art collage, Tbilisi — Color Edition" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Tbilisi — Color Edition</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-03-color-edition.webp" alt="Mixed media art collage, Tbilisi — Color Edition" data-de-alt="Mixed-Media-Collage, Tiflis — Farbedition" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Tiflis — Farbedition">Tbilisi — Color Edition</div>
         </div>
         <div class="gallery-item" data-delay="200" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-04-blue-edition.webp" data-label="Tbilisi — Blue Edition">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-04-blue-edition.webp" alt="Mixed media art collage, Tbilisi — Blue Edition" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Tbilisi — Blue Edition</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-04-blue-edition.webp" alt="Mixed media art collage, Tbilisi — Blue Edition" data-de-alt="Mixed-Media-Collage, Tiflis — Blaue Edition" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Tiflis — Blaue Edition">Tbilisi — Blue Edition</div>
         </div>
         <div class="gallery-item" data-delay="250" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-05.webp" data-label="Tbilisi, Georgia">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-05.webp" alt="Mixed media art collage, Tbilisi" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Tbilisi, Georgia</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-05.webp" alt="Mixed media art collage, Tbilisi" data-de-alt="Mixed-Media-Collage, Tiflis" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Tiflis, Georgien">Tbilisi, Georgia</div>
         </div>
         <!-- tbilisi-06-color-edition REMOVED (duplicate) -->
         <div class="gallery-item" data-delay="100" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-07-bw-edition.webp" data-label="Tbilisi — B&W Edition">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-07-bw-edition.webp" alt="Mixed media art collage, Tbilisi — B&W Edition" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Tbilisi — B&amp;W Edition</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-07-bw-edition.webp" alt="Mixed media art collage, Tbilisi — B&W Edition" data-de-alt="Mixed-Media-Collage, Tiflis — Schwarz-Weiß-Edition" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Tiflis — Schwarz-Weiß-Edition">Tbilisi — B&amp;W Edition</div>
         </div>
         <div class="gallery-item" data-delay="150" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-08.webp" data-label="Tbilisi, Georgia">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-08.webp" alt="Mixed media art collage, Tbilisi" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Tbilisi, Georgia</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-08.webp" alt="Mixed media art collage, Tbilisi" data-de-alt="Mixed-Media-Collage, Tiflis" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Tiflis, Georgien">Tbilisi, Georgia</div>
         </div>
         <div class="gallery-item" data-delay="200" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-09.webp" data-label="Tbilisi, Georgia">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-09.webp" alt="Mixed media art collage, Tbilisi" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Tbilisi, Georgia</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-09.webp" alt="Mixed media art collage, Tbilisi" data-de-alt="Mixed-Media-Collage, Tiflis" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Tiflis, Georgien">Tbilisi, Georgia</div>
         </div>
         <div class="gallery-item" data-delay="250" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-10.webp" data-label="Tbilisi, Georgia">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-10.webp" alt="Mixed media art collage, Tbilisi" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Tbilisi, Georgia</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-10.webp" alt="Mixed media art collage, Tbilisi" data-de-alt="Mixed-Media-Collage, Tiflis" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Tiflis, Georgien">Tbilisi, Georgia</div>
         </div>
         <div class="gallery-item" data-delay="300" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-11.webp" data-label="Tbilisi, Georgia">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-11.webp" alt="Mixed media art collage, Tbilisi" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Tbilisi, Georgia</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-tbilisi-georgia-11.webp" alt="Mixed media art collage, Tbilisi" data-de-alt="Mixed-Media-Collage, Tiflis" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Tiflis, Georgien">Tbilisi, Georgia</div>
         </div>
       </div>
     </div>
 
     <!-- DHARAMSHALA -->
     <div class="gallery-group">
-      <p class="gallery-group__heading">Dharamshala, India</p>
+      <p class="gallery-group__heading" data-de="Dharamshala, Indien">Dharamshala, India</p>
       <div class="gallery-grid">
         <div class="gallery-item" data-delay="0" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-01.webp" data-label="Dharamshala, India">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-01.webp" alt="Mixed media art collage, Dharamshala" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Dharamshala, India</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-01.webp" alt="Mixed media art collage, Dharamshala" data-de-alt="Mixed-Media-Collage, Dharamshala" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Dharamshala, Indien">Dharamshala, India</div>
         </div>
         <div class="gallery-item" data-delay="100" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-02.webp" data-label="Dharamshala, India">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-02.webp" alt="Mixed media art collage, Dharamshala" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Dharamshala, India</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-02.webp" alt="Mixed media art collage, Dharamshala" data-de-alt="Mixed-Media-Collage, Dharamshala" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Dharamshala, Indien">Dharamshala, India</div>
         </div>
         <div class="gallery-item" data-delay="150" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-03.webp" data-label="Dharamshala, India">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-03.webp" alt="Mixed media art collage, Dharamshala" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Dharamshala, India</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-03.webp" alt="Mixed media art collage, Dharamshala" data-de-alt="Mixed-Media-Collage, Dharamshala" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Dharamshala, Indien">Dharamshala, India</div>
         </div>
         <div class="gallery-item" data-delay="200" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-04.webp" data-label="Dharamshala, India">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-04.webp" alt="Mixed media art collage, Dharamshala" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Dharamshala, India</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-04.webp" alt="Mixed media art collage, Dharamshala" data-de-alt="Mixed-Media-Collage, Dharamshala" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Dharamshala, Indien">Dharamshala, India</div>
         </div>
         <div class="gallery-item" data-delay="250" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-05.webp" data-label="Dharamshala, India">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-05.webp" alt="Mixed media art collage, Dharamshala" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Dharamshala, India</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-05.webp" alt="Mixed media art collage, Dharamshala" data-de-alt="Mixed-Media-Collage, Dharamshala" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Dharamshala, Indien">Dharamshala, India</div>
         </div>
         <div class="gallery-item" data-delay="300" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-06.webp" data-label="Dharamshala, India">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-06.webp" alt="Mixed media art collage, Dharamshala" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Dharamshala, India</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-dharamshala-india-06.webp" alt="Mixed media art collage, Dharamshala" data-de-alt="Mixed-Media-Collage, Dharamshala" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Dharamshala, Indien">Dharamshala, India</div>
         </div>
       </div>
     </div>
 
     <!-- BANGKOK -->
     <div class="gallery-group">
-      <p class="gallery-group__heading">Bangkok, Thailand</p>
+      <p class="gallery-group__heading" data-de="Bangkok, Thailand">Bangkok, Thailand</p>
       <div class="gallery-grid">
         <div class="gallery-item" data-delay="0" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-01.webp" data-label="Bangkok, Thailand">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-01.webp" alt="Mixed media art collage, Bangkok" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Bangkok, Thailand</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-01.webp" alt="Mixed media art collage, Bangkok" data-de-alt="Mixed-Media-Collage, Bangkok" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Bangkok, Thailand">Bangkok, Thailand</div>
         </div>
         <div class="gallery-item" data-delay="100" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-02.webp" data-label="Bangkok, Thailand">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-02.webp" alt="Mixed media art collage, Bangkok" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Bangkok, Thailand</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-02.webp" alt="Mixed media art collage, Bangkok" data-de-alt="Mixed-Media-Collage, Bangkok" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Bangkok, Thailand">Bangkok, Thailand</div>
         </div>
         <div class="gallery-item" data-delay="150" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-03-blue-edition.webp" data-label="Bangkok — Blue Edition">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-03-blue-edition.webp" alt="Mixed media art collage, Bangkok — Blue Edition" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Bangkok — Blue Edition</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-03-blue-edition.webp" alt="Mixed media art collage, Bangkok — Blue Edition" data-de-alt="Mixed-Media-Collage, Bangkok — Blaue Edition" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Bangkok — Blaue Edition">Bangkok — Blue Edition</div>
         </div>
         <div class="gallery-item" data-delay="200" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-04-green-edition.webp" data-label="Bangkok — Green Edition">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-04-green-edition.webp" alt="Mixed media art collage, Bangkok — Green Edition" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Bangkok — Green Edition</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-04-green-edition.webp" alt="Mixed media art collage, Bangkok — Green Edition" data-de-alt="Mixed-Media-Collage, Bangkok — Grüne Edition" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Bangkok — Grüne Edition">Bangkok — Green Edition</div>
         </div>
         <div class="gallery-item" data-delay="250" data-src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-05-bw-edition.webp" data-label="Bangkok — B&W Edition">
-          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-05-bw-edition.webp" alt="Mixed media art collage, Bangkok — B&W Edition" loading="lazy" decoding="async">
-          <div class="gallery-item__label">Bangkok — B&amp;W Edition</div>
+          <img src="../images/gallery/kidashi-design-mixed-media-art-collage-bangkok-thailand-05-bw-edition.webp" alt="Mixed media art collage, Bangkok — B&W Edition" data-de-alt="Mixed-Media-Collage, Bangkok — Schwarz-Weiß-Edition" loading="lazy" decoding="async">
+          <div class="gallery-item__label" data-de="Bangkok — Schwarz-Weiß-Edition">Bangkok — B&amp;W Edition</div>
         </div>
       </div>
     </div>
@@ -288,8 +289,8 @@
           </a>
       </div>
       <nav class="footer__legal">
-        <a href="../../impressum/">Imprint</a>
-        <a href="../../datenschutz/">Privacy Policy</a>
+        <a href="../impressum/" data-de="Impressum">Imprint</a>
+        <a href="../datenschutz/" data-de="Datenschutz">Privacy Policy</a>
       </nav>
     </div>
   </div>
@@ -306,6 +307,7 @@
   </div>
 </div>
 
+<script src="../js/i18n.js" defer></script>
 <script src="../js/main.js" defer></script>
 <script src="../js/gallery.js" defer></script>
 </body>
