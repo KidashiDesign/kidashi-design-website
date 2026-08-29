@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Woofles — Hero Animation</title>
+<script>
+  if (location.search.indexOf('tile') !== -1) {
+    document.documentElement.classList.add('tile-mode');
+  }
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -11,6 +16,7 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: 100%; height: 100%; overflow: hidden; background: #201206; }
+  .tile-mode, .tile-mode body { background: #050403; }
   a { color: #fbf3e6; text-decoration: none; }
 
   .stage {
@@ -29,7 +35,9 @@
     font-family: 'Manrope', sans-serif;
     color: var(--cream);
   }
+  .tile-mode .stage { background: #050403; }
   .paused .drift { animation-play-state: paused !important; }
+  .paused .logo-mark { animation-play-state: paused !important; }
 
   @keyframes zoomOut { from { transform: scale(1.28); } to { transform: scale(1); } }
   @keyframes ambientDrift { 0% { transform: translate(0,0); } 100% { transform: translate(-2.5%,-2%); } }
@@ -37,6 +45,7 @@
   @keyframes underlineDraw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   @keyframes floatSlow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
 
+  /* Full-hero background: slow pan/zoom cooking footage */
   .bg-wrap { position: absolute; inset: -6%; z-index: 0; animation: ambientDrift 16s ease-in-out infinite alternate; }
   .bg-inner {
     position: absolute; inset: 0;
@@ -44,10 +53,14 @@
     background: radial-gradient(ellipse at 30% 25%, var(--cocoa-800), var(--cocoa-950) 75%);
   }
   .bg-inner video { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.55) brightness(0.92); }
-  .bg-inner video::-webkit-media-controls,
-  .bg-inner video::-webkit-media-controls-start-playback-button,
-  .bg-inner video::-webkit-media-controls-play-button,
-  .bg-inner video::-internal-media-controls-overlay-cast-button { display: none !important; -webkit-appearance: none; }
+
+  /* Tile background: static-framed cooking footage, matches the portfolio grid preview */
+  .bg-video--tile { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+
+  video::-webkit-media-controls,
+  video::-webkit-media-controls-start-playback-button,
+  video::-webkit-media-controls-play-button,
+  video::-internal-media-controls-overlay-cast-button { display: none !important; -webkit-appearance: none; }
 
   .fade-bottom {
     position: absolute; inset: 0; z-index: 1; pointer-events: none;
@@ -90,8 +103,42 @@
 
   .tagline { margin: 0; max-width: 46ch; text-align: right; text-wrap: pretty; font-size: clamp(1rem,1.6vw,1.25rem); line-height: 1.55; color: rgba(251,243,230,0.85); animation: fadeInUp .8s ease .85s both; }
 
+  /* Logo-mark loop — the portfolio tile's morph animation, reused as a hero accent */
+  .logo-mark {
+    position: absolute;
+    z-index: 2;
+    left: clamp(80px, 12vw, 160px);
+    top: 50%;
+    width: min(15vw, 170px);
+    aspect-ratio: 1 / 1;
+    transform-origin: center;
+    animation: logoLoop 10s infinite;
+    will-change: transform, filter, opacity;
+    pointer-events: none;
+  }
+  .logo-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+  @keyframes logoLoop {
+    0%   { opacity: 0;    transform: translate(-50%,-50%) scale(0.76); filter: blur(18px) drop-shadow(0 14px 46px rgba(0,0,0,0)); animation-timing-function: cubic-bezier(.33,1,.68,1); }
+    18%  { opacity: 1;    transform: translate(-50%,-50%) scale(1);    filter: blur(0px)  drop-shadow(0 14px 46px rgba(0,0,0,.4)); animation-timing-function: ease-in-out; }
+    35%  { opacity: 1;    transform: translate(-50%,-50%) scale(1.02); filter: blur(0px)  drop-shadow(0 14px 46px rgba(0,0,0,.4)); animation-timing-function: ease-in-out; }
+    50%  { opacity: 1;    transform: translate(-50%,-50%) scale(1);    filter: blur(0px)  drop-shadow(0 14px 46px rgba(0,0,0,.4)); animation-timing-function: ease-in-out; }
+    62%  { opacity: 1;    transform: translate(-50%,-50%) scale(1);    filter: blur(0px)  drop-shadow(0 14px 46px rgba(0,0,0,.4)); animation-timing-function: cubic-bezier(.32,0,.67,0); }
+    80%  { opacity: 0;    transform: translate(-50%,-50%) scale(1.16); filter: blur(14px) drop-shadow(0 14px 46px rgba(0,0,0,0));   animation-timing-function: linear; }
+    100% { opacity: 0;    transform: translate(-50%,-50%) scale(1.16); filter: blur(14px) drop-shadow(0 14px 46px rgba(0,0,0,0)); }
+  }
+
+  /* Tile mode: only the video + morphing logo mark, centered — no hero text */
+  .tile-mode .bg-wrap,
+  .tile-mode .fade-bottom,
+  .tile-mode .glow-top,
+  .tile-mode .content { display: none !important; }
+  .tile-mode .bg-video--tile { display: block; }
+  .tile-mode .logo-mark { left: 50%; width: min(38%, 280px); }
+
   @media (prefers-reduced-motion: reduce) {
-    .bg-wrap, .hero-title { animation: none !important; }
+    .bg-wrap, .hero-title, .logo-mark { animation: none !important; }
+    .logo-mark { opacity: 1; transform: translate(-50%,-50%); }
   }
 
   @media (max-width: 700px) {
@@ -99,6 +146,8 @@
     .tags { justify-content: center; }
     .hero-title { text-align: center; }
     .tagline { text-align: center; max-width: 34ch; margin-inline: auto; }
+    .logo-mark { display: none; }
+    .tile-mode .logo-mark { display: block; }
   }
 </style>
 </head>
@@ -107,15 +156,23 @@
 
   <div class="bg-wrap">
     <div class="bg-inner">
-      <video autoplay muted loop playsinline preload="auto">
+      <video class="bg-video--hero" muted loop playsinline preload="none">
         <source src="../../images/portfolio/woofles/woofles-waffle-cooking.webm" type="video/webm" />
         <source src="../../images/portfolio/woofles/woofles-waffle-cooking.mp4" type="video/mp4" />
       </video>
     </div>
   </div>
+  <video class="bg-video--tile" muted loop playsinline preload="none">
+    <source src="../../images/portfolio/woofles/woofles-tile-cooking.webm" type="video/webm" />
+    <source src="../../images/portfolio/woofles/woofles-tile-cooking.mp4" type="video/mp4" />
+  </video>
 
   <div class="fade-bottom"></div>
   <div class="glow-top"></div>
+
+  <div class="logo-mark">
+    <img src="../../images/portfolio/woofles/woofles-tile-logo.png" alt="" aria-hidden="true">
+  </div>
 
   <div class="content">
     <div class="panel">
@@ -139,16 +196,22 @@
 (function () {
   "use strict";
   var stage = document.getElementById('stage');
-  var video = document.querySelector('video');
-  if (video) {
-    var tryPlay = function () { video.play().catch(function(){}); };
-    tryPlay();
-    document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+  var isTile = document.documentElement.classList.contains('tile-mode');
+  var activeVideo = stage.querySelector(isTile ? '.bg-video--tile' : '.bg-video--hero');
+
+  function tryPlay () {
+    if (activeVideo) activeVideo.play().catch(function(){});
   }
+  if (activeVideo) {
+    activeVideo.preload = 'auto';
+    tryPlay();
+  }
+  document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+
   document.addEventListener('visibilitychange', function () {
     stage.classList.toggle('paused', document.hidden);
-    if (!video) return;
-    if (document.hidden) { video.pause(); } else { video.play().catch(function(){}); }
+    if (!activeVideo) return;
+    if (document.hidden) { activeVideo.pause(); } else { activeVideo.play().catch(function(){}); }
   });
 })();
 </script>
