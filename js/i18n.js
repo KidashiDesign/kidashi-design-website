@@ -18,7 +18,7 @@
 	'use strict';
 
 	var STORAGE_KEY = 'kd-lang';
-	var ATTRS = ['placeholder', 'content', 'alt', 'aria-label', 'title', 'value', 'scramble-words'];
+	var ATTRS = ['placeholder', 'content', 'alt', 'aria-label', 'title', 'value', 'scramble-words', 'data-label'];
 
 	function getStoredLang() {
 		try {

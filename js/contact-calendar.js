@@ -8,8 +8,16 @@ document.addEventListener('DOMContentLoaded', function () {
   const modal = document.getElementById('schedule-modal');
   if (!trigger || !modal) return;
 
-  const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const WEEKDAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  const MONTH_NAMES_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const MONTH_NAMES_DE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+  const WEEKDAYS_EN = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  const WEEKDAYS_DE = ['SO', 'MO', 'DI', 'MI', 'DO', 'FR', 'SA'];
+
+  function isDe() {
+    return document.documentElement.getAttribute('data-lang') === 'de';
+  }
+  function MONTH_NAMES() { return isDe() ? MONTH_NAMES_DE : MONTH_NAMES_EN; }
+  function WEEKDAYS() { return isDe() ? WEEKDAYS_DE : WEEKDAYS_EN; }
 
   const triggerText = document.getElementById('schedule-trigger-text');
   const monthBtn = document.getElementById('schedule-month-year');
@@ -43,7 +51,21 @@ document.addEventListener('DOMContentLoaded', function () {
   let ampm = 'AM';
   let lastFocused = null;
 
-  weekdaysEl.innerHTML = WEEKDAYS.map(function (d) { return '<span>' + d + '</span>'; }).join('');
+  function renderWeekdays() {
+    weekdaysEl.innerHTML = WEEKDAYS().map(function (d) { return '<span>' + d + '</span>'; }).join('');
+  }
+  renderWeekdays();
+  document.addEventListener('kd:langchange', function () {
+    renderWeekdays();
+    renderDays();
+    if (!picker.hidden) renderMonths();
+    if (selectedDay && trigger.classList.contains('has-value')) {
+      const dateObj = new Date(selectedDay.y, selectedDay.m, selectedDay.d);
+      const weekday = WEEKDAYS()[dateObj.getDay()];
+      const timeStr = pad(hour || 12) + ':' + pad(minute) + ' ' + ampm;
+      triggerText.textContent = weekday + ', ' + MONTH_NAMES()[selectedDay.m].slice(0, 3) + ' ' + selectedDay.d + ', ' + selectedDay.y + ' · ' + timeStr;
+    }
+  });
 
   function pad(n) { return String(n).padStart(2, '0'); }
 
@@ -53,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function renderDays() {
-    monthLabel.textContent = MONTH_NAMES[viewMonth] + ' ' + viewYear;
+    monthLabel.textContent = MONTH_NAMES()[viewMonth] + ' ' + viewYear;
     const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
     const firstDay = new Date(viewYear, viewMonth, 1).getDay();
     let html = '';
@@ -71,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function renderMonths() {
     yearLabel.textContent = viewYear;
     let html = '';
-    MONTH_NAMES.forEach(function (m, idx) {
+    MONTH_NAMES().forEach(function (m, idx) {
       const isSelected = idx === viewMonth;
       html += '<button type="button" data-month="' + idx + '" class="' + (isSelected ? 'is-selected' : '') + '">' + m.slice(0, 3) + '</button>';
     });
@@ -180,8 +202,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (dateField) dateField.value = isoDate;
     if (timeField) timeField.value = timeStr;
 
-    const weekday = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
-    triggerText.textContent = weekday + ', ' + MONTH_NAMES[selectedDay.m].slice(0, 3) + ' ' + selectedDay.d + ', ' + selectedDay.y + ' · ' + timeStr;
+    const weekday = WEEKDAYS()[dateObj.getDay()];
+    triggerText.textContent = weekday + ', ' + MONTH_NAMES()[selectedDay.m].slice(0, 3) + ' ' + selectedDay.d + ', ' + selectedDay.y + ' · ' + timeStr;
     trigger.classList.add('has-value');
 
     closeModal();
