@@ -18,7 +18,7 @@
 	'use strict';
 
 	var STORAGE_KEY = 'kd-lang';
-	var ATTRS = ['placeholder', 'content', 'alt', 'aria-label', 'title', 'value', 'scramble-words', 'data-label'];
+	var ATTRS = ['placeholder', 'content', 'alt', 'aria-label', 'title', 'value', 'data-label'];
 
 	function getStoredLang() {
 		try {
@@ -57,6 +57,18 @@
 				elh.setAttribute('data-en-html', elh.innerHTML);
 			}
 			elh.innerHTML = isDe ? elh.getAttribute('data-de-html') : elh.getAttribute('data-en-html');
+		}
+
+		// data-scramble-words is what js/main.js's hero scramble animation
+		// actually reads (el.dataset.scrambleWords), so it's swapped here
+		// directly rather than through the generic ATTRS loop below.
+		var swEls = document.querySelectorAll('[data-de-scramble-words]');
+		for (var s = 0; s < swEls.length; s++) {
+			var elS = swEls[s];
+			if (!elS.hasAttribute('data-en-scramble-words')) {
+				elS.setAttribute('data-en-scramble-words', elS.getAttribute('data-scramble-words') || '');
+			}
+			elS.setAttribute('data-scramble-words', isDe ? elS.getAttribute('data-de-scramble-words') : elS.getAttribute('data-en-scramble-words'));
 		}
 
 		for (var a = 0; a < ATTRS.length; a++) {
