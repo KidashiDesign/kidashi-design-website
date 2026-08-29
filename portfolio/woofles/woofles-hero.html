@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Woofles — Hero Animation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #201206; }
+  a { color: #fbf3e6; text-decoration: none; }
+
+  .stage {
+    --cocoa-950: #201206;
+    --cocoa-900: #331b0d;
+    --cocoa-800: #4a2712;
+    --cream: #fbf3e6;
+    --caramel: #d9973f;
+    --caramel-light: #eab55e;
+    --blush: #e6a3ae;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--cocoa-950);
+    font-family: 'Manrope', sans-serif;
+    color: var(--cream);
+  }
+  .paused .drift { animation-play-state: paused !important; }
+
+  @keyframes zoomOut { from { transform: scale(1.28); } to { transform: scale(1); } }
+  @keyframes ambientDrift { 0% { transform: translate(0,0); } 100% { transform: translate(-2.5%,-2%); } }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes underlineDraw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes floatSlow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+
+  .bg-wrap { position: absolute; inset: -6%; z-index: 0; animation: ambientDrift 16s ease-in-out infinite alternate; }
+  .bg-inner {
+    position: absolute; inset: 0;
+    animation: zoomOut 3.2s cubic-bezier(.16,.8,.3,1) both;
+    background: radial-gradient(ellipse at 30% 25%, var(--cocoa-800), var(--cocoa-950) 75%);
+  }
+  .bg-inner video { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.55) brightness(0.92); }
+  .bg-inner video::-webkit-media-controls,
+  .bg-inner video::-webkit-media-controls-start-playback-button,
+  .bg-inner video::-webkit-media-controls-play-button,
+  .bg-inner video::-internal-media-controls-overlay-cast-button { display: none !important; -webkit-appearance: none; }
+
+  .fade-bottom {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(32,18,6,0.50) 0%, rgba(32,18,6,0.30) 34%, rgba(32,18,6,0.62) 64%, rgba(32,18,6,0.94) 100%),
+      radial-gradient(ellipse 80% 65% at 50% 45%, rgba(32,18,6,0) 40%, rgba(32,18,6,0.6) 100%);
+  }
+  .glow-top {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: screen; opacity: .5;
+    background: radial-gradient(ellipse 55% 45% at 78% 12%, rgba(217,151,63,0.35), rgba(217,151,63,0) 70%);
+  }
+
+  .content { position: relative; z-index: 3; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: clamp(24px,4vw,56px) clamp(20px,5vw,72px); }
+  .panel { display: flex; flex-direction: column; align-items: flex-end; margin: 0 auto; gap: clamp(18px,2.4vw,26px); max-width: min(920px,92%); }
+
+  .tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; animation: fadeInUp .8s ease .4s both; }
+  .tag { padding: 9px 18px; border-radius: 999px; border: 1px solid rgba(251,243,230,0.22); background: rgba(251,243,230,0.07); backdrop-filter: blur(6px); font-size: 12.5px; color: rgba(251,243,230,0.88); white-space: nowrap; }
+  .tag--demo { border-color: rgba(230,163,174,0.5); background: rgba(230,163,174,0.12); color: rgba(251,243,230,0.94); }
+
+  h1.hero-title {
+    margin: clamp(14px,2.2vw,24px) 0 0 0;
+    font-family: 'Newsreader', serif;
+    font-weight: 500;
+    font-size: clamp(3.2rem,9vw,8rem);
+    line-height: .95;
+    letter-spacing: -0.01em;
+    text-align: right;
+    text-wrap: balance;
+    text-shadow: 0 4px 40px rgba(32,18,6,0.45);
+    animation: floatSlow 6s ease-in-out 1.8s infinite;
+  }
+  .hero-title span.word { display: inline-block; animation: fadeInUp .8s ease .55s both; }
+  .hero-title span.accent { display: inline-block; position: relative; font-style: italic; font-weight: 500; color: var(--caramel-light); animation: fadeInUp .8s ease .7s both; }
+  .hero-title span.accent::after {
+    content: ''; position: absolute; left: 2px; right: 2px; bottom: -4px; height: 4px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--caramel), var(--blush));
+    transform-origin: left center;
+    animation: underlineDraw .9s cubic-bezier(.4,0,.2,1) .95s both;
+  }
+
+  .tagline { margin: 0; max-width: 46ch; text-align: right; text-wrap: pretty; font-size: clamp(1rem,1.6vw,1.25rem); line-height: 1.55; color: rgba(251,243,230,0.85); animation: fadeInUp .8s ease .85s both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-wrap, .hero-title { animation: none !important; }
+  }
+
+  @media (max-width: 700px) {
+    .panel { align-items: center; max-width: 100%; }
+    .tags { justify-content: center; }
+    .hero-title { text-align: center; }
+    .tagline { text-align: center; max-width: 34ch; margin-inline: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <div class="bg-wrap">
+    <div class="bg-inner">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="../../images/portfolio/woofles/woofles-waffle-cooking.webm" type="video/webm" />
+        <source src="../../images/portfolio/woofles/woofles-waffle-cooking.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+
+  <div class="fade-bottom"></div>
+  <div class="glow-top"></div>
+
+  <div class="content">
+    <div class="panel">
+
+      <div class="tags">
+        <span class="tag">Client — Woofles</span>
+        <span class="tag">Year — 2026</span>
+        <span class="tag">Role — Naming, Brand &amp; Web Design</span>
+        <span class="tag tag--demo">Demo Site — Client Presentation</span>
+      </div>
+
+      <h1 class="hero-title"><span class="word">Woof&nbsp;</span><span class="accent">les</span></h1>
+
+      <p class="tagline">A full brand built from a blank page — name, identity and website for a dog treat bakery, designed and developed end-to-end as a demo for client presentation.</p>
+
+    </div>
+  </div>
+
+</div>
+<script>
+(function () {
+  "use strict";
+  var stage = document.getElementById('stage');
+  var video = document.querySelector('video');
+  if (video) {
+    var tryPlay = function () { video.play().catch(function(){}); };
+    tryPlay();
+    document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+  }
+  document.addEventListener('visibilitychange', function () {
+    stage.classList.toggle('paused', document.hidden);
+    if (!video) return;
+    if (document.hidden) { video.pause(); } else { video.play().catch(function(){}); }
+  });
+})();
+</script>
+</body>
+</html>
