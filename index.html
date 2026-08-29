@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kidashi Design — Freelance Graphic Designer</title>
+  <title data-de="Kidashi Design — Freiberufliche Grafikdesignerin">Kidashi Design — Freelance Graphic Designer</title>
   <meta name="description" content="Nicole Szatkowski — certified freelance graphic designer specialising in web design, brand identity, print and social media. Working worldwide from Tbilisi, Georgia.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.kidashidesign.com/">
@@ -241,16 +241,16 @@
     <img src="/images/logo.svg" class="logo" alt="Kidashi Design Logo" />
     </a>
     <ul class="nav__links">
-      <li><a href="index.html" class="nav__link active">Home</a></li>
-      <li><a href="services/" class="nav__link">Services</a></li>
-      <li><a href="about/" class="nav__link">About</a></li>
-      <li><a href="portfolio/" class="nav__link">Portfolio</a></li>
-      <li><a href="gallery/" class="nav__link">Gallery</a></li>
-      <li><a href="contact/" class="nav__link">Contact</a></li>
+      <li><a href="index.html" class="nav__link active" data-de="Startseite">Home</a></li>
+      <li><a href="services/" class="nav__link" data-de="Leistungen">Services</a></li>
+      <li><a href="about/" class="nav__link" data-de="Über mich">About</a></li>
+      <li><a href="portfolio/" class="nav__link" data-de="Portfolio">Portfolio</a></li>
+      <li><a href="gallery/" class="nav__link" data-de="Galerie">Gallery</a></li>
+      <li><a href="contact/" class="nav__link" data-de="Kontakt">Contact</a></li>
     </ul>
-    <div class="nav__location"><span class="nav__location-time" id="navTime"></span><span class="nav__location-sep">·</span><span class="nav__location-city">Tbilisi</span><span class="nav__location-tz">GMT+4</span></div>
+    <div class="nav__meta"><div class="nav__lang" role="group" aria-label="Language / Sprache"><button type="button" class="nav__lang-btn active" data-lang-btn="en" aria-pressed="true">EN</button><span class="nav__lang-sep">/</span><button type="button" class="nav__lang-btn" data-lang-btn="de" aria-pressed="false">DE</button></div><div class="nav__location"><span class="nav__location-time" id="navTime"></span><span class="nav__location-sep">·</span><span class="nav__location-city">Tbilisi</span><span class="nav__location-tz">GMT+4</span></div></div>
     </div>
-    <button class="nav__burger" aria-label="Menu">
+    <button class="nav__burger" aria-label="Menu" data-de-aria-label="Menü">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -259,16 +259,17 @@
   <div class="nav__mobile-inner">
     <div class="nav__mobile-top">
       <nav class="nav__mobile-links">
-      <a href="index.html" class="nav__link">Home</a>
-      <a href="services/" class="nav__link">Services</a>
-      <a href="about/" class="nav__link">About</a>
-      <a href="portfolio/" class="nav__link">Portfolio</a>
-      <a href="gallery/" class="nav__link">Gallery</a>
-      <a href="contact/" class="nav__link">Contact</a>
+      <a href="index.html" class="nav__link" data-de="Startseite">Home</a>
+      <a href="services/" class="nav__link" data-de="Leistungen">Services</a>
+      <a href="about/" class="nav__link" data-de="Über mich">About</a>
+      <a href="portfolio/" class="nav__link" data-de="Portfolio">Portfolio</a>
+      <a href="gallery/" class="nav__link" data-de="Galerie">Gallery</a>
+      <a href="contact/" class="nav__link" data-de="Kontakt">Contact</a>
       </nav>
-      <button class="nav__mobile-close" aria-label="Close menu">Close</button>
+      <button class="nav__mobile-close" aria-label="Close menu" data-de-aria-label="Menü schließen"><span data-de="Schließen">Close</span></button>
     </div>
     <div class="nav__mobile-meta">
+      <div class="nav__mobile-lang" role="group" aria-label="Language / Sprache"><button type="button" class="nav__lang-btn active" data-lang-btn="en" aria-pressed="true">EN</button><span class="nav__lang-sep">/</span><button type="button" class="nav__lang-btn" data-lang-btn="de" aria-pressed="false">DE</button></div>
       <span class="nav__mobile-meta-date" id="mobileDate"></span>
       <span class="nav__mobile-meta-time" id="mobileTime"></span>
       <span class="nav__mobile-meta-tz">GMT +4</span>
@@ -284,12 +285,13 @@
       <canvas id="fluid-canvas"></canvas>
     </div>
 
-    <h1 class="hero2__h1" aria-label="I make work that matters to you">
-      <span class="hero2__static">I MAKE WORK THAT <span class="hero2__static-break">MATTERS TO</span></span>
-      <span class="hero2__cycle" id="heroCycle" aria-live="polite"
-            data-scramble-words='["YOU","THE PLANET","THE ALGORITHM","YOUR COMPANY","YOUR FUTURE","YOUR SUCCESS"]'>YOU</span>
+    <h1 class="hero2__h1" aria-label="I make work that matters to you" data-de-aria-label="Ich gestalte Arbeit, die für dich zählt">
+      <span class="hero2__static" data-de-html="ICH GESTALTE ARBEIT, DIE <span class=&quot;hero2__static-break&quot;>WICHTIG IST FÜR</span>">I MAKE WORK THAT <span class="hero2__static-break">MATTERS TO</span></span>
+      <span class="hero2__cycle" id="heroCycle" aria-live="polite" data-de="DICH"
+            data-scramble-words='["YOU","THE PLANET","THE ALGORITHM","YOUR COMPANY","YOUR FUTURE","YOUR SUCCESS"]'
+            data-de-scramble-words='["DICH","DEN PLANETEN","DEN ALGORITHMUS","DEIN UNTERNEHMEN","DEINE ZUKUNFT","DEINEN ERFOLG"]'>YOU</span>
                   <!-- UPDATED: Explicitly introduces Nicole, the certification, and the studio -->
-      <span class="subt">High-performance design by Nicole Szatkowski,<br> IHK-certified Media Designer & Founder of Kidashi Design.</span>
+      <span class="subt" data-de-html="Leistungsstarkes Design von Nicole Szatkowski,<br> IHK-zertifizierte Mediengestalterin &amp; Gründerin von Kidashi Design.">High-performance design by Nicole Szatkowski,<br> IHK-certified Media Designer & Founder of Kidashi Design.</span>
     </h1>
       
 
@@ -300,8 +302,8 @@
     <!-- Scroll-reveal H2: slides in from both sides -->
     <div class="hero2__reveal" aria-hidden="true">
       <p class="hero2__reveal-h2">
-        <span class="hero2__reveal-left">A Visual</span>
-        <span class="hero2__reveal-right">Designer</span>
+        <span class="hero2__reveal-left" data-de="Eine visuelle">A Visual</span>
+        <span class="hero2__reveal-right" data-de="Designerin">Designer</span>
       </p>
     </div>
   </div>
@@ -320,8 +322,8 @@
   <div class="container">
     <div class="services-dark__header">
       <div class="services-dark__header-text">
-        <span class="eyebrow eyebrow--light reveal">What I Offer</span>
-        <h2 class="reveal" data-delay="100">Web Design at the Core — With Everything Else You Need, Built Around It.</h2>
+        <span class="eyebrow eyebrow--light reveal" data-de="Was ich biete">What I Offer</span>
+        <h2 class="reveal" data-delay="100" data-de="Web Design im Zentrum — mit allem drumherum, was du sonst noch brauchst.">Web Design at the Core — With Everything Else You Need, Built Around It.</h2>
       </div>
       <div class="dc-wrap">
         <div class="dc-stack">
@@ -336,10 +338,10 @@
                   <circle cx="10.5" cy="7.25" r="0.6" fill="currentColor" stroke="none"/>
                 </svg>
               </span>
-              <span class="dc-card__label">Print Design</span>
+              <span class="dc-card__label" data-de="Printdesign">Print Design</span>
             </div>
-            <p class="dc-card__desc">Business cards, brochures &amp; packaging</p>
-            <p class="dc-card__meta">Production-Ready · Any Format</p>
+            <p class="dc-card__desc" data-de="Visitenkarten, Broschüren &amp; Verpackungen">Business cards, brochures &amp; packaging</p>
+            <p class="dc-card__meta" data-de="Druckfertig · Jedes Format">Production-Ready · Any Format</p>
           </div>
           <!-- Card 2: middle — Brand Identity -->
           <div class="dc-card dc-card--2">
@@ -351,10 +353,10 @@
                   <line x1="2.5" y1="5" x2="11.5" y2="5"/>
                 </svg>
               </span>
-              <span class="dc-card__label">Brand Identity</span>
+              <span class="dc-card__label" data-de="Markenidentität">Brand Identity</span>
             </div>
-            <p class="dc-card__desc">Logo, palette &amp; typography system</p>
-            <p class="dc-card__meta">Consistent · Every Touchpoint</p>
+            <p class="dc-card__desc" data-de="Logo, Farbpalette &amp; Typografie-System">Logo, palette &amp; typography system</p>
+            <p class="dc-card__meta" data-de="Konsistent · An jedem Touchpoint">Consistent · Every Touchpoint</p>
           </div>
           <!-- Card 3: front — Web Design -->
           <div class="dc-card dc-card--3">
@@ -369,7 +371,7 @@
               </span>
               <span class="dc-card__label">Web Design</span>
             </div>
-            <p class="dc-card__desc">Custom websites built to convert</p>
+            <p class="dc-card__desc" data-de="Maßgeschneiderte Websites, die konvertieren">Custom websites built to convert</p>
             <p class="dc-card__meta">Mobile-First · SEO-Ready</p>
           </div>
         </div>
@@ -379,26 +381,26 @@
       <div class="service-card reveal">
         <span class="service-card__num">01</span>
         <div class="service-card__title">Web Design</div>
-        <p class="service-card__desc">Custom website design &amp; development, mobile-responsive layouts, SEO-friendly structure — built to convert visitors and represent your brand.</p>
+        <p class="service-card__desc" data-de="Individuelles Webdesign &amp; Entwicklung, responsive Layouts, SEO-freundliche Struktur — gebaut, um Besucher zu überzeugen und deine Marke zu repräsentieren.">Custom website design &amp; development, mobile-responsive layouts, SEO-friendly structure — built to convert visitors and represent your brand.</p>
       </div>
       <div class="service-card reveal" data-delay="100">
         <span class="service-card__num">02</span>
-        <div class="service-card__title">Brand Identity</div>
-        <p class="service-card__desc">Logo design, color palette &amp; typography system, brand guidelines — a complete visual identity that works consistently across every format.</p>
+        <div class="service-card__title" data-de="Markenidentität">Brand Identity</div>
+        <p class="service-card__desc" data-de="Logodesign, Farbpalette &amp; Typografie-System, Brand Guidelines — eine vollständige visuelle Identität, die auf jedem Format konsistent funktioniert.">Logo design, color palette &amp; typography system, brand guidelines — a complete visual identity that works consistently across every format.</p>
       </div>
       <div class="service-card reveal" data-delay="200">
         <span class="service-card__num">03</span>
-        <div class="service-card__title">Print</div>
-        <p class="service-card__desc">Business cards, flyers, brochures, packaging, editorial layouts — print materials designed to professional standards, ready for production.</p>
+        <div class="service-card__title" data-de="Print">Print</div>
+        <p class="service-card__desc" data-de="Visitenkarten, Flyer, Broschüren, Verpackungen, redaktionelle Layouts — Printmaterialien nach professionellem Standard, produktionsbereit.">Business cards, flyers, brochures, packaging, editorial layouts — print materials designed to professional standards, ready for production.</p>
       </div>
       <div class="service-card reveal" data-delay="300">
         <span class="service-card__num">04</span>
-        <div class="service-card__title">Social Media</div>
-        <p class="service-card__desc">Content calendars, post templates, profile &amp; cover design — a consistent, on-brand social presence that builds real reach.</p>
+        <div class="service-card__title" data-de="Social Media">Social Media</div>
+        <p class="service-card__desc" data-de="Content-Kalender, Post-Vorlagen, Profil- &amp; Titelbild-Design — eine konsistente, markenkonforme Social-Media-Präsenz mit echter Reichweite.">Content calendars, post templates, profile &amp; cover design — a consistent, on-brand social presence that builds real reach.</p>
       </div>
     </div>
     <div class="services-dark__cta reveal">
-      <a href="services/" class="btn btn--outline">View All Services</a>
+      <a href="services/" class="btn btn--outline" data-de="Alle Leistungen ansehen">View All Services</a>
     </div>
   </div>
 </section>
@@ -412,17 +414,17 @@
           <img class="about3d__img" src="images/Nicole-Portrait.webp" alt="Nicole Szatkowski, founder of Kidashi Design" loading="lazy" decoding="async">
         </div>
         <div class="about3d__content">
-          <span class="eyebrow" data-tilt-z="50">About Nicole</span>
-          <h2 class="about3d__title" data-tilt-z="70">Hi. I'm Nicole.</h2>
-          <p class="about3d__text" data-tilt-z="30">As a certified graphic designer from Bavaria&nbsp;-&nbsp;Germany with over 5 years of experience in web design, branding, and visual communication, I work as a digital nomad from Tbilisi&nbsp;-Georgia, from the first sketch to final launch — wherever you are in the world.</p>
+          <span class="eyebrow" data-tilt-z="50" data-de="Über Nicole">About Nicole</span>
+          <h2 class="about3d__title" data-tilt-z="70" data-de="Hallo, ich bin Nicole.">Hi. I'm Nicole.</h2>
+          <p class="about3d__text" data-tilt-z="30" data-de-html="Als zertifizierte Grafikdesignerin aus Bayern&nbsp;-&nbsp;Deutschland mit über 5 Jahren Erfahrung in Webdesign, Branding und visueller Kommunikation arbeite ich als digitale Nomadin von Tiflis&nbsp;-Georgien aus — von der ersten Skizze bis zum finalen Launch, ganz gleich, wo auf der Welt du bist.">As a certified graphic designer from Bavaria&nbsp;-&nbsp;Germany with over 5 years of experience in web design, branding, and visual communication, I work as a digital nomad from Tbilisi&nbsp;-Georgia, from the first sketch to final launch — wherever you are in the world.</p>
           <div class="about3d__foot">
             <ul class="about3d__points" data-tilt-z="20">
-              <li>5+ years of experience</li>
-              <li>IHK-certified Media Designer (Digital &amp; Print)</li>
-              <li>Web · Branding · Print · Social Media</li>
-              <li>Based in Tbilisi — working worldwide</li>
+              <li data-de="5+ Jahre Erfahrung">5+ years of experience</li>
+              <li data-de-html="IHK-zertifizierte Mediengestalterin (Digital &amp; Print)">IHK-certified Media Designer (Digital &amp; Print)</li>
+              <li data-de="Web · Branding · Print · Social Media">Web · Branding · Print · Social Media</li>
+              <li data-de="Ansässig in Tiflis — weltweit tätig">Based in Tbilisi — working worldwide</li>
             </ul>
-            <a href="about/" class="btn btn--outline-dark about3d__btn" data-tilt-z="60">Get to Know Me</a>
+            <a href="about/" class="btn btn--outline-dark about3d__btn" data-tilt-z="60" data-de="Lern mich kennen">Get to Know Me</a>
           </div>
         </div>
       </div>
@@ -435,35 +437,35 @@
   <div class="container">
     <div class="portfolio-teaser__header">
       <div>
-        <span class="eyebrow reveal">Selected Work</span>
-        <h2 class="reveal" data-delay="100">Projects Built With Purpose.</h2>
+        <span class="eyebrow reveal" data-de="Ausgewählte Arbeiten">Selected Work</span>
+        <h2 class="reveal" data-delay="100" data-de="Projekte mit Haltung.">Projects Built With Purpose.</h2>
       </div>
     </div>
     <div class="portfolio-grid">
-      <a href="portfolio/wh4/" class="portfolio-card reveal" aria-label="wh4 Advertising Agency">
+      <a href="portfolio/wh4/" class="portfolio-card reveal" aria-label="wh4 Advertising Agency" data-de-aria-label="wh4 Werbeagentur">
         <div class="portfolio-card__bg" style="background:#5E0A08;overflow:hidden;">
           <iframe src="portfolio/art-gerecht-modular/artgerecht-animation.html?tile=1" class="portfolio-card__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
       </a>
-      <a href="portfolio/rohyma-jet/" class="portfolio-card reveal" data-delay="200" aria-label="Rohyma Jet — Luxury Private Aviation">
+      <a href="portfolio/rohyma-jet/" class="portfolio-card reveal" data-delay="200" aria-label="Rohyma Jet — Luxury Private Aviation" data-de-aria-label="Rohyma Jet — Luxuriöse Privatluftfahrt">
 
         <div class="portfolio-card__bg" style="background:#0a0a0a;overflow:hidden;">
           <iframe src="portfolio/rohyma-jet/rohyma-jet-animation.html?tile=1" class="portfolio-card__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
       </a>
-      <a href="portfolio/tm-studio/" class="portfolio-card reveal" data-delay="200" aria-label="TM Studio — Brand Identity & Print">
+      <a href="portfolio/tm-studio/" class="portfolio-card reveal" data-delay="200" aria-label="TM Studio — Brand Identity & Print" data-de-aria-label="TM Studio — Markenidentität &amp; Print">
         <div class="portfolio-card__bg" style="background:#efe2c9;overflow:hidden;">
           <iframe src="portfolio/tm-studio/tm-studio-animation.html?tile=1" class="portfolio-card__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
       </a>
-      <a href="portfolio/seestern/" class="portfolio-card reveal" data-delay="300" aria-label="Seestern Britzer Garten — Brand Identity & Merchandise">
+      <a href="portfolio/seestern/" class="portfolio-card reveal" data-delay="300" aria-label="Seestern Britzer Garten — Brand Identity & Merchandise" data-de-aria-label="Seestern Britzer Garten — Markenidentität &amp; Merchandise">
         <div class="portfolio-card__bg" style="background:#E8815F;overflow:hidden;">
           <iframe src="portfolio/seestern/seestern-animation.html?tile=1" class="portfolio-card__anim" scrolling="no" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
         </div>
       </a>
     </div>
     <div class="portfolio-teaser__cta reveal">
-      <a href="portfolio/" class="btn btn--outline-dark">View All Projects</a>
+      <a href="portfolio/" class="btn btn--outline-dark" data-de="Alle Projekte ansehen">View All Projects</a>
     </div>
   </div>
 </section>
@@ -482,10 +484,10 @@
   </div>
   <div class="container">
     <div class="gallery-teaser__text">
-      <span class="eyebrow eyebrow--light reveal">Beyond Design</span>
-      <h2 class="reveal" data-delay="100">Collage Art — Shaped by Travel.</h2>
-      <p class="reveal" data-delay="200">Collages born from the places I've lived and traveld by— Germany, Georgia, Thailand, Vietnam, the Himalayas — blending photography, drawing, and found materials into something that captures a feeling more than a literal place.</p>
-      <a href="gallery/" class="btn btn--outline reveal" data-delay="300" style="margin-top:1.5rem; display:inline-flex;">Enter the Gallery</a>
+      <span class="eyebrow eyebrow--light reveal" data-de="Jenseits von Design">Beyond Design</span>
+      <h2 class="reveal" data-delay="100" data-de="Collagenkunst — geprägt von Reisen.">Collage Art — Shaped by Travel.</h2>
+      <p class="reveal" data-delay="200" data-de="Collagen aus den Orten, an denen ich gelebt habe und durchgereist bin — Deutschland, Georgien, Thailand, Vietnam, der Himalaya — eine Mischung aus Fotografie, Zeichnung und Fundstücken, die eher ein Gefühl einfängt als einen konkreten Ort.">Collages born from the places I've lived and traveld by— Germany, Georgia, Thailand, Vietnam, the Himalayas — blending photography, drawing, and found materials into something that captures a feeling more than a literal place.</p>
+      <a href="gallery/" class="btn btn--outline reveal" data-delay="300" style="margin-top:1.5rem; display:inline-flex;" data-de="Zur Galerie">Enter the Gallery</a>
     </div>
   </div>
 </section>
@@ -511,13 +513,14 @@
           </a>
       </div>
       <nav class="footer__legal">
-        <a href="../../impressum/">Imprint</a>
-        <a href="../../datenschutz/">Privacy Policy</a>
+        <a href="impressum/" data-de="Impressum">Imprint</a>
+        <a href="datenschutz/" data-de="Datenschutz">Privacy Policy</a>
       </nav>
     </div>
   </div>
 </footer>
 
+<script src="js/i18n.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/fluid-particles.js" defer></script>
 <script>
