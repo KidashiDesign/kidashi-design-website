@@ -1,0 +1,135 @@
+/* ============================================================
+   SERVICE DETAIL PAGES
+   Shared styles for /services/web-design/, /services/brand-identity/,
+   /services/print/ and /services/social-media-management/.
+   Reuses design tokens and components from style.css / project.css —
+   only page-specific pieces (breadcrumb, feature grid, audience note)
+   are defined here.
+   ============================================================ */
+
+/* ── Breadcrumb back-link, sits above the page-hero eyebrow ── */
+.page-hero__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-b);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.75rem;
+  transition: color 0.3s var(--ease);
+}
+.page-hero__back::before {
+  content: '\2190';
+}
+.page-hero__back:hover {
+  color: var(--primary);
+}
+
+/* ── "What's Included" feature grid ── */
+.detail-features {
+  padding-block: var(--section-pad);
+  background: var(--bg);
+}
+.detail-features__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+.detail-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+  padding: 1.75rem;
+  border: 1px solid var(--sand);
+  border-radius: 16px;
+  background: var(--cream);
+  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), background 0.3s var(--ease);
+}
+.detail-feature:hover {
+  border-color: var(--primary);
+  background: #ffffff;
+  transform: translateY(-4px);
+}
+.detail-feature__icon {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.detail-feature__text {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text);
+  padding-top: 0.3rem;
+}
+
+/* ── Target-audience note ── */
+.detail-audience {
+  padding-block: clamp(3rem, 6vw, 5rem);
+  background: var(--bg2);
+}
+.detail-audience__inner {
+  max-width: 760px;
+  margin-inline: auto;
+  text-align: center;
+}
+.detail-audience .eyebrow {
+  text-align: center;
+}
+.detail-audience__text {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+/* ── "Learn more" link on the services overview cards ── */
+.service-full-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.75rem;
+  font-family: var(--font-b);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--primary);
+  transition: gap 0.3s var(--ease);
+}
+.service-full-card__link::after {
+  content: '\2192';
+  transition: transform 0.3s var(--ease);
+}
+.service-full-card__link:hover {
+  gap: 0.7rem;
+}
+.service-full-card--core:hover .service-full-card__link {
+  color: #1b1e16;
+}
+
+@media (max-width: 768px) {
+  .detail-features__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detail-feature {
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+  }
+  .detail-feature:hover {
+    transform: none;
+  }
+  .service-full-card__link:hover {
+    gap: 0.4rem;
+  }
+}
