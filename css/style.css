@@ -356,6 +356,140 @@ p {
 /* Burger and logo stay the dark CI colour on every page/state — they
    always sit on the light glass bubble now, so they never switch to cream. */
 
+/* ============================================================
+   NAV DROPDOWN — Services submenu (desktop hover + mobile accordion)
+   ============================================================ */
+.nav__item--dropdown {
+	position: relative;
+}
+.nav__link-caret {
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	margin-left: 0.5em;
+	margin-bottom: 0.15em;
+	border-right: 1.5px solid currentColor;
+	border-bottom: 1.5px solid currentColor;
+	transform: rotate(45deg);
+	transition: transform 0.25s var(--ease);
+	vertical-align: middle;
+}
+.nav__item--dropdown:hover .nav__link-caret,
+.nav__item--dropdown:focus-within .nav__link-caret {
+	transform: rotate(225deg);
+	margin-bottom: -0.1em;
+}
+.nav__dropdown {
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translate(-50%, 6px);
+	margin-top: 0.6rem;
+	min-width: 230px;
+	padding: 0.5rem;
+	background: var(--cream);
+	border: 1px solid var(--sand);
+	border-radius: 16px;
+	box-shadow: 0 16px 40px rgba(10,10,11,0.14);
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), visibility 0.25s;
+	z-index: 50;
+}
+.nav__item--dropdown:hover .nav__dropdown,
+.nav__item--dropdown:focus-within .nav__dropdown {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+	transform: translate(-50%, 0);
+}
+.nav__dropdown-link {
+	display: block;
+	padding: 0.65rem 0.9rem;
+	border-radius: 10px;
+	font-family: var(--font-b);
+	font-size: 0.8rem;
+	font-weight: 400;
+	letter-spacing: 0.02em;
+	text-transform: none;
+	color: var(--text);
+	white-space: nowrap;
+	transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.nav__dropdown-link:hover, .nav__dropdown-link:focus-visible {
+	background: var(--bg2);
+	color: var(--primary);
+}
+
+/* Mobile accordion variant, inside the full-screen .nav__mobile overlay */
+.nav__mobile-item--dropdown {
+	display: flex;
+	flex-direction: column;
+}
+.nav__mobile-link-row {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+}
+.nav__mobile-link-row .nav__link {
+	flex: 1;
+}
+.nav__mobile-dropdown-toggle {
+	flex: none;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: rgba(10,10,11,0.4);
+	transition: color 0.2s;
+}
+.nav__mobile-dropdown-toggle svg {
+	transition: transform 0.35s var(--ease);
+}
+.nav__mobile-item--dropdown.is-open .nav__mobile-dropdown-toggle {
+	color: var(--dark);
+}
+.nav__mobile-item--dropdown.is-open .nav__mobile-dropdown-toggle svg {
+	transform: rotate(180deg);
+}
+.nav__mobile-dropdown {
+	display: grid;
+	grid-template-rows: 0fr;
+	transition: grid-template-rows 0.4s var(--ease);
+}
+.nav__mobile-dropdown > div {
+	overflow: hidden;
+}
+.nav__mobile-item--dropdown.is-open .nav__mobile-dropdown {
+	grid-template-rows: 1fr;
+}
+.nav__mobile-dropdown ul {
+	display: flex;
+	flex-direction: column;
+	padding-left: 0.25rem;
+}
+.nav__mobile-dropdown a {
+	font-family: var(--font-b);
+	font-size: clamp(1rem, 4vw, 1.3rem);
+	font-weight: 300;
+	color: rgba(10,10,11,0.4);
+	padding: 0.35rem 0;
+	transition: color 0.2s;
+}
+.nav__mobile-dropdown a:hover, .nav__mobile-dropdown a:active {
+	color: var(--dark);
+}
+@media (prefers-reduced-motion: reduce) {
+	.nav__dropdown,
+	.nav__link-caret,
+	.nav__mobile-dropdown,
+	.nav__mobile-dropdown-toggle svg {
+		transition: none;
+	}
+}
+
 /* ── Desktop location widget ── */
 .nav__location {
 	display: flex;

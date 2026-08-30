@@ -298,8 +298,16 @@ document.head.appendChild(themeMeta);
     });
     const closeBtn = mobileNav.querySelector('.nav__mobile-close');
     if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-    mobileNav.querySelectorAll('.nav__link').forEach(link => {
+    mobileNav.querySelectorAll('.nav__link, .nav__mobile-dropdown a').forEach(link => {
       link.addEventListener('click', closeMenu);
+    });
+    mobileNav.querySelectorAll('.nav__mobile-dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const item = toggle.closest('.nav__mobile-item--dropdown');
+        if (!item) return;
+        const isOpen = item.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
     });
   }
 

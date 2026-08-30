@@ -27,7 +27,15 @@
     </a>
     <ul class="nav__links">
       <li><a href="../" class="nav__link" data-de="Startseite">Home</a></li>
-      <li><a href="../services/" class="nav__link" data-de="Leistungen">Services</a></li>
+      <li class="nav__item nav__item--dropdown">
+        <a href="../services/" class="nav__link" data-de="Leistungen">Services<span class="nav__link-caret" aria-hidden="true"></span></a>
+        <ul class="nav__dropdown">
+          <li><a href="../services/web-design/" class="nav__dropdown-link" data-de="Webdesign">Web Design</a></li>
+          <li><a href="../services/brand-identity/" class="nav__dropdown-link" data-de-html="Markenidentit&auml;t">Brand Identity</a></li>
+          <li><a href="../services/print/" class="nav__dropdown-link">Print</a></li>
+          <li><a href="../services/social-media-management/" class="nav__dropdown-link" data-de="Social-Media-Management">Social Media Management</a></li>
+        </ul>
+      </li>
       <li><a href="../about/" class="nav__link active" data-de="Über mich">About</a></li>
       <li><a href="../portfolio/" class="nav__link" data-de="Portfolio">Portfolio</a></li>
       <li><a href="../gallery/" class="nav__link" data-de="Galerie">Gallery</a></li>
@@ -43,7 +51,24 @@
     <div class="nav__mobile-top">
       <nav class="nav__mobile-links">
       <a href="../" class="nav__link" data-de="Startseite">Home</a>
-      <a href="../services/" class="nav__link" data-de="Leistungen">Services</a>
+      <div class="nav__mobile-item nav__mobile-item--dropdown">
+        <div class="nav__mobile-link-row">
+          <a href="../services/" class="nav__link" data-de="Leistungen">Services</a>
+          <button type="button" class="nav__mobile-dropdown-toggle" aria-expanded="false" aria-label="Show services submenu" data-de-aria-label="Leistungs-Untermen&uuml; anzeigen">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="nav__mobile-dropdown">
+          <div>
+            <ul>
+              <li><a href="../services/web-design/" data-de="Webdesign">Web Design</a></li>
+              <li><a href="../services/brand-identity/" data-de-html="Markenidentit&auml;t">Brand Identity</a></li>
+              <li><a href="../services/print/">Print</a></li>
+              <li><a href="../services/social-media-management/" data-de="Social-Media-Management">Social Media Management</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
       <a href="../about/" class="nav__link" data-de="Über mich">About</a>
       <a href="../portfolio/" class="nav__link" data-de="Portfolio">Portfolio</a>
       <a href="../gallery/" class="nav__link" data-de="Galerie">Gallery</a>
