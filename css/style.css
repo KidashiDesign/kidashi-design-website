@@ -2799,7 +2799,6 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	flex-direction: column;
 	justify-content: flex-end;
 	padding: 2rem;
-	background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
 	opacity: 0;
 	transition: opacity 0.35s var(--ease);
 }
