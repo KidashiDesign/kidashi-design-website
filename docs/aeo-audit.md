@@ -115,4 +115,19 @@ All 9 touched JSON-LD blocks validated as well-formed; all `.html` files checked
 
 **Not done in this pass (unchanged from Priority 1's leftover list):** canonical tags site-wide, the dead `portfolio/wh4/` homepage link, sitemap sync, `/impressum/`'s duplicate H1, and the founding-date/`areaServed` TODOs.
 
-**→ Priority 1–2 complete — this is the master brief's mandatory second checkpoint. Awaiting confirmation before starting Priority 3 (Portfolio).**
+**Priority 1–2 complete — this was the master brief's mandatory second checkpoint.**
+
+---
+
+## 8. Leftover technical items — fixed (2026-08-31)
+
+- **Canonical tags added to all 24 indexable pages.** 23 pages got a new self-referencing `<link rel="canonical">`; `/artista/` already had a correct one pointing at `/portfolio/artista-magazin/` (its duplicate-content twin) and was left untouched. `/datenschutz/` and `/impressum/` (both `noindex`) got self-referencing canonicals too for consistency, though they carry no ranking weight either way.
+- **Fixed the dead homepage portfolio link.** `index.html`'s "wh4" tile linked to `portfolio/wh4/` (archived, doesn't exist) while its own iframe already correctly showed Art Gerecht Modular content — the `href` and both `aria-label`s now point at `portfolio/art-gerecht-modular/` and describe what the tile actually shows.
+- **Synced `sitemap.xml`.** Removed the stale `portfolio/westgrowth-capital/` entry (that project no longer exists, per `HANDOFF-2026-07-07.md`); added the 4 real indexable pages that were missing — `artista-artista`, `cafe-mira`, `hideout-georgia`, `woofles`. `/artista/` (duplicate) and the two `noindex` legal pages are correctly still excluded. 22 URLs now match the 22 canonical indexable pages exactly.
+- **Fixed `/impressum/`'s duplicate `<h1>`.** The page legitimately shows two full legal documents side by side (English "Legal Notice" and German "Impressum" — both must stay simultaneously visible for compliance, not JS-toggled like the rest of the site). Added one page-level `<h1>Impressum / Legal Notice</h1>` matching the page's own `<title>`, demoted the two section titles to `<h2>`, and demoted the existing 10 subsection headings to `<h3>` to keep valid, unbroken heading nesting. Adjusted the page's inline CSS selectors to match the new levels — visual sizing is preserved, no wording changed anywhere in the legal text itself.
+
+All touched JSON-LD re-validated as well-formed (repo-wide), `sitemap.xml` re-validated as well-formed XML, and every file's diff confirmed as scoped to exactly the intended change (spot-checked via `git diff`) before committing.
+
+**Still open, needs your input rather than a code fix:** the founding-date and `areaServed` questions from Section 2 — flagged there as `TODO: business information required`, unresolved.
+
+**→ Ready for Priority 3 (Portfolio → case studies) whenever you say go.**
