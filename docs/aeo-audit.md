@@ -83,4 +83,19 @@ Portfolio case studies need Challenge/Solution/Outcome text (only where genuinel
 
 ---
 
-**→ Awaiting confirmation before starting any implementation work (Priority 1: Entity signals).**
+---
+
+## 6. Priority 1 — implemented (2026-08-31)
+
+- **Homepage entity paragraph** (`index.html`, `.about3d__text`, EN + DE): rewritten to lead with "Kidashi Design is the freelance design studio of Nicole Szatkowski..." and now answers all five questions from Section 3 (what/who/services/clients/where) in one on-brand paragraph, in its existing visual slot — no new section added.
+- **Organization/Person JSON-LD pruned to the scoped allow-list.** Removed `WebSite`, `WebPage`, `OfferCatalog`, and the `Review` array from the homepage graph (none of those types are in the Section 6/7 allow-list); `Service` markup already lived correctly on each service page, so nothing was lost, only de-duplicated. Simplified `Organization.logo` to an inline `ImageObject` value instead of a separate top-level graph node.
+- **Fixed the broken `Person` entity URL** — `Person.url` now points to `/about/` (real, canonical) instead of the non-existent `/about/nicole-szatkowski/`; the same dead link was also removed from the visible text on `/about/` (unlinked, kept as plain bold text rather than fabricating a target page).
+- **`Person` schema added to `/about/`** with the same `@id`, per Section 6's "reused everywhere she's referenced."
+- **Removed the now-dangling `isPartOf: {"@id": "#website"}`** from all four service pages' `Service` JSON-LD, since the `WebSite` node it pointed to no longer exists.
+- Removed the homepage's orphaned `FAQPage` JSON-LD (no matching visible FAQ existed on `/`) rather than fabricate an accordion for it — `/services/` already carries the one real, matching FAQ implementation, so FAQ coverage isn't lost, just no longer double (and incorrectly) claimed on the homepage too.
+
+All 6 touched JSON-LD blocks validated as well-formed JSON; no remaining references to the removed `#website`/`#webpage`/`OfferCatalog` nodes anywhere in the codebase (verified by grep).
+
+**Not done in this pass (still open, tracked for Priority 2 / Technical phase):** canonical tags site-wide, the dead `portfolio/wh4/` homepage link, sitemap sync, `/impressum/`'s duplicate H1, and the founding-date/`areaServed` TODOs from Section 2.
+
+**→ Priority 1 complete. Ready to proceed to Priority 2 (Services) on your go-ahead, or continue with Priority 1's leftover technical items first — your call.**
