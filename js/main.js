@@ -930,4 +930,20 @@ document.head.appendChild(themeMeta);
     });
   })();
 
+  // FAQ accordion — used on /services/ and each service detail page
+  document.querySelectorAll('.faq-item').forEach(function (item) {
+    var btn = item.querySelector('.faq-item__q');
+    var answer = item.querySelector('.faq-item__a');
+    if (!btn || !answer) return;
+    var wrapper = document.createElement('div');
+    while (answer.firstChild) wrapper.appendChild(answer.firstChild);
+    answer.appendChild(wrapper);
+
+    btn.addEventListener('click', function () {
+      var isOpen = item.classList.contains('is-open');
+      item.classList.toggle('is-open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
 });

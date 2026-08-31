@@ -98,4 +98,21 @@ All 6 touched JSON-LD blocks validated as well-formed JSON; no remaining referen
 
 **Not done in this pass (still open, tracked for Priority 2 / Technical phase):** canonical tags site-wide, the dead `portfolio/wh4/` homepage link, sitemap sync, `/impressum/`'s duplicate H1, and the founding-date/`areaServed` TODOs from Section 2.
 
-**→ Priority 1 complete. Ready to proceed to Priority 2 (Services) on your go-ahead, or continue with Priority 1's leftover technical items first — your call.**
+**Priority 1 complete.**
+
+---
+
+## 7. Priority 2 — implemented (2026-08-31)
+
+Applied to all four service pages (`web-design`, `brand-identity`, `print`, `social-media-management`):
+
+- **Direct-answer opening.** The first sentence of each page's hero paragraph (EN + DE) now states factually what the service is and who delivers it, before the existing persuasive copy — e.g. Brand Identity now opens "Brand identity at Kidashi Design means a complete visual system — logo, color palette, typography, and brand guidelines — developed personally by Nicole Szatkowski," with the original marketing sentence following it. No content was dropped, only reordered/tightened.
+- **"Relevant Work" section** added to each service page (What's Included → Process → Ideal For → **Relevant Work** → FAQ → CTA), linking to 2 real, already-published case studies per service, matched via the portfolio grid's own `data-categories` taxonomy (not guessed): Web Design → Café Mira, X-Commerce; Brand Identity → Seestern Britzer Garten, TM Studio; Print → Seestern Britzer Garten, Art Gerecht Modular; Social Media Management → Social Media Designs, Artista Artista. Anchor text and card copy are descriptive (drawn from each case study's own existing meta description), no "click here"/"learn more."
+- **FAQ added to each service page** — 2 tailored Q&As per page, all derived directly from that page's own "What's Included" content (no invented claims), each with matching `FAQPage` JSON-LD scoped to that page's own `@id` (`/services/{slug}/#faq`), so — unlike the homepage defect fixed in Priority 1 — schema and visible content match exactly on every page that carries it.
+- **De-duplicated the FAQ accordion component.** It previously existed only as an inline `<style>`+`<script>` block hardcoded into `/services/index.html`; moved the CSS into the already-shared `css/service-detail.css` and the toggle behavior into `js/main.js` (both already loaded on every service page), so the same accordion now works on all 5 FAQ-bearing pages without duplicating ~85 lines 4 more times. `/services/index.html`'s own FAQ is unchanged in content or appearance.
+
+All 9 touched JSON-LD blocks validated as well-formed; all `.html` files checked for balanced tags; every new `../../portfolio/{slug}/` link target verified to exist on disk.
+
+**Not done in this pass (unchanged from Priority 1's leftover list):** canonical tags site-wide, the dead `portfolio/wh4/` homepage link, sitemap sync, `/impressum/`'s duplicate H1, and the founding-date/`areaServed` TODOs.
+
+**→ Priority 1–2 complete — this is the master brief's mandatory second checkpoint. Awaiting confirmation before starting Priority 3 (Portfolio).**
