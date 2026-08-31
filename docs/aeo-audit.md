@@ -160,4 +160,23 @@ All 12 files' new markup validated as internally balanced; JSON-LD re-validated 
 
 **Still open:** the founding-date/`areaServed` TODOs from Section 2, and your decisions on the Process page and Resources section above. Priority 5 (Technical) and Priority 6 (measurement script + final report) remain, along with a still-unresolved decision from Priority 1: whether to prune the `Review` testimonials and confirm the JSON-LD scope choices made there.
 
-**→ Ready for Priority 5 (Technical) whenever you say go — or let me know your call on the Process page / Resources.**
+**Ready for Priority 5 (Technical) whenever you say go — or let me know your call on the Process page / Resources.**
+
+---
+
+## 11. Priority 5 — implemented (2026-08-31)
+
+Most of Priority 5's scope was already handled inline as part of earlier priorities (canonicals, sitemap sync, the dead link, `/impressum/`'s heading structure, `FAQPage` scoping and content parity) — this pass covered what was still open:
+
+- **Missing Open Graph tags added** to the 13 pages that had none: 11 of 12 portfolio case studies (only `x-commerce` already had them) plus `/gallery/` and `/artista/`. Used the site's existing sitewide fallback OG image (`vorschaubild-link-kidashi-design.png`) for pages without a dedicated poster image, matching the convention already used on every other indexable page rather than guessing at a new one from scattered project assets. Every indexable page now carries a complete title/description/canonical/OG set.
+- **`BreadcrumbList` schema added to the 16 pages where a breadcrumb already exists in the UI** — the 4 service detail pages and all 12 portfolio case studies each already show a "← Services" / "← Portfolio" back-link; this just marks up that existing navigation rather than adding breadcrumbs solely for schema, per the brief's explicit instruction.
+- **Added a `<main>` landmark to all 23 indexable pages that were missing one** (`/datenschutz/` and `/impressum/` already had it). Verified first that no CSS in the codebase depends on direct-child selectors from `<body>` (none found), then confirmed via a local Playwright smoke test on three representative page types (homepage, a portfolio case study, a service page) that layout, sticky nav, and scroll-reveal animations all render identically — no regression.
+- **Alt text audited for quality, not just presence** — already good sitewide (confirmed in Phase 1) and re-checked here; one apparent mismatch on `/about/` (an image filename suggesting one thing, alt text describing another) turned out, after actually viewing the images, to be inaccurate filenames rather than inaccurate alt text — the alt text correctly describes what's in each photo, so nothing was changed.
+- **robots.txt / sitemap.xml re-verified** — unchanged since the earlier sync, still correct (22 URLs, matching the 22 canonical indexable pages).
+- **No new dependencies, no performance regression** — every change this pass was markup/schema text; no new JS, no new images, no new libraries.
+
+All 27 JSON-LD blocks sitewide re-validated as well-formed; full-repo HTML tag-balance re-checked (only the 4 pre-existing quirks from Priority 3 remain, nothing new).
+
+**Still open:** the founding-date/`areaServed` TODOs, your decisions on the Process page and Resources section (Priority 4), and the Priority 1 decision on the homepage's `Review` testimonials in JSON-LD. Priority 6 (measurement script + final report) is next and last.
+
+**→ Ready for Priority 6 (measurement script + final report) whenever you say go.**
