@@ -179,4 +179,4 @@ All 27 JSON-LD blocks sitewide re-validated as well-formed; full-repo HTML tag-b
 
 **Still open:** the founding-date/`areaServed` TODOs, your decisions on the Process page and Resources section (Priority 4), and the Priority 1 decision on the homepage's `Review` testimonials in JSON-LD. Priority 6 (measurement script + final report) is next and last.
 
-**→ Ready for Priority 6 (measurement script + final report) whenever you say go.**
+**Priority 6 (measurement script + final report) is complete — see `docs/aeo-implementation.md` for the sign-off: what changed, the objective audit script and its output, the final acceptance check, and the final scored report (56 → 84/100).**
