@@ -130,4 +130,21 @@ All touched JSON-LD re-validated as well-formed (repo-wide), `sitemap.xml` re-va
 
 **Still open, needs your input rather than a code fix:** the founding-date and `areaServed` questions from Section 2 — flagged there as `TODO: business information required`, unresolved.
 
-**→ Ready for Priority 3 (Portfolio → case studies) whenever you say go.**
+**Ready for Priority 3 (Portfolio → case studies) whenever you say go.**
+
+---
+
+## 9. Priority 3 — implemented (2026-08-31)
+
+Applied to all 12 portfolio case-study pages (`art-gerecht-modular`, `artista-magazin`, `artista-artista`, `cafe-mira`, `hideout-georgia`, `rohyma-jet`, `seestern`, `selvoma`, `social-media-content`, `tm-studio`, `woofles`, `x-commerce`). The visual/image-driven presentation was not touched — only new crawlable text was added, in a new component matching the existing editorial design language.
+
+- **Added an "Industry" chip** to each page's existing meta strip (alongside the already-present Category/Year/Client/Services chips), inferred directly from each project's own stated client description (e.g. "a specialty coffee house in Berlin-Mitte" → Hospitality/Food & Beverage) — categorization of existing facts, not new information.
+- **Added a Challenge/Solution section** (Outcome included only where independently verifiable) to every page, using a new shared `.proj-context` component in `css/project.css` — styled consistently with the page's existing statement/quote sections, no new visual language invented. Content was drafted strictly from each page's own existing statement, process steps, and quote text; nothing was invented. A research pass first extracted every page's exact existing copy verbatim specifically so new content couldn't drift from or contradict it.
+- **Outcome sections added only where a live, verifiable result exists** — 4 of 12 pages (`cafe-mira`, `artista-artista`, `woofles`, `x-commerce`) have real live/demo links already on the page, so their Outcome states that plainly (e.g. "The result is live at cafemira.kidashidesign.com"). The other 8 pages have no Outcome section at all — per the brief's "Outcome (only if verified)" instruction, no results, stats, or launches were invented for projects where none exist. No page anywhere on the site (checked repo-wide during the Phase 1 audit) contains a fabricated stat, and this stayed true here.
+- **Descriptive service ↔ case-study cross-links added**, closing the loop the other direction from Priority 2's service-page links: each case study now links to the real service page(s) it maps to (matched via the same portfolio category taxonomy used in Priority 2, e.g. Café Mira → Web Design + Brand Identity), with sentence-form anchor text ("This project combined Kidashi Design's Web Design and Brand Identity services") rather than "click here"/"learn more."
+
+All 12 files' new markup validated as internally balanced; JSON-LD re-validated repo-wide; every new service link target confirmed to exist.
+
+**Still open:** the founding-date/`areaServed` TODOs from Section 2 (needs your input), and the previously-flagged Priority 4/5 items (FAQ/About/Process expansion, remaining structured-data scope decision) — not started.
+
+**→ Ready for Priority 4 (Authority: FAQ/About/Process) whenever you say go.**

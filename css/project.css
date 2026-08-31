@@ -223,6 +223,50 @@
   color: var(--muted);
 }
 
+/* ── CHALLENGE / SOLUTION / OUTCOME ── */
+.proj-context {
+  background: var(--bg2);
+  border-top: 1px solid var(--sand);
+  border-bottom: 1px solid var(--sand);
+  padding: clamp(3rem, 6vw, 5rem) var(--gutter);
+}
+.proj-context__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(2rem, 4vw, 3rem);
+}
+.proj-context__label {
+  display: block;
+  font-family: var(--font-b);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+}
+.proj-context__text {
+  font-family: var(--font-b);
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text);
+  max-width: 46ch;
+}
+.proj-context__services {
+  margin-top: clamp(2rem, 4vw, 2.5rem);
+  padding-top: clamp(1.5rem, 3vw, 2rem);
+  border-top: 1px solid var(--sand);
+  font-family: var(--font-b);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.proj-context__services a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* ── FULL-BLEED IMAGE ── */
 .proj-img-full {
   line-height: 0;
