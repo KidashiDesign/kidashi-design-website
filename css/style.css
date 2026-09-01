@@ -873,7 +873,7 @@ p {
 	font-weight: 700;
 	font-size: clamp(4.5rem, 18vh, 15rem);
 	line-height: 0.87;
-	letter-spacing: -0.03em;
+	letter-spacing: -0.015em;
 	color: #2a2a2a;
 }
 .hero2__static {
