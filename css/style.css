@@ -672,14 +672,19 @@ p {
 
 /* ============================================================
    GLASS DOCK — Desktop main navigation (liquid-glass, no icons)
-   Only affects screens >= 1280px. Below that (tablets included)
+   Only affects screens >= 1320px. Below that (tablets included)
    the hamburger menu takes over — the dock + clock widget together
-   need ~1280px to fit without the nav__meta block overflowing the pill.
+   need ~1320px to fit without the nav__meta block overflowing the
+   pill. 1280px used to be the cutoff, but the German nav labels
+   (LEISTUNGEN, ÜBER MICH, …) are wider than the English ones and
+   pushed "TBILISI · GMT+4" past the pill's right edge — with no
+   padding left to catch it — for a ~25px window just above the old
+   breakpoint. Raised so that window closes for German too.
    Uses GPU-accelerated backdrop-filter (no costly SVG filters) so
    scroll/paint stays fast. Corporate colours: blue = --secondary,
    peach = --primary, on a frosted cream (--cream) glass surface.
    ============================================================ */
-@media (min-width: 1280px) {
+@media (min-width: 1320px) {
 
 	/* The nav bar itself is just a positioning layer — the dock pill
 	   provides the visible surface, so drop the old full-width frosted
@@ -3603,9 +3608,9 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
 	}
 }
 
-/* Nav switches to the hamburger menu below 1280px — see the
-   matching "min-width: 1280px" glass-dock block above. */
-@media (max-width: 1279px) {
+/* Nav switches to the hamburger menu below 1320px — see the
+   matching "min-width: 1320px" glass-dock block above. */
+@media (max-width: 1319px) {
   .nav__links { display: none; }
   .nav__burger { display: flex; }
   .nav__location { display: none; }
