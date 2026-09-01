@@ -133,6 +133,12 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 300;
 	line-height: 1.15;
 	letter-spacing: 0.02em;
+	/* Mango Grotesque platziert Umlaut-Punkte bei Großbuchstaben (Ä/Ö/Ü) standardmäßig
+	   an der Position für Kleinbuchstaben, dadurch wirken sie leicht versetzt.
+	   Die OpenType-Funktion "case" (Case-Sensitive Forms) nutzt stattdessen die vom
+	   Font hinterlegten, für Versalien zentrierten Diakritika-Positionen. */
+	font-feature-settings: "case" 1;
+	text-rendering: optimizeLegibility;
 }
 h1 {
 	font-size: clamp(1.9rem, 5vw, 5rem);
