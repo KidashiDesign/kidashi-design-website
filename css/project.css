@@ -471,7 +471,7 @@
 }
 .proj-process__step-body {
   font-family: var(--font-b);
-  font-size: 0.9rem;
+  font-size: 1.275rem; /* 0.9rem + 6px */
   font-weight: 300;
   color: rgba(247,243,238,0.5);
   line-height: 1.75;
