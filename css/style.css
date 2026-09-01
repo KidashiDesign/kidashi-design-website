@@ -3635,7 +3635,7 @@ re-expressed as plain CSS since this site hasno build step). One shared glass sh
   .nav__inner {
     width: calc(100% - 2 * var(--gutter));
     margin-inline: var(--gutter);
-    padding: 0.5rem 0.9rem 0.5rem 1.1rem;
+    padding: 0.4rem 1.1rem 0.4rem 1.1rem;
     border-radius: 999px;
     background: rgba(247, 243, 238, 0.55);
     border: 1px solid rgba(255, 255, 255, 0.4);
