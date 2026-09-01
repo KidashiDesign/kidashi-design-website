@@ -465,7 +465,7 @@
 .proj-process__step-title {
   font-family: var(--font-h);
   font-weight: 400;
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-size: 32px;
   color: var(--cream);
   line-height: 1.2;
 }
