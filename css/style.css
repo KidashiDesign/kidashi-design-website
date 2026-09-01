@@ -368,6 +368,18 @@ p {
 .nav__item--dropdown {
 	position: relative;
 }
+/* Invisible hover bridge over the gap between the trigger link and the
+   dropdown (margin-top below) — without it the pointer leaves the hover
+   area while moving straight down and the dropdown closes too fast. */
+.nav__item--dropdown::before {
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: max(100%, 230px);
+	height: 0.6rem;
+}
 .nav__link-caret {
 	display: inline-block;
 	width: 6px;
