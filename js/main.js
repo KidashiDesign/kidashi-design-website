@@ -1,28 +1,19 @@
-/* ============================================================
-   KIDASHI DESIGN — main.js
-   ============================================================ */
-
 document.addEventListener('DOMContentLoaded', () => {
 const favicon = document.createElement('link');
 favicon.rel = 'icon';
 favicon.href = '/images/favicon.svg';
 document.head.appendChild(favicon);
-
-
 const themeMeta = document.createElement('meta');
 themeMeta.name = 'theme-color';
 themeMeta.content = '#8D926F'; // Your color here
 document.head.appendChild(themeMeta);
-  /* ── Custom cursor — ported from Custom Cursor.dc.html ── */
-  const cursor = document.querySelector('.cursor');
+    const cursor = document.querySelector('.cursor');
   if (cursor && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     const GLYPHS = ['✦', '✧', '✶', '✷', '✴'];
     const CYCLE_MS = 1000;
     const SMOOTHING = 0.28;
     const SIZE = 30;
-
-    /* Build DOM */
-    cursor.innerHTML =
+        cursor.innerHTML =
       `<div class="cursor__circle">
         <svg viewBox="0 0 100 100" width="${SIZE}" height="${SIZE}" style="overflow:visible">
           <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="5"/>
@@ -31,18 +22,14 @@ document.head.appendChild(themeMeta);
       <div class="cursor__glyphs">
         ${GLYPHS.map(g => `<span class="cursor__glyph">${g}</span>`).join('')}
       </div>`;
-
     const circleEl = cursor.querySelector('.cursor__circle');
     const glyphsEl = cursor.querySelector('.cursor__glyphs');
     const glyphs   = Array.from(cursor.querySelectorAll('.cursor__glyph'));
-
     let pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     let target = { x: pos.x, y: pos.y };
     let isHover = false, glyphIdx = 0, cycleTimer = null, seen = false;
     let needsHoverCheck = false;
-
-    /* Detect background luminance to auto-switch cursor color */
-    function getBgLuminance(el) {
+        function getBgLuminance(el) {
       let node = el;
       while (node && node !== document.body) {
         const bg = getComputedStyle(node).backgroundColor;
@@ -50,46 +37,34 @@ document.head.appendChild(themeMeta);
         if (m) {
           const [r, g, b] = [+m[1], +m[2], +m[3]];
           if (r + g + b > 0) {
-            /* relative luminance */
-            return 0.2126 * (r / 255) + 0.7152 * (g / 255) + 0.0722 * (b / 255);
+                        return 0.2126 * (r / 255) + 0.7152 * (g / 255) + 0.0722 * (b / 255);
           }
         }
         node = node.parentElement;
       }
-      return 1; /* assume light if nothing found */
-    }
-
-    /* Pointer tracking — only update position; defer DOM queries to rAF */
-    window.addEventListener('pointermove', e => {
+      return 1;     }
+        window.addEventListener('pointermove', e => {
       target.x = e.clientX;
       target.y = e.clientY;
       if (!seen) { seen = true; cursor.style.opacity = '1'; }
       needsHoverCheck = true;
     }, { passive: true });
-
-    /* rAF lerp loop — reads before writes to avoid layout thrash */
-    (function loop() {
-      /* Read phase: DOM queries before any style writes */
-      let checkEl = null;
+        (function loop() {
+            let checkEl = null;
       if (needsHoverCheck) {
         needsHoverCheck = false;
         checkEl = document.elementFromPoint(target.x, target.y);
       }
-
-      /* Write phase */
-      pos.x += (target.x - pos.x) * SMOOTHING;
+            pos.x += (target.x - pos.x) * SMOOTHING;
       pos.y += (target.y - pos.y) * SMOOTHING;
       cursor.style.transform = `translate3d(${pos.x.toFixed(2)}px,${pos.y.toFixed(2)}px,0) translate(-50%,-50%)`;
-
       if (checkEl) {
         cursor.style.color = '#FFFFFF';
         const hovered = !!(checkEl.closest && checkEl.closest('a, button, .gallery-item, .portfolio-item, .portfolio-card, .service-card, .filter-btn, [role="button"], [data-cursor="hover"]'));
         setHover(hovered);
       }
-
       requestAnimationFrame(loop);
     })();
-
     function renderGlyph() {
       glyphs.forEach((g, i) => {
         if (i === glyphIdx) {
@@ -101,7 +76,6 @@ document.head.appendChild(themeMeta);
         }
       });
     }
-
     function setHover(on) {
       if (on === isHover) return;
       isHover = on;
@@ -125,12 +99,9 @@ document.head.appendChild(themeMeta);
       }
     }
   }
-
-  /* ── Word-cycle crossfade engine ── */
-  function initGooeyText(host, texts, morphTime, cooldownTime) {
+    function initGooeyText(host, texts, morphTime, cooldownTime) {
     morphTime    = morphTime    || 1;
     cooldownTime = cooldownTime || 2.5;
-
     const filterEl = document.createElement('span');
     filterEl.className = 'gooey-filter';
     const t1 = document.createElement('span');
@@ -141,10 +112,7 @@ document.head.appendChild(themeMeta);
     filterEl.appendChild(t2);
     host.textContent = '';
     host.appendChild(filterEl);
-
-    /* Lock container width to widest word so surrounding text never shifts.
-       Must wait for fonts: probe with fallback font gives wrong metrics. */
-    if (!host.closest('.hero2__cycle')) {
+        if (!host.closest('.hero2__cycle')) {
       (document.fonts ? document.fonts.ready : Promise.resolve()).then(function() {
         requestAnimationFrame(function() {
           const probe = document.createElement('span');
@@ -166,20 +134,16 @@ document.head.appendChild(themeMeta);
         });
       });
     }
-
     let idx      = texts.length - 1;
     let prev     = Date.now();
     let morph    = 0;
     let cooldown = cooldownTime;
-
     t1.textContent = texts[idx % texts.length];
     t2.textContent = texts[(idx + 1) % texts.length];
-
     function setMorph(f) {
       t2.style.opacity = String(f);
       t1.style.opacity = String(1 - f);
     }
-
     function tick() {
       const now  = Date.now();
       const dt   = (now - prev) / 1000;
@@ -206,17 +170,12 @@ document.head.appendChild(themeMeta);
     }
     requestAnimationFrame(tick);
   }
-
-  /* ── Hero 2 — reactive gradient + scroll reveals ── */
-  const hero2 = document.getElementById('hero2');
+    const hero2 = document.getElementById('hero2');
   if (hero2) {
-
-    /* Scroll-driven: H2 reveal slides in from sides */
-    const revealLeft  = hero2.querySelector('.hero2__reveal-left');
+        const revealLeft  = hero2.querySelector('.hero2__reveal-left');
     const revealRight = hero2.querySelector('.hero2__reveal-right');
     const revealH2    = hero2.querySelector('.hero2__reveal-h2');
     const heroInfo    = document.getElementById('heroInfo');
-
     function updateHero2() {
       const rect = hero2.getBoundingClientRect();
       const scrollable = hero2.offsetHeight - window.innerHeight;
@@ -231,9 +190,7 @@ document.head.appendChild(themeMeta);
     }
     window.addEventListener('scroll', updateHero2, { passive: true });
     updateHero2();
-
-    /* Blob parallax — mouse + touch */
-    const heroBg = hero2.querySelector('.hero2__bg');
+        const heroBg = hero2.querySelector('.hero2__bg');
     if (heroBg) {
       let bTx = 0, bTy = 0, bCx = 0, bCy = 0;
       const blobs = heroBg.querySelectorAll('.blob');
@@ -260,11 +217,8 @@ document.head.appendChild(themeMeta);
         requestAnimationFrame(blobLoop);
       })();
     }
-
   }
-
-  /* ── Nav scroll ── */
-  const nav = document.querySelector('.nav');
+    const nav = document.querySelector('.nav');
   if (nav) {
     const onScroll = () => {
       if (window.scrollY > 40) {
@@ -276,9 +230,7 @@ document.head.appendChild(themeMeta);
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   }
-
-  /* ── Mobile hamburger ── */
-  const burger = document.querySelector('.nav__burger');
+    const burger = document.querySelector('.nav__burger');
   const mobileNav = document.querySelector('.nav__mobile');
   if (burger && mobileNav) {
     function openMenu() {
@@ -310,9 +262,7 @@ document.head.appendChild(themeMeta);
       });
     });
   }
-
-  /* ── Tbilisi clock (UTC+4) ── */
-  const navTime    = document.getElementById('navTime');
+    const navTime    = document.getElementById('navTime');
   const mobileDate  = document.getElementById('mobileDate');
   const mobileTime  = document.getElementById('mobileTime');
   function updateClock() {
@@ -329,9 +279,7 @@ document.head.appendChild(themeMeta);
   }
   updateClock();
   setInterval(updateClock, 1000);
-
-  /* ── Parallax hero ── */
-  const hero = document.querySelector('.hero');
+    const hero = document.querySelector('.hero');
   if (hero) {
     window.addEventListener('scroll', () => {
       const scrolled = window.scrollY;
@@ -341,9 +289,7 @@ document.head.appendChild(themeMeta);
       if (content) content.style.transform = `translateY(${scrolled * 0.25}px)`;
     }, { passive: true });
   }
-
-  /* ── Parallax portrait ── */
-  const portrait = document.querySelector('.about-teaser__portrait img, .about-hero__portrait img');
+    const portrait = document.querySelector('.about-teaser__portrait img, .about-hero__portrait img');
   if (portrait) {
     window.addEventListener('scroll', () => {
       const rect = portrait.closest('section, div').getBoundingClientRect();
@@ -353,42 +299,30 @@ document.head.appendChild(themeMeta);
       }
     }, { passive: true });
   }
-
-  /* ── About page: floating scene (mouse-parallax, port of Floating/FloatingElement) ── */
-  const aboutFloat = document.getElementById('aboutFloat');
+    const aboutFloat = document.getElementById('aboutFloat');
   if (aboutFloat && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const scene  = document.getElementById('aboutFloatScene');
     const EASING = 0.06;
     const SENS   = 1;
     let mouse    = { x: 0, y: 0 };
     let isMobile = window.matchMedia('(max-width: 1024px)').matches;
-
-    /* Build state from [data-depth] elements — mirrors FloatingElement.registerElement */
-    const items = scene
+        const items = scene
       ? Array.from(scene.querySelectorAll('[data-depth]')).map(el => ({
           el, depth: parseFloat(el.dataset.depth) || 1, x: 0, y: 0
         }))
       : [];
-
-    /* Track mouse relative to container centre — mirrors useMousePositionRef */
-    aboutFloat.addEventListener('mousemove', e => {
+        aboutFloat.addEventListener('mousemove', e => {
       if (isMobile) return;
       const r = aboutFloat.getBoundingClientRect();
       mouse.x = e.clientX - r.left  - r.width  * 0.5;
       mouse.y = e.clientY - r.top   - r.height * 0.5;
     }, { passive: true });
-
-    /* Ease back to centre on leave */
-    aboutFloat.addEventListener('mouseleave', () => { mouse.x = 0; mouse.y = 0; }, { passive: true });
-
-    /* Disable on tablet/mobile breakpoint */
-    window.matchMedia('(max-width: 1024px)').addEventListener('change', e => {
+        aboutFloat.addEventListener('mouseleave', () => { mouse.x = 0; mouse.y = 0; }, { passive: true });
+        window.matchMedia('(max-width: 1024px)').addEventListener('change', e => {
       isMobile = e.matches;
       if (isMobile) { mouse.x = 0; mouse.y = 0; }
     });
-
-    /* rAF loop — mirrors useAnimationFrame + easing from Floating */
-    (function floatLoop() {
+        (function floatLoop() {
       items.forEach(s => {
         const strength = (s.depth * SENS) / 20;
         s.x += (mouse.x * strength - s.x) * EASING;
@@ -398,9 +332,7 @@ document.head.appendChild(themeMeta);
       requestAnimationFrame(floatLoop);
     })();
   }
-
-  /* ── Scroll reveal ── */
-  const revealEls = document.querySelectorAll('.reveal');
+    const revealEls = document.querySelectorAll('.reveal');
   if (revealEls.length) {
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -415,9 +347,7 @@ document.head.appendChild(themeMeta);
     });
     revealEls.forEach(el => revealObserver.observe(el));
   }
-
-  /* ── About 3D tilt card (Aceternity-style, vanilla port) ── */
-  const tiltCards = document.querySelectorAll('[data-tilt]');
+    const tiltCards = document.querySelectorAll('[data-tilt]');
   if (tiltCards.length
       && window.matchMedia('(hover: hover) and (pointer: fine)').matches
       && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -446,9 +376,7 @@ document.head.appendChild(themeMeta);
       });
     });
   }
-
-  /* ── Gallery float-in ── */
-  const galleryItems = document.querySelectorAll('.gallery-item');
+    const galleryItems = document.querySelectorAll('.gallery-item');
   if (galleryItems.length) {
     const galleryObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -466,9 +394,7 @@ document.head.appendChild(themeMeta);
     });
     galleryItems.forEach(item => galleryObserver.observe(item));
   }
-
-  /* ── Counter animation ── */
-  const counters = document.querySelectorAll('.stat__number[data-count]');
+    const counters = document.querySelectorAll('.stat__number[data-count]');
   if (counters.length) {
     const counterObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -480,7 +406,6 @@ document.head.appendChild(themeMeta);
           const duration = 1800;
           const start = performance.now();
           const isDecimal = String(target).includes('.');
-
           const tick = (now) => {
             const elapsed = now - start;
             const progress = Math.min(elapsed / duration, 1);
@@ -496,9 +421,7 @@ document.head.appendChild(themeMeta);
     }, { threshold: 0.5 });
     counters.forEach(c => counterObserver.observe(c));
   }
-
-  /* ── Portfolio filter ── */
-  const filterBtns = document.querySelectorAll('.filter-btn');
+    const filterBtns = document.querySelectorAll('.filter-btn');
   const portfolioSections = document.querySelectorAll('.portfolio-section');
   if (filterBtns.length && portfolioSections.length) {
     filterBtns.forEach(btn => {
@@ -516,23 +439,19 @@ document.head.appendChild(themeMeta);
       });
     });
   }
-
-  /* ── Glow cards (mouse-tracking border effect) ── */
-  const glowColorMap = {
+    const glowColorMap = {
     blue: { base: 220, spread: 200 },
     orange: { base: 30, spread: 200 },
     purple: { base: 280, spread: 300 },
     green: { base: 120, spread: 200 },
     red: { base: 0, spread: 200 }
   };
-
   // Kidashi Design corporate colors — exact hue/saturation/lightness of --primary and --accent.
   // Used on brand-owned cards (About page sidebar) so the glow never drifts into off-brand hues.
   const CI_COLOR_MAP = {
     blue:   { hue: 229, saturation: '99%', lightness: '59%' }, // --primary #2E54FE
     orange: { hue: 22,  saturation: '100%', lightness: '79%' } // --accent  #FFBC95
   };
-
   const glowItems = document.querySelectorAll('[data-glow]');
   if (glowItems.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const syncPointer = (e) => {
@@ -542,7 +461,6 @@ document.head.appendChild(themeMeta);
         item.style.setProperty('--xp', (x / window.innerWidth).toFixed(2));
         item.style.setProperty('--y', y.toFixed(2));
         item.style.setProperty('--yp', (y / window.innerHeight).toFixed(2));
-
         const glowColor = item.dataset.glow || 'blue';
         const ci = item.classList.contains('sidebar-block') ? CI_COLOR_MAP[glowColor] : null;
         if (ci) {
@@ -558,12 +476,9 @@ document.head.appendChild(themeMeta);
         }
       });
     };
-
     document.addEventListener('pointermove', syncPointer, { passive: true });
   }
-
-  /* ── Active nav link ── */
-  const currentPath = window.location.pathname;
+    const currentPath = window.location.pathname;
   document.querySelectorAll('.nav__link, .nav__mobile .nav__link').forEach(link => {
     const href = link.getAttribute('href');
     if (!href) return;
@@ -576,48 +491,38 @@ document.head.appendChild(themeMeta);
       link.classList.add('active');
     }
   });
-
-  /* ── Featured project tile — update this one object to change the project shown ── */
-  const FEATURED_PROJECT = {
+    const FEATURED_PROJECT = {
     title:  'Rohyma Jet — Luxury Private Aviation',
     tag:    'Web Design',
     img:    'images/portfolio/rohyma-jet/kidashi-design-rohyma-jet-product-visual.jpg',
     link:   'portfolio/rohyma-jet/'
   };
-
   (function injectFeaturedProject() {
     const depth = (window.location.pathname.replace(/\/$/, '').match(/\//g) || []).length - 1;
     const prefix = depth <= 0 ? '' : depth === 1 ? '../' : '../../';
     document.querySelectorAll('.cta-footer__project').forEach(el => {
       el.href = prefix + FEATURED_PROJECT.link;
       el.textContent = '';
-
       const img = document.createElement('img');
       img.src = prefix + FEATURED_PROJECT.img;
       img.alt = FEATURED_PROJECT.title;
       img.loading = 'lazy';
       img.decoding = 'async';
-
       const info = document.createElement('div');
       info.className = 'cta-footer__project-info';
-
       const tag = document.createElement('span');
       tag.className = 'cta-footer__project-tag';
       tag.textContent = FEATURED_PROJECT.tag;
-
       const title = document.createElement('span');
       title.className = 'cta-footer__project-title';
       title.textContent = FEATURED_PROJECT.title;
-
       info.appendChild(tag);
       info.appendChild(title);
       el.appendChild(img);
       el.appendChild(info);
     });
   })();
-
-  /* ── CTA Footer — auto-fit headline + scroll reveal + parallax ── */
-  const ctaFooter = document.getElementById('ctaFooter');
+    const ctaFooter = document.getElementById('ctaFooter');
   const ctaHeadline = document.getElementById('ctaHeadline');
   if (ctaFooter && ctaHeadline) {
     function fitCtaHeadline() {
@@ -630,14 +535,10 @@ document.head.appendChild(themeMeta);
     }
     fitCtaHeadline();
     window.addEventListener('resize', fitCtaHeadline);
-
-    /* Scroll reveal via IntersectionObserver */
-    new IntersectionObserver(([e]) => {
+        new IntersectionObserver(([e]) => {
       if (e.isIntersecting) ctaFooter.classList.add('in-view');
     }, { threshold: 0.12 }).observe(ctaFooter);
-
-    /* Parallax: headline drifts up slightly as you scroll through the section */
-    window.addEventListener('scroll', () => {
+        window.addEventListener('scroll', () => {
       const rect = ctaFooter.getBoundingClientRect();
       const vh = window.innerHeight;
       if (rect.bottom < 0 || rect.top > vh) return;
@@ -648,48 +549,36 @@ document.head.appendChild(themeMeta);
       }
     }, { passive: true });
   }
-
-  /* ── Container Scroll — 3D process reveal (services page) ── */
-  const csOuter = document.getElementById('csOuter');
+    const csOuter = document.getElementById('csOuter');
   if (csOuter) {
     const csCard   = document.getElementById('csCard');
     const csHeader = document.getElementById('csHeader');
     const csSteps  = Array.from(document.querySelectorAll('.cs-step'));
     const prefRM   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
     if (prefRM) {
       csSteps.forEach(s => { s.style.opacity = '1'; s.style.transform = 'none'; });
     } else {
-      /* Scroll-driven animation — all devices */
-      if (csCard) csCard.style.transform = 'rotateX(20deg) scale(1.05)';
-
+            if (csCard) csCard.style.transform = 'rotateX(20deg) scale(1.05)';
       function csProgress() {
         const rect  = csOuter.getBoundingClientRect();
         const extra = csOuter.offsetHeight - window.innerHeight;
         return Math.max(0, Math.min(1, -rect.top / Math.max(extra, 1)));
       }
-
       function csUpdate() {
         const p = csProgress();
         const n = csSteps.length;
-        /* Card: 20° → 0° rotateX, 1.05 → 1 scale */
-        if (csCard) csCard.style.transform = `rotateX(${20 * (1 - p)}deg) scale(${1.05 - 0.05 * p})`;
-        /* Header: slides up as scroll progresses */
-        if (csHeader) csHeader.style.transform = `translateY(${-60 * p}px)`;
-        /* Steps: one visible at a time */
-        const fadeW = 0.04;
+                if (csCard) csCard.style.transform = `rotateX(${20 * (1 - p)}deg) scale(${1.05 - 0.05 * p})`;
+                if (csHeader) csHeader.style.transform = `translateY(${-60 * p}px)`;
+                const fadeW = 0.04;
         csSteps.forEach(function(step, i) {
           const segStart = i / n;
           const segEnd   = (i + 1) / n;
           let op = 0;
           if (i === 0 && p <= segStart) {
-            op = 1; /* first step visible before animation begins */
-          } else if (p >= segStart && p <= segEnd) {
+            op = 1;           } else if (p >= segStart && p <= segEnd) {
             if (p < segStart + fadeW && i > 0) {
-              op = (p - segStart) / fadeW; /* fade in */
-            } else if (p > segEnd - fadeW && i < n - 1) {
-              op = (segEnd - p) / fadeW; /* fade out */
-            } else {
+              op = (p - segStart) / fadeW;             } else if (p > segEnd - fadeW && i < n - 1) {
+              op = (segEnd - p) / fadeW;             } else {
               op = 1;
             }
           }
@@ -697,7 +586,6 @@ document.head.appendChild(themeMeta);
           step.style.transform = 'none';
         });
       }
-
       let csRaf = null;
       window.addEventListener('scroll', function() {
         if (!csRaf) csRaf = requestAnimationFrame(function() { csUpdate(); csRaf = null; });
@@ -705,9 +593,7 @@ document.head.appendChild(themeMeta);
       csUpdate();
     }
   }
-
-  /* ── DisplayCards — sequential reveal on all devices ── */
-  const dcWrap = document.querySelector('.dc-wrap');
+    const dcWrap = document.querySelector('.dc-wrap');
   if (dcWrap) {
     const dcCard3 = dcWrap.querySelector('.dc-card--3');
     const dcCard2 = dcWrap.querySelector('.dc-card--2');
@@ -722,10 +608,7 @@ document.head.appendChild(themeMeta);
     }, { threshold: 0.2 });
     dcObs.observe(dcWrap);
   }
-
-  /* ── Nav: switch to dark text when scrolling over light sections ── */
-  /* Skipped on project detail pages (.proj-hero present) — nav stays white there */
-  const navEl = document.querySelector('.nav');
+      const navEl = document.querySelector('.nav');
   if (navEl && !document.querySelector('.proj-hero')) {
     const navH = navEl.offsetHeight;
     const lightSections = document.querySelectorAll('.about3d, .about-teaser, .portfolio-teaser, .services-section, section:not(.hero2):not(.services-dark):not(.gallery-teaser):not(.cta-footer):not(.footer)');
@@ -744,9 +627,7 @@ document.head.appendChild(themeMeta);
     window.addEventListener('scroll', updateNavColor, { passive: true });
     updateNavColor();
   }
-
-  /* ── H3 parallax on scroll ── */
-  (function () {
+    (function () {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const h3s = Array.from(document.querySelectorAll('h3')).filter(function(el) {
       return !el.closest('.footer') && !el.closest('.cs-section');
@@ -771,9 +652,7 @@ document.head.appendChild(themeMeta);
     }, { passive: true });
     updateH3();
   })();
-
-  /* ── Auto-init gooey text on [data-gooey-texts] elements ── */
-  document.querySelectorAll('[data-gooey-texts]').forEach(function (el) {
+    document.querySelectorAll('[data-gooey-texts]').forEach(function (el) {
     try {
       const texts      = JSON.parse(el.dataset.gooeyTexts);
       const morphTime  = parseFloat(el.dataset.gooeyMorph)    || 1;
@@ -781,12 +660,9 @@ document.head.appendChild(themeMeta);
       initGooeyText(el, texts, morphTime, cooldown);
     } catch (e) {}
   });
-
-  /* ── Hero Scramble Animation ── */
-  (function() {
+    (function() {
     const el = document.getElementById('heroCycle');
     if (!el || !el.dataset.scrambleWords) return;
-
     // Re-parsed on every cycle (not cached) so the EN/DE language switcher
     // can swap the word list mid-loop by updating data-scramble-words.
     function currentWords() {
@@ -797,24 +673,19 @@ document.head.appendChild(themeMeta);
         return ['YOU'];
       }
     }
-
     const CHAR_POOL    = '0123456789!@#$%^&*<>{}|\\/~+-=_';
     const SCRAMBLE_MS  = 700;
     const REVEAL_MS    = 700;
     const HOLD_MS      = 2000;
     const LOOP_PAUSE   = 2500;
-
     function randChar() {
       return CHAR_POOL[Math.floor(Math.random() * CHAR_POOL.length)];
     }
-
     function scrambleWord(word, onDone) {
       const len     = word.length;
       const start   = performance.now();
       let rafId;
-
-      /* Phase 1: full scramble */
-      function phase1(now) {
+            function phase1(now) {
         const elapsed = now - start;
         if (elapsed >= SCRAMBLE_MS) {
           phase2(now);
@@ -827,9 +698,7 @@ document.head.appendChild(themeMeta);
         el.textContent = s;
         rafId = requestAnimationFrame(phase1);
       }
-
-      /* Phase 2: reveal left-to-right */
-      function phase2(p2Start) {
+            function phase2(p2Start) {
         function frame(now) {
           const t        = Math.min(1, (now - p2Start) / REVEAL_MS);
           const revealed = Math.floor(t * len);
@@ -852,20 +721,15 @@ document.head.appendChild(themeMeta);
         }
         rafId = requestAnimationFrame(frame);
       }
-
       el.classList.add('scrambling');
-
       rafId = requestAnimationFrame(phase1);
       return function() { cancelAnimationFrame(rafId); };
     }
-
     function resetStyle() {
       el.classList.remove('scrambling');
     }
-
     let wordIdx = 0;
     let cancelCurrent = null;
-
     function runNext() {
       if (cancelCurrent) { cancelCurrent(); cancelCurrent = null; }
       const words = currentWords();
@@ -878,23 +742,17 @@ document.head.appendChild(themeMeta);
         }, HOLD_MS);
       });
     }
-
     runNext();
   })();
-
-  /* ── Cookie / Privacy Notice Banner ── */
-  (function () {
+    (function () {
     if (localStorage.getItem('kidashi_consent')) return;
-
     const privacyLink = document.querySelector('a[href*="datenschutz"]');
     const privacyHref = privacyLink ? privacyLink.href : '/datenschutz/';
-
     const banner = document.createElement('div');
     banner.className = 'cookie-banner';
     banner.setAttribute('role', 'dialog');
     banner.setAttribute('aria-label', 'Privacy notice');
     banner.setAttribute('data-de-aria-label', 'Datenschutzhinweis');
-
     const bannerText = document.createElement('p');
     bannerText.className = 'cookie-banner__text';
     bannerText.appendChild(document.createTextNode('This site sets no tracking cookies. Our hosting provider stores standard server logs (IP address, timestamp) for security purposes. '));
@@ -906,7 +764,6 @@ document.head.appendChild(themeMeta);
       'data-de-html',
       'Diese Website setzt keine Tracking-Cookies. Unser Hosting-Provider speichert aus Sicherheitsgründen Standard-Server-Logs (IP-Adresse, Zeitstempel). <a href="' + privacyHref + '">Datenschutzerklärung</a>'
     );
-
     const bannerActions = document.createElement('div');
     bannerActions.className = 'cookie-banner__actions';
     const acceptBtn = document.createElement('button');
@@ -915,21 +772,17 @@ document.head.appendChild(themeMeta);
     acceptBtn.textContent = 'Got it';
     acceptBtn.setAttribute('data-de', 'Verstanden');
     bannerActions.appendChild(acceptBtn);
-
     banner.appendChild(bannerText);
     banner.appendChild(bannerActions);
-
     document.body.appendChild(banner);
     if (window.KD_I18N) { window.KD_I18N.applyLang(window.KD_I18N.getLang()); }
     requestAnimationFrame(() => requestAnimationFrame(() => banner.classList.add('cookie-banner--visible')));
-
     document.getElementById('cookieAccept').addEventListener('click', function () {
       localStorage.setItem('kidashi_consent', '1');
       banner.classList.remove('cookie-banner--visible');
       setTimeout(function () { banner.remove(); }, 500);
     });
   })();
-
   // FAQ accordion — used on /services/ and each service detail page
   document.querySelectorAll('.faq-item').forEach(function (item) {
     var btn = item.querySelector('.faq-item__q');
@@ -938,12 +791,10 @@ document.head.appendChild(themeMeta);
     var wrapper = document.createElement('div');
     while (answer.firstChild) wrapper.appendChild(answer.firstChild);
     answer.appendChild(wrapper);
-
     btn.addEventListener('click', function () {
       var isOpen = item.classList.contains('is-open');
       item.classList.toggle('is-open', !isOpen);
       btn.setAttribute('aria-expanded', String(!isOpen));
     });
   });
-
 });

@@ -1,46 +1,24 @@
-/*
- * Kidashi Design — EN/DE language switcher.
- *
- * Pattern: the English copy stays the authored HTML content. A German
- * variant is added as a data attribute on the same element:
- *
- *   <p data-de="Deutscher Text">English text</p>
- *   <h1 data-de-html="Deutsch <em>mit</em> Markup">English <em>with</em> markup</h1>
- *   <input placeholder="Name" data-de-placeholder="Name">
- *   <meta name="description" content="..." data-de-content="...">
- *
- * Switching language swaps textContent/innerHTML/attributes in place —
- * no page reload, no separate /de/ URLs. The original English value is
- * cached on first switch (data-en / data-en-html / data-en-<attr>) so
- * toggling back is lossless even though only German is authored inline.
- */
 (function () {
 	'use strict';
-
 	var STORAGE_KEY = 'kd-lang';
 	var ATTRS = ['placeholder', 'content', 'alt', 'aria-label', 'title', 'value', 'data-label'];
-
 	function getStoredLang() {
 		try {
 			var saved = localStorage.getItem(STORAGE_KEY);
 			if (saved === 'de' || saved === 'en') return saved;
-		} catch (e) { /* localStorage unavailable (private mode, etc.) */ }
+		} catch (e) {  }
 		return null;
 	}
-
 	function detectLang() {
 		var stored = getStoredLang();
 		if (stored) return stored;
 		var nav = (navigator.language || navigator.userLanguage || '').toLowerCase();
 		return nav.indexOf('de') === 0 ? 'de' : 'en';
 	}
-
 	function applyLang(lang) {
 		var isDe = lang === 'de';
-
 		document.documentElement.setAttribute('lang', lang);
 		document.documentElement.setAttribute('data-lang', lang);
-
 		var textEls = document.querySelectorAll('[data-de]');
 		for (var i = 0; i < textEls.length; i++) {
 			var el = textEls[i];
@@ -49,7 +27,6 @@
 			}
 			el.textContent = isDe ? el.getAttribute('data-de') : el.getAttribute('data-en');
 		}
-
 		var htmlEls = document.querySelectorAll('[data-de-html]');
 		for (var j = 0; j < htmlEls.length; j++) {
 			var elh = htmlEls[j];
@@ -58,7 +35,6 @@
 			}
 			elh.innerHTML = isDe ? elh.getAttribute('data-de-html') : elh.getAttribute('data-en-html');
 		}
-
 		// data-scramble-words is what js/main.js's hero scramble animation
 		// actually reads (el.dataset.scrambleWords), so it's swapped here
 		// directly rather than through the generic ATTRS loop below.
@@ -70,7 +46,6 @@
 			}
 			elS.setAttribute('data-scramble-words', isDe ? elS.getAttribute('data-de-scramble-words') : elS.getAttribute('data-en-scramble-words'));
 		}
-
 		for (var a = 0; a < ATTRS.length; a++) {
 			var attr = ATTRS[a];
 			var deKey = 'data-de-' + attr;
@@ -85,38 +60,31 @@
 				elA.setAttribute(attr, isDe ? elA.getAttribute(deKey) : elA.getAttribute(enKey));
 			}
 		}
-
 		var btns = document.querySelectorAll('[data-lang-btn]');
 		for (var b = 0; b < btns.length; b++) {
 			var active = btns[b].getAttribute('data-lang-btn') === lang;
 			btns[b].classList.toggle('active', active);
 			btns[b].setAttribute('aria-pressed', active ? 'true' : 'false');
 		}
-
-		try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* ignore */ }
-
+		try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {  }
 		// Lets page-specific scripts that render their own markup (e.g. the
 		// testimonials carousel, built entirely from a JS array) re-render
 		// in the newly selected language.
 		document.dispatchEvent(new CustomEvent('kd:langchange', { detail: { lang: lang } }));
 	}
-
 	function init() {
 		applyLang(detectLang());
-
 		document.addEventListener('click', function (e) {
 			var btn = e.target.closest && e.target.closest('[data-lang-btn]');
 			if (!btn) return;
 			applyLang(btn.getAttribute('data-lang-btn'));
 		});
 	}
-
 	if (document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', init);
 	} else {
 		init();
 	}
-
 	// Exposed so scripts that inject markup after the initial pass (e.g. the
 	// cookie banner in main.js, built with createElement after this script
 	// already ran) can re-run translation on just-added nodes.

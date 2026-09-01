@@ -14,6 +14,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preload" href="fonts/MangoGrotesque-Bold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/MangoGrotesque-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/Jost-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
 <script type="application/ld+json">
 {
@@ -96,7 +97,7 @@
   <div class="nav__inner">
     <div class="nav__dock">
       <a href="index.html" class="nav__logo">
-    <img src="/images/logo.svg" class="logo" alt="Kidashi Design Logo" />
+    <img src="/images/logo.svg" class="logo" alt="Kidashi Design Logo" width="220" height="40" />
     </a>
     <ul class="nav__links">
       <li><a href="index.html" class="nav__link active" data-de="Startseite">Home</a></li>
@@ -412,14 +413,15 @@
 <script src="js/fluid-particles.js" defer></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    var isMobile = window.innerWidth < 768;
     new FluidParticles('#fluid-canvas', {
-      particleDensity:     window.innerWidth < 768 ? 200 : 100,
+      particleDensity:     isMobile ? 200 : 100,
       particleSize:        1,
       particleColor:       '#333333',
       activeColor:         '#FFBC95',
-      maxBlastRadius:      window.innerWidth < 768 ? 150 : 300,
+      maxBlastRadius:      isMobile ? 150 : 300,
       hoverDelay:          1,
-      interactionDistance: window.innerWidth < 768 ? 60 : 100,
+      interactionDistance: isMobile ? 60 : 100,
     });
   });
 </script>
