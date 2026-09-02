@@ -558,6 +558,7 @@ p {
 	justify-content: space-between;
 	height: 100%;
 	padding: clamp(1.5rem, 5vw, 3rem);
+	position: relative;
 }
 .nav__mobile-top {
 	display: flex;
@@ -624,14 +625,16 @@ p {
 	color: rgba(10,10,11,0.28) !important;
 }
 .nav__mobile-lang {
+	position: absolute;
+	right: clamp(1.5rem, 5vw, 3rem);
+	bottom: clamp(1.5rem, 5vw, 3rem);
 	display: flex;
 	align-items: center;
-	gap: 0.5rem;
-	margin-bottom: 0.6rem;
+	gap: 0.4rem;
 }
 .nav__mobile-lang .nav__lang-btn {
-	font-size: 0.95rem;
-	padding: 0.3rem 0.7rem;
+	font-size: 0.7rem;
+	padding: 0.2rem 0.5rem;
 	color: rgba(10,10,11,0.35);
 }
 .nav__mobile-lang .nav__lang-btn.active {
