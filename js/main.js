@@ -888,4 +888,105 @@ document.head.appendChild(themeMeta);
       }, { passive: true });
     }
   });
+
+  // PROCESS SLIDER — Testimonial-Style Karussell für How-it-Works
+  document.querySelectorAll('.proj-process-slider').forEach(function (section) {
+    var slides = Array.from(section.querySelectorAll('.proj-process-slider__slide'));
+    var dots = Array.from(section.querySelectorAll('.proj-process-slider__dot'));
+    var stage = section.querySelector('.proj-process-slider__stage');
+    var prevBtn = section.querySelector('.proj-process-slider__arrow--prev');
+    var nextBtn = section.querySelector('.proj-process-slider__arrow--next');
+    if (!slides.length) return;
+
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var autoplayMs = parseInt(section.getAttribute('data-autoplay'), 10) || 7000;
+    section.style.setProperty('--autoplay-duration', autoplayMs + 'ms');
+
+    var startIndex = slides.findIndex(function (s) { return s.classList.contains('is-active'); });
+    var activeIndex = startIndex > -1 ? startIndex : 0;
+    var timer = null;
+    var isPaused = false;
+
+    function restartDotFill(dot) {
+      var fill = dot && dot.querySelector('.proj-process-slider__dot-fill');
+      if (!fill) return;
+      fill.style.animation = 'none';
+      void fill.offsetWidth; // force reflow so the animation restarts from 0
+      fill.style.animation = '';
+    }
+
+    function goTo(index) {
+      var next = ((index % slides.length) + slides.length) % slides.length;
+      if (next === activeIndex && slides[activeIndex].classList.contains('is-active')) return;
+      slides[activeIndex].classList.remove('is-active');
+      if (dots[activeIndex]) dots[activeIndex].classList.remove('is-active');
+      activeIndex = next;
+      slides[activeIndex].classList.add('is-active');
+      if (dots[activeIndex]) {
+        dots[activeIndex].classList.add('is-active');
+        restartDotFill(dots[activeIndex]);
+      }
+    }
+
+    function stopAutoplay() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+    function startAutoplay() {
+      if (isPaused || reducedMotion || slides.length < 2) return;
+      stopAutoplay();
+      timer = setInterval(function () { goTo(activeIndex + 1); }, autoplayMs);
+    }
+    function resetAutoplay() {
+      stopAutoplay();
+      startAutoplay(); // no-ops while isPaused, resumes automatically once unpaused
+    }
+    function pause() {
+      isPaused = true;
+      section.classList.add('is-paused');
+      stopAutoplay();
+    }
+    function resume() {
+      isPaused = false;
+      section.classList.remove('is-paused');
+      startAutoplay();
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { goTo(activeIndex - 1); resetAutoplay(); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { goTo(activeIndex + 1); resetAutoplay(); });
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () { goTo(i); resetAutoplay(); });
+    });
+
+    section.addEventListener('mouseenter', pause);
+    section.addEventListener('mouseleave', resume);
+    section.addEventListener('focusin', pause);
+    section.addEventListener('focusout', function (e) {
+      if (!section.contains(e.relatedTarget)) resume();
+    });
+
+    if (stage) {
+      stage.setAttribute('tabindex', '0');
+      stage.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') { goTo(activeIndex - 1); resetAutoplay(); }
+        else if (e.key === 'ArrowRight') { goTo(activeIndex + 1); resetAutoplay(); }
+      });
+
+      var touchStartX = null;
+      stage.addEventListener('touchstart', function (e) {
+        touchStartX = e.changedTouches[0].clientX;
+      }, { passive: true });
+      stage.addEventListener('touchend', function (e) {
+        if (touchStartX === null) return;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        touchStartX = null;
+        if (Math.abs(dx) < 40) return;
+        goTo(activeIndex + (dx < 0 ? 1 : -1));
+        resetAutoplay();
+      }, { passive: true });
+    }
+
+    // Kick off the fill animation on the initially active dot, then autoplay.
+    restartDotFill(dots[activeIndex]);
+    startAutoplay();
+  });
 });

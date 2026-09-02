@@ -161,45 +161,50 @@
 </section>
 
 <!-- PROCESS -->
-<section class="proj-process">
-  <div class="proj-process__header">
-    <h2 class="proj-process__heading reveal" data-de="So läuft es ab">How It Works</h2>
-    <span class="proj-process__count" data-de="4 Schritte">4 Steps</span>
+<section class="proj-process-slider" data-autoplay="7000">
+  <div class="proj-process-slider__header">
+    <h2 class="proj-process-slider__heading reveal" data-de="So läuft es ab">How It Works</h2>
+    <span class="proj-process-slider__count" data-de="4 Schritte">4 Steps</span>
   </div>
-  <div class="proj-process__body">
-    <div class="proj-process__rail">
-      <span class="proj-process__rail-label" data-de="Prozess">Process</span>
-      <div class="proj-process__rail-track"><div class="proj-process__rail-fill"></div></div>
+
+  <div class="proj-process-slider__stage" role="region" aria-roledescription="carousel" aria-label="Process steps">
+    <div class="proj-process-slider__track">
+
+      <article class="proj-process-slider__slide is-active" data-index="0">
+        <span class="proj-process-slider__num">01</span>
+        <h3 class="proj-process-slider__title" data-de="Markenanalyse">Brand Analysis</h3>
+        <p class="proj-process-slider__body" data-de="Werte, Positionierung und Zielgruppe werden geklärt.">Values, positioning, and target audience get clarified.</p>
+      </article>
+
+      <article class="proj-process-slider__slide" data-index="1">
+        <span class="proj-process-slider__num">02</span>
+        <h3 class="proj-process-slider__title" data-de-html="Moodboard &amp; erste Richtungen">Moodboard &amp; Initial Directions</h3>
+        <p class="proj-process-slider__body" data-de="Visuelle Optionen zur Auswahl.">Visual options to choose from.</p>
+      </article>
+
+      <article class="proj-process-slider__slide" data-index="2">
+        <span class="proj-process-slider__num">03</span>
+        <h3 class="proj-process-slider__title" data-de="Ausarbeitung">Development</h3>
+        <p class="proj-process-slider__body" data-de="Logo, Farben und Typografie werden final entwickelt.">Logo, colors, and typography get finalized.</p>
+      </article>
+
+      <article class="proj-process-slider__slide" data-index="3">
+        <span class="proj-process-slider__num">04</span>
+        <h3 class="proj-process-slider__title" data-de="Guidelines">Guidelines</h3>
+        <p class="proj-process-slider__body" data-de="Du erhältst ein Dokument mit allen Regeln zur konsistenten Anwendung.">You receive a document with all rules for consistent use.</p>
+      </article>
+
     </div>
-    <div class="proj-process__list">
-  <div class="proj-process__step reveal" data-delay="0">
-    <span class="proj-process__num">01</span>
-    <div class="proj-process__step-content">
-      <h3 class="proj-process__step-title" data-de="Markenanalyse">Brand Analysis</h3>
-      <p class="proj-process__step-body" data-de="Werte, Positionierung und Zielgruppe werden geklärt.">Values, positioning, and target audience get clarified.</p>
-    </div>
-  </div>
-  <div class="proj-process__step reveal" data-delay="100">
-    <span class="proj-process__num">02</span>
-    <div class="proj-process__step-content">
-      <h3 class="proj-process__step-title" data-de-html="Moodboard &amp; erste Richtungen">Moodboard &amp; Initial Directions</h3>
-      <p class="proj-process__step-body" data-de="Visuelle Optionen zur Auswahl.">Visual options to choose from.</p>
-    </div>
-  </div>
-  <div class="proj-process__step reveal" data-delay="200">
-    <span class="proj-process__num">03</span>
-    <div class="proj-process__step-content">
-      <h3 class="proj-process__step-title" data-de="Ausarbeitung">Development</h3>
-      <p class="proj-process__step-body" data-de="Logo, Farben und Typografie werden final entwickelt.">Logo, colors, and typography get finalized.</p>
-    </div>
-  </div>
-  <div class="proj-process__step reveal" data-delay="300">
-    <span class="proj-process__num">04</span>
-    <div class="proj-process__step-content">
-      <h3 class="proj-process__step-title" data-de="Guidelines">Guidelines</h3>
-      <p class="proj-process__step-body" data-de="Du erhältst ein Dokument mit allen Regeln zur konsistenten Anwendung.">You receive a document with all rules for consistent use.</p>
-    </div>
-  </div>
+
+    <div class="proj-process-slider__nav">
+      <button class="proj-process-slider__arrow proj-process-slider__arrow--prev" aria-label="Previous step" data-de-aria-label="Vorheriger Schritt">‹</button>
+      <div class="proj-process-slider__dots">
+        <button class="proj-process-slider__dot is-active" data-index="0" aria-label="Step 1" data-de-aria-label="Schritt 1"><span class="proj-process-slider__dot-fill"></span></button>
+        <button class="proj-process-slider__dot" data-index="1" aria-label="Step 2" data-de-aria-label="Schritt 2"><span class="proj-process-slider__dot-fill"></span></button>
+        <button class="proj-process-slider__dot" data-index="2" aria-label="Step 3" data-de-aria-label="Schritt 3"><span class="proj-process-slider__dot-fill"></span></button>
+        <button class="proj-process-slider__dot" data-index="3" aria-label="Step 4" data-de-aria-label="Schritt 4"><span class="proj-process-slider__dot-fill"></span></button>
+      </div>
+      <button class="proj-process-slider__arrow proj-process-slider__arrow--next" aria-label="Next step" data-de-aria-label="Nächster Schritt">›</button>
     </div>
   </div>
 </section>
