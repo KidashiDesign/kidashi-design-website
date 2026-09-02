@@ -28,7 +28,12 @@
   color: var(--primary);
 }
 
-/* ── "What's Included" feature grid ── */
+/* ── "What's Included" feature row ──
+   Base markup (no-JS / reduced-motion fallback) is a plain responsive
+   grid. JS (see main.js) measures the row and, when motion is allowed,
+   adds `.detail-features__scroller--flow`, which turns it into a single
+   pinned line that scrolls horizontally, right to left, as the page
+   scrolls — each card growing as it crosses the viewport's center. */
 .detail-features {
   padding-block: var(--section-pad);
   background: var(--bg);
@@ -40,19 +45,35 @@
   margin-top: clamp(2rem, 4vw, 3rem);
 }
 .detail-feature {
+  --flow-scale: 1;
+  --flow-opacity: 1;
   display: flex;
   align-items: flex-start;
   gap: 1.1rem;
-  padding: 1.75rem;
-  border: 1px solid var(--sand);
-  border-radius: 16px;
-  background: var(--cream);
-  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), background 0.3s var(--ease);
+  padding: 1.75rem 1.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  background: rgba(247, 243, 238, 0.55);
+  -webkit-backdrop-filter: blur(18px) saturate(1.7);
+  backdrop-filter: blur(18px) saturate(1.7);
+  box-shadow:
+    0 8px 24px rgba(10, 10, 11, 0.10),
+    0 1px 2px rgba(10, 10, 11, 0.06),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.65),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.35);
+  transform: scale(var(--flow-scale));
+  opacity: var(--flow-opacity);
+  will-change: transform, opacity;
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
 .detail-feature:hover {
-  border-color: var(--primary);
-  background: #ffffff;
-  transform: translateY(-4px);
+  border-color: rgba(113, 128, 95, 0.45);
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow:
+    0 12px 32px rgba(10, 10, 11, 0.14),
+    0 1px 2px rgba(10, 10, 11, 0.08),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.75),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.4);
 }
 .detail-feature__icon {
   flex: none;
@@ -70,6 +91,43 @@
   line-height: 1.65;
   color: var(--text);
   padding-top: 0.3rem;
+}
+
+/* ── Single-line horizontal scroll flow (JS-enhanced) ──
+   Fallback: boxed like .container, plain grid (see base rule above). */
+.detail-features__scroller {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.detail-features__scroller--flow {
+  position: relative;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
+}
+.detail-features__scroller--flow .detail-features__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.detail-features__scroller--flow .detail-features__grid {
+  --feature-card-w: min(560px, 78vw);
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  grid-template-columns: none;
+  gap: 1.5rem;
+  margin-top: 0;
+  padding-inline: calc(50vw - (var(--feature-card-w) / 2));
+  will-change: transform;
+}
+.detail-features__scroller--flow .detail-feature {
+  flex: 0 0 var(--feature-card-w);
+  width: var(--feature-card-w);
 }
 
 /* ── Target-audience note ── */
@@ -260,9 +318,27 @@
 @media (prefers-reduced-motion: reduce) {
   .detail-feature {
     transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+    transform: none !important;
+    opacity: 1 !important;
   }
-  .detail-feature:hover {
-    transform: none;
+  .detail-features__scroller {
+    height: auto !important;
+  }
+  .detail-features__scroller--flow .detail-features__sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+  .detail-features__scroller--flow .detail-features__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding-inline: 0;
+    transform: none !important;
+  }
+  @media (max-width: 768px) {
+    .detail-features__scroller--flow .detail-features__grid {
+      grid-template-columns: 1fr;
+    }
   }
   .service-full-card__link:hover {
     gap: 0.4rem;

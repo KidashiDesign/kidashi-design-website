@@ -347,6 +347,62 @@ document.head.appendChild(themeMeta);
     });
     revealEls.forEach(el => revealObserver.observe(el));
   }
+    const featureScrollers = document.querySelectorAll('.detail-features__scroller');
+  if (featureScrollers.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const MAX_SCALE_BOOST = 0.08;
+    const MIN_OPACITY = 0.5;
+    const flowInstances = [];
+    featureScrollers.forEach(scroller => {
+      const sticky = scroller.querySelector('.detail-features__sticky');
+      const grid = scroller.querySelector('.detail-features__grid');
+      const cards = grid ? Array.from(grid.querySelectorAll('.detail-feature')) : [];
+      if (!sticky || !grid || !cards.length) return;
+      scroller.classList.add('detail-features__scroller--flow');
+      flowInstances.push({ scroller, grid, cards, maxTranslate: 0 });
+    });
+    if (flowInstances.length) {
+      const measureFlow = () => {
+        flowInstances.forEach(inst => {
+          inst.maxTranslate = Math.max(0, inst.grid.scrollWidth - window.innerWidth);
+          inst.scroller.style.height = `calc(100vh + ${inst.maxTranslate}px)`;
+        });
+      };
+      let ticking = false;
+      const updateFlow = () => {
+        const viewportCenter = window.innerWidth / 2;
+        flowInstances.forEach(inst => {
+          const rect = inst.scroller.getBoundingClientRect();
+          const scrolled = Math.max(0, Math.min(inst.maxTranslate, -rect.top));
+          inst.grid.style.transform = `translateX(${(-scrolled).toFixed(1)}px)`;
+          inst.cards.forEach(card => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter = cardRect.left + cardRect.width / 2;
+            const range = viewportCenter + cardRect.width / 2;
+            const progress = Math.max(-1, Math.min(1, (cardCenter - viewportCenter) / range));
+            const scale = 1 + (1 - Math.abs(progress)) * MAX_SCALE_BOOST;
+            const opacity = 1 - Math.abs(progress) * (1 - MIN_OPACITY);
+            card.style.setProperty('--flow-scale', scale.toFixed(3));
+            card.style.setProperty('--flow-opacity', opacity.toFixed(3));
+          });
+        });
+        ticking = false;
+      };
+      const onFlowScroll = () => {
+        if (!ticking) {
+          requestAnimationFrame(updateFlow);
+          ticking = true;
+        }
+      };
+      const onFlowResize = () => {
+        measureFlow();
+        onFlowScroll();
+      };
+      measureFlow();
+      updateFlow();
+      window.addEventListener('scroll', onFlowScroll, { passive: true });
+      window.addEventListener('resize', onFlowResize);
+    }
+  }
     const tiltCards = document.querySelectorAll('[data-tilt]');
   if (tiltCards.length
       && window.matchMedia('(hover: hover) and (pointer: fine)').matches
