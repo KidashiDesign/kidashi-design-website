@@ -109,10 +109,10 @@
 .detail-features__scroller--flow .detail-features__sticky {
   position: sticky;
   top: 0;
-  height: 100vh;
   display: flex;
   align-items: center;
   overflow: hidden;
+  padding-block: clamp(1.5rem, 5vw, 3rem);
 }
 .detail-features__scroller--flow .detail-features__grid {
   --feature-card-w: min(380px, 62vw);

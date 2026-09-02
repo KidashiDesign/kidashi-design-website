@@ -364,7 +364,8 @@ document.head.appendChild(themeMeta);
       const measureFlow = () => {
         flowInstances.forEach(inst => {
           inst.maxTranslate = Math.max(0, inst.grid.scrollWidth - window.innerWidth);
-          inst.scroller.style.height = `calc(100vh + ${inst.maxTranslate}px)`;
+          const stickyHeight = inst.scroller.querySelector('.detail-features__sticky').offsetHeight;
+          inst.scroller.style.height = `${stickyHeight + inst.maxTranslate}px`;
         });
       };
       let ticking = false;
