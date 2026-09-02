@@ -41,7 +41,7 @@
 .detail-features__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
+  gap: 2rem;
   margin-top: clamp(2rem, 4vw, 3rem);
 }
 .detail-feature {
@@ -120,7 +120,7 @@
   flex-wrap: nowrap;
   align-items: center;
   grid-template-columns: none;
-  gap: 1rem;
+  gap: 2rem;
   margin-top: 0;
   padding-inline: calc(50vw - (var(--feature-card-w) / 2));
   will-change: transform;
