@@ -361,7 +361,9 @@ document.head.appendChild(themeMeta);
       flowInstances.push({ scroller, grid, cards, maxTranslate: 0 });
     });
     if (flowInstances.length) {
+      let navH = 0;
       const measureFlow = () => {
+        navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 0;
         flowInstances.forEach(inst => {
           inst.maxTranslate = Math.max(0, inst.grid.scrollWidth - window.innerWidth);
           const stickyHeight = inst.scroller.querySelector('.detail-features__sticky').offsetHeight;
@@ -373,7 +375,7 @@ document.head.appendChild(themeMeta);
         const viewportCenter = window.innerWidth / 2;
         flowInstances.forEach(inst => {
           const rect = inst.scroller.getBoundingClientRect();
-          const scrolled = Math.max(0, Math.min(inst.maxTranslate, -rect.top));
+          const scrolled = Math.max(0, Math.min(inst.maxTranslate, navH - rect.top));
           inst.grid.style.transform = `translateX(${(-scrolled).toFixed(1)}px)`;
           inst.cards.forEach(card => {
             const cardRect = card.getBoundingClientRect();
