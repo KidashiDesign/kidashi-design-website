@@ -40,19 +40,36 @@
   margin-top: clamp(2rem, 4vw, 3rem);
 }
 .detail-feature {
+  --flow-x: 0px;
+  --flow-scale: 1;
+  --flow-opacity: 1;
   display: flex;
   align-items: flex-start;
   gap: 1.1rem;
-  padding: 1.75rem;
-  border: 1px solid var(--sand);
-  border-radius: 16px;
-  background: var(--cream);
-  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), background 0.3s var(--ease);
+  padding: 1.75rem 1.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  background: rgba(247, 243, 238, 0.55);
+  -webkit-backdrop-filter: blur(18px) saturate(1.7);
+  backdrop-filter: blur(18px) saturate(1.7);
+  box-shadow:
+    0 8px 24px rgba(10, 10, 11, 0.10),
+    0 1px 2px rgba(10, 10, 11, 0.06),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.65),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.35);
+  transform: translateX(var(--flow-x)) scale(var(--flow-scale));
+  opacity: var(--flow-opacity);
+  will-change: transform, opacity;
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
 .detail-feature:hover {
-  border-color: var(--primary);
-  background: #ffffff;
-  transform: translateY(-4px);
+  border-color: rgba(113, 128, 95, 0.45);
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow:
+    0 12px 32px rgba(10, 10, 11, 0.14),
+    0 1px 2px rgba(10, 10, 11, 0.08),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.75),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.4);
 }
 .detail-feature__icon {
   flex: none;
@@ -260,9 +277,8 @@
 @media (prefers-reduced-motion: reduce) {
   .detail-feature {
     transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
-  }
-  .detail-feature:hover {
-    transform: none;
+    transform: none !important;
+    opacity: 1 !important;
   }
   .service-full-card__link:hover {
     gap: 0.4rem;

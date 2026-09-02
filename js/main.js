@@ -347,6 +347,39 @@ document.head.appendChild(themeMeta);
     });
     revealEls.forEach(el => revealObserver.observe(el));
   }
+    const flowFeatures = document.querySelectorAll('.detail-feature');
+  if (flowFeatures.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const MAX_SCALE_BOOST = 0.05;
+    const MIN_OPACITY = 0.55;
+    let ticking = false;
+    const updateFlow = () => {
+      const vh = window.innerHeight;
+      const center = vh / 2;
+      const amplitude = Math.max(18, Math.min(70, window.innerWidth * 0.06));
+      flowFeatures.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const elCenter = rect.top + rect.height / 2;
+        const range = center + rect.height / 2;
+        const progress = Math.max(-1, Math.min(1, (elCenter - center) / range));
+        const translateX = progress * amplitude;
+        const scale = 1 + (1 - Math.abs(progress)) * MAX_SCALE_BOOST;
+        const opacity = 1 - Math.abs(progress) * (1 - MIN_OPACITY);
+        el.style.setProperty('--flow-x', `${translateX.toFixed(1)}px`);
+        el.style.setProperty('--flow-scale', scale.toFixed(3));
+        el.style.setProperty('--flow-opacity', opacity.toFixed(3));
+      });
+      ticking = false;
+    };
+    const onFlowScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateFlow);
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', onFlowScroll, { passive: true });
+    window.addEventListener('resize', onFlowScroll);
+    updateFlow();
+  }
     const tiltCards = document.querySelectorAll('[data-tilt]');
   if (tiltCards.length
       && window.matchMedia('(hover: hover) and (pointer: fine)').matches
