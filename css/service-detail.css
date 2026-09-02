@@ -241,6 +241,8 @@
 }
 .faq-item.is-open .faq-item__a {
   grid-template-rows: 1fr;
+  background: var(--cream);
+  border-radius: 0 0 14px 14px;
 }
 
 @media (max-width: 768px) {
