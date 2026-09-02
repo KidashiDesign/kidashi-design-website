@@ -28,108 +28,88 @@
   color: var(--primary);
 }
 
-/* ── "What's Included" feature row ──
+/* ── "What's Included" feature stack ──
    Base markup (no-JS / reduced-motion fallback) is a plain responsive
-   grid. JS (see main.js) measures the row and, when motion is allowed,
-   adds `.detail-features__scroller--flow`, which turns it into a single
-   pinned line that scrolls horizontally, right to left, as the page
-   scrolls — each card growing as it crosses the viewport's center. */
+   grid. JS (see main.js) turns each card into a sticky, full-width
+   panel by adding `.detail-features__stack--active`: as the page
+   scrolls, cards pin in place one after another and the ones underneath
+   scale down slightly as the next card slides over them. Card colors
+   cycle through the Kidashi CI palette; text switches light/dark per
+   card to stay readable on each background. */
 .detail-features {
   padding-top: var(--section-pad);
   padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
   background: var(--bg);
 }
-.detail-features__grid {
+.detail-features__stack {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  margin-top: clamp(2rem, 4vw, 3rem);
+  gap: 1.5rem;
+  max-width: var(--container);
+  margin: clamp(2rem, 4vw, 3rem) auto 0;
+  padding-inline: var(--gutter);
 }
 .detail-feature {
-  --flow-scale: 1;
-  --flow-opacity: 1;
   display: flex;
-  align-items: flex-start;
-  gap: 1.1rem;
-  padding: 1.75rem 1.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 20px;
-  background: rgba(247, 243, 238, 0.55);
-  -webkit-backdrop-filter: blur(18px) saturate(1.7);
-  backdrop-filter: blur(18px) saturate(1.7);
-  box-shadow:
-    0 8px 24px rgba(10, 10, 11, 0.10),
-    0 1px 2px rgba(10, 10, 11, 0.06),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.65),
-    inset -1px -1px 1px rgba(255, 255, 255, 0.35);
-  transform: scale(var(--flow-scale));
-  opacity: var(--flow-opacity);
-  will-change: transform, opacity;
-  transition: border-color 0.3s var(--ease), background 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.75rem;
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  border-radius: 28px;
+  background: var(--tone-bg, var(--primary));
+  color: var(--tone-fg, var(--cream));
+  will-change: transform;
 }
-.detail-feature:hover {
-  border-color: rgba(113, 128, 95, 0.45);
-  background: rgba(255, 255, 255, 0.65);
-  box-shadow:
-    0 12px 32px rgba(10, 10, 11, 0.14),
-    0 1px 2px rgba(10, 10, 11, 0.08),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.75),
-    inset -1px -1px 1px rgba(255, 255, 255, 0.4);
+.detail-feature__text {
+  font-family: var(--font-b);
+  font-size: clamp(1.1rem, 1.7vw, 1.45rem);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: inherit;
 }
-.detail-feature__icon {
+.detail-feature__media {
   flex: none;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: var(--cream);
+  width: clamp(72px, 10vw, 112px);
+  aspect-ratio: 1;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: color-mix(in srgb, var(--tone-fg, var(--cream)) 14%, transparent);
+  color: var(--tone-fg, var(--cream));
 }
-.detail-feature__text {
-  font-size: 0.95rem;
-  line-height: 1.65;
-  color: var(--text);
-  padding-top: 0.3rem;
+.detail-feature__media svg {
+  opacity: 0.8;
 }
 
-/* ── Single-line horizontal scroll flow (JS-enhanced) ──
-   Fallback: boxed like .container, plain grid (see base rule above). */
-.detail-features__scroller {
-  max-width: var(--container);
-  margin-inline: auto;
-  padding-inline: var(--gutter);
+/* CI color cycle — repeats every 5 cards. Lightness of each background
+   decides whether its text/icon reads light (--cream) or dark (--dark). */
+.detail-feature:nth-child(5n+1) { --tone-bg: var(--primary);   --tone-fg: var(--cream); }
+.detail-feature:nth-child(5n+2) { --tone-bg: var(--dark);      --tone-fg: var(--cream); }
+.detail-feature:nth-child(5n+3) { --tone-bg: var(--secondary); --tone-fg: var(--dark); }
+.detail-feature:nth-child(5n+4) { --tone-bg: var(--accent2);   --tone-fg: var(--cream); }
+.detail-feature:nth-child(5n)   { --tone-bg: var(--accent);    --tone-fg: var(--dark); }
+
+/* ── Sticky stacking scroll (JS-enhanced) ──
+   Cards share one containing block, so each one pins at `top` once
+   scrolled to and stays pinned — later cards simply paint over it. */
+.detail-features__stack--active {
+  display: block;
 }
-.detail-features__scroller--flow {
-  position: relative;
-  max-width: none;
-  margin-inline: 0;
-  padding-inline: 0;
-}
-.detail-features__scroller--flow .detail-features__sticky {
+.detail-features__stack--active .detail-feature {
   position: sticky;
-  top: var(--nav-h);
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding-block: clamp(1rem, 3vw, 2rem);
+  width: 100%;
+  height: clamp(220px, 24vw, 280px);
 }
-.detail-features__scroller--flow .detail-features__grid {
-  --feature-card-w: min(380px, 62vw);
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  grid-template-columns: none;
-  gap: 2rem;
-  margin-top: 0;
-  padding-inline: calc(50vw - (var(--feature-card-w) / 2));
-  will-change: transform;
+.detail-features__stack--active .detail-feature:not(:first-child) {
+  margin-top: 1.5rem;
 }
-.detail-features__scroller--flow .detail-feature {
-  flex: 0 0 var(--feature-card-w);
-  width: var(--feature-card-w);
-}
+.detail-features__stack--active .detail-feature:nth-child(1) { top: var(--nav-h); }
+.detail-features__stack--active .detail-feature:nth-child(2) { top: calc(var(--nav-h) + 16px); }
+.detail-features__stack--active .detail-feature:nth-child(3) { top: calc(var(--nav-h) + 32px); }
+.detail-features__stack--active .detail-feature:nth-child(4) { top: calc(var(--nav-h) + 48px); }
+.detail-features__stack--active .detail-feature:nth-child(5) { top: calc(var(--nav-h) + 64px); }
 
 /* ── Target-audience note ── */
 .detail-audience {
@@ -305,8 +285,18 @@
 }
 
 @media (max-width: 768px) {
-  .detail-features__grid {
+  .detail-features__stack {
     grid-template-columns: 1fr;
+  }
+  .detail-feature {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .detail-features__stack--active .detail-feature {
+    height: clamp(280px, 76vw, 340px);
+  }
+  .detail-feature__media {
+    width: clamp(56px, 20vw, 76px);
   }
   .detail-relevant__grid {
     grid-template-columns: 1fr;
@@ -318,28 +308,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .detail-feature {
-    transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
     transform: none !important;
-    opacity: 1 !important;
-  }
-  .detail-features__scroller {
-    height: auto !important;
-  }
-  .detail-features__scroller--flow .detail-features__sticky {
-    position: static;
-    height: auto;
-    overflow: visible;
-  }
-  .detail-features__scroller--flow .detail-features__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    padding-inline: 0;
-    transform: none !important;
-  }
-  @media (max-width: 768px) {
-    .detail-features__scroller--flow .detail-features__grid {
-      grid-template-columns: 1fr;
-    }
   }
   .service-full-card__link:hover {
     gap: 0.4rem;
