@@ -854,4 +854,36 @@ document.head.appendChild(themeMeta);
       btn.setAttribute('aria-expanded', String(!isOpen));
     });
   });
+  // PROCESS — vertical rail fills as steps come into view; oversized step
+  // numbers get a subtle mouse-follow parallax on pointer devices.
+  document.querySelectorAll('.proj-process').forEach(function (section) {
+    var steps = Array.from(section.querySelectorAll('.proj-process__step'));
+    var fill = section.querySelector('.proj-process__rail-fill');
+    if (steps.length && fill) {
+      var stepObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var index = steps.indexOf(entry.target);
+          fill.style.height = ((index + 1) / steps.length * 100) + '%';
+        });
+      }, { threshold: 0.4 });
+      steps.forEach(function (step) { stepObserver.observe(step); });
+    }
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var nums = steps.map(function (step) { return step.querySelector('.proj-process__num'); });
+      section.addEventListener('mousemove', function (e) {
+        var rect = section.getBoundingClientRect();
+        var relX = (e.clientX - rect.left) / rect.width - 0.5;
+        var relY = (e.clientY - rect.top) / rect.height - 0.5;
+        nums.forEach(function (num) {
+          if (!num) return;
+          num.style.transform = 'translate(' + (relX * 8).toFixed(2) + 'px, ' + (relY * 6).toFixed(2) + 'px)';
+        });
+      }, { passive: true });
+      section.addEventListener('mouseleave', function () {
+        nums.forEach(function (num) { if (num) num.style.transform = ''; });
+      }, { passive: true });
+    }
+  });
 });
