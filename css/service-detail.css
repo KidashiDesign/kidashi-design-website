@@ -52,8 +52,6 @@
 .detail-feature {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.75rem;
   padding: clamp(1.75rem, 3vw, 2.5rem);
   border-radius: 28px;
   background: var(--tone-bg, var(--primary));
@@ -62,25 +60,11 @@
 }
 .detail-feature__text {
   font-family: var(--font-b);
-  font-size: clamp(1.1rem, 1.7vw, 1.45rem);
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: -0.01em;
   color: inherit;
-}
-.detail-feature__media {
-  flex: none;
-  width: clamp(72px, 10vw, 112px);
-  aspect-ratio: 1;
-  border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: color-mix(in srgb, var(--tone-fg, var(--cream)) 14%, transparent);
-  color: var(--tone-fg, var(--cream));
-}
-.detail-feature__media svg {
-  opacity: 0.8;
 }
 
 /* CI color cycle — repeats every 5 cards. Lightness of each background
@@ -288,15 +272,8 @@
   .detail-features__stack {
     grid-template-columns: 1fr;
   }
-  .detail-feature {
-    flex-direction: column;
-    align-items: flex-start;
-  }
   .detail-features__stack--active .detail-feature {
-    height: clamp(280px, 76vw, 340px);
-  }
-  .detail-feature__media {
-    width: clamp(56px, 20vw, 76px);
+    height: clamp(200px, 56vw, 260px);
   }
   .detail-relevant__grid {
     grid-template-columns: 1fr;
