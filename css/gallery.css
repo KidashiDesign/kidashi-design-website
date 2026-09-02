@@ -208,6 +208,16 @@
   transition: transform 0.7s cubic-bezier(0.16,1,0.3,1),
               filter 0.4s;
 }
+
+/* ── Download deterrents: block long-press save, drag-out, text-select ── */
+.gallery-item img,
+.lightbox__img,
+.ghero__img {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+  pointer-events: none;
+}
 .gallery-item:hover img {
   transform: scale(1.05) translateY(-3px);
   filter: brightness(1.08);

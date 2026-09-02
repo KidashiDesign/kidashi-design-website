@@ -136,6 +136,12 @@
 
   lbImg.style.transition = 'opacity 0.15s';
   items.forEach((item, idx) => item.addEventListener('click', () => open(idx)));
+
+  /* ── Download deterrents: block right-click save + drag-out ── */
+  document.querySelectorAll('.gallery-item img, .lightbox__img').forEach(img => {
+    img.addEventListener('contextmenu', e => e.preventDefault());
+    img.addEventListener('dragstart', e => e.preventDefault());
+  });
   lbClose.addEventListener('click', close);
   backdrop.addEventListener('click', close);
   lbPrev.addEventListener('click', e => { e.stopPropagation(); navigate(-1); });
