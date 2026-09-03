@@ -214,6 +214,10 @@
 .faq-item__q:hover {
   background: var(--cream);
 }
+.faq-item.is-open .faq-item__q {
+  background: var(--cream);
+  border-radius: 14px 14px 0 0;
+}
 .faq-item__label {
   font-family: var(--font-h);
   font-size: 30px;
