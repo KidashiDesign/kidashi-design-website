@@ -176,20 +176,41 @@ document.head.appendChild(themeMeta);
     const revealRight = hero2.querySelector('.hero2__reveal-right');
     const revealH2    = hero2.querySelector('.hero2__reveal-h2');
     const heroInfo    = document.getElementById('heroInfo');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let heroTxTarget = 65, heroTx = 65, heroLooping = false;
     function updateHero2() {
       const rect = hero2.getBoundingClientRect();
       const scrollable = hero2.offsetHeight - window.innerHeight;
       const progress   = Math.max(0, Math.min(1, -rect.top / scrollable));
       const h2p = Math.max(0, Math.min(1, (progress - 0.15) / 0.55));
       const h2e = 1 - Math.pow(1 - h2p, 3);
-      const tx  = (1 - h2e) * 65;
-      if (revealLeft)  revealLeft.style.transform  = `translateX(${-tx}vw)`;
-      if (revealRight) revealRight.style.transform = `translateX(${tx}vw)`;
+      heroTxTarget = (1 - h2e) * 65;
       if (revealH2)    revealH2.style.opacity      = String(h2e);
       if (heroInfo)    heroInfo.style.transform     = `translateY(${progress * 160}px)`;
+      const fullyRevealed = h2p >= 1;
+      if (revealH2 && fullyRevealed !== heroLooping) {
+        heroLooping = fullyRevealed;
+        revealH2.classList.toggle('hero2__reveal-h2--loop', heroLooping);
+      }
     }
     window.addEventListener('scroll', updateHero2, { passive: true });
     updateHero2();
+    // Eases the reveal toward the scroll target instead of snapping to it 1:1,
+    // so a fast flick of the wheel doesn't yank the words across the screen.
+    // Once fully revealed, CSS takes over with an infinite opposite-direction drift.
+    if (!reduceMotion) {
+      (function heroRevealEase() {
+        if (!heroLooping) {
+          heroTx += (heroTxTarget - heroTx) * 0.06;
+          if (revealLeft)  revealLeft.style.transform  = `translateX(${-heroTx}vw)`;
+          if (revealRight) revealRight.style.transform = `translateX(${heroTx}vw)`;
+        }
+        requestAnimationFrame(heroRevealEase);
+      })();
+    } else {
+      if (revealLeft)  revealLeft.style.transform  = 'translateX(0)';
+      if (revealRight) revealRight.style.transform = 'translateX(0)';
+    }
         const heroBg = hero2.querySelector('.hero2__bg');
     if (heroBg) {
       let bTx = 0, bTy = 0, bCx = 0, bCy = 0;

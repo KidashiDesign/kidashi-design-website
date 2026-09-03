@@ -904,6 +904,26 @@ p {
 	transform: translateX(65vw);
 	will-change: transform;
 }
+.hero2__reveal-h2--loop .hero2__reveal-left {
+	animation: hero2DriftLeft 12s ease-in-out infinite;
+}
+.hero2__reveal-h2--loop .hero2__reveal-right {
+	animation: hero2DriftRight 12s ease-in-out infinite;
+}
+@keyframes hero2DriftLeft {
+	0%, 100% { transform: translateX(-2.5vw); }
+	50%      { transform: translateX(2.5vw); }
+}
+@keyframes hero2DriftRight {
+	0%, 100% { transform: translateX(2.5vw); }
+	50%      { transform: translateX(-2.5vw); }
+}
+@media (prefers-reduced-motion: reduce) {
+	.hero2__reveal-h2--loop .hero2__reveal-left,
+	.hero2__reveal-h2--loop .hero2__reveal-right {
+		animation: none;
+	}
+}
 @media (max-width: 768px) {
 	.hero2 {
 		height: 200vh;
