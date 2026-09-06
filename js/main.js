@@ -256,12 +256,14 @@ document.head.appendChild(themeMeta);
   if (burger && mobileNav) {
     function openMenu() {
       burger.classList.add('open');
+      burger.setAttribute('aria-expanded', 'true');
       mobileNav.classList.add('open');
       if (nav) nav.classList.add('menu-open');
       document.body.style.overflow = 'hidden';
     }
     function closeMenu() {
       burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
       mobileNav.classList.remove('open');
       if (nav) nav.classList.remove('menu-open');
       document.body.style.overflow = '';
