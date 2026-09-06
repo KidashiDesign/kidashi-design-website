@@ -236,54 +236,6 @@
 
 <script src="js/i18n.js" defer></script>
 <script src="js/main.js" defer></script>
-<script>
-  (function () {
-    var GLYPHS = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789#%&@$?/\\';
-    var TEXT = '404';
-    var DURATION = 700;
-    var TICK = 45;
-
-    var targets = [
-      document.getElementById('notfoundCodeText'),
-      document.querySelector('.layer--red'),
-      document.querySelector('.layer--cyan')
-    ].filter(Boolean);
-
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (reduceMotion) return;
-
-    function scramble() {
-      var chars = TEXT.split('');
-      var start = performance.now();
-      var last = 0;
-
-      function loop(now) {
-        if (now - last >= TICK) {
-          last = now;
-          var progress = Math.min((now - start) / DURATION, 1);
-          var settled = Math.floor(progress * chars.length);
-
-          var display = chars.map(function (ch, i) {
-            if (i < settled || ch === ' ') return ch;
-            return GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-          }).join('');
-
-          targets.forEach(function (el) { el.textContent = display; });
-        }
-
-        if (now - start < DURATION) {
-          requestAnimationFrame(loop);
-        } else {
-          targets.forEach(function (el) { el.textContent = TEXT; });
-        }
-      }
-
-      requestAnimationFrame(loop);
-    }
-
-    scramble();
-  })();
-</script>
+<script>!function(){var e,t,n,o="ABCDEFGHJKLMNPQRSTUVWXYZ0123456789#%&@$?/\\",r=[document.getElementById("notfoundCodeText"),document.querySelector(".layer--red"),document.querySelector(".layer--cyan")].filter(Boolean);window.matchMedia("(prefers-reduced-motion: reduce)").matches||(e="404".split(""),t=performance.now(),n=0,requestAnimationFrame(function a(c){if(c-n>=45){n=c;var i=Math.min((c-t)/700,1),u=Math.floor(i*e.length),m=e.map(function(e,t){return t<u||" "===e?e:o[Math.floor(42*Math.random())]}).join("");r.forEach(function(e){e.textContent=m})}c-t<700?requestAnimationFrame(a):r.forEach(function(e){e.textContent="404"})}))}();</script>
 </body>
 </html>
