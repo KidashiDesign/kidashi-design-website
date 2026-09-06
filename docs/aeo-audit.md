@@ -180,3 +180,16 @@ All 27 JSON-LD blocks sitewide re-validated as well-formed; full-repo HTML tag-b
 **Still open:** the founding-date/`areaServed` TODOs, your decisions on the Process page and Resources section (Priority 4), and the Priority 1 decision on the homepage's `Review` testimonials in JSON-LD. Priority 6 (measurement script + final report) is next and last.
 
 **Priority 6 (measurement script + final report) is complete — see `docs/aeo-implementation.md` for the sign-off: what changed, the objective audit script and its output, the final acceptance check, and the final scored report (56 → 84/100).**
+
+---
+
+## 12. Follow-up verification (2026-09-06)
+
+Re-ran the full audit against `main` (68 commits landed since the last pass — FAQ styling, hero animation timing, navbar, and a "How It Works"/service-feature redesign on service pages). Findings:
+
+- `scripts/aeo-audit.py` still reports zero flags across all 22 canonical pages (single H1, canonical, meta description, ≥4 OG tags, no missing alt text, direct-answer paragraph after every H1).
+- No broken internal links found in a full-repo href sweep; `sitemap.xml`/`robots.txt` still match the 22 indexable pages exactly; no stale `westgrowth-capital` references remain anywhere.
+- The redesigned service-page sections (`detail-features`, `proj-process`) kept clean semantic structure (H1 → H2 → H3) and fully static, crawlable text — no content moved into JS-only or animation-only rendering.
+- **Fixed one real contradiction:** the homepage `Organization.contactPoint` JSON-LD claimed `"areaServed": ["DE", "GE", "PL"]` and `"availableLanguage": [..., "Polish"]`, but the site is bilingual EN/DE only and no Poland-related content exists anywhere else on the site (checked `CONTEXT.md`, `about/`, all service pages). Removed the unsupported `PL`/`Polish` entries so the schema matches the site's actual, visible scope — no facts invented, just an unsupported claim removed.
+
+No other defects found. The founding-date and Process/Resources-page questions from §5/§10 remain open pending business input.
