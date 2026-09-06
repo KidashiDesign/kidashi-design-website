@@ -116,6 +116,7 @@ particleDensity:     options.particleDensity     ?? 50,
     // and beyond 2x the extra resolution is invisible for this soft particle effect.
     const pr = Math.min(window.devicePixelRatio || 1, 2)
     const w  = this._w(), h = this._h()
+    this._updateRect()
     this.canvas.width  = w * pr
     this.canvas.height = h * pr
     this.canvas.style.width  = `${w}px`
@@ -123,7 +124,6 @@ particleDensity:     options.particleDensity     ?? 50,
     this.ctx.setTransform(pr, 0, 0, pr, 0, 0)
     this._cw = w
     this._ch = h
-    this._updateRect()
     this._initParticles()
   }
     _triggerBlast(x, y) {
