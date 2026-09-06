@@ -19,101 +19,7 @@
   <link rel="preload" href="fonts/MangoGrotesque-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/Jost-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    html, body {
-      height: 100%;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    .notfound {
-      flex: 1 1 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.75rem;
-      text-align: center;
-      padding: clamp(24px, 5vw, 48px) 24px;
-    }
-
-    .footer {
-      flex-shrink: 0;
-    }
-
-    .notfound__actions .btn--outline {
-      color: var(--dark);
-    }
-
-    .notfound__code {
-      position: relative;
-      font-family: var(--font-h);
-      font-weight: 700;
-      line-height: 0.9;
-      letter-spacing: -0.02em;
-      font-size: clamp(6rem, 20vw, 13rem);
-      color: var(--dark);
-      user-select: none;
-    }
-
-    .notfound__code .layer {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      mix-blend-mode: screen;
-      transition: transform 0.15s ease-out, opacity 0.15s ease-out;
-      pointer-events: none;
-    }
-
-    .notfound__code .layer--red { color: #ff0040; }
-    .notfound__code .layer--cyan { color: #00e5ff; }
-
-    .notfound__code:hover .layer--red {
-      transform: translateX(3px);
-      opacity: 0.7;
-    }
-
-    .notfound__code:hover .layer--cyan {
-      transform: translateX(-3px);
-      opacity: 0.7;
-    }
-
-    .notfound__text {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      max-width: 420px;
-    }
-
-    .notfound__title {
-      font-family: var(--font-h);
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: var(--dark);
-    }
-
-    .notfound__desc {
-      font-family: var(--font-b);
-      font-size: 1rem;
-      color: var(--muted);
-    }
-
-    .notfound__actions {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .notfound__code .layer { display: none; }
-    }
-  </style>
+  <style>body,html{height:100%}body{display:flex;flex-direction:column;min-height:100vh}.notfound{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.75rem;text-align:center;padding:clamp(24px,5vw,48px) 24px}.footer{flex-shrink:0}.notfound__actions .btn--outline{color:var(--dark)}.notfound__code{position:relative;font-family:var(--font-h);font-weight:700;line-height:.9;letter-spacing:-.02em;font-size:clamp(6rem, 20vw, 13rem);color:var(--dark);user-select:none}.notfound__code .layer{position:absolute;inset:0;opacity:0;mix-blend-mode:screen;transition:transform .15s ease-out,opacity .15s ease-out;pointer-events:none}.notfound__code .layer--red{color:#ff0040}.notfound__code .layer--cyan{color:#00e5ff}.notfound__code:hover .layer--red{transform:translateX(3px);opacity:.7}.notfound__code:hover .layer--cyan{transform:translateX(-3px);opacity:.7}.notfound__text{display:flex;flex-direction:column;gap:.5rem;max-width:420px}.notfound__title{font-family:var(--font-h);font-weight:700;font-size:1.5rem;color:var(--dark)}.notfound__desc{font-family:var(--font-b);font-size:1rem;color:var(--muted)}.notfound__actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.75rem}@media (prefers-reduced-motion:reduce){.notfound__code .layer{display:none}}</style>
 </head>
 <body>
 
@@ -236,6 +142,6 @@
 
 <script src="js/i18n.js" defer></script>
 <script src="js/main.js" defer></script>
-<script>!function(){var e,t,n,o="ABCDEFGHJKLMNPQRSTUVWXYZ0123456789#%&@$?/\\",r=[document.getElementById("notfoundCodeText"),document.querySelector(".layer--red"),document.querySelector(".layer--cyan")].filter(Boolean);window.matchMedia("(prefers-reduced-motion: reduce)").matches||(e="404".split(""),t=performance.now(),n=0,requestAnimationFrame(function a(c){if(c-n>=45){n=c;var i=Math.min((c-t)/700,1),u=Math.floor(i*e.length),m=e.map(function(e,t){return t<u||" "===e?e:o[Math.floor(42*Math.random())]}).join("");r.forEach(function(e){e.textContent=m})}c-t<700?requestAnimationFrame(a):r.forEach(function(e){e.textContent="404"})}))}();</script>
+<script>!function(){var e,t,n,o=[document.getElementById("notfoundCodeText"),document.querySelector(".layer--red"),document.querySelector(".layer--cyan")].filter(Boolean);window.matchMedia("(prefers-reduced-motion: reduce)").matches||(e="404".split(""),t=performance.now(),n=0,requestAnimationFrame(function r(a){if(a-n>=45){n=a;var c=Math.min((a-t)/700,1),i=Math.floor(c*e.length),u=e.map(function(e,t){return t<i||" "===e?e:"ABCDEFGHJKLMNPQRSTUVWXYZ0123456789#%&@$?/\\"[Math.floor(42*Math.random())]}).join("");o.forEach(function(e){e.textContent=u})}a-t<700?requestAnimationFrame(r):o.forEach(function(e){e.textContent="404"})}))}();</script>
 </body>
 </html>

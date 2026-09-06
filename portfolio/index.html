@@ -228,27 +228,5 @@
 
 <script src="../js/i18n.js" defer></script>
 <script src="../js/main.js" defer></script>
-<script>
-(function () {
-  var btns = document.querySelectorAll('.filter-btn');
-  var items = document.querySelectorAll('.portfolio-item');
-
-  btns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      btns.forEach(function (b) { b.classList.remove('active'); });
-      btn.classList.add('active');
-
-      var filter = btn.dataset.filter;
-      items.forEach(function (item) {
-        var cats = (item.dataset.categories || '').split(',').map(function (c) { return c.trim(); });
-        if (filter === 'all' || cats.indexOf(filter) !== -1) {
-          item.classList.remove('is-hidden');
-        } else {
-          item.classList.add('is-hidden');
-        }
-      });
-    });
-  });
-})();
-</script></body>
+<script>!function(){var t=document.querySelectorAll(".filter-btn"),e=document.querySelectorAll(".portfolio-item");t.forEach(function(i){i.addEventListener("click",function(){t.forEach(function(t){t.classList.remove("active")}),i.classList.add("active");var a=i.dataset.filter;e.forEach(function(t){var e=(t.dataset.categories||"").split(",").map(function(t){return t.trim()});"all"===a||-1!==e.indexOf(a)?t.classList.remove("is-hidden"):t.classList.add("is-hidden")})})})}();</script></body>
 </html>

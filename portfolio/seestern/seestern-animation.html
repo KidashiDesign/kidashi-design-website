@@ -1,87 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
-(function(){
-  if(!location.search.includes('tile'))return;
-  var css='text,tspan{display:none!important}[class*="text"],[class*="Text"],[class*="title"],[class*="Title"],[class*="label"],[class*="Label"],[class*="caption"],[class*="Caption"],[class*="heading"],[class*="Heading"]{visibility:hidden!important}';
-  function inject(){var s=document.createElement('style');s.textContent=css;(document.head||document.documentElement).appendChild(s);}
-  inject();document.addEventListener('DOMContentLoaded',inject);setTimeout(inject,500);setTimeout(inject,1500);
-})();
-</script>
+<script>!function(){if(location.search.includes("tile")){t(),document.addEventListener("DOMContentLoaded",t),setTimeout(t,500),setTimeout(t,1500)}function t(){var t=document.createElement("style");t.textContent='text,tspan{display:none!important}[class*="text"],[class*="Text"],[class*="title"],[class*="Title"],[class*="label"],[class*="Label"],[class*="caption"],[class*="Caption"],[class*="heading"],[class*="Heading"]{visibility:hidden!important}',(document.head||document.documentElement).appendChild(t)}}();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Seestern Britzer Garten — Showreel</title>
-<style>
-  html, body { margin:0; padding:0; height:100%; overflow:hidden; background:#f5efe4; }
-
-  @keyframes scene0Anim {
-    0%   { opacity: 0.5; filter: blur(16px); transform: scale(1.08); }
-    4%   { opacity: 1;   filter: blur(0px);  transform: scale(1); }
-    14%  { opacity: 1;   filter: blur(0px);  transform: scale(1.02); }
-    22%  { opacity: 0;   filter: blur(16px); transform: scale(1.08); }
-    96%  { opacity: 0;   filter: blur(16px); transform: scale(1.08); }
-    100% { opacity: 0.5; filter: blur(16px); transform: scale(1.08); }
-  }
-  @keyframes scene1Envelope {
-    0% { opacity: 0; } 14% { opacity: 0; } 22% { opacity: 1; }
-    43% { opacity: 1; } 51% { opacity: 0; } 100% { opacity: 0; }
-  }
-  @keyframes blobMorph0 {
-    0%, 100% { transform: translate(-6%,-4%) scale(1); border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; }
-    50% { transform: translate(8%,10%) scale(1.15); border-radius: 63% 37% 41% 59% / 51% 62% 38% 49%; }
-  }
-  @keyframes blobMorph1 {
-    0%, 100% { transform: translate(4%,6%) scale(1.05); border-radius: 50% 50% 33% 67% / 60% 40% 60% 40%; }
-    50% { transform: translate(-8%,-6%) scale(0.92); border-radius: 37% 63% 56% 44% / 49% 51% 49% 51%; }
-  }
-  @keyframes blobMorph2 {
-    0%, 100% { transform: translate(-5%,8%) scale(0.95); border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%; }
-    50% { transform: translate(7%,-9%) scale(1.1); border-radius: 40% 60% 60% 40% / 60% 35% 65% 40%; }
-  }
-  @keyframes blobMorph3 {
-    0%, 100% { transform: translate(6%,-8%) scale(1.08); border-radius: 60% 40% 50% 50% / 40% 60% 40% 60%; }
-    50% { transform: translate(-6%,7%) scale(0.94); border-radius: 45% 55% 65% 35% / 55% 45% 55% 45%; }
-  }
-  @keyframes blobMorph4 {
-    0%, 100% { transform: translate(-7%,-6%) scale(1); border-radius: 48% 52% 55% 45% / 50% 50% 50% 50%; }
-    50% { transform: translate(9%,5%) scale(1.12); border-radius: 58% 42% 38% 62% / 42% 58% 42% 58%; }
-  }
-  @keyframes imgBreathe {
-    0%, 100% { transform: scale(1); filter: blur(0px); }
-    50% { transform: scale(1.04); filter: blur(2px); }
-  }
-  @keyframes scene2Envelope {
-    0%  { opacity: 0; filter: blur(18px); transform: scale(0.9); }
-    43% { opacity: 0; filter: blur(18px); transform: scale(0.9); }
-    51% { opacity: 1; filter: blur(0px);  transform: scale(1); }
-    63% { opacity: 1; filter: blur(0px);  transform: scale(1); }
-    71% { opacity: 0; filter: blur(14px); transform: scale(1.08); }
-    100% { opacity: 0; filter: blur(14px); transform: scale(1.08); }
-  }
-  @keyframes spinCW { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  @keyframes spinCCW { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
-  @keyframes scene3Envelope {
-    0% { opacity: 0; } 63% { opacity: 0; } 71% { opacity: 1; }
-    78% { opacity: 1; } 86% { opacity: 0; } 100% { opacity: 0; }
-  }
-  @keyframes cardZoom {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.06); }
-  }
-  @keyframes scene4Envelope {
-    0%  { opacity: 0.5; filter: blur(20px); transform: scale(1.06); }
-    4%  { opacity: 0;   filter: blur(24px); transform: scale(1.1); }
-    78% { opacity: 0;   filter: blur(24px); transform: scale(1.1); }
-    86% { opacity: 1;   filter: blur(0px);  transform: scale(1); }
-    96% { opacity: 1;   filter: blur(0px);  transform: scale(1); }
-    100% { opacity: 0.5; filter: blur(20px); transform: scale(1.06); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .stage * { animation: none !important; }
-  }
-</style>
+<style>body,html{margin:0;padding:0;height:100%;overflow:hidden;background:#f5efe4}@keyframes scene0Anim{0%{opacity:.5;filter:blur(16px);transform:scale(1.08)}4%{opacity:1;filter:blur(0px);transform:scale(1)}14%{opacity:1;filter:blur(0px);transform:scale(1.02)}22%{opacity:0;filter:blur(16px);transform:scale(1.08)}96%{opacity:0;filter:blur(16px);transform:scale(1.08)}100%{opacity:.5;filter:blur(16px);transform:scale(1.08)}}@keyframes scene1Envelope{0%{opacity:0}14%{opacity:0}22%{opacity:1}43%{opacity:1}51%{opacity:0}100%{opacity:0}}@keyframes blobMorph0{0%,100%{transform:translate(-6%,-4%) scale(1);border-radius:42% 58% 63% 37%/41% 44% 56% 59%}50%{transform:translate(8%,10%) scale(1.15);border-radius:63% 37% 41% 59%/51% 62% 38% 49%}}@keyframes blobMorph1{0%,100%{transform:translate(4%,6%) scale(1.05);border-radius:50% 50% 33% 67%/60% 40% 60% 40%}50%{transform:translate(-8%,-6%) scale(.92);border-radius:37% 63% 56% 44%/49% 51% 49% 51%}}@keyframes blobMorph2{0%,100%{transform:translate(-5%,8%) scale(.95);border-radius:55% 45% 40% 60%/45% 55% 45% 55%}50%{transform:translate(7%,-9%) scale(1.1);border-radius:40% 60% 60% 40%/60% 35% 65% 40%}}@keyframes blobMorph3{0%,100%{transform:translate(6%,-8%) scale(1.08);border-radius:60% 40% 50% 50%/40% 60% 40% 60%}50%{transform:translate(-6%,7%) scale(.94);border-radius:45% 55% 65% 35%/55% 45% 55% 45%}}@keyframes blobMorph4{0%,100%{transform:translate(-7%,-6%) scale(1);border-radius:48% 52% 55% 45%/50% 50% 50% 50%}50%{transform:translate(9%,5%) scale(1.12);border-radius:58% 42% 38% 62%/42% 58% 42% 58%}}@keyframes imgBreathe{0%,100%{transform:scale(1);filter:blur(0px)}50%{transform:scale(1.04);filter:blur(2px)}}@keyframes scene2Envelope{0%{opacity:0;filter:blur(18px);transform:scale(.9)}43%{opacity:0;filter:blur(18px);transform:scale(.9)}51%{opacity:1;filter:blur(0px);transform:scale(1)}63%{opacity:1;filter:blur(0px);transform:scale(1)}71%{opacity:0;filter:blur(14px);transform:scale(1.08)}100%{opacity:0;filter:blur(14px);transform:scale(1.08)}}@keyframes spinCW{from{transform:rotate(0)}to{transform:rotate(360deg)}}@keyframes spinCCW{from{transform:rotate(0)}to{transform:rotate(-360deg)}}@keyframes scene3Envelope{0%{opacity:0}63%{opacity:0}71%{opacity:1}78%{opacity:1}86%{opacity:0}100%{opacity:0}}@keyframes cardZoom{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}@keyframes scene4Envelope{0%{opacity:.5;filter:blur(20px);transform:scale(1.06)}4%{opacity:0;filter:blur(24px);transform:scale(1.1)}78%{opacity:0;filter:blur(24px);transform:scale(1.1)}86%{opacity:1;filter:blur(0px);transform:scale(1)}96%{opacity:1;filter:blur(0px);transform:scale(1)}100%{opacity:.5;filter:blur(20px);transform:scale(1.06)}}@media (prefers-reduced-motion:reduce){.stage *{animation:none!important}}</style>
 </head>
 <body>
 <div id="stage" style="position: fixed; inset: 0; width: 100vw; height: 100vh; overflow: hidden; background: #f5efe4;" class="stage">
@@ -129,23 +53,6 @@
   </div>
 </div>
 
-<script>
-(function () {
-  "use strict";
-  var stage = document.getElementById('stage');
-  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduced) return;
-
-  function pause() { stage.querySelectorAll('*').forEach(function (el) { el.style.animationPlayState = 'paused'; }); }
-  function play() { stage.querySelectorAll('*').forEach(function (el) { el.style.animationPlayState = 'running'; }); }
-
-  stage.addEventListener('mouseenter', pause);
-  stage.addEventListener('mouseleave', play);
-
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) pause(); else play();
-  });
-})();
-</script>
+<script>!function(){"use strict";var e=document.getElementById("stage");function t(){e.querySelectorAll("*").forEach(function(e){e.style.animationPlayState="paused"})}function n(){e.querySelectorAll("*").forEach(function(e){e.style.animationPlayState="running"})}window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches||(e.addEventListener("mouseenter",t),e.addEventListener("mouseleave",n),document.addEventListener("visibilitychange",function(){document.hidden?t():n()}))}();</script>
 </body>
 </html>

@@ -4,25 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hideout Georgia — Showreel</title>
-<style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html, body { width:100%; height:100%; overflow:hidden; background:#0d1207; }
-
-  .stage { position:fixed; inset:0; overflow:hidden; background:#0d1207; }
-
-  /* Persistent ambient loop — runs underneath every scene, at every breakpoint,
-     never reloaded or paused by the sequencer. */
-  .loop-bg {
-    position:absolute; inset:0; width:100%; height:100%; border:0; display:block; z-index:0;
-  }
-
-  .scene {
-    position:absolute; inset:0; width:100%; height:100%; border:0; display:block; z-index:1;
-    opacity:0; visibility:hidden;
-    transition:opacity 0.9s ease, visibility 0s linear 0.9s;
-  }
-  .scene.is-active { opacity:1; visibility:visible; transition:opacity 0.9s ease; }
-</style>
+<style>*{margin:0;padding:0;box-sizing:border-box}body,html{width:100%;height:100%;overflow:hidden;background:#0d1207}.stage{position:fixed;inset:0;overflow:hidden;background:#0d1207}.loop-bg{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;z-index:0}.scene{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;z-index:1;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility 0s linear .9s}.scene.is-active{opacity:1;visibility:visible;transition:opacity .9s ease}</style>
 </head>
 <body>
 <div class="stage" id="stage">
@@ -34,45 +16,6 @@
   <iframe class="scene" data-scene="outro" data-src="hideout-georgia-outro.html" scrolling="no" tabindex="-1" aria-hidden="true" title="Outro"></iframe>
 </div>
 
-<script>
-(function () {
-  "use strict";
-
-  var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
-  var byName = {};
-  scenes.forEach(function (s) { byName[s.dataset.scene] = s; });
-
-  // Running order + on-screen duration (seconds), matched to each scene's
-  // own animation length. Fade overlaps the tail (see .scene transition).
-  var ORDER = [
-    { scene: 'intro', dur: 7.6 },
-    { scene: 'logo',  dur: 13.0 },
-    { scene: 'slide', dur: 7.8 },
-    { scene: 'outro', dur: 6.5 }
-  ];
-
-  function reload(iframe) {
-    iframe.src = iframe.dataset.src + '?t=' + Date.now();
-  }
-
-  var idx = -1, timer = null;
-  function show(i) {
-    idx = i;
-    var cur = ORDER[i];
-    reload(byName[cur.scene]);
-    scenes.forEach(function (s) { s.classList.toggle('is-active', s.dataset.scene === cur.scene); });
-
-    clearTimeout(timer);
-    timer = setTimeout(function () { show((i + 1) % ORDER.length); }, cur.dur * 1000);
-  }
-
-  show(0);
-
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) { clearTimeout(timer); }
-    else if (idx >= 0) { show(idx); }
-  });
-})();
-</script>
+<script>!function(){"use strict";var e=Array.prototype.slice.call(document.querySelectorAll(".scene")),t={};e.forEach(function(e){t[e.dataset.scene]=e});var n=[{scene:"intro",dur:7.6},{scene:"logo",dur:13},{scene:"slide",dur:7.8},{scene:"outro",dur:6.5}];var c=-1,s=null;function o(r){c=r;var i,a=n[r];(i=t[a.scene]).src=i.dataset.src+"?t="+Date.now(),e.forEach(function(e){e.classList.toggle("is-active",e.dataset.scene===a.scene)}),clearTimeout(s),s=setTimeout(function(){o((r+1)%n.length)},1e3*a.dur)}o(0),document.addEventListener("visibilitychange",function(){document.hidden?clearTimeout(s):c>=0&&o(c)})}();</script>
 </body>
 </html>

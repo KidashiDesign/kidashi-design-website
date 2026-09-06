@@ -423,19 +423,6 @@
 <script src="js/i18n.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/fluid-particles.js" defer></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var isMobile = window.innerWidth < 768;
-    new FluidParticles('#fluid-canvas', {
-      particleDensity:     isMobile ? 200 : 100,
-      particleSize:        1,
-      particleColor:       '#333333',
-      activeColor:         '#FFBC95',
-      maxBlastRadius:      isMobile ? 150 : 300,
-      hoverDelay:          1,
-      interactionDistance: isMobile ? 60 : 100,
-    });
-  });
-</script>
+<script>document.addEventListener("DOMContentLoaded",function(){var e=window.innerWidth<768;new FluidParticles("#fluid-canvas",{particleDensity:e?200:100,particleSize:1,particleColor:"#333333",activeColor:"#FFBC95",maxBlastRadius:e?150:300,hoverDelay:1,interactionDistance:e?60:100})});</script>
 </body>
 </html>
