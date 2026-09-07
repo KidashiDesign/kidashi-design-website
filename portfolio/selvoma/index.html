@@ -2,14 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HVYN8BLVD1"></script>
+  <!-- Google tag (gtag.js) — deferred to first interaction / idle so it never
+       competes with critical-path CSS, fonts and scripts for bandwidth or
+       main-thread time. gtag() calls made before it loads are queued by
+       dataLayer.push as usual, so no events are lost. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-HVYN8BLVD1');
+    (function () {
+      var loaded = false;
+      var events = ['scroll', 'mousemove', 'keydown', 'touchstart', 'click'];
+      function loadGtag() {
+        if (loaded) return;
+        loaded = true;
+        events.forEach(function (e) { window.removeEventListener(e, loadGtag); });
+        clearTimeout(timer);
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-HVYN8BLVD1';
+        document.head.appendChild(s);
+      }
+      events.forEach(function (e) { window.addEventListener(e, loadGtag, { passive: true, once: true }); });
+      var timer = setTimeout(loadGtag, 4000);
+    })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title data-de="Selvoma — Visuelle Destinationspräsentation | Kidashi Design">Selvoma — Visual Destination Presentation Design | Kidashi Design</title>
