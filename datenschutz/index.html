@@ -2,32 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Google tag (gtag.js) — deferred to first interaction / idle so it never
-       competes with critical-path CSS, fonts and scripts for bandwidth or
-       main-thread time. gtag() calls made before it loads are queued by
-       dataLayer.push as usual, so no events are lost. -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-HVYN8BLVD1');
-    (function () {
-      var loaded = false;
-      var events = ['scroll', 'mousemove', 'keydown', 'touchstart', 'click'];
-      function loadGtag() {
-        if (loaded) return;
-        loaded = true;
-        events.forEach(function (e) { window.removeEventListener(e, loadGtag); });
-        clearTimeout(timer);
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-HVYN8BLVD1';
-        document.head.appendChild(s);
-      }
-      events.forEach(function (e) { window.addEventListener(e, loadGtag, { passive: true, once: true }); });
-      var timer = setTimeout(loadGtag, 4000);
-    })();
-  </script>
+  <!-- Google Analytics (gtag.js) — only loaded once the visitor grants
+       consent via the cookie banner; see /js/cookie-consent.js. Consent
+       Mode default (denied) is set here so no data is sent beforehand. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title data-de="Datenschutzerklärung — Kidashi Design">Privacy Policy — Kidashi Design</title>
   <link rel="canonical" href="https://www.kidashidesign.com/datenschutz/">
@@ -118,7 +95,16 @@
     <hr class="legal-divider">
 
     <h2 data-de="Was wir erfassen">What We Collect</h2>
-    <p data-de="Diese Website erhebt keine personenbezogenen Daten über die üblichen Server-Logs hinaus (IP-Adresse, Browsertyp, Zeitstempel), die automatisch vom Hosting-Anbieter gespeichert und fortlaufend gelöscht werden. Kein Tracking, keine Analyse-Tools, keine Werbe-Cookies.">This website collects no personal data beyond standard server logs (IP address, browser type, timestamp) which are stored automatically by the hosting provider and deleted on a rolling basis. No tracking, no analytics, no advertising cookies.</p>
+    <p data-de="Diese Website erhebt über die üblichen Server-Logs hinaus (IP-Adresse, Browsertyp, Zeitstempel), die automatisch vom Hosting-Anbieter gespeichert und fortlaufend gelöscht werden, personenbezogene Daten im Rahmen von Google Analytics — jedoch nur, wenn Sie dem im Cookie-Banner ausdrücklich zugestimmt haben. Ohne Ihre Einwilligung findet kein Tracking und keine Analyse statt. Details dazu im Abschnitt „Cookies &amp; Google Analytics" unten.">This website collects personal data beyond standard server logs (IP address, browser type, timestamp), which are stored automatically by the hosting provider and deleted on a rolling basis, through Google Analytics — but only if you have explicitly given your consent via the cookie banner. Without your consent, no tracking or analytics takes place. See the "Cookies &amp; Google Analytics" section below for details.</p>
+
+    <hr class="legal-divider">
+
+    <h2 data-de="Cookies &amp; Google Analytics">Cookies &amp; Google Analytics</h2>
+    <p data-de-html="Diese Website verwendet Google Analytics, einen Webanalysedienst der Google Ireland Limited (Gordon House, Barrow Street, Dublin 4, Irland; im Falle von Datenübermittlungen in die USA: Google LLC). Google Analytics setzt Cookies bzw. vergleichbare Technologien, die eine Analyse der Benutzung dieser Website ermöglichen (u.&nbsp;a. besuchte Seiten, Verweildauer, ungefährer Standort, verwendetes Gerät). Die dabei erhobenen Daten sind personenbezogen bzw. personenbeziehbar. Die IP-Adresse wird vor der Speicherung von Google gekürzt (IP-Anonymisierung), sodass in der Regel kein direkter Personenbezug mehr hergestellt werden kann.">This website uses Google Analytics, a web analytics service provided by Google Ireland Limited (Gordon House, Barrow Street, Dublin 4, Ireland; for transfers to the US: Google LLC). Google Analytics uses cookies or comparable technologies that enable analysis of the use of this website (including pages visited, time spent, approximate location, and device used). The data collected is personal data or data that can be linked to a person. Your IP address is truncated by Google before storage (IP anonymisation), so a direct link to you can generally no longer be established.</p>
+    <p data-de-html="Google Analytics wird ausschließlich auf Grundlage Ihrer Einwilligung eingesetzt (Art. 6 Abs. 1 lit. a DSGVO), die Sie über den Cookie-Banner beim ersten Besuch dieser Website erteilen oder ablehnen können. Ohne Ihre Zustimmung wird Google Analytics nicht geladen und es werden keine entsprechenden Daten erhoben. Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft über den Link „Cookie-Einstellungen" im Footer widerrufen bzw. anpassen.">Google Analytics is used exclusively on the basis of your consent (Art. 6(1)(a) GDPR), which you can grant or decline via the cookie banner on your first visit to this website. Without your consent, Google Analytics is not loaded and no corresponding data is collected. You can withdraw or change your consent at any time, with effect for the future, via the "Cookie Settings" link in the footer.</p>
+    <p data-de-html="Im Zusammenhang mit der Datenverarbeitung durch Google Analytics kann es zu einer Übermittlung personenbezogener Daten in die USA (Drittland) kommen. Diese erfolgt auf Grundlage von EU-Standardvertragsklauseln gemäß Art. 46 DSGVO, die Google im Rahmen seiner Auftragsverarbeitung anbietet. Weitere Informationen zur Datenverarbeitung durch Google finden Sie in der <a href=&quot;https://policies.google.com/privacy?hl=de&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>Datenschutzerklärung von Google</a>.">In connection with data processing by Google Analytics, personal data may be transferred to the USA (a third country). This is based on the EU Standard Contractual Clauses pursuant to Art. 46 GDPR, which Google offers as part of its data processing agreement. Further information on data processing by Google can be found in <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</p>
+    <p data-de-html="Erteilte oder abgelehnte Einwilligungen werden lokal in Ihrem Browser gespeichert (Local Storage), damit der Banner nicht bei jedem Besuch erneut erscheint. Diese Speicherung ist technisch erforderlich und erfolgt unabhängig von Ihrer Analytics-Entscheidung.">Any consent given or declined is stored locally in your browser (local storage) so the banner does not appear again on every visit. This storage is technically necessary and takes place independently of your analytics decision.</p>
+    <p><button type="button" class="footer__legal-btn" data-cookie-settings data-de="Cookie-Einstellungen ändern">Change Cookie Settings</button></p>
 
     <hr class="legal-divider">
 
@@ -138,7 +124,7 @@
 
     <hr class="legal-divider">
 
-    <p style="font-size:0.82rem;opacity:0.5;" data-de="Zuletzt aktualisiert: Juni 2026">Last updated: June 2026</p>
+    <p style="font-size:0.82rem;opacity:0.5;" data-de="Zuletzt aktualisiert: September 2026">Last updated: September 2026</p>
   </div>
 </main>
 <footer class="footer">
@@ -162,6 +148,7 @@
       <nav class="footer__legal">
         <a href="../impressum/" data-de="Impressum">Imprint</a>
         <a href="../datenschutz/" data-de="Datenschutz">Privacy Policy</a>
+        <button type="button" class="footer__legal-btn" data-cookie-settings data-de="Cookie-Einstellungen">Cookie Settings</button>
       </nav>
     </div>
   </div>
@@ -169,5 +156,15 @@
 
 <script src="../js/i18n.js" defer></script>
 <script src="../js/main.js" defer></script>
+<div class="cookie-banner" id="kdCookieBanner" role="dialog" aria-live="polite" aria-label="Cookie consent / Cookie-Einwilligung" hidden>
+  <div class="cookie-banner__inner">
+    <p class="cookie-banner__text" data-de-html="Wir verwenden Google Analytics, um zu verstehen, wie diese Website genutzt wird. Dabei werden personenbezogene Daten (z.&nbsp;B. Ihre gek&uuml;rzte IP-Adresse und Nutzungsverhalten) verarbeitet. Mehr dazu in unserer <a href=&quot;/datenschutz/&quot;>Datenschutzerkl&auml;rung</a>.">We use Google Analytics to understand how this website is used. This involves processing personal data (e.g. your truncated IP address and usage behaviour). Learn more in our <a href="/datenschutz/">Privacy Policy</a>.</p>
+    <div class="cookie-banner__actions">
+      <button type="button" class="cookie-banner__btn cookie-banner__btn--reject" data-cookie-reject data-de="Ablehnen">Reject</button>
+      <button type="button" class="cookie-banner__btn cookie-banner__btn--accept" data-cookie-accept data-de="Akzeptieren">Accept</button>
+    </div>
+  </div>
+</div>
+<script src="/js/cookie-consent.js" defer></script>
 </body>
 </html>

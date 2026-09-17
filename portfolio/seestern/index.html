@@ -2,32 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Google tag (gtag.js) — deferred to first interaction / idle so it never
-       competes with critical-path CSS, fonts and scripts for bandwidth or
-       main-thread time. gtag() calls made before it loads are queued by
-       dataLayer.push as usual, so no events are lost. -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-HVYN8BLVD1');
-    (function () {
-      var loaded = false;
-      var events = ['scroll', 'mousemove', 'keydown', 'touchstart', 'click'];
-      function loadGtag() {
-        if (loaded) return;
-        loaded = true;
-        events.forEach(function (e) { window.removeEventListener(e, loadGtag); });
-        clearTimeout(timer);
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-HVYN8BLVD1';
-        document.head.appendChild(s);
-      }
-      events.forEach(function (e) { window.addEventListener(e, loadGtag, { passive: true, once: true }); });
-      var timer = setTimeout(loadGtag, 4000);
-    })();
-  </script>
+  <!-- Google Analytics (gtag.js) — only loaded once the visitor grants
+       consent via the cookie banner; see /js/cookie-consent.js. Consent
+       Mode default (denied) is set here so no data is sent beforehand. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title data-de="Seestern Britzer Garten — Markenidentität &amp; Merchandise | Kidashi Design">Seestern Britzer Garten — Brand Identity & Merchandise | Kidashi Design</title>
   <link rel="canonical" href="https://www.kidashidesign.com/portfolio/seestern/">
@@ -263,11 +240,22 @@
       <nav class="footer__legal">
         <a href="../../impressum/" data-de="Impressum">Imprint</a>
         <a href="../../datenschutz/" data-de="Datenschutz">Privacy Policy</a>
+        <button type="button" class="footer__legal-btn" data-cookie-settings data-de="Cookie-Einstellungen">Cookie Settings</button>
       </nav>
     </div>
   </div>
 </footer>
 <script src="../../js/i18n.js" defer></script>
 <script src="../../js/main.js" defer></script>
+<div class="cookie-banner" id="kdCookieBanner" role="dialog" aria-live="polite" aria-label="Cookie consent / Cookie-Einwilligung" hidden>
+  <div class="cookie-banner__inner">
+    <p class="cookie-banner__text" data-de-html="Wir verwenden Google Analytics, um zu verstehen, wie diese Website genutzt wird. Dabei werden personenbezogene Daten (z.&nbsp;B. Ihre gek&uuml;rzte IP-Adresse und Nutzungsverhalten) verarbeitet. Mehr dazu in unserer <a href=&quot;/datenschutz/&quot;>Datenschutzerkl&auml;rung</a>.">We use Google Analytics to understand how this website is used. This involves processing personal data (e.g. your truncated IP address and usage behaviour). Learn more in our <a href="/datenschutz/">Privacy Policy</a>.</p>
+    <div class="cookie-banner__actions">
+      <button type="button" class="cookie-banner__btn cookie-banner__btn--reject" data-cookie-reject data-de="Ablehnen">Reject</button>
+      <button type="button" class="cookie-banner__btn cookie-banner__btn--accept" data-cookie-accept data-de="Akzeptieren">Accept</button>
+    </div>
+  </div>
+</div>
+<script src="/js/cookie-consent.js" defer></script>
 </body>
 </html>
