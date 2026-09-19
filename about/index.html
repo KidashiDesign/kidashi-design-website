@@ -253,10 +253,52 @@
 <script src="../js/main.js" defer></script>
 <div class="cookie-banner" id="kdCookieBanner" role="dialog" aria-live="polite" aria-label="Cookie consent / Cookie-Einwilligung" hidden>
   <div class="cookie-banner__inner">
-    <p class="cookie-banner__text" data-de-html="Wir verwenden Google Analytics, um zu verstehen, wie diese Website genutzt wird. Dabei werden personenbezogene Daten (z.&nbsp;B. Ihre gek&uuml;rzte IP-Adresse und Nutzungsverhalten) verarbeitet. Mehr dazu in unserer <a href=&quot;/datenschutz/&quot;>Datenschutzerkl&auml;rung</a>.">We use Google Analytics to understand how this website is used. This involves processing personal data (e.g. your truncated IP address and usage behaviour). Learn more in our <a href="/datenschutz/">Privacy Policy</a>.</p>
-    <div class="cookie-banner__actions">
-      <button type="button" class="cookie-banner__btn cookie-banner__btn--reject" data-cookie-reject data-de="Nur essenzielle">Essential Only</button>
-      <button type="button" class="cookie-banner__btn cookie-banner__btn--accept" data-cookie-accept data-de="Alle akzeptieren">Accept All</button>
+    <div class="cookie-banner__main">
+      <p class="cookie-banner__text" data-de-html="Wir verwenden Cookies und externe Dienste (u.&nbsp;a. Google Analytics und unser Kontaktformular). Sie entscheiden, was zul&auml;ssig ist. Mehr dazu in unserer <a href=&quot;/datenschutz/&quot;>Datenschutzerkl&auml;rung</a>.">We use cookies and external services (including Google Analytics and our contact form). You decide what's allowed. Learn more in our <a href="/datenschutz/">Privacy Policy</a>.</p>
+      <div class="cookie-banner__actions">
+        <button type="button" class="cookie-banner__btn cookie-banner__btn--reject" data-cookie-essential data-de="Nur essenziell">Essential Only</button>
+        <button type="button" class="cookie-banner__btn cookie-banner__btn--settings" data-cookie-manage data-de="Auswahl treffen">Select Cookies</button>
+        <button type="button" class="cookie-banner__btn cookie-banner__btn--accept" data-cookie-accept data-de="Alle akzeptieren">Accept All</button>
+      </div>
+    </div>
+    <div class="cookie-banner__essentials" id="kdCookieEssentials" hidden>
+      <h3 data-de="Das sind die essenziellen Dienste">These are the essential services</h3>
+      <ul>
+        <li data-de-html="<strong>Ihre Cookie-Auswahl</strong> &mdash; wird lokal in Ihrem Browser (Local Storage) gespeichert, damit dieser Banner nicht bei jedem Besuch erneut erscheint."><strong>Your cookie choice</strong> &mdash; stored locally in your browser (local storage) so this banner doesn't reappear on every visit.</li>
+        <li data-de-html="<strong>Kontakt- &amp; Terminformular</strong> &mdash; beim Absenden einer Anfrage werden Ihre Angaben ausschlie&szlig;lich zur Beantwortung an unseren Formular-Dienstleister Formspree, Inc. (USA) &uuml;bermittelt."><strong>Contact &amp; scheduling form</strong> &mdash; when you submit an enquiry, your details are sent to our form processor Formspree, Inc. (USA) solely to answer your request.</li>
+      </ul>
+      <div class="cookie-banner__essentials-actions">
+        <button type="button" class="cookie-banner__btn cookie-banner__btn--reject" data-cookie-essential-confirm data-de="Verstanden — nur essenziell">Understood — essential only</button>
+      </div>
+    </div>
+    <div class="cookie-banner__settings" id="kdCookieSettings" hidden>
+      <h3 data-de="Cookie-Einstellungen">Cookie Settings</h3>
+      <p data-de-html="W&auml;hlen Sie, welche Kategorien Sie zulassen m&ouml;chten. Dies umfasst alle externen Dienste dieser Website, die Daten verarbeiten k&ouml;nnen &mdash; Formulare, Links und Analyse.">Choose which categories you want to allow. This covers every external service on this site that can process data &mdash; forms, links and analytics.</p>
+      <div class="cookie-banner__category">
+        <div class="cookie-banner__category-head">
+          <label class="cookie-toggle cookie-toggle--locked">
+            <input type="checkbox" checked disabled aria-label="Essential (always active)" data-de-aria-label="Essenziell (immer aktiv)">
+            <span class="cookie-toggle__track" aria-hidden="true"></span>
+          </label>
+          <span class="cookie-banner__category-title" data-de="Essenziell (immer aktiv)">Essential (always active)</span>
+        </div>
+        <p class="cookie-banner__category-desc" data-de-html="Notwendig f&uuml;r den Betrieb der Website: Speicherung Ihrer Cookie-Auswahl (Local Storage) sowie das Kontakt-/Terminformular (Versand an Formspree, USA, nur beim Absenden). Kann nicht deaktiviert werden.">Required for the site to work: saving your cookie choice (local storage) and the contact/scheduling form (sent to Formspree, USA, only when you submit it). Cannot be switched off.</p>
+      </div>
+      <div class="cookie-banner__category">
+        <div class="cookie-banner__category-head">
+          <label class="cookie-toggle">
+            <input type="checkbox" id="kdCookieToggleAnalytics" aria-label="Analytics" data-de-aria-label="Analyse">
+            <span class="cookie-toggle__track" aria-hidden="true"></span>
+          </label>
+          <span class="cookie-banner__category-title" data-de="Analyse">Analytics</span>
+        </div>
+        <p class="cookie-banner__category-desc" data-de-html="Google Analytics (Google Ireland Ltd.) hilft uns, die Nutzung der Website zu verstehen (besuchte Seiten, Verweildauer, gek&uuml;rzte IP-Adresse). Wird nur mit Ihrer Zustimmung geladen. Mehr in unserer <a href=&quot;/datenschutz/&quot;>Datenschutzerkl&auml;rung</a>.">Google Analytics (Google Ireland Ltd.) helps us understand site usage (pages visited, time spent, truncated IP address). Only loaded with your consent. More in our <a href="/datenschutz/">Privacy Policy</a>.</p>
+      </div>
+      <p class="cookie-banner__settings-note" data-de-html="Externe Links (z.&nbsp;B. unsere Social-Media-Profile) f&uuml;hren auf andere Websites, unterliegen deren eigenen Datenschutzbestimmungen und laden hier weder Inhalte nach noch setzen sie Cookies.">External links (e.g. our social media profiles) open outside this website, follow their own privacy policies, and don't load anything or set cookies here.</p>
+      <div class="cookie-banner__settings-actions">
+        <button type="button" class="cookie-banner__btn cookie-banner__btn--reject" data-cookie-save data-de="Auswahl akzeptieren">Accept Selection</button>
+        <button type="button" class="cookie-banner__btn cookie-banner__btn--accept" data-cookie-accept data-de="Alle akzeptieren">Accept All</button>
+      </div>
     </div>
   </div>
 </div>
