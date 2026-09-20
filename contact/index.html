@@ -18,7 +18,7 @@
   <link rel="preload" href="../fonts/MangoGrotesque-Light.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/MangoGrotesque-Bold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/Jost-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../css/style.css?v=20260912">
+  <link rel="stylesheet" href="../css/style.css?v=20260920">
   <script src="../js/contact-calendar.js?v=20260912" defer></script>
 </head>
 <body>
@@ -100,8 +100,8 @@
       <div class="contact-form-wrap">
         <div class="contact-morph" aria-hidden="true">
           <svg viewBox="88 -8 128 128" fill="none">
-            <polygon points="152,0 163,1 173,4 183,9 192,16 199,25 204,35 207,45 208,56 207,67 204,77 199,87 192,96 183,103 173,108 163,111 152,112 141,111 131,108 121,103 112,96 105,87 100,77 97,67 96,56 97,45 100,35 105,25 112,16 121,9 131,4 141,1"></polygon>
-            <polygon points="152,0 208,56 152,112 96,56"></polygon>
+            <path d="M152,0 L163,1 L173,4 L183,9 L192,16 L199,25 L204,35 L207,45 L208,56 L207,67 L204,77 L199,87 L192,96 L183,103 L173,108 L163,111 L152,112 L141,111 L131,108 L121,103 L112,96 L105,87 L100,77 L97,67 L96,56 L97,45 L100,35 L105,25 L112,16 L121,9 L131,4 L141,1Z"></path>
+            <path d="M152,0 L208,56 L152,112 L96,56Z"></path>
           </svg>
         </div>
         <span class="page-hero__eyebrow reveal" data-de="Kontakt aufnehmen">Get in Touch</span>
@@ -266,18 +266,21 @@
 <script type="module">
   import { animate, svg, utils } from '../js/anime.esm.min.js';
 
-  const polys = utils.$('.contact-morph polygon');
+  // <path> is used instead of <polygon> because morphTo() relies on
+  // getTotalLength()/getPointAtLength(), which older mobile WebKit
+  // (iOS Safari) only ever implemented for <path>, not <polygon>.
+  const paths = utils.$('.contact-morph path');
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (polys.length >= 2 && !reduce) {
-    const [ $path1, $path2 ] = polys;
+  if (paths.length >= 2 && !reduce) {
+    const [ $path1, $path2 ] = paths;
 
     function animateRandomPoints() {
-      // Update the points attribute on the hidden target polygon
-      utils.set($path2, { points: generatePoints() });
-      // Morph the visible polygon into the new shape
+      // Update the d attribute on the hidden target path
+      utils.set($path2, { d: generatePoints() });
+      // Morph the visible path into the new shape
       animate($path1, {
-        points: svg.morphTo($path2),
+        d: svg.morphTo($path2),
         ease: 'inOutCirc',
         duration: 500,
         onComplete: animateRandomPoints
@@ -286,21 +289,21 @@
 
     animateRandomPoints();
 
-    // Generate a fresh random polygon on each iteration
+    // Generate a fresh random star path on each iteration
     function generatePoints() {
       const total = utils.random(4, 64);
       const r1 = utils.random(4, 56);
       const r2 = 56;
       const isOdd = n => n % 2;
-      let points = '';
+      let d = '';
       for (let i = 0, l = isOdd(total) ? total + 1 : total; i < l; i++) {
         const r = isOdd(i) ? r1 : r2;
         const a = (2 * Math.PI * i / l) - Math.PI / 2;
         const x = 152 + utils.round(r * Math.cos(a), 0);
         const y = 56 + utils.round(r * Math.sin(a), 0);
-        points += `${x},${y} `;
+        d += `${i === 0 ? 'M' : 'L'}${x},${y} `;
       }
-      return points;
+      return d + 'Z';
     }
   }
 </script>
