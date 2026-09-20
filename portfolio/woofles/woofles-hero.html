@@ -35,6 +35,6 @@
   </div>
 
 </div>
-<script>!function(){"use strict";var e=document.getElementById("stage"),t=document.documentElement.classList.contains("tile-mode"),n=e.querySelector(t?".bg-video--tile":".bg-video--hero");function c(){n&&n.play().catch(function(){})}function r(){if(!n)return;if(n.readyState>=4)return void c();var t=!1;function o(){t||(t=!0,c())}n.addEventListener("canplaythrough",o,{once:!0}),setTimeout(o,2500)}n&&(n.preload="auto",r()),document.addEventListener("touchstart",c,{once:!0,passive:!0}),document.addEventListener("visibilitychange",function(){e.classList.toggle("paused",document.hidden),n&&(document.hidden?n.pause():n.play().catch(function(){}))})}();</script>
+<script>!function(){"use strict";var e=document.getElementById("stage"),t=document.documentElement.classList.contains("tile-mode"),n=e.querySelector(t?".bg-video--tile":".bg-video--hero");function c(){n&&n.play().catch(function(){})}function r(){if(!n)return;if(n.readyState>=4)return void c();var t=!1;function o(){t||(t=!0,c())}n.addEventListener("canplaythrough",o,{once:!0}),setTimeout(o,2500)}n&&(n.preload="auto",r());var i=0,a=n&&setInterval(function(){(i+=1,!n.paused||i>=10)&&clearInterval(a),n.paused&&c()},500);document.addEventListener("touchstart",c,{once:!0,passive:!0}),document.addEventListener("visibilitychange",function(){e.classList.toggle("paused",document.hidden),n&&(document.hidden?n.pause():n.play().catch(function(){}))})}();</script>
 </body>
 </html>
