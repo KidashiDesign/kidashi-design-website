@@ -13,7 +13,30 @@
   <link rel="preload" href="fonts/MangoGrotesque-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/Jost-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
-  <style>body,html{height:100%}body{display:flex;flex-direction:column;min-height:100vh}.notfound{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.75rem;text-align:center;padding:clamp(24px,5vw,48px) 24px}.footer{flex-shrink:0}.notfound__actions .btn--outline{color:var(--dark)}.notfound__code{position:relative;font-family:var(--font-h);font-weight:700;line-height:.9;letter-spacing:-.02em;font-size:clamp(6rem, 20vw, 13rem);color:var(--dark);user-select:none}.notfound__code .layer{position:absolute;inset:0;opacity:0;mix-blend-mode:screen;transition:transform .15s ease-out,opacity .15s ease-out;pointer-events:none}.notfound__code .layer--red{color:#ff0040}.notfound__code .layer--cyan{color:#00e5ff}.notfound__code:hover .layer--red{transform:translateX(3px);opacity:.7}.notfound__code:hover .layer--cyan{transform:translateX(-3px);opacity:.7}.notfound__text{display:flex;flex-direction:column;gap:.5rem;max-width:420px}.notfound__title{font-family:var(--font-h);font-weight:700;font-size:1.5rem;color:var(--dark)}.notfound__desc{font-family:var(--font-b);font-size:1rem;color:var(--muted)}.notfound__actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.75rem}@media (prefers-reduced-motion:reduce){.notfound__code .layer{display:none}}</style>
+  <style>
+    body,html{height:100%}
+    body{display:flex;flex-direction:column;min-height:100vh}
+    .notfound{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;text-align:center;padding:clamp(24px,5vw,48px) 24px}
+    .footer{flex-shrink:0}
+    .notfound__actions .btn--outline{color:var(--dark)}
+    .notfound__eyebrow{margin-bottom:-.25rem}
+    .notfound__playground{position:relative;display:flex;align-items:center;justify-content:center;gap:clamp(10px,2.5vw,20px);width:100%;max-width:560px;min-height:clamp(150px,24vw,210px);padding:20px}
+    .notfound__piece{position:relative;width:clamp(72px,15vw,124px);height:clamp(92px,19vw,156px);transform:translate(var(--tx,0px),var(--ty,0px)) rotate(var(--tr,0deg));cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none;transition:transform .5s cubic-bezier(.2,.8,.25,1.15)}
+    .notfound__piece.is-dragging{cursor:grabbing;transition:none;z-index:5}
+    .notfound__piece-face{width:100%;height:100%;display:flex;align-items:center;justify-content:center;border-radius:22px;font-family:var(--font-h);font-weight:700;font-size:clamp(2.4rem,8vw,4.8rem);color:var(--cream);box-shadow:0 16px 32px -14px rgba(10,10,11,.4);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+    .notfound__piece:nth-child(1) .notfound__piece-face{background:var(--dark)}
+    .notfound__piece:nth-child(2) .notfound__piece-face{background:var(--primary)}
+    .notfound__piece:nth-child(3) .notfound__piece-face{background:var(--accent2)}
+    .notfound__piece:hover .notfound__piece-face{transform:scale(1.06)}
+    .notfound__playground.is-solved .notfound__piece-face{box-shadow:0 0 0 3px var(--cream),0 20px 36px -14px rgba(10,10,11,.5)}
+    .notfound__spark{position:absolute;left:50%;top:50%;font-size:1.05rem;color:var(--primary);pointer-events:none;opacity:0;transform:translate(-50%,-50%);animation:kdSpark .9s var(--ease) forwards}
+    @keyframes kdSpark{0%{opacity:0;transform:translate(-50%,-50%) rotate(var(--angle)) translateX(0) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) rotate(var(--angle)) translateX(var(--dist)) scale(1)}}
+    .notfound__text{display:flex;flex-direction:column;gap:.5rem;max-width:420px}
+    .notfound__title{font-family:var(--font-h);font-weight:700;font-size:1.5rem;color:var(--dark)}
+    .notfound__desc{font-family:var(--font-b);font-size:1rem;color:var(--muted);min-height:1.6em}
+    .notfound__actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.75rem}
+    @media (prefers-reduced-motion:reduce){.notfound__piece{transition:none}.notfound__piece-face{transition:none}.notfound__spark{display:none}}
+  </style>
 </head>
 <body>
 
@@ -90,15 +113,23 @@
 
 <!-- 404 -->
 <section class="notfound">
-  <div class="notfound__code" id="notfoundCode">
-    <span class="layer layer--red" aria-hidden="true">404</span>
-    <span class="layer layer--cyan" aria-hidden="true">404</span>
-    <span id="notfoundCodeText">404</span>
+  <span class="eyebrow notfound__eyebrow" data-de="Fehler 404">Error 404</span>
+
+  <div class="notfound__playground" id="notfoundPlayground" aria-hidden="true">
+    <div class="notfound__piece" style="--tx:-16px;--ty:10px;--tr:-7deg">
+      <div class="notfound__piece-face">4</div>
+    </div>
+    <div class="notfound__piece" style="--tx:10px;--ty:-12px;--tr:5deg">
+      <div class="notfound__piece-face">0</div>
+    </div>
+    <div class="notfound__piece" style="--tx:-8px;--ty:14px;--tr:-4deg">
+      <div class="notfound__piece-face">4</div>
+    </div>
   </div>
 
   <div class="notfound__text">
     <p class="notfound__title" data-de="Seite nicht gefunden">Page not found</p>
-    <p class="notfound__desc" data-de="Die gesuchte Seite existiert nicht oder wurde verschoben.">The page you are looking for does not exist or has been moved.</p>
+    <p class="notfound__desc" id="notfoundDesc" data-de="Ziehen Sie die Teile wieder an ihren Platz &mdash; oder lassen Sie sie liegen. Die Seite gibt es trotzdem nicht.">Drag the pieces back into place &mdash; or don't. This page doesn't exist either way.</p>
   </div>
 
   <div class="notfound__actions">
@@ -131,7 +162,136 @@
 
 <script src="js/i18n.js" defer></script>
 <script src="js/main.js" defer></script>
-<script>!function(){var e,t,n,o=[document.getElementById("notfoundCodeText"),document.querySelector(".layer--red"),document.querySelector(".layer--cyan")].filter(Boolean);window.matchMedia("(prefers-reduced-motion: reduce)").matches||(e="404".split(""),t=performance.now(),n=0,requestAnimationFrame(function r(a){if(a-n>=45){n=a;var c=Math.min((a-t)/700,1),i=Math.floor(c*e.length),u=e.map(function(e,t){return t<i||" "===e?e:"ABCDEFGHJKLMNPQRSTUVWXYZ0123456789#%&@$?/\\"[Math.floor(42*Math.random())]}).join("");o.forEach(function(e){e.textContent=u})}a-t<700?requestAnimationFrame(r):o.forEach(function(e){e.textContent="404"})}))}();</script>
+<script>
+(function(){
+  var playground = document.getElementById('notfoundPlayground');
+  if(!playground || !window.PointerEvent) return;
+  var pieces = Array.prototype.slice.call(playground.querySelectorAll('.notfound__piece'));
+  var descEl = document.getElementById('notfoundDesc');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var GLYPHS = ['✦', '✧', '✶', '✷', '✴'];
+  var HOME = [{x:-16,y:10,r:-7},{x:10,y:-12,r:5},{x:-8,y:14,r:-4}];
+  var DEFAULT_EN = descEl.getAttribute('data-en') || descEl.textContent;
+  var DEFAULT_DE = descEl.getAttribute('data-de');
+  var SOLVED_EN = "Nice. Shame the page still doesn't exist.";
+  var SOLVED_DE = 'Schön aufgeräumt. Die Seite gibt es trotzdem nicht.';
+  var solved = false;
+
+  function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
+  function applyTransform(p, s){
+    p.style.setProperty('--tx', s.x + 'px');
+    p.style.setProperty('--ty', s.y + 'px');
+    p.style.setProperty('--tr', s.r + 'deg');
+  }
+
+  function renderDesc(){
+    var lang = document.documentElement.getAttribute('data-lang') || 'en';
+    var en = solved ? SOLVED_EN : DEFAULT_EN;
+    var de = solved ? SOLVED_DE : DEFAULT_DE;
+    descEl.setAttribute('data-en', en);
+    descEl.setAttribute('data-de', de);
+    descEl.textContent = lang === 'de' ? de : en;
+  }
+  document.addEventListener('kd:langchange', renderDesc);
+
+  function spawnSparks(){
+    if(reduceMotion) return;
+    for(var i = 0; i < 10; i++){
+      var s = document.createElement('span');
+      s.className = 'notfound__spark';
+      s.setAttribute('aria-hidden', 'true');
+      s.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+      var angle = (i * 36) + (Math.random() * 20 - 10);
+      var dist = 70 + Math.random() * 60;
+      s.style.setProperty('--angle', angle + 'deg');
+      s.style.setProperty('--dist', dist + 'px');
+      playground.appendChild(s);
+      (function(el){ setTimeout(function(){ el.remove(); }, 950); })(s);
+    }
+  }
+
+  function checkSolved(){
+    var all = pieces.every(function(p){ return p._kdSolved; });
+    if(all && !solved){
+      solved = true;
+      playground.classList.add('is-solved');
+      spawnSparks();
+      renderDesc();
+    } else if(!all && solved){
+      solved = false;
+      playground.classList.remove('is-solved');
+      renderDesc();
+    }
+  }
+
+  pieces.forEach(function(p, idx){
+    var face = p.querySelector('.notfound__piece-face');
+    var state = { x: HOME[idx].x, y: HOME[idx].y, r: HOME[idx].r };
+    applyTransform(p, state);
+    p._kdSolved = false;
+
+    if(!reduceMotion){
+      var target = face.textContent;
+      var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789#%&@$?/\\';
+      var delay = idx * 90;
+      var start = null;
+      requestAnimationFrame(function tick(ts){
+        if(start === null) start = ts + delay;
+        if(ts < start){ requestAnimationFrame(tick); return; }
+        var elapsed = ts - start;
+        if(elapsed >= 650){ face.textContent = target; return; }
+        face.textContent = chars[Math.floor(Math.random() * chars.length)];
+        requestAnimationFrame(tick);
+      });
+    }
+
+    var dragging = false, startPX, startPY, startX, startY, bounds;
+
+    p.addEventListener('pointerdown', function(e){
+      if(e.pointerType === 'mouse' && e.button !== 0) return;
+      dragging = true;
+      e.preventDefault();
+      p.setPointerCapture(e.pointerId);
+      p.classList.add('is-dragging');
+      startPX = e.clientX; startPY = e.clientY;
+      startX = state.x; startY = state.y;
+      var pg = playground.getBoundingClientRect();
+      var pr = p.getBoundingClientRect();
+      bounds = {
+        minX: -(pg.width / 2 - pr.width / 2) - 20,
+        maxX: (pg.width / 2 - pr.width / 2) + 20,
+        minY: -(pg.height / 2 - pr.height / 2) - 10,
+        maxY: (pg.height / 2 - pr.height / 2) + 10
+      };
+    });
+
+    p.addEventListener('pointermove', function(e){
+      if(!dragging) return;
+      state.x = clamp(startX + (e.clientX - startPX), bounds.minX, bounds.maxX);
+      state.y = clamp(startY + (e.clientY - startPY), bounds.minY, bounds.maxY);
+      applyTransform(p, state);
+    });
+
+    function endDrag(e){
+      if(!dragging) return;
+      dragging = false;
+      p.classList.remove('is-dragging');
+      var dist = Math.hypot(state.x, state.y);
+      if(dist < 28){
+        state.x = 0; state.y = 0; state.r = 0;
+        applyTransform(p, state);
+        p._kdSolved = true;
+      } else {
+        p._kdSolved = false;
+      }
+      checkSolved();
+    }
+    p.addEventListener('pointerup', endDrag);
+    p.addEventListener('pointercancel', endDrag);
+  });
+})();
+</script>
 <div class="cookie-banner" id="kdCookieBanner" role="dialog" aria-live="polite" aria-label="Cookie consent / Cookie-Einwilligung" hidden>
   <div class="cookie-banner__inner">
     <div class="cookie-banner__main">
