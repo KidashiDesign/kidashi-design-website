@@ -1,1 +1,248 @@
-class FluidParticles{constructor(t,e={}){this.canvas="string"==typeof t?document.querySelector(t):t,this.canvas&&(this.opts={particleDensity:e.particleDensity??50,particleSize:e.particleSize??1,particleColor:e.particleColor??"#D4D3B3",activeColor:e.activeColor??"#8D926F",maxBlastRadius:e.maxBlastRadius??300,hoverDelay:e.hoverDelay??100,interactionDistance:e.interactionDistance??10},this.opts.interactionSq=this.opts.interactionDistance**2,this.ctx=null,this.particles=[],this.mouse={x:-1e3,y:-1e3,prevX:0,prevY:0},this.blast={active:!1,x:0,y:0,radius:0},this.rafId=0,this.hoverTimer=null,this._handlers={},this._rect={left:0,top:0},this._cw=0,this._ch=0,this._blastColors=Array.from({length:256},(t,e)=>{const i=e/255;return`rgba(${Math.round(78+151*i)},${Math.round(81+139*i)},${Math.round(56+121*i)},0.8)`}),this._init())}_createParticle(t,e){const i=this.opts,s=3*Math.random()+1;return{x:t,y:e,baseX:t,baseY:e,size:Math.random()*i.particleSize+.5,density:s,color:i.particleColor,vx:0,vy:0,friction:.9-.01*s}}_updateParticle(t){const e=this.opts,i=this.mouse,s=this.blast;t.x+=t.vx,t.y+=t.vy,t.vx*=t.friction,t.vy*=t.friction;const o=i.x-t.x,r=i.y-t.y,n=o*o+r*r;if(n<e.interactionSq){const i=Math.sqrt(n)||1,s=o/i,a=r/i,h=(e.interactionDistance-i)/e.interactionDistance;t.x-=s*h*t.density*.6,t.y-=a*h*t.density*.6,t.color=e.activeColor}else t.x-=(t.x-t.baseX)/20,t.y-=(t.y-t.baseY)/20,t.color=e.particleColor;if(s.active){const e=t.x-s.x,i=t.y-s.y,o=e*e+i*i;if(o<s.radius*s.radius){const r=Math.sqrt(o)||1,n=e/r,a=i/r,h=(s.radius-r)/s.radius;t.vx+=n*h*15,t.vy+=a*h*15;const c=Math.min(255,Math.max(0,255-Math.floor(r)));t.color=this._blastColors[c]}}}_w(){return this.canvas.parentElement?this.canvas.parentElement.offsetWidth:window.innerWidth}_h(){return this.canvas.parentElement?this.canvas.parentElement.offsetHeight:window.innerHeight}_initParticles(){this.particles=[];const t=this._w(),e=this._h(),i=Math.floor(t*e/this.opts.particleDensity);this.particles=new Array(i);for(let s=0;s<i;s++)this.particles[s]=this._createParticle(Math.random()*t,Math.random()*e)}_updateRect(){this._rect=this.canvas.getBoundingClientRect()}_resize(){const t=Math.min(window.devicePixelRatio||1,2),e=this._w(),i=this._h();this._updateRect(),this.canvas.width=e*t,this.canvas.height=i*t,this.canvas.style.width=`${e}px`,this.canvas.style.height=`${i}px`,this.ctx.setTransform(t,0,0,t,0,0),this._cw=e,this._ch=i,this._initParticles()}_triggerBlast(t,e){this.blast.active=!0,this.blast.x=t,this.blast.y=e,this.blast.radius=0;const i=performance.now(),s=this.opts.maxBlastRadius,o=t=>{const e=Math.min((t-i)/300,1);this.blast.radius=e*(2-e)*s,e<1?requestAnimationFrame(o):setTimeout(()=>{this.blast.active=!1},100)};requestAnimationFrame(o),this.hoverTimer&&(clearTimeout(this.hoverTimer),this.hoverTimer=null)}_animate(){const t=this.ctx;t.clearRect(0,0,this._cw,this._ch);let e=null;const i=this.particles.length;for(let s=0;s<i;s++){const i=this.particles[s];this._updateParticle(i),i.color!==e&&(t.fillStyle=i.color,e=i.color),t.fillRect(i.x,i.y,i.size,i.size)}this.rafId=requestAnimationFrame(()=>this._animate())}_init(){this.ctx=this.canvas.getContext("2d",{alpha:!0}),this.ctx.globalCompositeOperation="lighter";const t=this.opts;let e=0;const i=()=>this._resize(),s=()=>this._updateRect(),o=i=>{const s=performance.now();if(s-e<10)return;e=s,this.mouse.prevX=this.mouse.x,this.mouse.prevY=this.mouse.y,this.mouse.x=i.clientX-this._rect.left,this.mouse.y=i.clientY-this._rect.top;Math.hypot(this.mouse.x-this.mouse.prevX,this.mouse.y-this.mouse.prevY)<5?this.hoverTimer||(this.hoverTimer=setTimeout(()=>this._triggerBlast(i.clientX,i.clientY),t.hoverDelay)):this.hoverTimer&&(clearTimeout(this.hoverTimer),this.hoverTimer=null)},r=t=>{this._triggerBlast(t.clientX-this._rect.left,t.clientY-this._rect.top)},n=t=>{t.touches[0]&&(this.mouse.prevX=this.mouse.x,this.mouse.prevY=this.mouse.y,this.mouse.x=t.touches[0].clientX-this._rect.left,this.mouse.y=t.touches[0].clientY-this._rect.top)},a=e=>{if(!e.touches[0])return;const i=e.touches[0].clientX-this._rect.left,s=e.touches[0].clientY-this._rect.top;this.hoverTimer=setTimeout(()=>this._triggerBlast(i,s),t.hoverDelay)},h=()=>{this.hoverTimer&&(clearTimeout(this.hoverTimer),this.hoverTimer=null)},c=()=>{document.hidden?cancelAnimationFrame(this.rafId):this.rafId=requestAnimationFrame(()=>this._animate())};window.addEventListener("resize",i),window.addEventListener("scroll",s,{passive:!0}),window.addEventListener("mousemove",o),window.addEventListener("click",r),window.addEventListener("touchmove",n,{passive:!0}),window.addEventListener("touchstart",a,{passive:!0}),window.addEventListener("touchend",h),document.addEventListener("visibilitychange",c),this._handlers={onResize:i,onScroll:s,onMouseMove:o,onClick:r,onTouchMove:n,onTouchStart:a,onTouchEnd:h,onVisibilityChange:c},this._resize(),this._animate()}destroy(){cancelAnimationFrame(this.rafId),this.hoverTimer&&clearTimeout(this.hoverTimer);const t=this._handlers;window.removeEventListener("resize",t.onResize),window.removeEventListener("scroll",t.onScroll),window.removeEventListener("mousemove",t.onMouseMove),window.removeEventListener("click",t.onClick),window.removeEventListener("touchmove",t.onTouchMove),window.removeEventListener("touchstart",t.onTouchStart),window.removeEventListener("touchend",t.onTouchEnd),document.removeEventListener("visibilitychange",t.onVisibilityChange)}}
+/* ============================================================
+   KIDASHI DESIGN — fluid-particles.js
+   Canvas-based particle system with mouse/touch interaction.
+   Usage:
+     const fp = new FluidParticles('#my-canvas', { options })
+     fp.destroy() // cleanup
+   ============================================================ */
+
+class FluidParticles {
+  constructor(canvasSelector, options = {}) {
+    this.canvas = typeof canvasSelector === 'string'
+      ? document.querySelector(canvasSelector)
+      : canvasSelector
+
+    if (!this.canvas) return
+
+    this.opts = {
+      particleDensity:     options.particleDensity     ?? 100,
+      particleSize:        options.particleSize         ?? 1,
+      particleColor:       options.particleColor        ?? '#555555',
+      activeColor:         options.activeColor          ?? '#ffffff',
+      maxBlastRadius:      options.maxBlastRadius       ?? 300,
+      hoverDelay:          options.hoverDelay           ?? 100,
+      interactionDistance: options.interactionDistance  ?? 10,
+    }
+
+    this.ctx         = null
+    this.particles   = []
+    this.mouse       = { x: 0, y: 0, prevX: 0, prevY: 0 }
+    this.blast       = { active: false, x: 0, y: 0, radius: 0 }
+    this.rafId       = 0
+    this.hoverTimer  = null
+    this._handlers   = {}
+
+    this._init()
+  }
+
+  /* ── Particle ─────────────────────────────────────── */
+  _createParticle(x, y) {
+    const opts = this.opts
+    return {
+      x, y,
+      baseX:    x,
+      baseY:    y,
+      size:     Math.random() * opts.particleSize + 0.5,
+      density:  Math.random() * 3 + 1,
+      color:    opts.particleColor,
+      vx:       0,
+      vy:       0,
+      get friction() { return 0.9 - 0.01 * this.density },
+    }
+  }
+
+  _drawParticle(p) {
+    const ctx = this.ctx
+    ctx.fillStyle = p.color
+    ctx.beginPath()
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
+    ctx.closePath()
+    ctx.fill()
+  }
+
+  _updateParticle(p) {
+    const opts  = this.opts
+    const mouse = this.mouse
+    const blast = this.blast
+
+    p.x  += p.vx
+    p.y  += p.vy
+    p.vx *= p.friction
+    p.vy *= p.friction
+
+    const dx = mouse.x - p.x
+    const dy = mouse.y - p.y
+    const dist = Math.sqrt(dx * dx + dy * dy)
+
+    if (dist < opts.interactionDistance) {
+      const fdx   = dx / dist
+      const fdy   = dy / dist
+      const force = (opts.interactionDistance - dist) / opts.interactionDistance
+      p.x    -= fdx * force * p.density * 0.6
+      p.y    -= fdy * force * p.density * 0.6
+      p.color = opts.activeColor
+    } else {
+      p.x    -= (p.x - p.baseX) / 20
+      p.y    -= (p.y - p.baseY) / 20
+      p.color = opts.particleColor
+    }
+
+    if (blast.active) {
+      const bdx   = p.x - blast.x
+      const bdy   = p.y - blast.y
+      const bdist = Math.sqrt(bdx * bdx + bdy * bdy)
+      if (bdist < blast.radius) {
+        const bfx    = bdx / (bdist || 1)
+        const bfy    = bdy / (bdist || 1)
+        const bforce = (blast.radius - bdist) / blast.radius
+        p.vx += bfx * bforce * 15
+        p.vy += bfy * bforce * 15
+        const intensity = Math.min(255, Math.floor(255 - bdist))
+        p.color = `rgba(${intensity},100,255,0.8)`
+      }
+    }
+
+    this._drawParticle(p)
+  }
+
+  /* ── Setup ────────────────────────────────────────── */
+  _w() { return this.canvas.parentElement ? this.canvas.parentElement.offsetWidth  : window.innerWidth  }
+  _h() { return this.canvas.parentElement ? this.canvas.parentElement.offsetHeight : window.innerHeight }
+
+  _initParticles() {
+    this.particles = []
+    const w = this._w(), h = this._h()
+    const count = Math.floor((w * h) / this.opts.particleDensity)
+    for (let i = 0; i < count; i++) {
+      this.particles.push(this._createParticle(
+        Math.random() * w,
+        Math.random() * h
+      ))
+    }
+  }
+
+  _resize() {
+    const pr = window.devicePixelRatio || 1
+    const w  = this._w(), h = this._h()
+    this.canvas.width  = w * pr
+    this.canvas.height = h * pr
+    this.canvas.style.width  = `${w}px`
+    this.canvas.style.height = `${h}px`
+    this.ctx.setTransform(pr, 0, 0, pr, 0, 0)
+    this._initParticles()
+  }
+
+  /* ── Blast ────────────────────────────────────────── */
+  _triggerBlast(x, y) {
+    this.blast = { active: true, x, y, radius: 0 }
+    const start    = performance.now()
+    const duration = 300
+    const maxR     = this.opts.maxBlastRadius
+
+    const expand = (ts) => {
+      const p = Math.min((ts - start) / duration, 1)
+      this.blast.radius = p * (2 - p) * maxR   // easeOutQuad
+      if (p < 1) {
+        requestAnimationFrame(expand)
+      } else {
+        setTimeout(() => { this.blast.active = false }, 100)
+      }
+    }
+    requestAnimationFrame(expand)
+
+    if (this.hoverTimer) { clearTimeout(this.hoverTimer); this.hoverTimer = null }
+  }
+
+  /* ── Animation loop ───────────────────────────────── */
+  _animate() {
+    const ctx = this.ctx
+    ctx.clearRect(0, 0, this._w(), this._h())
+    for (const p of this.particles) this._updateParticle(p)
+    this.rafId = requestAnimationFrame(() => this._animate())
+  }
+
+  /* ── Init ─────────────────────────────────────────── */
+  _init() {
+    this.ctx = this.canvas.getContext('2d', { alpha: true })
+    this.ctx.globalCompositeOperation = 'lighter'
+
+    const opts = this.opts
+    let lastMove = 0
+
+    const onResize = () => this._resize()
+
+    const onMouseMove = (e) => {
+      const now = performance.now()
+      if (now - lastMove < 10) return
+      lastMove = now
+
+      const rect  = this.canvas.getBoundingClientRect()
+      const mx    = e.clientX - rect.left
+      const my    = e.clientY - rect.top
+      const prevX = this.mouse.x, prevY = this.mouse.y
+      this.mouse = { x: mx, y: my, prevX, prevY }
+
+      const d = Math.hypot(mx - prevX, my - prevY)
+      if (d < 5) {
+        if (!this.hoverTimer) {
+          this.hoverTimer = setTimeout(() => this._triggerBlast(e.clientX, e.clientY), opts.hoverDelay)
+        }
+      } else {
+        if (this.hoverTimer) { clearTimeout(this.hoverTimer); this.hoverTimer = null }
+      }
+    }
+
+    const onClick = (e) => {
+      const rect = this.canvas.getBoundingClientRect()
+      this._triggerBlast(e.clientX - rect.left, e.clientY - rect.top)
+    }
+
+    const onTouchMove = (e) => {
+      if (!e.touches[0]) return
+      const rect  = this.canvas.getBoundingClientRect()
+      const prevX = this.mouse.x, prevY = this.mouse.y
+      this.mouse = {
+        x: e.touches[0].clientX - rect.left,
+        y: e.touches[0].clientY - rect.top,
+        prevX, prevY
+      }
+    }
+
+    const onTouchStart = (e) => {
+      if (!e.touches[0]) return
+      const rect = this.canvas.getBoundingClientRect()
+      const x = e.touches[0].clientX - rect.left
+      const y = e.touches[0].clientY - rect.top
+      this.hoverTimer = setTimeout(() => this._triggerBlast(x, y), opts.hoverDelay)
+    }
+
+    const onTouchEnd = () => {
+      if (this.hoverTimer) { clearTimeout(this.hoverTimer); this.hoverTimer = null }
+    }
+
+    window.addEventListener('resize',     onResize)
+    window.addEventListener('mousemove',  onMouseMove)
+    window.addEventListener('click',      onClick)
+    window.addEventListener('touchmove',  onTouchMove,  { passive: true })
+    window.addEventListener('touchstart', onTouchStart, { passive: true })
+    window.addEventListener('touchend',   onTouchEnd)
+
+    this._handlers = { onResize, onMouseMove, onClick, onTouchMove, onTouchStart, onTouchEnd }
+
+    this._resize()
+    this._animate()
+  }
+
+  /* ── Cleanup ──────────────────────────────────────── */
+  destroy() {
+    cancelAnimationFrame(this.rafId)
+    if (this.hoverTimer) clearTimeout(this.hoverTimer)
+    const h = this._handlers
+    window.removeEventListener('resize',     h.onResize)
+    window.removeEventListener('mousemove',  h.onMouseMove)
+    window.removeEventListener('click',      h.onClick)
+    window.removeEventListener('touchmove',  h.onTouchMove)
+    window.removeEventListener('touchstart', h.onTouchStart)
+    window.removeEventListener('touchend',   h.onTouchEnd)
+  }
+}
