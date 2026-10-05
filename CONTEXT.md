@@ -113,7 +113,7 @@ Static portfolio website for **Nicole Szatkowski**, IHK-certified graphic design
 │   └── style.css          (7000+ lines: layout, animations, responsive, tokens)
 ├── js/
 │   ├── main.js            (2000+ lines: nav, cursor, gooey, scroll handlers, forms)
-│   ├── fluid-particles.js (250 lines: canvas particle class)
+│   ├── fluid-particles.js (~315 lines: canvas particle class)
 │   └── portrait-3d.js     (160 lines: 3D portrait wrapper + interaction)
 ├── images/                (Portfolio, gallery, portraits)
 ├── fonts/                 (MangoGrotesque TTF)
@@ -189,7 +189,7 @@ Static portfolio website for **Nicole Szatkowski**, IHK-certified graphic design
 
 ---
 
-### `fluid-particles.js` (~250 lines)
+### `fluid-particles.js` (~315 lines)
 
 **Class:** `FluidParticles`
 
@@ -212,7 +212,9 @@ new FluidParticles('#fluid-canvas', {
 **Features:**
 - Uses parent element bounds (not window)
 - Responsive density on mobile
-- Mouse coords via `getBoundingClientRect()`
+- Mouse coords via cached `getBoundingClientRect()` (refreshed lazily after scroll/resize)
+- Blast colors derive from `particleColor` → `activeColor` (CI: #333333 → #FFBC95)
+- Performance: squared-distance checks, precomputed blast color table, one draw loop with batched `fillStyle` + `fillRect`
 - Touch + click support
 
 ---
