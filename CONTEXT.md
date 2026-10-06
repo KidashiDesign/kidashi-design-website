@@ -44,6 +44,7 @@ Static portfolio website for **Nicole Szatkowski**, IHK-certified graphic design
 - **Location:** Hero `<canvas id="fluid-canvas">` (parent-scoped, not full window)
 - **Mobile:** 200 particles, 150px blast radius, 60px interaction distance
 - **Desktop:** 100 particles, 300px blast radius, 100px interaction distance
+- **Look:** Idle dots are CI dark grey at 30 % opacity (subtle). Around the cursor (hover bubble) and in the click/hover blast, dots fade from olive (center) to a light CI edge color (sage, light pistachio, lightened olive), then back to grey across a soft glow zone
 - **Code:** `js/fluid-particles.js` (standalone class)
 
 ### 3. 3D Portrait Hover
@@ -116,7 +117,7 @@ Static portfolio website for **Nicole Szatkowski**, IHK-certified graphic design
 │   └── style.css          (7000+ lines: layout, animations, responsive, tokens)
 ├── js/
 │   ├── main.js            (2000+ lines: nav, cursor, gooey, scroll handlers, forms)
-│   ├── fluid-particles.js (~315 lines: canvas particle class)
+│   ├── fluid-particles.js (~375 lines: canvas particle class)
 │   └── portrait-3d.js     (160 lines: 3D portrait wrapper + interaction)
 ├── images/                (Portfolio, gallery, portraits)
 ├── fonts/                 (MangoGrotesque TTF)
@@ -192,7 +193,7 @@ Static portfolio website for **Nicole Szatkowski**, IHK-certified graphic design
 
 ---
 
-### `fluid-particles.js` (~315 lines)
+### `fluid-particles.js` (~375 lines)
 
 **Class:** `FluidParticles`
 
@@ -202,7 +203,9 @@ new FluidParticles('#fluid-canvas', {
   particleDensity: 100,              // Desktop default
   particleSize: 1,
   particleColor: '#333333',          // Base color
-  activeColor: '#71805f',            // On hover
+  particleOpacity: 0.3,              // Idle dots (subtle)
+  activeColor: '#71805f',            // Bubble center (hover / blast)
+  rimColors: ['#a9b497', '#cbcfae', '#94a087'],  // Light CI tints for the bubble edge
   maxBlastRadius: 300,               // Click blast
   hoverDelay: 100,                   // Before blast triggers
   interactionDistance: 100,          // Hover repulsion range
@@ -216,7 +219,7 @@ new FluidParticles('#fluid-canvas', {
 - Uses parent element bounds (not window)
 - Responsive density on mobile
 - Mouse coords via cached `getBoundingClientRect()` (refreshed lazily after scroll/resize)
-- Blast colors derive from `particleColor` → `activeColor` (CI: #333333 → #71805f)
+- Bubble colors (hover + blast) run `activeColor` (center, CI #71805f) → one `rimColors` entry per dot (edge: sage #a9b497, light pistachio #cbcfae, lightened olive #94a087) → idle color (glow zone beyond the edge); dots at the edge are up to 50 % larger so the light tints stay visible. All color strings are precomputed in `_buildColors()`
 - Performance: squared-distance checks, precomputed blast color table, one draw loop with batched `fillStyle` + `fillRect`
 - Touch + click support
 

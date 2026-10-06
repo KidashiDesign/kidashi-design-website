@@ -18,14 +18,26 @@ class FluidParticles {
       particleDensity:     options.particleDensity     ?? 100,
       particleSize:        options.particleSize         ?? 1,
       particleColor:       options.particleColor        ?? '#333333',   // CI: dark grey
-      activeColor:         options.activeColor          ?? '#71805f',   // CI: olive
+      particleOpacity:     options.particleOpacity      ?? 0.3,         // idle dots stay subtle
+      activeColor:         options.activeColor          ?? '#71805f',   // CI: olive (bubble center)
+      // Lighter CI tints for the bubble edge: sage (--secondary), light pistachio (--accent),
+      // and a lightened olive (--primary)
+      rimColors:           options.rimColors            ?? ['#a9b497', '#cbcfae', '#94a087'],
       maxBlastRadius:      options.maxBlastRadius       ?? 300,
       hoverDelay:          options.hoverDelay           ?? 100,
       interactionDistance: options.interactionDistance  ?? 10,
     }
 
-    // Squared radius lets the per-particle hover test skip Math.sqrt
-    this.opts.interactionSq = this.opts.interactionDistance * this.opts.interactionDistance
+    // Bubble = hover area around the cursor and the expanding blast. Dots inside it fade from
+    // the active color (center) to a light rim color (edge), then back to the idle color
+    // across a soft glow zone just outside the edge (fraction of the bubble radius).
+    this._bubble = { steps: 48, glow: 0.25, grow: 0.5 }
+
+    // Squared radii let the per-particle hover test skip Math.sqrt
+    const R     = this.opts.interactionDistance
+    const glowR = R * (1 + this._bubble.glow)
+    this.opts.interactionSq = R * R
+    this.opts.glowSq        = glowR * glowR
 
     this.ctx         = null
     this.particles   = []
@@ -41,7 +53,7 @@ class FluidParticles {
     this._rectDirty  = true
     this._tick       = () => this._animate()
 
-    this._blastColors = this._buildBlastColors()
+    this._buildColors()
 
     this._init()
   }
@@ -56,25 +68,55 @@ class FluidParticles {
     return [(n >> 16) & 255, (n >> 8) & 255, n & 255]
   }
 
-  // One ready-made color string per blast intensity (0 = blast edge, 255 = blast center),
-  // fading from the base color to the active color. Built once so the animation loop
-  // never has to assemble strings.
-  _buildBlastColors() {
-    const from = this._parseHex(this.opts.particleColor)
-    const to   = this._parseHex(this.opts.activeColor)
-    const table = new Array(256)
-    for (let i = 0; i < 256; i++) {
-      if (!from || !to) {
-        table[i] = this.opts.activeColor
-        continue
-      }
-      const t = i / 255
-      const r = Math.round(from[0] + (to[0] - from[0]) * t)
-      const g = Math.round(from[1] + (to[1] - from[1]) * t)
-      const b = Math.round(from[2] + (to[2] - from[2]) * t)
-      table[i] = `rgba(${r},${g},${b},0.8)`
+  // Builds every color string the animation loop needs, once, so the loop never assembles strings:
+  //   _baseColor     idle dot color (CI dark grey at a low opacity)
+  //   _bubbleColors  [rim color][step]: step 0 = bubble center (active color), last step = end of
+  //                  the edge glow; the rim color is reached at the bubble edge (radius 1)
+  //   _growTable     [step]: size factor, peaking at the bubble edge so light dots stay visible
+  _buildColors() {
+    const opts   = this.opts
+    const { steps, glow, grow } = this._bubble
+    const base   = this._parseHex(opts.particleColor)
+    const active = this._parseHex(opts.activeColor)
+    const rims   = (opts.rimColors || []).map(c => this._parseHex(c)).filter(Boolean)
+
+    this._levelScale = (steps - 1) / (1 + glow)   // bubble-radius fraction → table step
+    this._growTable  = new Array(steps).fill(1)
+
+    if (!base || !active || !rims.length) {
+      // Unparsable colors: fall back to plain solid colors, no gradient
+      this._baseColor    = opts.particleColor
+      this._bubbleColors = [new Array(steps).fill(opts.activeColor)]
+      return
     }
-    return table
+
+    const CENTER_ALPHA = 0.55
+    const RIM_ALPHA    = 0.9
+    const mix = (c1, a1, c2, a2, t) => {
+      const r = Math.round(c1[0] + (c2[0] - c1[0]) * t)
+      const g = Math.round(c1[1] + (c2[1] - c1[1]) * t)
+      const b = Math.round(c1[2] + (c2[2] - c1[2]) * t)
+      return `rgba(${r},${g},${b},${(a1 + (a2 - a1) * t).toFixed(3)})`
+    }
+
+    this._baseColor    = `rgba(${base[0]},${base[1]},${base[2]},${opts.particleOpacity})`
+    this._bubbleColors = rims.map(rim => {
+      const row = new Array(steps)
+      for (let i = 0; i < steps; i++) {
+        const u = (i / (steps - 1)) * (1 + glow)   // 0 = center, 1 = bubble edge, 1 + glow = glow end
+        if (u <= 1) {
+          row[i] = mix(active, CENTER_ALPHA, rim, RIM_ALPHA, u * u * (3 - 2 * u))
+        } else {
+          row[i] = mix(rim, RIM_ALPHA, base, opts.particleOpacity, (u - 1) / glow)
+        }
+      }
+      return row
+    })
+    for (let i = 0; i < steps; i++) {
+      const u = (i / (steps - 1)) * (1 + glow)
+      const edge = u <= 1 ? u * u * (3 - 2 * u) : 1 - (u - 1) / glow
+      this._growTable[i] = 1 + grow * edge
+    }
   }
 
   /* ── Particle ─────────────────────────────────────── */
@@ -88,8 +130,10 @@ class FluidParticles {
       baseY:    y,
       size:     size,
       side:     size * 1.7725,   // √π · size: square with the same area as a circle of radius `size`
+      grow:     1,               // size factor while inside a bubble
+      rim:      Math.floor(Math.random() * this._bubbleColors.length),   // this dot's edge color
       density,
-      color:    opts.particleColor,
+      color:    this._baseColor,
       vx:       0,
       vy:       0,
       friction: 0.9 - 0.01 * density,
@@ -110,29 +154,45 @@ class FluidParticles {
     const dy     = mouse.y - p.y
     const distSq = dx * dx + dy * dy
 
+    // Color step inside a bubble (see _buildColors); -1 = idle color
+    let level = -1
+
     if (distSq < opts.interactionSq) {
       const dist  = Math.sqrt(distSq) || 1
       const force = (opts.interactionDistance - dist) / opts.interactionDistance
       p.x    -= (dx / dist) * force * p.density * 0.6
       p.y    -= (dy / dist) * force * p.density * 0.6
-      p.color = opts.activeColor
+      level   = (dist / opts.interactionDistance * this._levelScale) | 0
     } else {
       p.x    -= (p.x - p.baseX) / 20
       p.y    -= (p.y - p.baseY) / 20
-      p.color = opts.particleColor
+      if (distSq < opts.glowSq) {
+        level = (Math.sqrt(distSq) / opts.interactionDistance * this._levelScale) | 0
+      }
     }
 
     if (blast.active) {
       const bdx     = p.x - blast.x
       const bdy     = p.y - blast.y
       const bdistSq = bdx * bdx + bdy * bdy
-      if (bdistSq < blast.radius * blast.radius) {
-        const bdist  = Math.sqrt(bdistSq) || 1
-        const bforce = (blast.radius - bdist) / blast.radius
-        p.vx += (bdx / bdist) * bforce * 15
-        p.vy += (bdy / bdist) * bforce * 15
-        p.color = this._blastColors[Math.max(0, 255 - Math.floor(bdist))]
+      const glowR   = blast.radius * (1 + this._bubble.glow)
+      if (bdistSq < glowR * glowR) {
+        const bdist = Math.sqrt(bdistSq) || 1
+        if (bdist < blast.radius) {
+          const bforce = (blast.radius - bdist) / blast.radius
+          p.vx += (bdx / bdist) * bforce * 15
+          p.vy += (bdy / bdist) * bforce * 15
+        }
+        level = (bdist / blast.radius * this._levelScale) | 0
       }
+    }
+
+    if (level < 0) {
+      p.color = this._baseColor
+      p.grow  = 1
+    } else {
+      p.color = this._bubbleColors[p.rim][level]
+      p.grow  = this._growTable[level]
     }
   }
 
@@ -220,7 +280,8 @@ class FluidParticles {
         ctx.fillStyle = p.color
         current = p.color
       }
-      ctx.fillRect(p.x - p.side / 2, p.y - p.side / 2, p.side, p.side)
+      const side = p.side * p.grow
+      ctx.fillRect(p.x - side / 2, p.y - side / 2, side, side)
     }
 
     this.rafId = requestAnimationFrame(this._tick)
