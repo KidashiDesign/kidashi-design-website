@@ -70,9 +70,12 @@ Static portfolio website for **Nicole Szatkowski**, IHK-certified graphic design
 ## CSS Design Tokens
 
 ```css
---primary: #FFBC95         /* Brand accent (warm peach) */
+--primary: #D4D3B3         /* Sand-sage (light; text only on dark backgrounds) */
+--secondary: #E5DCB1       /* Sand-yellow */
+--accent: #8D926F          /* Mid olive */
+--accent2: #4E5138         /* Dark olive (text/labels on light backgrounds) */
 --bg: #F7F3EE              /* Light cream background */
---bg2: #FDFBF8             /* Slightly darker cream */
+--bg2: #EDE9E2             /* Slightly darker cream */
 --dark: #0A0A0B            /* Deep black text */
 --text: var(--dark)        /* Alias for dark */
 --muted: rgba(..., 0.55)   /* Secondary text */
@@ -199,7 +202,7 @@ new FluidParticles('#fluid-canvas', {
   particleDensity: 100,              // Desktop default
   particleSize: 1,
   particleColor: '#333333',          // Base color
-  activeColor: '#FFBC95',            // On hover
+  activeColor: '#8D926F',            // On hover
   maxBlastRadius: 300,               // Click blast
   hoverDelay: 100,                   // Before blast triggers
   interactionDistance: 100,          // Hover repulsion range
@@ -213,7 +216,7 @@ new FluidParticles('#fluid-canvas', {
 - Uses parent element bounds (not window)
 - Responsive density on mobile
 - Mouse coords via cached `getBoundingClientRect()` (refreshed lazily after scroll/resize)
-- Blast colors derive from `particleColor` → `activeColor` (CI: #333333 → #FFBC95)
+- Blast colors derive from `particleColor` → `activeColor` (CI: #333333 → #8D926F)
 - Performance: squared-distance checks, precomputed blast color table, one draw loop with batched `fillStyle` + `fillRect`
 - Touch + click support
 

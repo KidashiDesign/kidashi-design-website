@@ -113,24 +113,28 @@ war 135 Commits hinter `main`) und wurde **nicht** nach `main` gemerged. Falls d
 ```css
 --font-h: 'Mango Grotesque'      /* Headlines */
 --font-b: 'Jost'                  /* Body/UI */
---dark:   #0A0A0B
---cream:  #F7F3EE
---bg:     #FAF9F5
---bg2:    #F3EFE8
---sand:   #E8E2D9
---primary: #2E54FE (Blau)
---accent:  #FFBC95 (Orange)
+--bg:      #F7F3EE
+--bg2:     #EDE9E2
+--dark:    #0A0A0B
+--text:    #0A0A0B
+--cream:   #F7F3EE
+--primary:   #D4D3B3 (Sand-Salbei)
+--secondary: #E5DCB1 (Sandgelb)
+--accent:    #8D926F (Oliv mittel)
+--accent2:   #4E5138 (Oliv dunkel)
 --muted:   rgba(10,10,11,0.45)
---nav-h:   4rem
---gutter:  clamp(1.5rem, 5vw, 5rem)
+--nav-h:   72px
+--gutter:  clamp(24px, 5vw, 80px)
 ```
 
-⚠️ **Variablen-Namen sind kontraintuitiv:** `--primary` ist Pfirsich/Orange, `--secondary` ist das Blau.
-Beim Zitieren von Hex-Werten immer den tatsächlichen CSS-Wert in `css/style.css` prüfen, nicht aus dem
-Variablennamen raten.
+**Farbpalette (Stand 2026-10-06): Sand-Olive** — die ursprüngliche Olivpalette aus dem Backup `css/stylebkb.css`
+ist wieder aktiv. Pfirsich (#FFBC95), CI-Blau (#2E54FE), Gelb (#FFF083) und Pastellblau (#8BE2E9) werden
+auf der Website **nicht mehr verwendet**.
 
-**Nicole möchte das CI-Blau (`--secondary` #2E54FE) nicht mehr sichtbar in Buttons/Hover-States** — wirkt
-irritierend auf sie. Für Blau-Akzente stattdessen `--pastel-blue` (#8BE2E9) verwenden.
+⚠️ **Lesbarkeit:** `--primary` und `--secondary` sind sehr helle Töne. Als Textfarbe nur auf dunklem Grund
+verwenden; auf hellem Grund (Creme/`--bg2`) für Text und kleine Labels `--accent2` nehmen. `--primary`/`--secondary`
+eignen sich dort als Fläche (Hover, Karten, Chips) mit dunklem Text. Glas-Buttons nutzen die Sand-/Olivtöne
+direkt als `rgba(...)` (229,220,177 / 212,211,179 / 141,146,111 / 78,81,56).
 
 ---
 
@@ -139,7 +143,7 @@ irritierend auf sie. Für Blau-Akzente stattdessen `--pastel-blue` (#8BE2E9) ver
 `.btn` + Modifier (`.btn--primary`, `.btn--outline`, `.btn--outline-dark`) sind Glasmorphismus-Pills:
 - `border-radius:999px`, `backdrop-filter:blur(26px) saturate(2)`, sehr transparenter Hintergrund
 - `::before` = diagonaler Reflexions-Sweep, `::after` = Spiegel-Sheen + leichter Zweifarben-Wash
-  (Pfirsich→Pastellblau), beide `z-index:-1` (funktioniert nur wegen `isolation:isolate` +
+  (Sandgelb→Oliv), beide `z-index:-1` (funktioniert nur wegen `isolation:isolate` +
   `position:relative` auf `.btn`)
 - `.btn--outline` (dunkle Sections, z. B. Hero) hat eigene, reichhaltigere Reflexions-Gradient
 - Hover-Übergang bewusst langsam: `0.55s`
