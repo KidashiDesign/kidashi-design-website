@@ -161,6 +161,7 @@ Static portfolio website for **Nicole Szatkowski**, IHK-certified graphic design
 - Follows mouse/touch
 - Scales on hover
 - Glyphs rotate: `✦✧✶✷✴` (desktop-only)
+- Contrast outline: ring and hover glyphs get a 1px outline in the opposite color (`--cursor-outline`, set in `main.js` next to the cursor color) so the cursor stays visible on any background
 
 **Hero Scramble Animation (lines 630–720):**
 - Two-phase: scramble (700ms) → reveal (700ms)
