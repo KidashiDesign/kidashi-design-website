@@ -113,28 +113,28 @@ war 135 Commits hinter `main`) und wurde **nicht** nach `main` gemerged. Falls d
 ```css
 --font-h: 'Mango Grotesque'      /* Headlines */
 --font-b: 'Jost'                  /* Body/UI */
---bg:      #F7F3EE
---bg2:     #EDE9E2
---dark:    #0A0A0B
---text:    #0A0A0B
+--bg:      #f0f1e9 (helles Grün-Creme)
+--bg2:     #e1e4d6 (Salbei hell)
+--dark:    #1b1e16 (tiefes Olivschwarz)
+--text:    #1b1e16
 --cream:   #F7F3EE
---primary:   #D4D3B3 (Sand-Salbei)
---secondary: #E5DCB1 (Sandgelb)
---accent:    #8D926F (Oliv mittel)
---accent2:   #4E5138 (Oliv dunkel)
+--primary:   #71805f (Olivgrün, Hauptakzent)
+--secondary: #a9b497 (Salbei)
+--accent:    #cbcfae (Pistazie hell)
+--accent2:   #3d4732 (dunkles Waldgrün)
 --muted:   rgba(10,10,11,0.45)
 --nav-h:   72px
 --gutter:  clamp(24px, 5vw, 80px)
 ```
 
-**Farbpalette (Stand 2026-10-06): Sand-Olive** — die ursprüngliche Olivpalette aus dem Backup `css/stylebkb.css`
-ist wieder aktiv. Pfirsich (#FFBC95), CI-Blau (#2E54FE), Gelb (#FFF083) und Pastellblau (#8BE2E9) werden
-auf der Website **nicht mehr verwendet**.
+**Farbpalette (Stand 2026-10-06): Grün-Olive** — Nicole hat die grüne Olivpalette bestätigt (nicht die gelblichere
+Sand-Olive aus `css/stylebkb.css`). Pfirsich (#FFBC95), CI-Blau (#2E54FE), Gelb (#FFF083) und Pastellblau
+(#8BE2E9) werden auf der Website **nicht mehr verwendet**.
 
-⚠️ **Lesbarkeit:** `--primary` und `--secondary` sind sehr helle Töne. Als Textfarbe nur auf dunklem Grund
-verwenden; auf hellem Grund (Creme/`--bg2`) für Text und kleine Labels `--accent2` nehmen. `--primary`/`--secondary`
-eignen sich dort als Fläche (Hover, Karten, Chips) mit dunklem Text. Glas-Buttons nutzen die Sand-/Olivtöne
-direkt als `rgba(...)` (229,220,177 / 212,211,179 / 141,146,111 / 78,81,56).
+⚠️ **Lesbarkeit:** `--secondary` (#a9b497) ist als Text auf hellem Grund zu schwach; dort `--primary` (große/fette
+Elemente) oder `--accent2` (kleiner Text, Links) nehmen. `--accent` (#cbcfae) ist eine Hover-/Flächenfarbe bzw.
+Text auf dunklem Grund. Glas-Buttons nutzen die Grüntöne direkt als `rgba(...)`
+(203,207,174 / 113,128,95 / 61,71,50).
 
 ---
 

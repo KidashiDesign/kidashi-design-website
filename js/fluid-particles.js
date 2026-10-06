@@ -18,7 +18,7 @@ class FluidParticles {
       particleDensity:     options.particleDensity     ?? 100,
       particleSize:        options.particleSize         ?? 1,
       particleColor:       options.particleColor        ?? '#333333',   // CI: dark grey
-      activeColor:         options.activeColor          ?? '#8D926F',   // CI: olive
+      activeColor:         options.activeColor          ?? '#71805f',   // CI: olive
       maxBlastRadius:      options.maxBlastRadius       ?? 300,
       hoverDelay:          options.hoverDelay           ?? 100,
       interactionDistance: options.interactionDistance  ?? 10,

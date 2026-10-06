@@ -70,13 +70,13 @@ Static portfolio website for **Nicole Szatkowski**, IHK-certified graphic design
 ## CSS Design Tokens
 
 ```css
---primary: #D4D3B3         /* Sand-sage (light; text only on dark backgrounds) */
---secondary: #E5DCB1       /* Sand-yellow */
---accent: #8D926F          /* Mid olive */
---accent2: #4E5138         /* Dark olive (text/labels on light backgrounds) */
---bg: #F7F3EE              /* Light cream background */
---bg2: #EDE9E2             /* Slightly darker cream */
---dark: #0A0A0B            /* Deep black text */
+--primary: #71805f         /* Olive green (main accent) */
+--secondary: #a9b497       /* Sage */
+--accent: #cbcfae          /* Light pistachio (hover/fills, text on dark) */
+--accent2: #3d4732         /* Dark forest green */
+--bg: #f0f1e9              /* Light green-cream background */
+--bg2: #e1e4d6             /* Light sage background */
+--dark: #1b1e16            /* Deep olive-black text */
 --text: var(--dark)        /* Alias for dark */
 --muted: rgba(..., 0.55)   /* Secondary text */
 --cream: #F7F3EE           /* Light text on dark bg */
@@ -202,7 +202,7 @@ new FluidParticles('#fluid-canvas', {
   particleDensity: 100,              // Desktop default
   particleSize: 1,
   particleColor: '#333333',          // Base color
-  activeColor: '#8D926F',            // On hover
+  activeColor: '#71805f',            // On hover
   maxBlastRadius: 300,               // Click blast
   hoverDelay: 100,                   // Before blast triggers
   interactionDistance: 100,          // Hover repulsion range
@@ -216,7 +216,7 @@ new FluidParticles('#fluid-canvas', {
 - Uses parent element bounds (not window)
 - Responsive density on mobile
 - Mouse coords via cached `getBoundingClientRect()` (refreshed lazily after scroll/resize)
-- Blast colors derive from `particleColor` → `activeColor` (CI: #333333 → #8D926F)
+- Blast colors derive from `particleColor` → `activeColor` (CI: #333333 → #71805f)
 - Performance: squared-distance checks, precomputed blast color table, one draw loop with batched `fillStyle` + `fillRect`
 - Touch + click support
 
