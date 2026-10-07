@@ -221,7 +221,7 @@ new FluidParticles('#fluid-canvas', {
 - Responsive density on mobile
 - Mouse coords via cached `getBoundingClientRect()` (refreshed lazily after scroll/resize)
 - Bubble colors (hover + blast) run `activeColor` (center, CI #71805f) → one `rimColors` entry per dot (edge: sage #a9b497, light pistachio #cbcfae, lightened olive #94a087) → idle color (glow zone beyond the edge); dots at the edge are up to 50 % larger so the light tints stay visible. All color strings are precomputed in `_buildColors()`
-- Performance: squared-distance checks, precomputed blast color table, one draw loop with batched `fillStyle` + `fillRect`
+- Performance: squared-distance checks, precomputed blast color table, one draw loop; idle dots are round and blitted from pre-rendered circle sprites (6 size steps, `_buildSprites()`), only dots inside a bubble are drawn as real circles (`arc`)
 - Touch + click support
 
 ---

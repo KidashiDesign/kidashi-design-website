@@ -6,6 +6,9 @@
      fp.destroy() // cleanup
    ============================================================ */
 
+const TAU = Math.PI * 2
+const SPRITE_STEPS = 6   // number of distinct idle dot sizes (and pre-rendered sprites)
+
 class FluidParticles {
   constructor(canvasSelector, options = {}) {
     this.canvas = typeof canvasSelector === 'string'
@@ -41,6 +44,7 @@ class FluidParticles {
 
     this.ctx         = null
     this.particles   = []
+    this._active     = []   // dots currently inside a bubble, reused every frame
     this.w           = 0
     this.h           = 0
     // Start far outside the canvas so nothing is pushed around before the first mouse move
@@ -120,17 +124,37 @@ class FluidParticles {
   }
 
   /* ── Particle ─────────────────────────────────────── */
+  // One circle sprite per size step, in the idle color, rendered at device-pixel resolution so
+  // it is blitted 1:1. The dot radii are snapped to these steps (see _createParticle).
+  _buildSprites() {
+    const pr   = window.devicePixelRatio || 1
+    const n    = SPRITE_STEPS
+    const span = this.opts.particleSize
+    this._sprites = new Array(n)
+    for (let i = 0; i < n; i++) {
+      const r   = 0.5 + span * (i + 0.5) / n          // radius of this step (CSS px)
+      const d   = Math.ceil(r * 2 * pr) + 2           // device px, incl. a margin for the soft edge
+      const img = document.createElement('canvas')
+      img.width = img.height = d
+      const c = img.getContext('2d')
+      c.fillStyle = this._baseColor
+      c.beginPath()
+      c.arc(d / 2, d / 2, r * pr, 0, TAU)
+      c.fill()
+      this._sprites[i] = { img, r, size: d / pr, half: d / pr / 2 }
+    }
+  }
+
   _createParticle(x, y) {
-    const opts    = this.opts
     const density = Math.random() * 3 + 1
-    const size    = Math.random() * opts.particleSize + 0.5
+    const step    = Math.floor(Math.random() * SPRITE_STEPS)
     return {
       x, y,
       baseX:    x,
       baseY:    y,
-      size:     size,
-      side:     size * 1.7725,   // √π · size: square with the same area as a circle of radius `size`
-      grow:     1,               // size factor while inside a bubble
+      sprite:   step,                       // index into this._sprites
+      size:     this._sprites[step].r,      // dot radius
+      grow:     1,                          // size factor while inside a bubble
       rim:      Math.floor(Math.random() * this._bubbleColors.length),   // this dot's edge color
       density,
       color:    this._baseColor,
@@ -228,6 +252,7 @@ class FluidParticles {
   _resize() {
     const pr = window.devicePixelRatio || 1
     this._measure()
+    this._buildSprites()
     this.canvas.width  = this.w * pr
     this.canvas.height = this.h * pr
     this.canvas.style.width  = `${this.w}px`
@@ -269,19 +294,32 @@ class FluidParticles {
     const particles = this.particles
     ctx.clearRect(0, 0, this.w, this.h)
 
-    // Particles are 1–3px dots: a filled square is visually the same as a circle
-    // here and much cheaper. Its side is chosen so the area equals the circle's.
-    // fillStyle is only touched when the color changes.
-    let current = null
+    // Round dots. Thousands of idle dots share one color, so they are blitted from
+    // pre-rendered circle sprites (one per size step) instead of filling that many
+    // arcs every frame. Only the few dots inside a bubble, each with its own color
+    // and size, are drawn as real circles afterwards.
+    const base    = this._baseColor
+    const sprites = this._sprites
+    const active  = this._active
+    active.length = 0
+
     for (let i = 0, n = particles.length; i < n; i++) {
       const p = particles[i]
       this._updateParticle(p)
-      if (p.color !== current) {
-        ctx.fillStyle = p.color
-        current = p.color
+      if (p.color === base) {
+        const s = sprites[p.sprite]
+        ctx.drawImage(s.img, p.x - s.half, p.y - s.half, s.size, s.size)
+      } else {
+        active.push(p)
       }
-      const side = p.side * p.grow
-      ctx.fillRect(p.x - side / 2, p.y - side / 2, side, side)
+    }
+
+    for (let i = 0, n = active.length; i < n; i++) {
+      const p = active[i]
+      ctx.fillStyle = p.color
+      ctx.beginPath()
+      ctx.arc(p.x, p.y, p.size * p.grow, 0, TAU)
+      ctx.fill()
     }
 
     this.rafId = requestAnimationFrame(this._tick)
