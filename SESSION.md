@@ -71,8 +71,9 @@ GitHub Secrets `FTP_SERVER` / `FTP_USERNAME` / `FTP_PASSWORD` leer waren (`mirro
 - Danach `python3 scripts/build-de.py --lastmod <Datum>` ausgeführt (de/ + Sitemap neu erzeugt).
 
 **Offen / Hinweise:**
-- `hideout-georgia` ist von keiner Seite intern verlinkt (nur Sitemap); `artista-magazin` zeigt noch „Visual Coming Soon“.
-- Projekte aus 2021–2023 sind „Kidashi Design“ zugeschrieben, das Studio besteht seit 2025 — Formulierung ggf. prüfen.
+- `hideout-georgia` wurde auf Wunsch der Inhaberin komplett entfernt (Seite, Bilder, Sitemap, Audit-Liste); die alte Adresse liefert jetzt 404.
+- `artista-magazin` zeigt noch „Visual Coming Soon“ — das Projekt ist noch nicht gebaut und liegt auf Eis; Seite vorerst unverändert.
+- Projekte aus 2021–2023 bleiben mit ihrem Zeitraum und „Kidashi Design“ stehen (Entscheidung der Inhaberin: es ist ihre Arbeit, auch vor der Gründung).
 - Rohyma Jet: frühere Meta nannte „Wix“ und „Photoshop“ (Webdesign); sichtbarer Inhalt beschreibt nur Logo/CI — Meta wurde angeglichen, bei Webdesign-Anteil bitte ergänzen.
 
 ---
@@ -213,7 +214,7 @@ Desktop (≥769px): `.nav__dock` trägt die Glass-Dock-Optik (Pille, Blur, Schat
 
 `index` · `services` · `about` · `portfolio` (Übersicht) · `gallery` · `contact` · `datenschutz` ·
 `impressum` sowie Portfolio-Detailseiten: `art-gerecht-modular` ·
-`hideout-georgia` · `rohyma-jet` · `seestern` · `selvoma` · `social-media-content` · `tm-studio` · `xp-days`.
+`rohyma-jet` · `seestern` · `selvoma` · `social-media-content` · `tm-studio` · `xp-days`.
 
 ---
 

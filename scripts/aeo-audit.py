@@ -42,7 +42,6 @@ PAGES = [
     "portfolio/artista-magazin/index.html",
     "portfolio/artista-artista/index.html",
     "portfolio/cafe-mira/index.html",
-    "portfolio/hideout-georgia/index.html",
     "portfolio/rohyma-jet/index.html",
     "portfolio/seestern/index.html",
     "portfolio/selvoma/index.html",
