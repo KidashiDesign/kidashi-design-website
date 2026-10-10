@@ -161,6 +161,7 @@ Static portfolio website for **Nicole Szatkowski**, IHK-certified graphic design
 - Follows mouse/touch
 - Scales on hover
 - Glyphs rotate: `✦✧✶✷✴` (desktop-only)
+- Colors: cursor is `#CBCFAE` (light) over dark backgrounds and `#3D4732` (dark) over light backgrounds, for both the ring (non-hover) and the hover glyphs
 - Contrast outline: ring and hover glyphs get a soft, blurred outline in the opposite color (`--cursor-outline`, set in `main.js` next to the cursor color; ring: SVG `feGaussianBlur` `cursorSoft`, glyphs: `text-shadow` blur) so the cursor stays visible on any background
 
 **Hero Scramble Animation (lines 630–720):**
