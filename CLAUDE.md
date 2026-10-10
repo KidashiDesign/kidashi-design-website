@@ -16,6 +16,16 @@ Code-Review-Standard: siehe `CODEREVIEW.md`
 
 GitHub → Cloudflare. Push auf `main` = Live-Deploy.
 
+## Deutsche Seiten (`/de/`)
+
+Der Ordner `de/` und die `sitemap.xml` werden **generiert** und nie von Hand bearbeitet. Quelle sind die englischen Seiten mit ihren `data-de*`-Attributen.
+
+Nach jeder Änderung an einer englischen Seite oder an einem deutschen Text: `python3 scripts/build-de.py --lastmod JJJJ-MM-TT` ausführen und `de/` sowie `sitemap.xml` mit committen. Details stehen im Kopf von `scripts/build-de.py`.
+
+## Interne Dateien
+
+Alles im Repo-Hauptordner wird live ausgeliefert. Interne Dateien (Projektregeln, Handoffs, Skripte, Archiv, Doku) sind deshalb in `_redirects` gesperrt. Neue interne Dateien oder Ordner dort ergänzen und nach dem Deploy prüfen, dass die Adresse nicht mehr den Dateiinhalt liefert.
+
 ## Git-Workflow
 
 Alle Änderungen werden direkt auf `main` committet und gepusht — es wird **nicht** auf separaten Feature-Branches gearbeitet, außer Nikki fragt explizit danach. Grund: Arbeit auf mehreren Branches gleichzeitig hat bereits dazu geführt, dass Änderungen verloren gingen bzw. nicht auf `main` landeten. Vor dem Push: lokalen Stand mit `origin/main` synchronisieren (fetch/pull), um Konflikte oder das versehentliche Mitziehen alter/unerwünschter Commits zu vermeiden.

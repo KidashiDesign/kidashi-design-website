@@ -1,0 +1,11 @@
+# Interne Projektdateien werden nicht öffentlich ausgeliefert (Weiterleitung auf die Startseite).
+# Neue interne Dateien oder Ordner hier ergänzen.
+/CLAUDE.md / 302
+/CODEREVIEW.md / 302
+/CONTEXT.md / 302
+/HANDOFF.md / 302
+/HANDOFF-2026-07-07.md / 302
+/SESSION.md / 302
+/scripts/* / 302
+/docs/* / 302
+/archive/* / 302
