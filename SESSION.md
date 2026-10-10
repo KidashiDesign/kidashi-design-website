@@ -1,5 +1,5 @@
 # Session Handoff — Kidashi Design Website
-Aktualisiert: 2026-07-22
+Aktualisiert: 2026-10-10
 
 ---
 
@@ -57,6 +57,23 @@ GitHub Secrets `FTP_SERVER` / `FTP_USERNAME` / `FTP_PASSWORD` leer waren (`mirro
 - PR-Beschreibungen und Commit-Messages: **keine** AI-Zuschreibungen im sichtbaren Seiten-Content
 - Branch-Namen (falls doch mal nötig): kein `claude/`-Prefix, stattdessen `feature/`, `fix/`, `update/`
 - Keine persönlichen Daten der Inhaberin/Kunden in Commit-Messages, PR-Titeln oder Branches
+
+---
+
+## Letzte Session (2026-10-10): Projektseiten — Texte geprüft, Abschnitt „About this project“
+
+**Auftrag:** Alle Texte der 12 Portfolio-Projektseiten auf Korrektheit prüfen, korrigieren und für Suchmaschinen/KI-Suche ergänzen.
+
+**Umsetzung:**
+- Korrekturen in EN-Quelle und `data-de`-Texten: deutsche Anführungszeichen („…“), fehlende Kommas, einheitliche Begriffe (Webdesign, Logodesign, Markenrichtlinien, Editorial Design), amerikanische Schreibweise (color, optimized), Gender-Stil `Kund:innen`, Rohyma-Jet-Titel/Meta an den sichtbaren Inhalt angeglichen.
+- Neuer Abschnitt `.proj-about` („About this project“ / „Über das Projekt“) auf allen 12 Projektseiten, direkt vor `<!-- NEXT PROJECT -->`: Kurzbeschreibung + 3 Q&As + passendes `FAQPage`-JSON-LD (Texte im JSON-LD = sichtbare Texte, damit `build-de.py` sie übersetzt). Styles am Ende von `css/project.css`. Alle Aussagen stammen aus den bereits veröffentlichten Seitentexten.
+- Portfolio-Übersicht: jede Projekt-Kachel hat einen unsichtbaren Link-Text (`.visually-hidden`, Klasse am Ende von `css/style.css`); Titel und Meta-Beschreibung geschärft.
+- Danach `python3 scripts/build-de.py --lastmod <Datum>` ausgeführt (de/ + Sitemap neu erzeugt).
+
+**Offen / Hinweise:**
+- `hideout-georgia` ist von keiner Seite intern verlinkt (nur Sitemap); `artista-magazin` zeigt noch „Visual Coming Soon“.
+- Projekte aus 2021–2023 sind „Kidashi Design“ zugeschrieben, das Studio besteht seit 2025 — Formulierung ggf. prüfen.
+- Rohyma Jet: frühere Meta nannte „Wix“ und „Photoshop“ (Webdesign); sichtbarer Inhalt beschreibt nur Logo/CI — Meta wurde angeglichen, bei Webdesign-Anteil bitte ergänzen.
 
 ---
 
