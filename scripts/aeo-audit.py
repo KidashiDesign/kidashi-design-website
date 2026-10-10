@@ -39,7 +39,6 @@ PAGES = [
     "services/social-media-management/index.html",
     "portfolio/index.html",
     "portfolio/art-gerecht-modular/index.html",
-    "portfolio/artista-magazin/index.html",
     "portfolio/artista-artista/index.html",
     "portfolio/cafe-mira/index.html",
     "portfolio/rohyma-jet/index.html",

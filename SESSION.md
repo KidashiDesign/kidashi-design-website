@@ -72,7 +72,8 @@ GitHub Secrets `FTP_SERVER` / `FTP_USERNAME` / `FTP_PASSWORD` leer waren (`mirro
 
 **Offen / Hinweise:**
 - `hideout-georgia` wurde auf Wunsch der Inhaberin komplett entfernt (Seite, Bilder, Sitemap, Audit-Liste); die alte Adresse liefert jetzt 404.
-- `artista-magazin` zeigt noch „Visual Coming Soon“ — das Projekt ist noch nicht gebaut und liegt auf Eis; Seite vorerst unverändert.
+- `artista-magazin` (inkl. Duplikat `/artista/`) auf Wunsch der Inhaberin komplett entfernt, solange das Projekt auf Eis liegt (Seite, Sitemap, Audit-Liste); Wiederherstellung über die Git-Historie.
+- Rohyma Jet: Website rohyma-jet.com (von der Inhaberin gestaltet und in Wix umgesetzt) ist jetzt in Titel, Meta, Statement, Prozess (4. Schritt), FAQ, Link und Kachel der Übersicht aufgenommen.
 - Projekte aus 2021–2023 bleiben mit ihrem Zeitraum und „Kidashi Design“ stehen (Entscheidung der Inhaberin: es ist ihre Arbeit, auch vor der Gründung).
 - Rohyma Jet: frühere Meta nannte „Wix“ und „Photoshop“ (Webdesign); sichtbarer Inhalt beschreibt nur Logo/CI — Meta wurde angeglichen, bei Webdesign-Anteil bitte ergänzen.
 
