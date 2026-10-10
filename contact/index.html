@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
   <meta charset="UTF-8">
   <!-- Google Analytics (gtag.js) — only loaded once the visitor grants
@@ -8,17 +8,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title data-de="Kontakt — Kidashi Design">Contact — Kidashi Design</title>
   <link rel="canonical" href="https://www.kidashidesign.com/contact/">
-  <meta name="description" content="Get in touch with Nicole Szatkowski — Kidashi Design. Web design, brand identity, print and social media projects.">
+  <!-- i18n:start -->
+  <link rel="alternate" hreflang="en" href="https://www.kidashidesign.com/contact/">
+  <link rel="alternate" hreflang="de" href="https://www.kidashidesign.com/de/contact/">
+  <link rel="alternate" hreflang="x-default" href="https://www.kidashidesign.com/contact/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="de_DE">
+  <!-- i18n:end -->
+  <meta name="description" content="Get in touch with Nicole Szatkowski — Kidashi Design. Web design, brand identity, print and social media projects." data-de-content="Nimm Kontakt mit Nicole Szatkowski auf — Kidashi Design. Projekte in Webdesign, Markenidentität, Print und Social Media.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.kidashidesign.com/contact/">
   <meta property="og:title" content="Contact — Kidashi Design">
-  <meta property="og:description" content="Get in touch with Nicole Szatkowski — Kidashi Design. Web design, brand identity, print and social media projects.">
+  <meta property="og:description" content="Get in touch with Nicole Szatkowski — Kidashi Design. Web design, brand identity, print and social media projects." data-de-content="Nimm Kontakt mit Nicole Szatkowski auf — Kidashi Design. Projekte in Webdesign, Markenidentität, Print und Social Media.">
   <meta property="og:image" content="https://www.kidashidesign.com/images/vorschaubild-link-kidashi-design.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preload" href="../fonts/MangoGrotesque-Light.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/MangoGrotesque-Bold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../fonts/Jost-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../css/style.css?v=20261010">
+  <link rel="stylesheet" href="../css/style.css?v=20261011">
   <script src="../js/contact-calendar.js?v=20260912" defer></script>
 </head>
 <body>
@@ -47,7 +54,7 @@
       <li><a href="../gallery/" class="nav__link" data-de="Galerie">Gallery</a></li>
       <li><a href="../contact/" class="nav__link active" data-de="Kontakt">Contact</a></li>
     </ul>
-    <div class="nav__meta"><div class="nav__lang" role="group" aria-label="Language / Sprache"><button type="button" class="nav__lang-btn active" data-lang-btn="en" aria-pressed="true">EN</button><span class="nav__lang-sep">/</span><button type="button" class="nav__lang-btn" data-lang-btn="de" aria-pressed="false">DE</button></div><div class="nav__location"><span class="nav__location-time" id="navTime"></span><span class="nav__location-sep">·</span><span class="nav__location-city">Tbilisi</span><span class="nav__location-tz">GMT+4</span></div></div>
+    <div class="nav__meta"><div class="nav__lang" role="group" aria-label="Language / Sprache"><a href="/contact/" class="nav__lang-btn active" data-lang-btn="en" hreflang="en" lang="en" aria-current="true">EN</a><span class="nav__lang-sep">/</span><a href="/de/contact/" class="nav__lang-btn" data-lang-btn="de" hreflang="de" lang="de">DE</a></div><div class="nav__location"><span class="nav__location-time" id="navTime"></span><span class="nav__location-sep">·</span><span class="nav__location-city">Tbilisi</span><span class="nav__location-tz">GMT+4</span></div></div>
     </div>
     <button class="nav__burger" aria-label="Menu" data-de-aria-label="Menü" aria-expanded="false" aria-controls="mobileNav"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></button>
   </div>
@@ -83,7 +90,7 @@
       <button class="nav__mobile-close" aria-label="Close menu" data-de-aria-label="Menü schließen"><span data-de="Schließen">Close</span></button>
     </div>
     <div class="nav__mobile-meta">
-      <div class="nav__mobile-lang" role="group" aria-label="Language / Sprache"><button type="button" class="nav__lang-btn active" data-lang-btn="en" aria-pressed="true">EN</button><span class="nav__lang-sep">/</span><button type="button" class="nav__lang-btn" data-lang-btn="de" aria-pressed="false">DE</button></div>
+      <div class="nav__mobile-lang" role="group" aria-label="Language / Sprache"><a href="/contact/" class="nav__lang-btn active" data-lang-btn="en" hreflang="en" lang="en" aria-current="true">EN</a><span class="nav__lang-sep">/</span><a href="/de/contact/" class="nav__lang-btn" data-lang-btn="de" hreflang="de" lang="de">DE</a></div>
       <span class="nav__mobile-meta-date" id="mobileDate"></span>
       
       <span class="nav__mobile-meta-time" id="mobileTime"></span>
@@ -257,7 +264,7 @@
 
 <script src="../js/i18n.js?v=20260912" defer></script>
 <script src="../js/main.js?v=20261010" defer></script>
-<script>const form=document.getElementById("contact-form"),btn=document.getElementById("submit-btn"),status=document.getElementById("form-status"),scheduleTrigger=document.getElementById("schedule-trigger"),scheduleTriggerText=document.getElementById("schedule-trigger-text"),nextField=document.getElementById("form-next");var I18N_STRINGS={sending:{en:"Sending...",de:"Wird gesendet..."},sent:{en:"Thanks — your message was sent successfully!",de:"Danke — deine Nachricht wurde erfolgreich gesendet!"},scheduleDefault:{en:"Pick a date & time",de:"Datum & Uhrzeit wählen"}};function currentLang(){var e=document.documentElement.getAttribute("data-lang");if("de"===e||"en"===e)return e;try{var t=localStorage.getItem("kd-lang");if("de"===t||"en"===t)return t}catch(e){}return 0===(navigator.language||navigator.userLanguage||"").toLowerCase().indexOf("de")?"de":"en"}if(nextField&&(nextField.value=window.location.origin+"/contact/?sent=1#contact-form"),form&&btn&&form.addEventListener("submit",()=>{btn.textContent=I18N_STRINGS.sending[currentLang()],btn.disabled=!0}),scheduleTriggerText&&scheduleTrigger&&!scheduleTrigger.classList.contains("has-value")&&(scheduleTriggerText.textContent=I18N_STRINGS.scheduleDefault[currentLang()]),status&&"1"===new URLSearchParams(window.location.search).get("sent")){status.textContent=I18N_STRINGS.sent[currentLang()],status.classList.remove("is-error"),scheduleTrigger&&scheduleTrigger.classList.remove("has-value"),scheduleTriggerText&&(scheduleTriggerText.textContent=I18N_STRINGS.scheduleDefault[currentLang()]);const e=new URL(window.location.href);e.searchParams.delete("sent"),window.history.replaceState({},"",e.pathname+e.hash)}document.addEventListener("kd:langchange",function(e){var t=e.detail&&"de"===e.detail.lang?"de":"en";btn&&btn.disabled&&(btn.textContent=I18N_STRINGS.sending[t]),status&&status.textContent&&(status.textContent===I18N_STRINGS.sent.en||status.textContent===I18N_STRINGS.sent.de)&&(status.textContent=I18N_STRINGS.sent[t]),scheduleTriggerText&&scheduleTrigger&&!scheduleTrigger.classList.contains("has-value")&&(scheduleTriggerText.textContent=I18N_STRINGS.scheduleDefault[t])});</script>
+<script>const form=document.getElementById("contact-form"),btn=document.getElementById("submit-btn"),status=document.getElementById("form-status"),scheduleTrigger=document.getElementById("schedule-trigger"),scheduleTriggerText=document.getElementById("schedule-trigger-text"),nextField=document.getElementById("form-next");var I18N_STRINGS={sending:{en:"Sending...",de:"Wird gesendet..."},sent:{en:"Thanks — your message was sent successfully!",de:"Danke — deine Nachricht wurde erfolgreich gesendet!"},scheduleDefault:{en:"Pick a date & time",de:"Datum & Uhrzeit wählen"}};function currentLang(){var e=document.documentElement.getAttribute("data-lang");if("de"===e||"en"===e)return e;try{var t=localStorage.getItem("kd-lang");if("de"===t||"en"===t)return t}catch(e){}return 0===(navigator.language||navigator.userLanguage||"").toLowerCase().indexOf("de")?"de":"en"}if(nextField&&(nextField.value=window.location.origin+(0===window.location.pathname.indexOf("/de/")?"/de":"")+"/contact/?sent=1#contact-form"),form&&btn&&form.addEventListener("submit",()=>{btn.textContent=I18N_STRINGS.sending[currentLang()],btn.disabled=!0}),scheduleTriggerText&&scheduleTrigger&&!scheduleTrigger.classList.contains("has-value")&&(scheduleTriggerText.textContent=I18N_STRINGS.scheduleDefault[currentLang()]),status&&"1"===new URLSearchParams(window.location.search).get("sent")){status.textContent=I18N_STRINGS.sent[currentLang()],status.classList.remove("is-error"),scheduleTrigger&&scheduleTrigger.classList.remove("has-value"),scheduleTriggerText&&(scheduleTriggerText.textContent=I18N_STRINGS.scheduleDefault[currentLang()]);const e=new URL(window.location.href);e.searchParams.delete("sent"),window.history.replaceState({},"",e.pathname+e.hash)}document.addEventListener("kd:langchange",function(e){var t=e.detail&&"de"===e.detail.lang?"de":"en";btn&&btn.disabled&&(btn.textContent=I18N_STRINGS.sending[t]),status&&status.textContent&&(status.textContent===I18N_STRINGS.sent.en||status.textContent===I18N_STRINGS.sent.de)&&(status.textContent=I18N_STRINGS.sent[t]),scheduleTriggerText&&scheduleTrigger&&!scheduleTrigger.classList.contains("has-value")&&(scheduleTriggerText.textContent=I18N_STRINGS.scheduleDefault[t])});</script>
 
 <!-- Morphing background shape behind the contact heading (anime.js v4) -->
 <script type="module">
